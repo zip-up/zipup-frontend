@@ -12,10 +12,9 @@ import {
 import { usePathname } from "next/navigation";
 import Button from "../Common/Button";
 import { signIn, signOut, useSession } from "next-auth/react";
-import GradientBorder from "../ui/GradientBorder";
+import HighlightBorder from "../ui/HighlightBorder";
 import Avatar from "../ui/Avatar";
 
-// 분리
 const navigationMenu = [
   { href: "/", icon: <HomeIcon />, clickedIcon: <HomeFillIcon /> },
   { href: "/search", icon: <SearchIcon />, clickedIcon: <SearchFillIcon /> },
@@ -43,16 +42,16 @@ export default function Header() {
           {user && (
             <li>
               <Link href={`/user/${user.username}`}>
-                <Avatar image={user.image} />
+                <Avatar image={user.image} highlight={true} />
               </Link>
             </li>
           )}
           <li>
-            <GradientBorder radius="rounded-md">
+            <HighlightBorder radius="md" width="md">
               {session ? (
                 <Button
                   colorStyle="hover-gradient"
-                  className="rounded-sm text-base p-[0.3rem]"
+                  className="rounded-sm text-2xs p-[0.3rem]"
                   onClick={() => signOut()}
                 >
                   Sign out
@@ -60,13 +59,13 @@ export default function Header() {
               ) : (
                 <Button
                   colorStyle="hover-gradient"
-                  className="rounded-sm text-base p-[0.3rem]"
+                  className="rounded-sm text-2xs p-[0.3rem]"
                   onClick={() => signIn()}
                 >
                   Sign in
                 </Button>
               )}
-            </GradientBorder>
+            </HighlightBorder>
           </li>
         </ul>
       </nav>

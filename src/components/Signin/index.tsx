@@ -2,7 +2,7 @@
 
 import { ClientSafeProvider, signIn } from "next-auth/react";
 import Button from "../Common/Button";
-import GradientBorder from "../ui/GradientBorder";
+import HighlightBorder from "../ui/HighlightBorder";
 
 type SigninProps = {
   providers: Record<string, ClientSafeProvider>;
@@ -13,7 +13,7 @@ export default function Signin({ providers, callbackUrl }: SigninProps) {
   return (
     <>
       {Object.values(providers).map(({ name, id }) => (
-        <GradientBorder key={name} radius="rounded-md">
+        <HighlightBorder key={name} radius="md" width="md">
           <Button
             colorStyle="hover-gradient"
             className="rounded-md text-base p-[0.3rem]"
@@ -21,7 +21,7 @@ export default function Signin({ providers, callbackUrl }: SigninProps) {
           >
             Sign in with {name}
           </Button>
-        </GradientBorder>
+        </HighlightBorder>
       ))}
     </>
   );
