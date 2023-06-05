@@ -7,7 +7,7 @@ const COLOR_STYLE = {
 
 type ButtonProps = {
   children: React.ReactNode;
-  colorStyle: keyof typeof COLOR_STYLE;
+  colorStyle?: keyof typeof COLOR_STYLE;
   className?: string;
   onClick?: () => void;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
@@ -21,7 +21,7 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
-      className={clsx(COLOR_STYLE[colorStyle], className)}
+      className={clsx(colorStyle && COLOR_STYLE[colorStyle], className)}
       onClick={onClick}
       {...props}
     >

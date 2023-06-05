@@ -1,5 +1,5 @@
-import { User } from "@/model/user";
-import Avatar from "../ui/Avatar";
+import { User } from "../../types/user";
+import Avatar from "../UI/Avatar";
 
 type SideBarProps = {
   user: User;

@@ -1,6 +1,8 @@
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import AuthContext from "@/context/AuthContext";
+import ReactQueryClient from "@/context/ReactQueryContext";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export const metadata = {
   title: "Create Next App",
@@ -14,12 +16,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="w-full max-w-screen-xl overflow-auto mx-auto">
+      <body className="w-full h-full max-w-screen-xl overflow-auto mx-auto">
         <AuthContext>
           <header className="sticky top-0 border-b">
             <Navbar />
           </header>
-          <main>{children}</main>
+          <ReactQueryClient>
+            <main>{children}</main>
+            <ReactQueryDevtools initialIsOpen={true} />
+          </ReactQueryClient>
         </AuthContext>
       </body>
     </html>

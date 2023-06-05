@@ -5,6 +5,8 @@ import FollowingBar from "@/components/FollowingBar";
 import PostList from "@/components/PostList";
 import SideBar from "@/components/SideBar";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
+import Spinner from "../components/UI/Spinner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,12 +16,14 @@ export default async function HomePage() {
   if (!session) redirect("/auth/signin");
 
   return (
-    <section className="w-full flex flex-col md:flex-row p-4">
-      <div className="w-full basis-3/4">
-        <FollowingBar />
+    <section className="max-w-6xl flex justify-evenly mx-auto p-4">
+      <div className="w-full basis-3/4 max-w-[630px] self-baseline">
+        <Suspense fallback={<Spinner />}>
+          <FollowingBar />
+        </Suspense>
         <PostList />
       </div>
-      <div className="basis-1/4">
+      <div className="hidden w-full basis-1/4 lg:block">
         <SideBar
           user={{ ...session.user, username: session.user.email.split("@")[0] }}
         />
