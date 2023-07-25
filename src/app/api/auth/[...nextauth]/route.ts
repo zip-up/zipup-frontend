@@ -13,14 +13,15 @@ export const handler: NextAuthOptions = NextAuth({
     signIn: "/auth/signin",
   },
   callbacks: {
-    async signIn({ user: { email, name, ...rest } }) {
+    async signIn({ user: { id, email, name, image } }) {
       if (!email) return false;
 
-      addUser({
-        ...rest,
+      await addUser({
+        id,
+        image: image || "",
         name: name || "",
-        email: email,
-        username: email.split("@")[0] || "test",
+        email,
+        username: email.split("@")[0] || name || "",
       });
 
       return true;
@@ -30,10 +31,11 @@ export const handler: NextAuthOptions = NextAuth({
 
       if (user) {
         session.user = {
-          ...user,
-          username: user.email?.split("@")[0] || "",
+          ...session.user,
+          username: session.user.email?.split("@")[0] || "",
         };
       }
+  
       return session;
     },
   },

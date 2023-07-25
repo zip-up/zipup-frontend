@@ -1,8 +1,23 @@
 "use client";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  QueryCache,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  queryCache: new QueryCache({
+    // onError: (error, query) => {
+    //   console.log(error, query);
+    //   // 🎉 only show error toasts if we already have data in the cache
+    //   // which indicates a failed background update
+    //   // if (query.state.data !== undefined) {
+
+    //   // }
+    // },
+  }),
+});
 
 type RQCProps = {
   children: React.ReactNode;

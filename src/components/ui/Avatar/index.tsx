@@ -11,14 +11,14 @@ type AvatarProps = {
   size?: "sm" | "md";
   image?: string | null;
   highlight?: boolean;
-  borderSize?: "sm" | "md";
+  borderWidth?: "sm" | "md";
 };
 
 export default function Avatar({
   image = "",
   size = "sm",
   highlight = false,
-  borderSize = "sm",
+  borderWidth = "sm",
 }: AvatarProps) {
   const Img = () => {
     return (
@@ -38,7 +38,7 @@ export default function Avatar({
   return (
     <>
       {highlight ? (
-        <HighlightBorder radius="full" width={borderSize}>
+        <HighlightBorder radius="full" width={borderWidth} size={size}>
           <Img />
         </HighlightBorder>
       ) : (

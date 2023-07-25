@@ -18,6 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="w-full h-full max-w-screen-xl overflow-auto mx-auto">
         <AuthContext>
+          <div id="modal-root"></div>
           <header className="sticky top-0 border-b">
             <Navbar />
           </header>

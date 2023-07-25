@@ -5,7 +5,9 @@ import { useFollowings } from "../../hooks/queries/following";
 import Avatar from "../UI/Avatar";
 
 export default function FollowingBar() {
-  const { data: user } = useFollowings();
+  const { data: user, isError, error } = useFollowings();
+
+  if (isError) return <div>{JSON.stringify(error)}</div>;
 
   if (!user || user?.following.length === 0)
     return (
@@ -29,7 +31,7 @@ export default function FollowingBar() {
                     image={image}
                     highlight={true}
                     size="md"
-                    borderSize="sm"
+                    borderWidth="sm"
                   />
                   <span className="block truncate w-full text-center text-2xs">
                     {username}

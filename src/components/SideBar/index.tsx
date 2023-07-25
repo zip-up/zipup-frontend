@@ -13,7 +13,7 @@ export default function SideBar({
       <div className="flex items-center">
         {image && <Avatar image={image} size="md" />}
         <div className="ml-2 text-xs">
-          <p className="font-bold">{username}</p>
+          <p className="font-bold">{name}</p>
           <p className="text-neutral-500 leading-4">{name}</p>
         </div>
       </div>

@@ -1,19 +1,22 @@
 import { OAuthUser } from "@/types/user";
 import { client } from "./sanity";
 
-export async function addUser({ id, ...rest }: OAuthUser) {
+export async function addUser({ id, image, name, email, username }: OAuthUser) {
   return client.createIfNotExists({
     _id: id,
     _type: "user",
     followers: [],
     following: [],
     bookmarks: [],
-    ...rest,
+    image,
+    name,
+    email,
+    username,
   });
 }
 
 export async function getUserInfoByUsername(username: string) {
-  const followers = await client.fetch(
+  return client.fetch(
     `*[_type == "user" && name == "${username}"][0]{ 
       ...,
       "id":_id,
@@ -22,5 +25,4 @@ export async function getUserInfoByUsername(username: string) {
       "bookmarks":bookmarks[]->_id
     }`
   );
-  return followers;
 }
