@@ -19,8 +19,8 @@ export default async function HomePage() {
   }
 
   return (
-    <section className="max-w-6xl flex justify-evenly mx-auto p-4">
-      <div className="w-full basis-3/4 max-w-[630px] self-baseline">
+    <section className="flex justify-center mx-auto pt-10">
+      <div className="flex flex-col items-center w-[630px] self-baseline">
         <ErrorBoundary fallback={<div>error낫ㅇ므</div>}>
           <Suspense fallback={<Spinner />}>
             <FollowingBar />
@@ -30,7 +30,7 @@ export default async function HomePage() {
           </Suspense>
         </ErrorBoundary>
       </div>
-      <div className="hidden w-full basis-1/4 lg:block">
+      <div className="w-[329px] max-lg:hidden ml-2">
         <SideBar user={session.user} />
       </div>
     </section>

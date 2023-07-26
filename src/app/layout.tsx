@@ -16,17 +16,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="w-full h-full max-w-screen-xl overflow-auto mx-auto">
+      <body className="w-full h-full overflow-auto mx-auto">
         <AuthContext>
-          <div id="modal-root"></div>
           <header className="sticky top-0 border-b">
-            <Navbar />
+            <div className="max-w-screen-xl mx-auto">
+              <Navbar />
+            </div>
           </header>
           <ReactQueryClient>
             <main>{children}</main>
             <ReactQueryDevtools initialIsOpen={true} />
           </ReactQueryClient>
         </AuthContext>
+        <div id="modal-root"></div>
       </body>
     </html>
   );

@@ -9,9 +9,9 @@ export default function PostList() {
   if (isError) return <div>Error....</div>;
 
   return (
-    <ul>
+    <ul className="pt-3">
       {posts?.map((post) => (
-        <li key={post.id} className="mb-4">
+        <li key={post.id} className="mb-4 w-[480px]">
           <PostListCard post={post} />
         </li>
       ))}

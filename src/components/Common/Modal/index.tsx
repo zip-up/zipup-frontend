@@ -1,6 +1,5 @@
 import Dimmer from "@/components/Common/Dimmer";
 import Portal from "@/components/Common/Portal";
-import Button from "@/components/Common/Button";
 
 type ModalProps = {
   children: React.ReactNode;
@@ -24,8 +23,7 @@ const ModalWrapper = ({ children, isOpen, onCloseModal }: ModalProps) => {
   return (
     <Portal targetElement={modalRootElement}>
       <Dimmer onCloseModal={onCloseModal} />
-      <section className="absolute flex flex-col top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <Button onClick={onCloseModal}>X</Button>
+      <section className="fixed flex flex-col top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white text-[14px] w-[850px] h-[450px]">
         {children}
       </section>
     </Portal>

@@ -1,12 +1,12 @@
 "use client";
 
-import Avatar from "../../UI/Avatar/index";
 import Image from "next/image";
 import CommentForm from "../CommentForm";
 import { SimplePost } from "@/types/post";
 import { ActionBar } from "../ActionBar";
 import { useModal } from "@/hooks/useModal";
 import PostModal from "@/components/PostModal";
+import PostUserAvatar from "@/components/PostUserAvatar";
 
 type PostListCardProps = {
   post: SimplePost;
@@ -19,11 +19,8 @@ export default function PostListCard({ post }: PostListCardProps) {
 
   return (
     <>
-      <article className="rounded-lg shadow-md border border-gray">
-        <div className="flex items-center p-2">
-          <Avatar image={userImage} highlight />
-          <span className="text-gray-900 font-bold ml-2">{username}</span>
-        </div>
+      <article className="rounded-lg shadow-md border border-gray text-[14px]">
+        <PostUserAvatar image={userImage} username={username} />
         <Image
           className="w-full object-cover aspect-square"
           src={image}

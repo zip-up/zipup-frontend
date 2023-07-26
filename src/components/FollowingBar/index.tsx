@@ -17,7 +17,7 @@ export default function FollowingBar() {
     );
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto self-start">
       <div>
         <section className="w-full flex items-center pb-4">
           <ul className="flex gap-2">

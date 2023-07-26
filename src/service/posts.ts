@@ -38,7 +38,7 @@ export async function getPost(id: string) {
         "likes": likes[]->username,
         comments[]{comment, "username": author->username, "image": author->image},
         "id":_id,
-        "createdAt":_creatdAt
+        "createdAt":_createdAt
       }`
     )
     .then((post) => ({ ...post, image: urlFor(post.image) }));
