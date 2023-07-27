@@ -1,6 +1,8 @@
 import { SimplePost } from "@/types/post";
+import { Suspense } from "react";
 import { Modal } from "../Common/Modal";
 import { PostDetail } from "../PostDetail";
+import Spinner from "../UI/Spinner";
 
 type PostModalProps = {
   isOpen: boolean;
@@ -11,8 +13,9 @@ type PostModalProps = {
 export default function PostModal({ post, ...modalProps }: PostModalProps) {
   return (
     <Modal {...modalProps}>
-      {/* <Modal.Header></Modal.Header> */}
-      <PostDetail post={post} />
+      <Suspense fallback={<Spinner />}>
+        <PostDetail post={post} />
+      </Suspense>
     </Modal>
   );
 }

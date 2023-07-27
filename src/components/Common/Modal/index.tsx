@@ -1,5 +1,6 @@
 import Dimmer from "@/components/Common/Dimmer";
 import Portal from "@/components/Common/Portal";
+import { useEffect } from "react";
 
 type ModalProps = {
   children: React.ReactNode;
@@ -16,6 +17,21 @@ const Dialog = ({ children }: { children: React.ReactNode }) => {
 };
 
 const ModalWrapper = ({ children, isOpen, onCloseModal }: ModalProps) => {
+  useEffect(() => {
+    if (!isOpen || typeof window == "undefined") return;
+
+    const scrollYOffset = window.scrollY;
+
+    document.body.style.setProperty("top", `-${scrollYOffset}px`);
+    document.body.style.setProperty("position", "fixed");
+
+    return () => {
+      document.body.style.removeProperty("position");
+      document.body.style.removeProperty("top");
+      window.scrollTo(0, scrollYOffset);
+    };
+  }, [isOpen]);
+
   if (!isOpen || typeof window == "undefined") return null;
 
   const modalRootElement = document.getElementById("modal-root") as Element;
