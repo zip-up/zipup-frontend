@@ -17,3 +17,10 @@ export type UserInfo = {
   following: SimpleUserInfo[];
   followers: SimpleUserInfo[];
 } & User;
+
+export type ProfileUser = User & {
+  id: string;
+  following: number;
+  followers: number;
+  bookmarks: [];
+};
