@@ -3,11 +3,14 @@
 import React, { useState } from "react";
 import { useSearchUsers } from "@/hooks/queries/users";
 import UserCard from "@/components/UserCard";
+import { useDebounce } from "@/hooks/useDebounce";
 
 export default function UserSearch() {
   const [keyword, setKeyword] = useState("");
 
-  const { data: userList } = useSearchUsers(keyword);
+  const { debounceValue } = useDebounce(keyword, 0);
+
+  const { data: userList } = useSearchUsers(debounceValue);
 
   const onSubmitForm = (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,7 +22,6 @@ export default function UserSearch() {
         <input
           type="text"
           className="w-full text-md p-3 outline-none border border-gray-400"
-          value={keyword}
           autoFocus
           placeholder="Search for a username or name"
           onChange={(e) => setKeyword(e.target.value)}

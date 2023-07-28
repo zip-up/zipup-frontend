@@ -3,5 +3,5 @@ export const QUERY_KEY = {
   FOLLOWING: "followings",
   POSTS: "posts",
   POST: "post",
-  USERS: "users",
+  SEARCH_USERS: "users",
 } as const;

@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 
 function useSearchUsers(keyword: string) {
   return useQuery<ProfileUser[]>({
-    queryKey: [QUERY_KEY.USERS],
+    queryKey: [QUERY_KEY.SEARCH_USERS, keyword],
     queryFn: () => fetchAPI.get(END_POINT.SEARCH_USER(keyword)),
     suspense: true,
   });
