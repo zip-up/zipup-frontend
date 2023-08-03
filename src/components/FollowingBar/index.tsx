@@ -1,11 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useFollowings } from "../../hooks/queries/following";
+import { useLoggedInUser } from "../../hooks/queries/following";
 import Avatar from "../UI/Avatar";
 
 export default function FollowingBar() {
-  const { data: user, isError, error } = useFollowings();
+  const {
+    data: user,
+    isError,
+    error,
+  } = useLoggedInUser({ isUsedErrorBoundary: true });
 
   if (isError) return <div>{JSON.stringify(error)}</div>;
 

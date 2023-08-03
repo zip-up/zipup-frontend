@@ -1,8 +1,8 @@
 import NextAuth from "next-auth";
-import { User } from "./user";
+import { AuthUser } from "./user";
 
 declare module "next-auth" {
   interface Session {
-    user: User;
+    user: AuthUser;
   }
 }

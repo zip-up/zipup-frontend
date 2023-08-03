@@ -1,10 +1,10 @@
-import { ProfileUser } from "@/types/user";
+import { SearchUser } from "@/types/user";
 import Link from "next/link";
 import React from "react";
 import Avatar from "../UI/Avatar";
 
 type UserCardProps = {
-  user: ProfileUser;
+  user: SearchUser;
 };
 
 export default function UserCard({
