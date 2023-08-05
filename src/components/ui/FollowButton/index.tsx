@@ -8,14 +8,11 @@ type FollowingButtonProps = {
 };
 
 export default function FollowButton({ username }: FollowingButtonProps) {
-  const {
-    data: loggedInUser,
-    isError,
-    error,
-  } = useLoggedInUser({ isUsedErrorBoundary: false });
-  console.log(isError, error);
+  const { data: loggedInUser, isError } = useLoggedInUser({
+    isUsedErrorBoundary: false,
+  });
   const canShowFollowingButton = loggedInUser && loggedInUser.name !== username;
-  console.log(loggedInUser, username, canShowFollowingButton);
+
   const isFollowing = loggedInUser?.following.find(
     (following) => following.username === username
   );
@@ -23,7 +20,11 @@ export default function FollowButton({ username }: FollowingButtonProps) {
   const text = isFollowing ? "Unfollow" : "Follow";
 
   const FollowButtonColor = isFollowing ? "bg-red-500" : "bg-sky-500";
-  if (isError) console.error(error);
+
+  if (isError) {
+    return null;
+  }
+
   return (
     <>
       {canShowFollowingButton && (

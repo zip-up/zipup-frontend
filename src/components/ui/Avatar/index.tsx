@@ -5,10 +5,12 @@ import HighlightBorder from "../HighlightBorder";
 const AVATAR_SIZE = {
   sm: "w-[30px] h-[30px] p-[0.1rem]",
   md: "w-[56px] h-[56px] p-[0.15rem]",
+  lg: "w-[88px] h-[88px] p-[0.25rem]",
+  xl: "w-[150px] h-[150px] p-[0.2rem]",
 } as const;
 
 type AvatarProps = {
-  size?: "sm" | "md";
+  size?: "sm" | "md" | "lg" | "xl";
   image?: string | null;
   highlight?: boolean;
   borderWidth?: "sm" | "md";

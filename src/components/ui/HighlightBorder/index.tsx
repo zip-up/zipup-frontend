@@ -13,13 +13,15 @@ const BORDER_WIDTH = {
 const SIZE = {
   sm: "w-[34px] h-[34px]",
   md: "w-[60px] h-[60px]",
+  lg: "w-[80px] h-[80px]",
+  xl: "w-[158px] h-[158px]",
 } as const;
 
 type HighlightBorderProps = {
   radius?: "md" | "full";
   width?: "sm" | "md";
   children: React.ReactNode;
-  size: "sm" | "md";
+  size: "sm" | "md" | "lg" | "xl";
 };
 
 export default function HighlightBorder({
