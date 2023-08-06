@@ -13,9 +13,9 @@ type PostTabContainerProps = {
 };
 
 const tabs: postTab = [
-  { type: "posts", icon: <PostIcon /> },
-  { type: "saved", icon: <BookmarkIcon /> },
-  { type: "liked", icon: <HeartIcon /> },
+  { type: "posts", icon: <PostIcon size="w-3 h-3" /> },
+  { type: "saved", icon: <BookmarkIcon size="w-3 h-3" /> },
+  { type: "liked", icon: <HeartIcon size="w-3 h-3" /> },
 ];
 
 export default function PostTabContainer({ username }: PostTabContainerProps) {
