@@ -43,3 +43,45 @@ export async function getPost(id: string) {
     )
     .then((post) => ({ ...post, image: urlFor(post.image) }));
 }
+
+export async function getUserPosts(username: string) {
+  return client
+    .fetch<SimplePost[]>(
+      `*[_type == "post" && author->username == "${username}"]
+      | order(_createdAt desc){
+          ${simplePostProjection}
+        }
+      `
+    )
+    .then((posts) =>
+      posts.map((post) => ({ ...post, image: urlFor(post.image) }))
+    );
+}
+
+export async function getLikedPosts(username: string) {
+  return client
+    .fetch<SimplePost[]>(
+      `*[_type == "post" && "${username}" in likes[]->username]
+        | order(_createdAt desc){
+          ${simplePostProjection}
+        }
+      `
+    )
+    .then((posts) =>
+      posts.map((post) => ({ ...post, image: urlFor(post.image) }))
+    );
+}
+
+export async function getSavedPosts(username: string) {
+  return client
+    .fetch<SimplePost[]>(
+      `*[_type == "post" && _id in *[_type=="user" && username=="${username}"].bookmarks._ref]
+        | order(_createdAt desc){
+          ${simplePostProjection}
+        }
+      `
+    )
+    .then((posts) =>
+      posts.map((post) => ({ ...post, image: urlFor(post.image) }))
+    );
+}

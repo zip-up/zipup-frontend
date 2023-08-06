@@ -1,6 +1,8 @@
 export const END_POINT = {
-  USER: "/api/user",
+  ME: "/api/me",
   POSTS: "/api/posts",
   FULL_POST: (id: string) => `/api/posts/${id}`,
   SEARCH_USER: (keyword: string) => `/api/search/${keyword}`,
+  USER_POSTS: (username: string, category: string) =>
+    `/api/user/${username}/${category}`,
 } as const;
