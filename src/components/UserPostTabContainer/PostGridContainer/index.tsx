@@ -16,7 +16,7 @@ export default function PostGridContainer({
   return (
     <ul className="grid grid-cols-3 gap-x-[3px] gap-y-[3px] w-full p-4">
       {posts &&
-        [...posts, ...posts, ...posts, ...posts, ...posts].map((post) => (
+        posts.map((post) => (
           <li key={post.id}>
             <PostGridCard post={post} />
           </li>

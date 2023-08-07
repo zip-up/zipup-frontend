@@ -13,7 +13,7 @@ export default function Signin({ providers, callbackUrl }: SigninProps) {
   return (
     <>
       {Object.values(providers).map(({ name, id }) => (
-        <HighlightBorder key={name} radius="md" width="md">
+        <HighlightBorder key={name} radius="md" width="md" size="md">
           <Button
             colorStyle="hover-gradient"
             className="rounded-md text-base p-[0.3rem]"

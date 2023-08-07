@@ -47,7 +47,7 @@ export default function Header() {
             </li>
           )}
           <li>
-            <HighlightBorder radius="md" width="md">
+            <HighlightBorder radius="md" width="md" size="sm">
               {session ? (
                 <Button
                   colorStyle="hover-gradient"
