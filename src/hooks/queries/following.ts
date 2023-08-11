@@ -11,7 +11,7 @@ type useLoggedInUserProps = {
 };
 
 function useLoggedInUser({ isUsedErrorBoundary = true }: useLoggedInUserProps) {
-  return useQuery<HomeUser, { code: string }>({
+  return useQuery<HomeUser>({
     queryKey: [QUERY_KEY.ME],
     queryFn: () => fetchAPI.get(END_POINT.ME),
     suspense: true,

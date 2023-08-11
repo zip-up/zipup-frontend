@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { postTab, postTabTitle } from "@/types/postTab";
 import BookmarkIcon from "../UI/icons/BookmarkIcon";
 import HeartIcon from "../UI/icons/HeartIcon";
 import PostIcon from "../UI/icons/PostIcon";
 import ProfilePostTab from "./ProfilePostTab";
 import PostGridContainer from "./PostGridContainer";
+import Spinner from "../UI/Spinner";
 
 type PostTabContainerProps = {
   username: string;
@@ -28,7 +29,9 @@ export default function PostTabContainer({ username }: PostTabContainerProps) {
         selectedTab={selectedTab}
         onSelectTab={(selectedTab: postTabTitle) => setSelectedTab(selectedTab)}
       />
-      <PostGridContainer username={username} selectedTab={selectedTab} />
+      <Suspense fallback={<Spinner />}>
+        <PostGridContainer username={username} selectedTab={selectedTab} />
+      </Suspense>
     </section>
   );
 }

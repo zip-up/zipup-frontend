@@ -5,13 +5,7 @@ import { useLoggedInUser } from "../../hooks/queries/following";
 import Avatar from "../UI/Avatar";
 
 export default function FollowingBar() {
-  const {
-    data: user,
-    isError,
-    error,
-  } = useLoggedInUser({ isUsedErrorBoundary: true });
-
-  if (isError) return <div>{JSON.stringify(error)}</div>;
+  const { data: user } = useLoggedInUser({ isUsedErrorBoundary: true });
 
   if (!user || user?.following.length === 0)
     return (

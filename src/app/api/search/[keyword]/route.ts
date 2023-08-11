@@ -1,6 +1,8 @@
 import { searchUsers } from "@/service/user";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 type Context = {
   params: { keyword: string };
 };

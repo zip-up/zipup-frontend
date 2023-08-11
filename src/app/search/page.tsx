@@ -2,6 +2,9 @@ import Spinner from "@/components/UI/Spinner";
 import UserSearch from "@/components/UserSearch";
 import { Suspense } from "react";
 import { Metadata } from "next";
+import { ErrorBoundary } from "react-error-boundary";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "User Search",
@@ -10,8 +13,10 @@ export const metadata: Metadata = {
 
 export default async function SearchPage() {
   return (
-    <Suspense fallback={<Spinner />}>
-      <UserSearch />
-    </Suspense>
+    <ErrorBoundary fallback={<>err</>}>
+      <Suspense fallback={<Spinner />}>
+        <UserSearch />
+      </Suspense>
+    </ErrorBoundary>
   );
 }

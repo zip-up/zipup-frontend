@@ -8,7 +8,7 @@ import { useDebounce } from "@/hooks/useDebounce";
 export default function UserSearch() {
   const [keyword, setKeyword] = useState("");
 
-  const { debounceValue } = useDebounce(keyword, 0);
+  const { debounceValue } = useDebounce(keyword, 500);
 
   const { data: userList } = useSearchUsers(debounceValue);
 
