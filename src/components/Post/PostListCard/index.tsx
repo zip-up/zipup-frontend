@@ -13,7 +13,7 @@ type PostListCardProps = {
 };
 
 export default function PostListCard({ post }: PostListCardProps) {
-  const { userImage, username, image, createdAt, likes, text } = post;
+  const { id, userImage, username, image, createdAt, likes, text } = post;
 
   const { isModalOpen, openModal, closeModal } = useModal();
 
@@ -34,6 +34,7 @@ export default function PostListCard({ post }: PostListCardProps) {
           createdAt={createdAt}
           likes={likes}
           text={text}
+          postId={id}
         />
         <CommentForm />
       </article>

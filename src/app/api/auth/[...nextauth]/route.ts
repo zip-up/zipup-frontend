@@ -26,17 +26,24 @@ export const handler: NextAuthOptions = NextAuth({
 
       return true;
     },
-    async session({ session }) {
+    async session({ session, token }) {
       const user = session?.user;
 
       if (user) {
         session.user = {
           ...session.user,
           username: session.user.email?.split("@")[0] || "",
+          id: token.id as string,
         };
       }
-  
+
       return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
     },
   },
 });

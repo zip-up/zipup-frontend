@@ -1,5 +1,11 @@
-import BookmarkIcon from "@/components/UI/icons/BookmarkIcon";
-import HeartIcon from "@/components/UI/icons/HeartIcon";
+import {
+  HeartIcon,
+  HeartFillIcon,
+  BookmarkIcon,
+  BookmarkFIllIcon,
+} from "@/components/UI/icons";
+import ToggleButton from "@/components/UI/ToggleButton";
+import { useToggle } from "@/hooks/useToggle";
 import { parseDate } from "@/utils/date";
 
 type ActionBarProps = {
@@ -7,6 +13,7 @@ type ActionBarProps = {
   username: string;
   createdAt: string;
   text?: string;
+  postId: string;
 };
 
 export function ActionBar({
@@ -14,12 +21,26 @@ export function ActionBar({
   username,
   createdAt,
   text,
+  postId,
 }: ActionBarProps) {
+  const [liked, setLiked] = useToggle();
+  const [bookmarked, setBookmarked] = useToggle();
+
   return (
     <>
       <div className="flex justify-between my-2 px-4">
-        <HeartIcon />
-        <BookmarkIcon />
+        <ToggleButton
+          isToggleOn={liked}
+          onIcon={<HeartIcon />}
+          offIcon={<HeartFillIcon />}
+          onToggle={setLiked}
+        />
+        <ToggleButton
+          isToggleOn={bookmarked}
+          onIcon={<BookmarkIcon />}
+          offIcon={<BookmarkFIllIcon />}
+          onToggle={setBookmarked}
+        />
       </div>
       <div className="px-4 py-1">
         <p className="font-bold mb-2">

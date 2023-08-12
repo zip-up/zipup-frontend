@@ -4,3 +4,7 @@ export { default as SearchIcon } from "./SearchIcon";
 export { default as SearchFillIcon } from "./SearchFillIcon";
 export { default as NewIcon } from "./NewIcon";
 export { default as NewFillIcon } from "./NewFillIcon";
+export { default as HeartFillIcon } from "./HeartFillIcon";
+export { default as HeartIcon } from "./HeartIcon";
+export { default as BookmarkIcon } from "./BookmarkIcon";
+export { default as BookmarkFIllIcon } from "./BookmarkFillIcon";

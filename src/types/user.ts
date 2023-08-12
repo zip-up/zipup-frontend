@@ -3,6 +3,7 @@ export type AuthUser = {
   username: string;
   email: string;
   image?: string;
+  id: string;
 };
 
 export type OAuthUser = {
