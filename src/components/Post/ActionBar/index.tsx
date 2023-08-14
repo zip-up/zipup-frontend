@@ -6,25 +6,37 @@ import {
 } from "@/components/UI/icons";
 import ToggleButton from "@/components/UI/ToggleButton";
 import { useToggle } from "@/hooks/useToggle";
+import { SimplePost } from "@/types/post";
 import { parseDate } from "@/utils/date";
+import { useSession } from "next-auth/react";
 
 type ActionBarProps = {
-  likes: string[];
-  username: string;
-  createdAt: string;
-  text?: string;
-  postId: string;
+  post: SimplePost;
 };
 
 export function ActionBar({
-  likes,
-  username,
-  createdAt,
-  text,
-  postId,
+  post: { id, likes, text, username, createdAt },
 }: ActionBarProps) {
-  const [liked, setLiked] = useToggle();
+  const user = useSession().data?.user;
+  const userId = user?.id;
+
+  const [liked, setLiked] = useToggle(likes.includes(user?.name || ""));
   const [bookmarked, setBookmarked] = useToggle();
+
+  const onHandleLike = () => {
+    queryLike();
+  };
+
+  const queryLike = () => {
+    fetch("http://localhost:3000/api/likes", {
+      method: "PUT",
+      body: JSON.stringify({
+        userId,
+        postId: id,
+        like: liked,
+      }),
+    }).then(() => setLiked());
+  };
 
   return (
     <>
@@ -33,7 +45,7 @@ export function ActionBar({
           isToggleOn={liked}
           onIcon={<HeartIcon />}
           offIcon={<HeartFillIcon />}
-          onToggle={setLiked}
+          onToggle={onHandleLike}
         />
         <ToggleButton
           isToggleOn={bookmarked}

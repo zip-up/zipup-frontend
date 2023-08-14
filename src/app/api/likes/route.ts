@@ -17,7 +17,7 @@ export async function PUT(request: NextRequest) {
   }
 
   const query = (userId: string, postId: string) => {
-    return like ? likePost(userId, postId) : disLikePost(userId, postId);
+    return !like ? likePost(userId, postId) : disLikePost(userId, postId);
   };
 
   return query(userId, postId).then(() => NextResponse.json(true));

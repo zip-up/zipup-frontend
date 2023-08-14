@@ -87,7 +87,7 @@ export async function getSavedPosts(username: string) {
 }
 
 
-export async function likePost(postId: string, userId: string) {
+export async function likePost(userId: string, postId: string) {
   return client
     .patch(postId)
     .setIfMissing({ likes: [] })

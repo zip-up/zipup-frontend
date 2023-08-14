@@ -10,9 +10,8 @@ type PostDetailProps = {
   post: SimplePost;
 };
 
-export function PostDetail({
-  post: { id, username, image, likes, createdAt, comments },
-}: PostDetailProps) {
+export function PostDetail({ post }: PostDetailProps) {
+  const { id, username, image } = post;
   const { data: detail } = useFullPost(id);
 
   return (
@@ -40,7 +39,7 @@ export function PostDetail({
             )
           )}
         </ul>
-        <ActionBar likes={likes} username={username} createdAt={createdAt} />
+        <ActionBar post={post} />
         <CommentForm />
       </div>
     </section>
