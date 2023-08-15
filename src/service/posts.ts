@@ -100,9 +100,10 @@ export async function likePost(userId: string, postId: string) {
     .commit({ autoGenerateArrayKeys: true });
 }
 
-export async function disLikePost(postId: string, userId: string) {
+export async function disLikePost(userId: string, postId: string) {
   return client
     .patch(postId)
     .unset([`likes[_ref=="${userId}"]`])
     .commit();
 }
+

@@ -5,6 +5,7 @@ import {
   BookmarkFIllIcon,
 } from "@/components/UI/icons";
 import ToggleButton from "@/components/UI/ToggleButton";
+import { useLikePost } from "@/hooks/queries/posts";
 import { useToggle } from "@/hooks/useToggle";
 import { SimplePost } from "@/types/post";
 import { parseDate } from "@/utils/date";
@@ -23,19 +24,17 @@ export function ActionBar({
   const [liked, setLiked] = useToggle(likes.includes(user?.name || ""));
   const [bookmarked, setBookmarked] = useToggle();
 
-  const onHandleLike = () => {
-    queryLike();
-  };
+  const { mutate } = useLikePost(
+    {
+      userId,
+      postId: id,
+      like: liked,
+    },
+    setLiked
+  );
 
-  const queryLike = () => {
-    fetch("http://localhost:3000/api/likes", {
-      method: "PUT",
-      body: JSON.stringify({
-        userId,
-        postId: id,
-        like: liked,
-      }),
-    }).then(() => setLiked());
+  const onHandleLike = () => {
+    mutate();
   };
 
   return (
