@@ -14,14 +14,13 @@ function useGetPosts() {
   });
 }
 
-function useLikePost(body: any, successCallback: () => void) {
+function useLikePost(body: any) {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: () => fetchAPI.put(END_POINT.LIKE, body),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.POSTS] });
-      successCallback();
     },
   });
 }

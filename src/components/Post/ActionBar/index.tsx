@@ -21,17 +21,14 @@ export function ActionBar({
   const user = useSession().data?.user;
   const userId = user?.id;
 
-  const [liked, setLiked] = useToggle(likes.includes(user?.name || ""));
+  const liked = likes.includes(user?.name || "");
   const [bookmarked, setBookmarked] = useToggle();
 
-  const { mutate } = useLikePost(
-    {
-      userId,
-      postId: id,
-      like: liked,
-    },
-    setLiked
-  );
+  const { mutate } = useLikePost({
+    userId,
+    postId: id,
+    like: liked,
+  });
 
   const onHandleLike = () => {
     mutate();
