@@ -26,6 +26,7 @@ export function ActionBar({
 
   const { mutate } = useLikePost({
     userId,
+    username: user?.name,
     postId: id,
     like: liked,
   });
