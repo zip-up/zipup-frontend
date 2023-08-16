@@ -2,19 +2,28 @@
 
 import Button from "@/components/Common/Button";
 import { useLoggedInUser } from "@/hooks/queries/following";
+import { useToggleFollow } from "@/hooks/queries/users";
 
 type FollowingButtonProps = {
-  username: string;
+  profileUserId: string;
+  profileUserName: string;
 };
 
-export default function FollowButton({ username }: FollowingButtonProps) {
+export default function FollowButton({
+  profileUserId,
+  profileUserName,
+}: FollowingButtonProps) {
   const { data: loggedInUser, isError } = useLoggedInUser({
     isUsedErrorBoundary: false,
   });
-  const canShowFollowingButton = loggedInUser && loggedInUser.name !== username;
+
+  const { mutate } = useToggleFollow();
+
+  const canShowFollowingButton =
+    loggedInUser && loggedInUser.name !== profileUserName;
 
   const isFollowing = loggedInUser?.following.find(
-    (following) => following.username === username
+    (following) => following.username == profileUserName
   );
 
   const text = isFollowing ? "Unfollow" : "Follow";
@@ -29,6 +38,13 @@ export default function FollowButton({ username }: FollowingButtonProps) {
     <>
       {canShowFollowingButton && (
         <Button
+          onClick={() =>
+            mutate({
+              userId: loggedInUser.id,
+              targetId: profileUserId,
+              isFollowed: !!isFollowing,
+            })
+          }
           className={`border-none rounded-md py-2 px-8 text-white font-bold leading-4 ${FollowButtonColor}`}
         >
           {text}

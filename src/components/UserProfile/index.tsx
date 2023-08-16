@@ -9,7 +9,7 @@ type UserProfileProps = {
 };
 
 export default function UserProfile({
-  user: { image, name, posts, followers, following },
+  user: { id, image, name, posts, followers, following, username },
 }: UserProfileProps) {
   const info = [
     { title: "posts", data: posts },
@@ -25,7 +25,7 @@ export default function UserProfile({
           <h1 className="text-lg md:mr-8 my-2 md:mb-0">{name}</h1>
 
           <Suspense fallback={<Spinner />}>
-            <FollowButton username={name} />
+            <FollowButton profileUserId={id} profileUserName={username} />
           </Suspense>
         </div>
 
