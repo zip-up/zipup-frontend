@@ -40,7 +40,7 @@ export function PostDetail({ post }: PostDetailProps) {
           )}
         </ul>
         <ActionBar post={post} />
-        <CommentForm />
+        <CommentForm postId={post.id} />
       </div>
     </section>
   );

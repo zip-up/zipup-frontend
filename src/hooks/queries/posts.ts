@@ -41,9 +41,7 @@ function useLikePost(body: any) {
 
       return { prevPosts };
     },
-    // onSettled(data, error, variables, context) {
-    //   queryClient.invalidateQueries({ queryKey: [QUERY_KEY.POSTS] });
-    // },
+
     onError: (err, _, context) => {
       if (context?.prevPosts) {
         queryClient.setQueryData([QUERY_KEY.POSTS], context.prevPosts);
@@ -52,4 +50,16 @@ function useLikePost(body: any) {
   });
 }
 
-export { useGetPosts, useLikePost };
+function useAddComment() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (body: { postId: string; userId: string; comment: string }) => {
+      return fetchAPI.post(END_POINT.COMMENT, body);
+    },
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.POSTS] }),
+  });
+}
+
+export { useGetPosts, useLikePost, useAddComment };

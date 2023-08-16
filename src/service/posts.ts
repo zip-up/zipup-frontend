@@ -86,7 +86,6 @@ export async function getSavedPosts(username: string) {
     );
 }
 
-
 export async function likePost(userId: string, postId: string) {
   return client
     .patch(postId)
@@ -107,3 +106,22 @@ export async function disLikePost(userId: string, postId: string) {
     .commit();
 }
 
+export async function addComment(
+  userId: string,
+  postId: string,
+  comment: string
+) {
+  return client
+    .patch(postId)
+    .setIfMissing({ comments: [] })
+    .append("comments", [
+      {
+        comment,
+        author: {
+          _ref: userId,
+          _type: "reference",
+        },
+      },
+    ])
+    .commit({ autoGenerateArrayKeys: true });
+}

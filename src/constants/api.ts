@@ -6,4 +6,5 @@ export const END_POINT = {
   USER_POSTS: (username: string, category: string) =>
     `/api/user/${username}/${category}`,
   LIKE: `/api/likes`,
+  COMMENT: `/api/comments`,
 } as const;

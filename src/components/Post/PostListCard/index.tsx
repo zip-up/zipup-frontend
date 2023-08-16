@@ -7,13 +7,14 @@ import { ActionBar } from "../ActionBar";
 import { useModal } from "@/hooks/useModal";
 import PostModal from "@/components/PostModal";
 import PostUserAvatar from "@/components/PostUserAvatar";
+import Button from "@/components/Common/Button";
 
 type PostListCardProps = {
   post: SimplePost;
 };
 
 export default function PostListCard({ post }: PostListCardProps) {
-  const { userImage, username, image } = post;
+  const { userImage, username, image, comments } = post;
 
   const { isModalOpen, openModal, closeModal } = useModal();
 
@@ -29,8 +30,15 @@ export default function PostListCard({ post }: PostListCardProps) {
           height={500}
           onClick={openModal}
         />
-        <ActionBar post={post} />
-        <CommentForm />
+        <ActionBar post={post}>
+          {comments > 1 && (
+            <Button
+              onClick={openModal}
+              className="font-bold my-2 text-sky-500"
+            >{`View all ${comments} comments.`}</Button>
+          )}
+        </ActionBar>
+        <CommentForm postId={post.id} />
       </article>
 
       <PostModal isOpen={isModalOpen} onCloseModal={closeModal} post={post} />
