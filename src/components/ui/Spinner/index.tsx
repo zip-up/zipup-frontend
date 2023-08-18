@@ -6,7 +6,7 @@ type SpinnerProps = {
 
 export default function Spinner({ size = "20" }: SpinnerProps) {
   return (
-    <div className="flex justify-center items-center h-32">
+    <div className="flex justify-center items-center w-full h-full">
       <ImSpinner2 className="animate-spin" size={size} />
     </div>
   );

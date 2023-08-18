@@ -15,7 +15,7 @@ function useSearchUsers(keyword: string = "all") {
   });
 }
 
-function useToggleFollow() {
+function useToggleFollow(refresh: () => void) {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -26,8 +26,10 @@ function useToggleFollow() {
     }) => {
       return fetchAPI.put(END_POINT.FOLLOW, body);
     },
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.ME] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.ME] });
+      refresh();
+    },
   });
 }
 

@@ -3,6 +3,8 @@
 import Button from "@/components/Common/Button";
 import { useLoggedInUser } from "@/hooks/queries/following";
 import { useToggleFollow } from "@/hooks/queries/users";
+import { useRouter } from "next/navigation";
+import Spinner from "../Spinner";
 
 type FollowingButtonProps = {
   profileUserId: string;
@@ -17,7 +19,10 @@ export default function FollowButton({
     isUsedErrorBoundary: false,
   });
 
-  const { mutate } = useToggleFollow();
+  const { refresh } = useRouter();
+
+  const { mutate: toggleFollow, isLoading: isToggleLoading } =
+    useToggleFollow(refresh);
 
   const canShowFollowingButton =
     loggedInUser && loggedInUser.name !== profileUserName;
@@ -39,15 +44,15 @@ export default function FollowButton({
       {canShowFollowingButton && (
         <Button
           onClick={() =>
-            mutate({
+            toggleFollow({
               userId: loggedInUser.id,
               targetId: profileUserId,
               isFollowed: !!isFollowing,
             })
           }
-          className={`border-none rounded-md py-2 px-8 text-white font-bold leading-4 ${FollowButtonColor}`}
+          className={`w-[127px] h-[40px] border-none rounded-md text-white text-xs font-bold leading-4 ${FollowButtonColor}`}
         >
-          {text}
+          {isToggleLoading ? <Spinner size="15" /> : text}
         </Button>
       )}
     </>
