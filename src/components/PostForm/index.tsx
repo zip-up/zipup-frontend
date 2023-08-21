@@ -13,6 +13,7 @@ export default function PostForm() {
   const session = useSession();
   const [file, setFile] = useState<File>();
   const [content, setContent] = useState("");
+  const [isDragging, setIsDragging] = useState(false);
 
   if (!session.data?.user.id) return null;
 
@@ -37,11 +38,21 @@ export default function PostForm() {
     }
   };
 
+  const onHandleDragEnter = (e: React.DragEvent<HTMLLabelElement>) => {
+    if (e.type === "dragenter") {
+      setIsDragging(true);
+    }
+    if (e.type === "dragleave") {
+      setIsDragging(false);
+    }
+  };
+
   const onHandleDragDrop = (e: React.DragEvent<HTMLLabelElement>) => {
     e.preventDefault();
     const droppedFile = e.dataTransfer.items[0].getAsFile();
 
     if (droppedFile) setFile(droppedFile);
+    setIsDragging(false);
   };
 
   const onHandleDragOver = (e: React.DragEvent<HTMLLabelElement>) => {
@@ -66,11 +77,18 @@ export default function PostForm() {
         />
         <label
           htmlFor="input-upload"
-          className="cursor-pointer"
+          className={`cursor-pointer w-full h-60 flex flex-col items-center justify-center ${
+            !file && "border-2 border-sky-400 border-dashed"
+          }`}
+          onDragEnter={onHandleDragEnter}
+          onDragLeave={onHandleDragEnter}
           onDragOver={onHandleDragOver}
           onDrop={onHandleDragDrop}
         >
-          <FilesIcon size="w-9 h-9" />
+          {isDragging && (
+            <div className="absolute inset-0 z-10 bg-sky-500/20 pointer-events-none" />
+          )}
+          <FilesIcon size="w-9 h-9 text-gray-300" />
           <p>Drag and Drop your image here or click</p>
         </label>
 
