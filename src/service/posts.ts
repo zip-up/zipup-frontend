@@ -1,4 +1,6 @@
 import { FullPost, SimplePost } from "@/types/post";
+import { createReadStream } from "fs";
+import { basename } from "path";
 import { client, urlFor } from "./sanity";
 
 const simplePostProjection = `
@@ -125,3 +127,43 @@ export async function addComment(
     ])
     .commit({ autoGenerateArrayKeys: true });
 }
+
+export async function createPost(userId: string, content: string, file: Blob) {
+  fetch(
+    `https://${process.env.SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/assets/images/${process.env.SANITY_DATASET}`,
+    {
+      method: "POST",
+      headers: {
+        "content-type": file.type,
+        Authorization: `Bearer ${process.env.SANITY_SECRET_TOKEN}`,
+      },
+      body: file,
+    }
+  )
+    .then((res) => res.json())
+    .then((result) =>
+      client.create(
+        {
+          _type: "post",
+          author: { _ref: userId },
+          photo: {
+            asset: {
+              _ref: result.document._id,
+            },
+          },
+          comments: [
+            {
+              comment: content,
+              author: {
+                _ref: userId,
+                _type: "reference",
+              },
+            },
+          ],
+          likes: [],
+        },
+        { autoGenerateArrayKeys: true }
+      )
+    );
+}
+

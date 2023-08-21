@@ -12,11 +12,12 @@ export const fetchAPI = {
       .then((data) => data.json())
       .catch((err) => console.error(err)),
 
-  post: (endPoint: string, body: any) =>
+  post: (endPoint: string, body: any, needStringify: boolean = true) =>
     fetch(process.env.NEXT_PUBLIC_BASE_URL + endPoint, {
       method: "POST",
-      body: JSON.stringify(body),
+      body: needStringify ? JSON.stringify(body) : body,
     })
       .then((data) => data.json())
+      .then((res) => console.log(res))
       .catch((err) => console.error(err)),
 };

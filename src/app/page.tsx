@@ -21,7 +21,7 @@ export default async function HomePage() {
   return (
     <section className="flex justify-center mx-auto pt-10">
       <div className="flex flex-col items-center w-[630px] self-baseline">
-        <ErrorBoundary fallback={<div>error낫ㅇ므</div>}>
+        <ErrorBoundary fallback={<div>error</div>}>
           <Suspense fallback={<Spinner />}>
             <FollowingBar />
           </Suspense>

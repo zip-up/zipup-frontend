@@ -62,4 +62,16 @@ function useAddComment() {
   });
 }
 
-export { useGetPosts, useLikePost, useAddComment };
+function useCreatePost() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (formData: FormData) => {
+      return fetchAPI.post(END_POINT.NEW_POST, formData, false);
+    },
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.POSTS] }),
+  });
+}
+
+export { useGetPosts, useLikePost, useAddComment, useCreatePost };
