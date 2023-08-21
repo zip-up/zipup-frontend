@@ -72,8 +72,9 @@ function useCreatePost() {
       return fetchAPI.post(END_POINT.POSTS, formData, false);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.POSTS] }),
-        router.push("/");
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.ME] });
+
+      router.push("/");
     },
   });
 }

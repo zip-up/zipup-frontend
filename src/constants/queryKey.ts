@@ -4,5 +4,4 @@ export const QUERY_KEY = {
   POSTS: "posts",
   POST: "post",
   SEARCH_USERS: "users",
-  NEW_POST: "new post",
 } as const;
