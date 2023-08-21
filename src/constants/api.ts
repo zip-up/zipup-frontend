@@ -8,5 +8,4 @@ export const END_POINT = {
   LIKE: "/api/likes",
   COMMENT: "/api/comments",
   FOLLOW: "/api/follow",
-  NEW_POST: "/api/new",
 } as const;

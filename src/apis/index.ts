@@ -18,6 +18,5 @@ export const fetchAPI = {
       body: needStringify ? JSON.stringify(body) : body,
     })
       .then((data) => data.json())
-      .then((res) => console.log(res))
       .catch((err) => console.error(err)),
 };

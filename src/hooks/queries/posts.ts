@@ -69,7 +69,7 @@ function useCreatePost() {
 
   return useMutation({
     mutationFn: (formData: FormData) => {
-      return fetchAPI.post(END_POINT.NEW_POST, formData, false);
+      return fetchAPI.post(END_POINT.POSTS, formData, false);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.POSTS] }),

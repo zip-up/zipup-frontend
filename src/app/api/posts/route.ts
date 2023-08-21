@@ -1,17 +1,23 @@
-import { getFollowingPosts } from "@/service/posts";
-import { getServerSession } from "next-auth/next";
+import { withSessionUser } from "@/utils/session";
+import { createPost, getFollowingPosts } from "@/service/posts";
 import { NextResponse } from "next/server";
-import { NextApiResponse } from "next";
-import { handler as authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export async function GET() {
-  const session = await getServerSession(authOptions);
-
-  if (!session?.user) {
-    // console.log("session 없음!!!", session);
-    return new Response("Authentication Error", { status: 401 });
-  }
-  return getFollowingPosts(session.user.name).then((data) =>
-    NextResponse.json(data)
+  return withSessionUser(async (user) =>
+    getFollowingPosts(user.name).then((data) => NextResponse.json(data))
   );
+}
+
+export async function POST(request: Request) {
+  return withSessionUser(async () => {
+    const form = await request.formData();
+
+    const file = form.get("file") as Blob;
+    const content = form.get("content")!.toString();
+    const userId = form.get("userId")!.toString();
+
+    return createPost(userId, content, file).then(() =>
+      NextResponse.json(true)
+    );
+  });
 }

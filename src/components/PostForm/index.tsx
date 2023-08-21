@@ -72,7 +72,6 @@ export default function PostForm() {
           type="file"
           accept="image/*"
           onChange={onHandleChangeFile}
-          required
           className="hidden"
         />
         <label
@@ -88,30 +87,36 @@ export default function PostForm() {
           {isDragging && (
             <div className="absolute inset-0 z-10 bg-sky-500/20 pointer-events-none" />
           )}
-          <FilesIcon size="w-9 h-9 text-gray-300" />
-          <p>Drag and Drop your image here or click</p>
+          {!file && (
+            <>
+              <FilesIcon size="w-9 h-9 text-gray-300" />
+              <p>Drag and Drop your image here or click</p>
+            </>
+          )}
+          {file && (
+            <div className="relative w-full aspect-square">
+              <Image
+                className="object-cover"
+                src={URL.createObjectURL(file)}
+                alt="local file"
+                fill
+                sizes="650px"
+              />
+            </div>
+          )}
         </label>
 
-        {file && (
-          <div className="relative w-full aspect-square">
-            <Image
-              className="object-cover"
-              src={URL.createObjectURL(file)}
-              alt="local file"
-              fill
-              sizes="650px"
-            />
-          </div>
-        )}
         <textarea
           rows={10}
           placeholder={"Write a caption.."}
-          className="outline-none text-lg border border-neutral-300"
+          className="outline-none border border-neutral-300 text-sm"
           value={content}
           onChange={(e) => setContent(e.target.value)}
           required
         />
-        <Button type="submit">Publish</Button>
+        <Button type="submit" disabled={!file || !content}>
+          Publish
+        </Button>
       </form>
     </section>
   );
