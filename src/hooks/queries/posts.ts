@@ -6,6 +6,7 @@ import { QUERY_KEY } from "@/constants/queryKey";
 import { SimplePost } from "@/types/post";
 import getNewLikes from "@/utils/mutateLikes";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 function useGetPosts() {
   return useQuery<SimplePost[]>({
@@ -64,13 +65,16 @@ function useAddComment() {
 
 function useCreatePost() {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   return useMutation({
     mutationFn: (formData: FormData) => {
       return fetchAPI.post(END_POINT.NEW_POST, formData, false);
     },
-    onSuccess: () =>
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.POSTS] }),
+        router.push("/");
+    },
   });
 }
 

@@ -2,9 +2,11 @@
 
 import { useCreatePost } from "@/hooks/queries/posts";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import React, { useState } from "react";
 import Button from "../Common/Button";
 import Image from "next/image";
+import PostUserAvatar from "../PostUserAvatar";
+import { FilesIcon } from "../UI/icons";
 
 export default function PostForm() {
   const { mutate } = useCreatePost();
@@ -35,15 +37,43 @@ export default function PostForm() {
     }
   };
 
+  const onHandleDragDrop = (e: React.DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+    const droppedFile = e.dataTransfer.items[0].getAsFile();
+
+    if (droppedFile) setFile(droppedFile);
+  };
+
+  const onHandleDragOver = (e: React.DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+  };
+
   return (
     <section className="w-full max-w-xl flex flex-col items-center mt-6">
+      <PostUserAvatar
+        username={session.data.user.name}
+        image={session.data.user.image ?? ""}
+      />
       <form onSubmit={onHandleSubmit} className="w-full flex flex-col mt-2">
         <input
+          id="input-upload"
+          name="input"
           type="file"
           accept="image/*"
           onChange={onHandleChangeFile}
           required
+          className="hidden"
         />
+        <label
+          htmlFor="input-upload"
+          className="cursor-pointer"
+          onDragOver={onHandleDragOver}
+          onDrop={onHandleDragDrop}
+        >
+          <FilesIcon size="w-9 h-9" />
+          <p>Drag and Drop your image here or click</p>
+        </label>
+
         {file && (
           <div className="relative w-full aspect-square">
             <Image
@@ -56,12 +86,14 @@ export default function PostForm() {
           </div>
         )}
         <textarea
+          rows={10}
+          placeholder={"Write a caption.."}
           className="outline-none text-lg border border-neutral-300"
           value={content}
           onChange={(e) => setContent(e.target.value)}
           required
         />
-        <Button type="submit">제출</Button>
+        <Button type="submit">Publish</Button>
       </form>
     </section>
   );
