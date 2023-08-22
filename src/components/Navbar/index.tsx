@@ -13,7 +13,7 @@ import { usePathname } from "next/navigation";
 import Button from "../Common/Button";
 import { signIn, signOut, useSession } from "next-auth/react";
 import HighlightBorder from "../UI/HighlightBorder";
-import Avatar from "../UI/Avatar";
+import Avatar from "../UI/Avatar/index.js";
 
 const navigationMenu = [
   { href: "/", icon: <HomeIcon />, clickedIcon: <HomeFillIcon /> },
