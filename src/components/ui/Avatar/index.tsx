@@ -29,8 +29,8 @@ export default function Avatar({
         src={image ?? undefined}
         alt="user profile"
         className={clsx(
-          "rounded-full bg-white object-cover",
-          AVATAR_SIZE[size]
+          "rounded-full bg-white object-cover"
+          // AVATAR_SIZE[size]
         )}
         referrerPolicy="no-referrer"
       />
