@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useLoggedInUser } from "../../hooks/queries/following";
 import Avatar from "../UI/Avatar";
 
+
 export default function FollowingBar() {
   const { data: user } = useLoggedInUser({ isUsedErrorBoundary: true });
 
