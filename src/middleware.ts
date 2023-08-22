@@ -7,7 +7,7 @@ export function middleware(req: NextRequest) {
 
   if (!token) {
     if (req.nextUrl.pathname.startsWith("/api")) {
-      return new NextResponse("Authentication Error", {
+      return NextResponse.json("Authentication Error", {
         status: 401,
         headers: {
           "Access-Control-Allow-Origin": "*",
