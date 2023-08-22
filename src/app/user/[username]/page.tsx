@@ -15,6 +15,17 @@ type UserPageProps = {
 
 const getUser = cache(async (username: string) => getUserForProfile(username));
 
+export async function generateMetaData({
+  params: { username },
+}: UserPageProps) {
+  const user = await getUser(username);
+
+  return {
+    title: `${user?.name} (@${user?.name}) ∙ Instagram Photos`,
+    description: `${user?.name}'s all Instagram posts`,
+  };
+}
+
 export default async function UserPage({
   params: { username },
 }: UserPageProps) {
@@ -30,15 +41,4 @@ export default async function UserPage({
       <UserPostTabContainer username={username} />
     </section>
   );
-}
-
-export async function generateMetaData({
-  params: { username },
-}: UserPageProps) {
-  const user = await getUser(username);
-
-  return {
-    title: `${user?.name} (@${user?.name}) ∙ Instagram Photos`,
-    description: `${user?.name}'s all Instagram posts`,
-  };
 }
