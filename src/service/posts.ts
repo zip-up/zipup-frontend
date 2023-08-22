@@ -129,7 +129,7 @@ export async function addComment(
 }
 
 export async function createPost(userId: string, content: string, file: Blob) {
-  fetch(
+  return fetch(
     `https://${process.env.SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/assets/images/${process.env.SANITY_DATASET}`,
     {
       method: "POST",

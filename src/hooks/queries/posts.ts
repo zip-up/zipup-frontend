@@ -64,18 +64,13 @@ function useAddComment() {
 }
 
 function useCreatePost() {
-  const queryClient = useQueryClient();
   const router = useRouter();
 
   return useMutation({
     mutationFn: (formData: FormData) => {
       return fetchAPI.post(END_POINT.POSTS, formData, false);
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.ME] });
-
-      router.push("/");
-    },
+    onSuccess: () => router.push("/"),
   });
 }
 
