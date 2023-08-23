@@ -5,7 +5,7 @@ import PostList from "@/components/Post/PostList";
 import SideBar from "@/components/SideBar";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
-import Spinner from "../components/UI/Spinner";
+import Spinner from "../components/ui/Spinner";
 import { handler as authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { ErrorBoundary } from "react-error-boundary";
 

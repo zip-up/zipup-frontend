@@ -2,7 +2,7 @@ import { SimplePost } from "@/types/post";
 import { Suspense } from "react";
 import { Modal } from "../Common/Modal";
 import { PostDetail } from "../PostDetail";
-import Spinner from "../UI/Spinner";
+import Spinner from "../ui/Spinner";
 
 type PostModalProps = {
   isOpen: boolean;

@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import Button from "../Common/Button";
 import Image from "next/image";
 import PostUserAvatar from "../PostUserAvatar";
-import { FilesIcon } from "../UI/icons";
+import { FilesIcon } from "../ui/icons";
 
 export default function PostForm() {
   const { mutate } = useCreatePost();

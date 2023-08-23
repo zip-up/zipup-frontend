@@ -2,7 +2,7 @@ import { useAddComment } from "@/hooks/queries/posts";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import Button from "../../Common/Button";
-import SmileIcon from "../../UI/icons/SmileIcon";
+import SmileIcon from "../../ui/icons/SmileIcon";
 
 type CommentFormProps = {
   postId: string;

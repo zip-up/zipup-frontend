@@ -3,8 +3,8 @@ import {
   HeartFillIcon,
   BookmarkIcon,
   BookmarkFIllIcon,
-} from "@/components/UI/icons";
-import ToggleButton from "@/components/UI/ToggleButton";
+} from "@/components/ui/icons";
+import ToggleButton from "@/components/ui/ToggleButton";
 import { useLikePost } from "@/hooks/queries/posts";
 import { useToggle } from "@/hooks/useToggle";
 import { SimplePost } from "@/types/post";

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useLoggedInUser } from "../../hooks/queries/following";
-import Avatar from "../UI/Avatar";
+import Avatar from "../ui/Avatar";
 
 
 export default function FollowingBar() {

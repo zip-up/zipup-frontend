@@ -4,7 +4,7 @@ import Image from "next/image";
 import { ActionBar } from "../Post/ActionBar";
 import CommentForm from "../Post/CommentForm";
 import PostUserAvatar from "../PostUserAvatar";
-import Avatar from "../UI/Avatar";
+import Avatar from "../ui/Avatar";
 
 type PostDetailProps = {
   post: SimplePost;

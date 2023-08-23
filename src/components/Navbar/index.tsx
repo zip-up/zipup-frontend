@@ -8,12 +8,12 @@ import {
   SearchFillIcon,
   NewIcon,
   NewFillIcon,
-} from "@/components/UI/icons";
+} from "@/components/ui/icons";
 import { usePathname } from "next/navigation";
 import Button from "../Common/Button";
 import { signIn, signOut, useSession } from "next-auth/react";
-import HighlightBorder from "@/components/UI/HighlightBorder";
-import Avatar from "@/components/UI/Avatar";
+import HighlightBorder from "@/components/ui/HighlightBorder";
+import Avatar from "@/components/ui/Avatar";
 
 const navigationMenu = [
   { href: "/", icon: <HomeIcon />, clickedIcon: <HomeFillIcon /> },

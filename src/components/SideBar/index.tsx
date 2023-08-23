@@ -1,5 +1,5 @@
 import { AuthUser } from "../../types/user";
-import Avatar from "../UI/Avatar";
+import Avatar from "../ui/Avatar";
 
 type SideBarProps = {
   user: AuthUser;

@@ -1,4 +1,4 @@
-import Spinner from "@/components/UI/Spinner";
+import Spinner from "@/components/ui/Spinner";
 import UserSearch from "@/components/UserSearch";
 import { Suspense } from "react";
 import { Metadata } from "next";

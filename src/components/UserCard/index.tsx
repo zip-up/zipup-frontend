@@ -1,7 +1,7 @@
 import { SearchUser } from "@/types/user";
 import Link from "next/link";
 import React from "react";
-import Avatar from "../UI/Avatar";
+import Avatar from "../ui/Avatar";
 
 type UserCardProps = {
   user: SearchUser;

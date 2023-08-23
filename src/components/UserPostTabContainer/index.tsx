@@ -2,12 +2,12 @@
 
 import React, { Suspense, useState } from "react";
 import { postTab, postTabTitle } from "@/types/postTab";
-import BookmarkIcon from "../UI/icons/BookmarkIcon";
-import HeartIcon from "../UI/icons/HeartIcon";
-import PostIcon from "../UI/icons/PostIcon";
+import BookmarkIcon from "../ui/icons/BookmarkIcon";
+import HeartIcon from "../ui/icons/HeartIcon";
+import PostIcon from "../ui/icons/PostIcon";
 import ProfilePostTab from "./ProfilePostTab";
 import PostGridContainer from "./PostGridContainer";
-import Spinner from "../UI/Spinner";
+import Spinner from "../ui/Spinner";
 
 type PostTabContainerProps = {
   username: string;

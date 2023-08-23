@@ -2,7 +2,7 @@
 
 import { ClientSafeProvider, signIn } from "next-auth/react";
 import Button from "../Common/Button";
-import HighlightBorder from "../UI/HighlightBorder";
+import HighlightBorder from "../ui/HighlightBorder";
 
 type SigninProps = {
   providers: Record<string, ClientSafeProvider>;

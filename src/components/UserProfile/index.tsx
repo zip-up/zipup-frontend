@@ -1,8 +1,8 @@
 import { ProfileUser } from "@/types/user";
 import React, { Suspense } from "react";
-import Avatar from "../UI/Avatar";
-import FollowButton from "../UI/FollowButton";
-import Spinner from "../UI/Spinner";
+import Avatar from "../ui/Avatar";
+import FollowButton from "../ui/FollowButton";
+import Spinner from "../ui/Spinner";
 debugger;
 type UserProfileProps = {
   user: ProfileUser;
