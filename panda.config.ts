@@ -15,7 +15,9 @@ export default defineConfig({
     extend: {
       tokens: {
         fonts: {
-          pretendard: { value: 'var(--font-pretendard), Menlo, monospace' },
+          'pretendard-bold': { value: 'var(--font-pretendard-bold), Menlo, monospace' },
+          'pretendard-semibold': { value: 'var(--font-pretendard-semibold), Menlo, monospace' },
+          'pretendard-regular': { value: 'var(--font-pretendard-regular), Menlo, monospace' },
         },
         colors: {
           gray: {
