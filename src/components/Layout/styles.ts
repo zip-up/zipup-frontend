@@ -11,13 +11,12 @@ const content = css({
   width: '100%',
   height: '100vh',
   maxWidth: '36rem',
-  minHeight: '78rem',
   display: 'flex',
   flexDirection: 'column',
 });
 
 const main = css({
-  flex: 1,
+  flexGrow: 1,
 });
 
 export { container, content, main };
