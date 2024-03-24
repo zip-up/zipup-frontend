@@ -7,7 +7,7 @@ import { useState } from 'react';
 import LoginModal from '@components/modals/LoginModal/index';
 
 export default function Home() {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
