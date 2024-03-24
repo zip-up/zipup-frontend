@@ -24,7 +24,8 @@
       "@api/*": ["api/*"],
       "@store/*": ["store/*"],
       "@contexts/*": ["contexts/*"],
-      "@styles/*": ["styles/*"]
+      "@styles/*": ["styles/*"],
+      "@assets/*": ["assets/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
