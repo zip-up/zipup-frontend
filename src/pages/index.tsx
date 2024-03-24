@@ -24,7 +24,7 @@ export default function Home() {
           `}
         </style>
       </Head>
-      {isOpen && <LoginModal />}
+      {isOpen && <LoginModal onClose={() => setIsOpen(false)} />}
       <main>
         <header className={header}>
           <div className={box} />

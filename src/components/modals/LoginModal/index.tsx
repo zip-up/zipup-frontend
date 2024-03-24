@@ -3,7 +3,11 @@ import React from 'react';
 import Login from '../../../asset/login-button.svg';
 import { button, button_box, imageBox, image, subtitle, title } from './styles';
 
-export default function LoginModal() {
+interface LoginModalProps {
+  onClose: () => void;
+}
+
+export default function LoginModal({ onClose }: LoginModalProps) {
   const REDIRECT_URI = 'http://localhost:3000/kakao/callback';
   const url = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code
 `;
@@ -13,7 +17,7 @@ export default function LoginModal() {
   };
 
   return (
-    <Modal>
+    <Modal onClose={onClose}>
       <div className={imageBox}>
         <div className={image} />
       </div>
