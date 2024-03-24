@@ -7,16 +7,16 @@ export default function Home() {
       <Head>
         <title>ZIPup | 집들이 선물 펀딩 서비스</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
-      <style>
-        {`
+        <style>
+          {`
           :root {
             --font-pretendard-bold: ${PretendardBold.style.fontFamily};
             --font-pretendard-semibold: ${PretendardSemiBold.style.fontFamily};
             --font-pretendard-regular: ${PretendardRegular.style.fontFamily};
           }
         `}
-      </style>
+        </style>
+      </Head>
       <main />
     </>
   );
