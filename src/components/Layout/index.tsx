@@ -1,11 +1,11 @@
 import { PropsWithChildren } from 'react';
-import { container, content, main } from './styles';
+import * as style from './styles';
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (
-    <div className={container}>
-      <div className={content}>
-        <main className={main}>{children}</main>
+    <div className={style.container}>
+      <div className={style.content}>
+        <main className={style.main}>{children}</main>
       </div>
     </div>
   );

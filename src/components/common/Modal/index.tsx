@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
 import { css } from '../../../../styled-system/css';
 import classNames from 'classnames';
-import { modal_container, modal_content } from './styles';
+import * as style from './styles';
 
 interface ModalProps {
   height?: string;
@@ -14,9 +14,9 @@ export default function Modal({ children, height, onClose }: PropsWithChildren<M
   };
 
   return (
-    <div className={modal_container} onClick={onClose}>
+    <div className={style.modal_container} onClick={onClose}>
       <div
-        className={classNames(modal_content, css({ height: height || '25.5rem' }))}
+        className={classNames(style.modal_content, css({ height: height || '25.5rem' }))}
         onClick={handleContentClick}
       >
         {children}
