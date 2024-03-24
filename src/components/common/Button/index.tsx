@@ -1,4 +1,3 @@
-import React from 'react';
 import classnames from 'classnames';
 import { button, styles } from './styles';
 import { css } from '../../../../styled-system/css';

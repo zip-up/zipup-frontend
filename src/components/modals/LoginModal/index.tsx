@@ -1,5 +1,4 @@
 import Modal from '@components/common/Modal';
-import React from 'react';
 import Login from '../../../asset/login-button.svg';
 import { button, button_box, imageBox, image, subtitle, title } from './styles';
 

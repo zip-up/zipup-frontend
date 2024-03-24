@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 import { container, content, main } from './styles';
 
 const Layout = ({ children }: PropsWithChildren) => {
