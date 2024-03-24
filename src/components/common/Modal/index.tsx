@@ -1,15 +1,14 @@
-import React from 'react';
+import { PropsWithChildren } from 'react';
 import { css } from '../../../../styled-system/css';
 import classNames from 'classnames';
 import { modal_container, modal_content } from './styles';
 
 interface ModalProps {
-  children: React.ReactNode;
   height?: string;
   onClose: () => void;
 }
 
-export default function Modal({ children, height, onClose }: ModalProps) {
+export default function Modal({ children, height, onClose }: PropsWithChildren<ModalProps>) {
   const handleContentClick = (e: React.MouseEvent) => {
     e.stopPropagation();
   };
