@@ -10,12 +10,10 @@ interface ButtonProps {
   color: 'primary' | 'secondary' | 'disabled';
 }
 
-function Button({ height = '5.2rem', onClick, text, color }: ButtonProps) {
+export default function Button({ height = '5.2rem', onClick, text, color }: ButtonProps) {
   return (
     <button className={classnames(button, styles[color], css({ height }))} onClick={onClick}>
       {text}
     </button>
   );
 }
-
-export default Button;

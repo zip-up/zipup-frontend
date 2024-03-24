@@ -3,8 +3,12 @@ import Logo from '../asset/logo.svg';
 import Button from '@components/common/Button';
 import Image from 'next/image';
 import { box, header, highlight, image, logo, subtitle, text_box, wrapper, title } from './style';
+import { useState } from 'react';
+import LoginModal from '@components/modals/LoginModal/index';
 
 export default function Home() {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   return (
     <>
       <Head>
@@ -20,6 +24,7 @@ export default function Home() {
           `}
         </style>
       </Head>
+      {isOpen && <LoginModal />}
       <main>
         <header className={header}>
           <div className={box} />
@@ -42,7 +47,7 @@ export default function Home() {
           <div className={image}>
             <Image src={''} alt="" />
           </div>
-          <Button text="내 펀딩을 만들어볼까요?" color="primary" onClick={() => null} />
+          <Button text="내 펀딩을 만들어볼까요?" color="primary" onClick={() => setIsOpen(true)} />
           <Button text="서비스 둘러볼게요" color="secondary" onClick={() => null} />
         </div>
       </main>
