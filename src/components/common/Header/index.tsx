@@ -1,5 +1,5 @@
 import BackIcon from '@assets/icons/back.svg';
-import * as s from './styles';
+import * as style from './styles';
 
 interface HeaderProps {
   hasTitle?: boolean;
@@ -7,12 +7,12 @@ interface HeaderProps {
 
 export default function Header({ hasTitle }: HeaderProps) {
   return (
-    <header className={s.header}>
-      <button className={s.wrapper}>
+    <header className={style.header}>
+      <button className={style.wrapper}>
         <BackIcon />
       </button>
-      {hasTitle && <h2 className={s.title}>내가 만든 펀딩</h2>}
-      <div className={s.wrapper} />
+      {hasTitle && <h2 className={style.title}>내가 만든 펀딩</h2>}
+      <div className={style.wrapper} />
     </header>
   );
 }
