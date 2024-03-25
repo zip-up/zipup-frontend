@@ -1,5 +1,4 @@
 import { GetServerSideProps } from 'next';
-import { redirect } from 'next/navigation';
 import axios from 'axios';
 
 export const getServerSideProps: GetServerSideProps = async context => {
@@ -29,7 +28,12 @@ export const getServerSideProps: GetServerSideProps = async context => {
     );
     return { props: { paymentKey, orderId, amount } };
   } catch (e: any) {
-    redirect(`/payment/fail?code=${e.response.data.code}&message=${e.response.data.message}`);
+    return {
+      redirect: {
+        destination: `/payment/fail?code=${e.response.data.code}&message=${encodeURIComponent(e.response.data.message)}`,
+        permanent: false,
+      },
+    };
   }
 };
 

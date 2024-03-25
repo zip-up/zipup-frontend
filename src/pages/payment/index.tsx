@@ -27,6 +27,7 @@ export default function Payment() {
         failUrl: `${window.location.origin}/payment/fail`,
       });
     } catch (error) {
+      // snackbar 알림 띄우기
       console.error('Error requesting payment:', error);
     }
   };
