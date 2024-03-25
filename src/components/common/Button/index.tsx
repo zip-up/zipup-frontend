@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 import { button, styles } from './styles';
-import { css } from '../../../../styled-system/css';
+import { css } from '@styled-system/css';
 import { PropsWithChildren } from 'react';
 
 interface ButtonProps {

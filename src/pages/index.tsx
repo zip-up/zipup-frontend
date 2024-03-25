@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Logo from '@assets/logo.svg';
+import Logo from '@assets/images/logo.svg';
 import Button from '@components/common/Button';
 import Image from 'next/image';
 import * as style from './style';

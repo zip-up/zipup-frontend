@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import { css } from '../../../../styled-system/css';
+import { css } from '@styled-system/css';
 import classNames from 'classnames';
 import * as style from './styles';
 

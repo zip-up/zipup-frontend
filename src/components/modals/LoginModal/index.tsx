@@ -1,5 +1,5 @@
 import Modal from '@components/common/Modal';
-import Login from '@assets/login-button.svg';
+import Login from '@assets/images/login-button.svg';
 import * as style from './styles';
 
 interface LoginModalProps {

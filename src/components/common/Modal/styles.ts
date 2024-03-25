@@ -1,4 +1,4 @@
-import { css } from '../../../../styled-system/css';
+import { css } from '@styled-system/css';
 
 const modal_container = css({
   zIndex: 0,
