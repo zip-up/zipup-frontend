@@ -47,8 +47,12 @@ export default function Home() {
           <div className={style.image}>
             <Image src={''} alt="" />
           </div>
-          <Button text="내 펀딩을 만들어볼까요?" color="primary" onClick={() => setIsOpen(true)} />
-          <Button text="서비스 둘러볼게요" color="secondary" onClick={() => null} />
+          <Button color="primary" onClick={() => setIsOpen(true)}>
+            내 펀딩을 만들어볼까요?
+          </Button>
+          <Button color="secondary" onClick={() => null}>
+            서비스 둘러볼게요
+          </Button>
         </div>
       </main>
     </>
