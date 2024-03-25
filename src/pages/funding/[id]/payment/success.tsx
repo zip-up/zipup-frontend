@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const {
-    query: { paymentKey, orderId, amount },
+    query: { paymentKey, orderId, amount, id },
   } = context;
 
   // 결제 승인 요청
@@ -30,7 +30,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
   } catch (e: any) {
     return {
       redirect: {
-        destination: `/payment/fail?code=${e.response.data.code}&message=${encodeURIComponent(e.response.data.message)}`,
+        destination: `/funding/${id}/payment/fail?code=${e.response.data.code}&message=${encodeURIComponent(e.response.data.message)}`,
         permanent: false,
       },
     };
