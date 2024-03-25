@@ -72,8 +72,8 @@ export default defineConfig({
           },
           text: {
             100: { value: '#1E2025' },
-            200: { value: '#0098E8' },
-            300: { value: '#05A5F8' },
+            200: { value: '#6A737B' },
+            300: { value: '#A7AFB7' },
           },
         },
         fontSizes: {
