@@ -8,11 +8,18 @@ import MessageList from '@components/MessageList';
 import StatusTag from '@components/common/StatusTag';
 import DefaultPresentImg from '@assets/images/default_present.svg';
 import Image from 'next/image';
+import { useGetFundingDeatil } from '@hooks/queries/useFunding';
 
 export default function Funding() {
   const router = useRouter();
 
   const { id } = router.query;
+
+  const { data: fundingInfo } = useGetFundingDeatil();
+
+  if (!fundingInfo) return null;
+
+  const { title, imageUrl, status, percent, organizer: isOrganizer } = fundingInfo[0];
 
   return (
     <div className={style.pageLayout}>
@@ -20,16 +27,16 @@ export default function Funding() {
       <DefaultPresentImg />
       <article className={style.wrapper}>
         <div className={style.topbar}>
-          <h2 className={style.title}>펀딩 제목입니다.</h2>
+          <h2 className={style.title}>{title}</h2>
           <MoreIcon />
         </div>
 
         <div className={style.statusBox}>
           <div className={style.subInfoWrapper}>
             <div className={style.statusMsg}>
-              <span className={style.percentageText}>75%</span>의 마음이 UP 되었어요
+              <span className={style.percentageText}>{percent}%</span>의 마음이 UP 되었어요
             </div>
-            <StatusTag daysLeft={1} />
+            <StatusTag daysLeft={status} />
           </div>
           <div>progress bar</div>
 
