@@ -5,6 +5,7 @@ import Image from 'next/image';
 import MoreIcon from '@assets/icons/more_vert.svg';
 import * as style from './styles';
 import Button from '@components/common/Button';
+import DefaultPresentImg from '@assets/images/default_present.svg';
 
 export default function Funding() {
   const router = useRouter();
@@ -14,8 +15,9 @@ export default function Funding() {
   return (
     <div className={style.pageLayout}>
       <Header />
-      <Image src="" alt="상품 이미지" style={{ width: '100%', height: '216px' }} />
-
+      <div className={style.imageWrapper}>
+        <DefaultPresentImg />
+      </div>
       <article className={style.wrapper}>
         <div className={style.topbar}>
           <h2 className={style.title}>펀딩 제목입니다.</h2>

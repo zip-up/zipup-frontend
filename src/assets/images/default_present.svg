@@ -1,0 +1,18 @@
+<svg width="105" height="105" viewBox="0 0 105 105" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 16810">
+<path id="Vector 462" d="M69.1115 25.9182L48.6512 39.3551L53.7746 15.4192C55.275 8.40949 63.4238 5.18217 69.3168 9.2637C75.1713 13.3185 75.0641 22.0089 69.1115 25.9182Z" stroke="#9BE180" stroke-width="4"/>
+<path id="Vector 483" d="M26.7825 25.9182L47.2429 39.3551L42.1195 15.4192C40.6191 8.40949 32.4702 5.18217 26.5772 9.2637C20.7228 13.3185 20.8299 22.0089 26.7825 25.9182Z" stroke="#9BE180" stroke-width="4"/>
+<path id="Rectangle 3253" d="M1.05151 47.75C1.05151 42.2272 5.52867 37.75 11.0515 37.75H83.0515V104.75H11.0515C5.52867 104.75 1.05151 100.273 1.05151 94.75V47.75Z" fill="#D6F2CA"/>
+<path id="Polygon 16" d="M44.8965 50.2055L49.1823 69.5989L30.2443 63.6138L44.8965 50.2055Z" fill="white"/>
+<rect id="Rectangle 3254" x="56.1506" y="83.2632" width="32.6223" height="16.3112" transform="rotate(-28.3941 56.1506 83.2632)" fill="#EEFAE9"/>
+<g id="Mask group">
+<mask id="mask0_355_4613" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="37" width="41" height="67">
+<rect id="Rectangle 3166" x="0.948486" y="37.9075" width="39.6052" height="65.8436" transform="rotate(-0.227785 0.948486 37.9075)" fill="#B8EAA5"/>
+</mask>
+<g mask="url(#mask0_355_4613)">
+<circle id="Ellipse 1253" cx="4.11612" cy="81.9336" r="13.3888" transform="rotate(-0.227785 4.11612 81.9336)" fill="#B8EAA5"/>
+</g>
+</g>
+<path id="Rectangle 3255" d="M83.0515 37.75H94.0515C99.5744 37.75 104.052 42.2272 104.052 47.75V94.75C104.052 100.273 99.5744 104.75 94.0515 104.75H83.0515V37.75Z" fill="#9BE180"/>
+</g>
+</svg>
