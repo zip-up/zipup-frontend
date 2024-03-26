@@ -32,7 +32,7 @@ export default function CreatFundStep3() {
 
   const handleCreateFundSubmit = (data: FormInput) => {
     console.log(data);
-    router.push('/fund/create/4');
+    router.push('/funding/create/4');
   };
 
   return (

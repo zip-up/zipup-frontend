@@ -24,7 +24,7 @@ export default function CreatFundStep2() {
 
   const handleCreateFundSubmit = (data: FormInput) => {
     console.log(data);
-    router.push('/fund/create/3');
+    router.push('/funding/create/3');
   };
 
   const validateString = (text: string) => /^[가-힣a-zA-Z]+$/.test(text);

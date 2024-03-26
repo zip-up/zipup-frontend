@@ -25,7 +25,7 @@ export default function CreatFundStep1() {
 
   const handleCreateFundSubmit = (data: FormInput) => {
     console.log(data);
-    router.push('/fund/create/2');
+    router.push('/funding/create/2');
   };
 
   const validateUrl = (url: string) =>

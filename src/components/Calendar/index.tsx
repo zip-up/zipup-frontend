@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import * as fundStyle from '@pages/fund/create/styles';
+import * as fundStyle from '@pages/funding/create/styles';
 import CalendarIcon from '@assets/calendar_month.svg';
 import { ko } from 'date-fns/locale';
 import { format } from 'date-fns';
