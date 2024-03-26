@@ -54,7 +54,7 @@ export default function CreatFundStep2() {
             validate: value => validateString(value) || '잘못된 형식입니다.',
           })}
         />
-        {errors.name && watch('name') && <p className={style.error_text}>{errors.name.message}</p>}
+        {errors.name && <p className={style.error_text}>{errors.name.message}</p>}
 
         <div className={style.divider} />
 
@@ -84,9 +84,7 @@ export default function CreatFundStep2() {
             })}
           />
         </div>
-        {errors.textMessage && watch('textMessage') && (
-          <p className={style.error_text}>{errors.textMessage.message}</p>
-        )}
+        {errors.textMessage && <p className={style.error_text}>{errors.textMessage.message}</p>}
 
         <Button type="submit" className={style.button} color="secondary">
           다음
