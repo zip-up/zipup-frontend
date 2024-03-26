@@ -7,6 +7,7 @@ interface ModalWithIconProps {
   title: string;
   subtitle: string;
   buttonComponent: React.ReactNode;
+  width?: string;
 }
 
 export default function ModalWithIcon({
@@ -15,9 +16,10 @@ export default function ModalWithIcon({
   subtitle,
   icon,
   buttonComponent,
+  width,
 }: ModalWithIconProps) {
   return (
-    <Modal onClose={onClose}>
+    <Modal onClose={onClose} height={258} width={width}>
       <div className={style.top_box}>
         <div className={style.image_box}>{icon}</div>
         <p className={style.title}>{title}</p>

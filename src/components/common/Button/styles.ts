@@ -1,8 +1,6 @@
 import { css } from '../../../../styled-system/css';
 
 const button = css({
-  height: '5.2rem',
-  width: '100%',
   borderRadius: '0.8rem',
   color: '#FFF',
   fontFamily: 'pretendard-semibold',
