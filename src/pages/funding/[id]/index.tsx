@@ -45,12 +45,25 @@ export default function Funding() {
           친구에게 공유하기
         </Button>
 
-        <div>
+        <div className={style.desc}>
           이 곳에는 펀딩 소개가 들어갈거예요. 펀딩 등록시 입력한 소개를 여기에 노출시킬 거예요.
           글자수 제한이 없어요.....
         </div>
       </article>
 
+      <article className={style.msgsWrapper}>
+        <h2 className={style.title}>친구들의 메세지</h2>
+        <div className={style.msgBox}>
+          <Image src="" alt="프로필 이미지" width="20" height="20" />
+          <div className={style.infoWrapper}>
+            <div className={style.info}>
+              김고은
+              <span className={style.blueText}>40%기여</span>
+            </div>
+            <div className={style.comment}>내집마련 축하해🥳</div>
+          </div>
+        </div>
+      </article>
       {/* <Link href={{ pathname: `/funding/${id}/payment`, query: { amount: 20000 } }}>결제하기</Link> */}
     </div>
   );
