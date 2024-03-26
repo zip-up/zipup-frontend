@@ -50,7 +50,7 @@ export default function Funding() {
           </div>
         </div>
 
-        <Button color="secondary" onClick={() => {}}>
+        <Button color="secondary" wFull onClick={() => {}}>
           친구에게 공유하기
         </Button>
 
