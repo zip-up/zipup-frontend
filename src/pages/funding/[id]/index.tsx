@@ -4,9 +4,10 @@ import Header from '@components/common/Header';
 import MoreIcon from '@assets/icons/more_vert.svg';
 import * as style from './styles';
 import Button from '@components/common/Button';
-import DefaultPresentImg from '@assets/images/default_present.svg';
 import MessageList from '@components/MessageList';
 import StatusTag from '@components/common/StatusTag';
+import DefaultPresentImg from '@assets/images/default_present.svg';
+import Image from 'next/image';
 
 export default function Funding() {
   const router = useRouter();
@@ -16,9 +17,7 @@ export default function Funding() {
   return (
     <div className={style.pageLayout}>
       <Header />
-      <div className={style.imageWrapper}>
-        <DefaultPresentImg />
-      </div>
+      <DefaultPresentImg />
       <article className={style.wrapper}>
         <div className={style.topbar}>
           <h2 className={style.title}>펀딩 제목입니다.</h2>

@@ -3,8 +3,6 @@ import { vstack, wrap } from '@styled-system/patterns';
 
 const pageLayout = vstack({ gap: '0' });
 
-const imageWrapper = wrap({ w: 'auto', height: '22.5rem', pt: '4rem' });
-
 const wrapper = wrap({ w: '32.8rem', gap: '1.6rem', mt: '1.5rem', mb: '1.5rem' });
 
 const topbar = wrap({
@@ -68,7 +66,6 @@ const desc = css(borderWithPadding, {
 
 export {
   pageLayout,
-  imageWrapper,
   wrapper,
   topbar,
   title,
