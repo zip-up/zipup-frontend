@@ -5,11 +5,6 @@ const pageLayout = vstack({ gap: '0' });
 
 const wrapper = wrap({ w: '32.8rem', gap: '1.6rem', mt: '1.5rem', mb: '1.5rem' });
 
-const topbar = wrap({
-  justifyContent: 'space-between',
-  w: '100%',
-});
-
 const title = css({
   color: 'text.100',
   fontSize: 'subtitle1',
@@ -67,7 +62,6 @@ const desc = css(borderWithPadding, {
 export {
   pageLayout,
   wrapper,
-  topbar,
   title,
   statusBox,
   statusMsg,

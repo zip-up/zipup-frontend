@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Header from '@components/common/Header';
-import MoreIcon from '@assets/icons/more_vert.svg';
 import * as style from './styles';
 import Button from '@components/common/Button';
 import MessageList from '@components/MessageList';
@@ -26,17 +25,14 @@ export default function Funding() {
       <Header />
       <DefaultPresentImg />
       <article className={style.wrapper}>
-        <div className={style.topbar}>
-          <h2 className={style.title}>{title}</h2>
-          <MoreIcon />
-        </div>
+        <h2 className={style.title}>{title}</h2>
 
         <div className={style.statusBox}>
           <div className={style.subInfoWrapper}>
             <div className={style.statusMsg}>
               <span className={style.percentageText}>{percent}%</span>의 마음이 UP 되었어요
             </div>
-            <StatusTag daysLeft={status} />
+            <StatusTag daysLeft={34} />
           </div>
           <div>progress bar</div>
 
