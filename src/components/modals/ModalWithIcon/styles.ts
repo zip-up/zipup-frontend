@@ -1,6 +1,14 @@
 import { css } from '../../../../styled-system/css';
 
-const imageBox = css({
+const top_box = css({
+  width: '100%',
+  height: '10.4rem',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '2.4rem',
+});
+
+const image_box = css({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -17,7 +25,6 @@ const title = css({
   fontFamily: 'pretendard-semibold',
   fontWeight: '700',
   fontSize: 'subtitle1',
-  marginBottom: '1.5rem',
 });
 
 const subtitle = css({
@@ -25,22 +32,11 @@ const subtitle = css({
   fontSize: 'body1',
   color: 'text.200',
   fontWeight: '400',
+  marginTop: '1.6rem',
 });
 
 const button_box = css({
   width: '100%',
 });
 
-const button = css({
-  position: 'absolute',
-  bottom: '1.8rem',
-  left: 0,
-  height: '4.9rem',
-  width: '29.7rem',
-  margin: '0 1rem',
-  display: 'flex',
-  justifyContent: 'center',
-  cursor: 'pointer',
-});
-
-export { imageBox, image, title, subtitle, button_box, button };
+export { top_box, image_box, image, title, subtitle, button_box };
