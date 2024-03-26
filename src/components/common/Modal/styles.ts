@@ -14,7 +14,8 @@ const modal_container = css({
 });
 
 const modal_content = css({
-  width: '31.7rem',
+  width: '32.7rem',
+  height: '15.5rem',
   backgroundColor: 'white',
   borderRadius: '2rem',
   padding: '1.8rem 1rem',
