@@ -2,11 +2,11 @@ import Button from '@components/common/Button';
 import Header from '@components/common/Header';
 import { useRouter } from 'next/router';
 import * as style from '../styles';
-import classNames from 'classnames';
 import { css } from '@styled-system/css';
 import { useForm } from 'react-hook-form';
 import DatePicker from '@components/Calendar';
 import { useEffect, useState } from 'react';
+import ProgressBar from '@components/common/ProgressBar';
 
 interface FormInput {
   due: string;
@@ -38,10 +38,7 @@ export default function CreatFundStep3() {
   return (
     <>
       <Header onGoBack={() => router.back()} />
-      <div className={style.progressbar}>
-        <div className={style.background_bar} />
-        <div className={classNames(style.current_progress, css({ width: '24.6rem' }))} />
-      </div>
+      <ProgressBar width={css({ width: '24.6rem' })} />
       <h4 className={style.step_name}>Step 3</h4>
       <h2 className={style.title}>목표 금액과 기간을 입력해주세요.</h2>
       <form className={style.form} onSubmit={handleSubmit(handleCreateFundSubmit)}>

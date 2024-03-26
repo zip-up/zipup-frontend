@@ -12,6 +12,7 @@ import AddressModal from '@components/modals/AddressModal';
 import { useRouter } from 'next/router';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import GiftIcon from '@assets/gift-icon.svg';
+import ProgressBar from '@components/common/ProgressBar';
 
 interface FormInput {
   address: string;
@@ -69,10 +70,7 @@ export default function CreatFundStep4() {
         />
       )}
       <Header onGoBack={() => router.back()} />
-      <div className={style.progressbar}>
-        <div className={style.background_bar} />
-        <div className={classNames(style.current_progress, css({ width: '100%' }))} />
-      </div>
+      <ProgressBar width={css({ width: '100%' })} />
       <h4 className={style.step_name}>Step 4</h4>
       <h2 className={style.title}>배송 정보를 입력해주세요.</h2>
 
@@ -80,7 +78,7 @@ export default function CreatFundStep4() {
         <label>
           <span className={style.subtitle}>선물을 배송받을 주소를 입력해주세요.</span>
         </label>
-        <div className={style.date_box}>
+        <div className={style.date_box} onClick={() => setIsOpen(true)}>
           <input
             className={classNames(
               style.input_shape,
@@ -90,7 +88,7 @@ export default function CreatFundStep4() {
             defaultValue={'주소 검색하기'}
             {...register('address')}
           />
-          <button type="button" className={style.pointer} onClick={() => setIsOpen(true)}>
+          <button type="button" className={style.pointer}>
             <SearchIcon />
           </button>
         </div>
