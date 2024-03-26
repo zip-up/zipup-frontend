@@ -25,7 +25,7 @@ export default function ModalWithIcon({
         <p className={style.title}>{title}</p>
       </div>
       <p className={style.subtitle}>{subtitle}</p>
-      <p className={style.button_box}>{buttonComponent}</p>
+      <div className={style.button_box}>{buttonComponent}</div>
     </Modal>
   );
 }
