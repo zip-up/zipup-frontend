@@ -22,16 +22,17 @@ export default function Funding() {
           <MoreIcon />
         </div>
 
-        <div className={style.statusContainer}>
-          <div className={style.statusWrapper}>
-            <span className={style.statusMessage}>
-              <span className={style.percentageText}>75%</span> 마음이 UP 되었어요
-            </span>
-            <div>진행중 태그</div>
+        <div className={style.statusBox}>
+          <div className={style.subInfoWrapper}>
+            <div className={style.statusMsg}>
+              <span className={style.percentageText}>75%</span>의 마음이 UP 되었어요
+            </div>
+            <span>진행중 태그</span>
           </div>
           <div>progress bar</div>
-          <div className={style.statusWrapper}>
-            <span className={style.text}>
+
+          <div className={style.captionWrapper}>
+            <span>
               펀딩 종료까지 <span className={style.blueText}>0일</span>
             </span>
             <span>
