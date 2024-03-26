@@ -6,6 +6,7 @@ import * as style from './styles';
 import Button from '@components/common/Button';
 import DefaultPresentImg from '@assets/images/default_present.svg';
 import MessageList from '@components/MessageList';
+import StatusTag from '@components/common/StatusTag';
 
 export default function Funding() {
   const router = useRouter();
@@ -29,7 +30,7 @@ export default function Funding() {
             <div className={style.statusMsg}>
               <span className={style.percentageText}>75%</span>의 마음이 UP 되었어요
             </div>
-            <span>진행중 태그</span>
+            <StatusTag daysLeft={1} />
           </div>
           <div>progress bar</div>
 
