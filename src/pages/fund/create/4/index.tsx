@@ -142,7 +142,7 @@ export default function CreatFundStep4() {
                 href="https://danisong.notion.site/3-6b01ebda16e348488b1bb566c3451e41"
                 className={style.terms_conditions}
               >
-                전자금융거래 이용약관 보기
+                개인정보처리방침 전체내용 보기
               </a>
             </div>
           </div>
