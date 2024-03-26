@@ -1,5 +1,5 @@
 import { css, cx } from '@styled-system/css';
-import { vstack, wrap, hstack } from '@styled-system/patterns';
+import { vstack, wrap } from '@styled-system/patterns';
 
 const pageLayout = vstack({ gap: '0' });
 
@@ -66,42 +66,6 @@ const desc = css(borderWithPadding, {
   letterSpacing: '-0.014rem',
 });
 
-/** message component */
-
-const msgsWrapper = vstack({
-  bg: 'bg.200',
-  alignItems: 'flex-start',
-  gap: '1.5rem',
-  p: '1.3rem',
-  w: '100%',
-});
-
-const msgBox = cx(
-  css(borderWithPadding),
-  hstack({
-    justifyContent: 'flex-start',
-    fontSize: 'body2',
-    color: 'text.100',
-    gap: '4rem',
-    bg: 'bg.100',
-    w: '100%',
-  }),
-);
-
-const infoWrapper = vstack({ gap: '1.3rem', alignItems: 'flex-start' });
-
-const info = wrap({
-  gap: '1rem',
-  lineHeight: '1.2rem',
-  '& span': {
-    fontSize: 'caption1',
-  },
-});
-
-const comment = css({
-  color: 'text.200',
-});
-
 export {
   pageLayout,
   imageWrapper,
@@ -115,9 +79,4 @@ export {
   captionWrapper,
   blueText,
   desc,
-  msgsWrapper,
-  msgBox,
-  info,
-  comment,
-  infoWrapper,
 };

@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Header from '@components/common/Header';
-import Image from 'next/image';
 import MoreIcon from '@assets/icons/more_vert.svg';
 import * as style from './styles';
 import Button from '@components/common/Button';
 import DefaultPresentImg from '@assets/images/default_present.svg';
+import MessageList from '@components/MessageList';
 
 export default function Funding() {
   const router = useRouter();
@@ -53,19 +53,8 @@ export default function Funding() {
         </div>
       </article>
 
-      <article className={style.msgsWrapper}>
-        <h2 className={style.title}>친구들의 메세지</h2>
-        <div className={style.msgBox}>
-          <Image src="" alt="프로필 이미지" width="20" height="20" />
-          <div className={style.infoWrapper}>
-            <div className={style.info}>
-              김고은
-              <span className={style.blueText}>40%기여</span>
-            </div>
-            <div className={style.comment}>내집마련 축하해🥳</div>
-          </div>
-        </div>
-      </article>
+      <MessageList />
+
       {/* <Link href={{ pathname: `/funding/${id}/payment`, query: { amount: 20000 } }}>결제하기</Link> */}
     </div>
   );
