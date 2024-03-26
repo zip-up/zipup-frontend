@@ -6,6 +6,7 @@ import * as style from '../styles';
 import classNames from 'classnames';
 import { css } from '@styled-system/css';
 import TextareaAutosize from 'react-textarea-autosize';
+import ProgressBar from '@components/common/ProgressBar';
 
 interface FormInput {
   name: string;
@@ -24,7 +25,7 @@ export default function CreatFundStep2() {
 
   const handleCreateFundSubmit = (data: FormInput) => {
     console.log(data);
-    router.push('/fund/create/3');
+    router.push('/funding/create/3');
   };
 
   const validateString = (text: string) => /^[가-힣a-zA-Z]+$/.test(text);
@@ -32,10 +33,7 @@ export default function CreatFundStep2() {
   return (
     <>
       <Header onGoBack={() => router.back()} />
-      <div className={style.progressbar}>
-        <div className={style.background_bar} />
-        <div className={classNames(style.current_progress, css({ width: '16.4rem' }))} />
-      </div>
+      <ProgressBar width={css({ width: '16.4rem' })} />
       <h4 className={style.step_name}>Step 2</h4>
       <h2 className={style.title}>내 펀딩에 대해 설명해주세요.</h2>
       <form className={style.form} onSubmit={handleSubmit(handleCreateFundSubmit)}>

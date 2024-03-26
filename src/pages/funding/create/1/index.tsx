@@ -8,6 +8,7 @@ import classNames from 'classnames';
 import { useState } from 'react';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import CancelIcon from '@assets/cancel-icon.svg';
+import ProgressBar from '@components/common/ProgressBar';
 
 interface FormInput {
   link: string;
@@ -25,7 +26,7 @@ export default function CreatFundStep1() {
 
   const handleCreateFundSubmit = (data: FormInput) => {
     console.log(data);
-    router.push('/fund/create/2');
+    router.push('/funding/create/2');
   };
 
   const validateUrl = (url: string) =>
@@ -58,10 +59,7 @@ export default function CreatFundStep1() {
         />
       )}
       <Header onGoBack={() => setIsOpen(true)} />
-      <div className={style.progressbar}>
-        <div className={style.background_bar} />
-        <div className={classNames(style.current_progress, css({ width: '8.2rem' }))} />
-      </div>
+      <ProgressBar width={css({ width: '8.2rem' })} />
       <h4 className={style.step_name}>Step 1</h4>
       <h2 className={style.title}>어떤 집들이 선물을 원하시나요?</h2>
       <form className={style.form} onSubmit={handleSubmit(handleCreateFundSubmit)}>
