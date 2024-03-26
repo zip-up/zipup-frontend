@@ -37,7 +37,9 @@ export default function CreatFundStep4() {
 
   const handleCreateFundSubmit = (data: FormInput) => {
     console.log(data);
-    setIsModalOpen(true);
+    if (isTermsAgreed && isPrivacyShared) {
+      setIsModalOpen(true);
+    }
   };
 
   return (
