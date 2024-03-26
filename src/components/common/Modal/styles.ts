@@ -1,7 +1,7 @@
 import { css } from '@styled-system/css';
 
 const modal_container = css({
-  zIndex: 0,
+  zIndex: 1,
   position: 'fixed',
   top: 0,
   right: 0,
@@ -14,7 +14,7 @@ const modal_container = css({
 });
 
 const modal_content = css({
-  width: '31.7rem',
+  width: '32.7rem',
   backgroundColor: 'white',
   borderRadius: '2rem',
   padding: '1.8rem 1rem',

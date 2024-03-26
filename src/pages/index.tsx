@@ -4,10 +4,16 @@ import Button from '@components/common/Button';
 import Image from 'next/image';
 import * as style from './style';
 import { useState } from 'react';
-import LoginModal from '@components/modals/LoginModal/index';
+import ModalWithIcon from '@components/modals/ModalWithIcon';
+import LoginIcon from '@assets/login-icon.svg';
+import LoginButtonIcon from '@assets/login-button.svg';
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleLogin = () => {
+    window.location.href = process.env.NEXT_PUBLIC_BASE_URL + '/oauth2/authorization/kakao';
+  };
 
   return (
     <>
@@ -24,7 +30,19 @@ export default function Home() {
           `}
         </style>
       </Head>
-      {isOpen && <LoginModal onClose={() => setIsOpen(false)} />}
+      {isOpen && (
+        <ModalWithIcon
+          title="로그인이 필요한 서비스입니다."
+          subtitle="카카오 로그인으로 5초만에 시작해요!"
+          onClose={() => setIsOpen(false)}
+          icon={<LoginIcon />}
+          buttonComponent={
+            <button className={style.button} onClick={handleLogin}>
+              <LoginButtonIcon />
+            </button>
+          }
+        />
+      )}
       <main>
         <header className={style.header}>
           <div className={style.box} />
