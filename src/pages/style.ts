@@ -66,4 +66,16 @@ const image = css({
   background: 'bg.300',
 });
 
-export { header, logo, box, text_box, title, highlight, subtitle, wrapper, image };
+const button = css({
+  position: 'absolute',
+  bottom: '1.8rem',
+  left: 0,
+  height: '4.9rem',
+  width: '29.7rem',
+  margin: '0 1rem',
+  display: 'flex',
+  justifyContent: 'center',
+  cursor: 'pointer',
+});
+
+export { header, logo, box, text_box, title, highlight, subtitle, wrapper, image, button };
