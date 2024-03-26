@@ -20,6 +20,7 @@ export default function CreatFundStep1() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<FormInput>();
 
@@ -80,7 +81,7 @@ export default function CreatFundStep1() {
             validate: value => validateUrl(value) || '유효한 상품 링크를 입력해주세요.',
           })}
         />
-        {errors.link && <p className={style.error_text}>{errors.link.message}</p>}
+        {errors.link && watch('link') && <p className={style.error_text}>{errors.link.message}</p>}
 
         <div className={style.divider} />
 
@@ -100,7 +101,9 @@ export default function CreatFundStep1() {
             validate: value => !isNaN(value) || '숫자로만 입력해주세요.',
           })}
         />
-        {errors.targetMoney && <p className={style.error_text}>{errors.targetMoney.message}</p>}
+        {errors.targetMoney && watch('targetMoney') && (
+          <p className={style.error_text}>{errors.targetMoney.message}</p>
+        )}
 
         <div className={style.message}>
           <div className={style.message_icon} />

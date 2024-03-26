@@ -57,7 +57,9 @@ export default function CreatFundStep3() {
           checkIsOpen={isDueOpen}
         />
 
-        {errors.target && <p className={style.error_text}>{errors.target.message}</p>}
+        {errors.target && !watch('target') && (
+          <p className={style.error_text}>{errors.target.message}</p>
+        )}
 
         <div style={{ marginTop: isTargetOpen ? '31.7rem' : '1.6rem' }}>
           <label>
@@ -70,7 +72,7 @@ export default function CreatFundStep3() {
             onSetIsOpen={setisDueOpen}
             checkIsOpen={isTargetOpen}
           />
-          {errors.due && <p className={style.error_text}>{errors.due.message}</p>}
+          {errors.due && !watch('due') && <p className={style.error_text}>{errors.due.message}</p>}
         </div>
 
         <Button type="submit" className={style.button} color="secondary">
