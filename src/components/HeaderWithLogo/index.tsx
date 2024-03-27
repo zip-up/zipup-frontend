@@ -1,4 +1,4 @@
-import LogoIcon from '@assets/icons/logo.svg';
+import LogoIcon from '@assets/images/logo.svg';
 import UserIcon from '@assets/icons/user.svg';
 import { css } from '@styled-system/css';
 

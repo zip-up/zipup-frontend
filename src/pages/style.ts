@@ -41,7 +41,10 @@ const wrapper = css({
 const image = css({
   width: '32.7rem',
   height: '23.4rem',
-  background: 'bg.300',
+  display: 'flex',
+  justifyContent: 'center',
+  marginTop: '-0.9rem',
+  marginBottom: '0.9rem',
 });
 
 const button = css({

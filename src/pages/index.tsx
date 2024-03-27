@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import Button from '@components/common/Button';
-import Image from 'next/image';
 import * as style from './style';
 import { useState } from 'react';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import LoginIcon from '@assets/icons/login-icon.svg';
-import LoginButtonIcon from '@assets/icons/login-button.svg';
+import LoginButtonIcon from '@assets/images/login-button.svg';
+import HomeImage from '@assets/images/home-image.svg';
 import HeaderWithLogo from '@components/HeaderWithLogo';
 
 export default function Home() {
@@ -57,7 +57,7 @@ export default function Home() {
         </div>
         <div className={style.wrapper}>
           <div className={style.image}>
-            <Image src={''} alt="" />
+            <HomeImage />
           </div>
           <Button color="primary" onClick={() => setIsOpen(true)}>
             내 펀딩을 만들어볼까요?
