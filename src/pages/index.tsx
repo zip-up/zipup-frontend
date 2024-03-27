@@ -1,12 +1,12 @@
 import Head from 'next/head';
-import Logo from '@assets/logo.svg';
+import Logo from '@assets/images/logo.svg';
 import Button from '@components/common/Button';
 import Image from 'next/image';
 import * as style from './style';
 import { useState } from 'react';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import LoginIcon from '@assets/login-icon.svg';
-import LoginButtonIcon from '@assets/login-button.svg';
+import LoginButtonIcon from '@assets/images/login-button.svg';
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
