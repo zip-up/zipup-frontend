@@ -163,6 +163,7 @@ const flex_container = css({
   justifyContent: 'space-between',
   alignItems: 'center',
   flexWrap: 'wrap',
+  rowGap: '1.6rem',
   overflow: 'hidden',
 });
 
