@@ -15,7 +15,7 @@ import GiftIcon from '@assets/gift-icon.svg';
 import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState } from 'recoil';
 import { createFundState } from '@store/store';
-import { useCreateFund } from '@hooks/queries/useCreateFund';
+import { useCreateFunding } from '@hooks/queries/useCreateFunding';
 
 interface FormInput {
   address: string;
@@ -31,7 +31,7 @@ export default function CreatFundStep4() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newFund, setNewFund] = useRecoilState(createFundState);
   const id = 1;
-  const { mutate: handleCreateFund } = useCreateFund();
+  const { mutate: handleCreateFund } = useCreateFunding();
 
   const {
     register,
