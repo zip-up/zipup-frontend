@@ -27,7 +27,7 @@ export default function Funding() {
     description,
     isOrganizer,
     isParticipant,
-    presentList,
+    presentList: messageList,
   } = fundingInfo;
 
   const RoleBasedButton = () => {
@@ -83,7 +83,7 @@ export default function Funding() {
         <div className={style.desc}>{description}</div>
       </article>
 
-      <MessageList messageList={presentList} />
+      <MessageList messages={messageList} />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { Instance } from '@api/index';
 
-interface PresentList {
+export interface MessageInfo {
   id: string;
   senderName: string;
   contributionPercent: number;
@@ -19,7 +19,7 @@ interface ResponseType {
   isCompleted: boolean;
   percent: number;
   goalPrice: number;
-  presentList: PresentList[];
+  presentList: MessageInfo[];
   isOrganizer: boolean;
   isParticipant: boolean;
   organizer: string;
