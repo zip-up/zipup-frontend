@@ -4,8 +4,8 @@ import Image from 'next/image';
 import * as style from './style';
 import { useState } from 'react';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
-import LoginIcon from '@assets/login-icon.svg';
-import LoginButtonIcon from '@assets/login-button.svg';
+import LoginIcon from '@assets/icons/login-icon.svg';
+import LoginButtonIcon from '@assets/icons/login-button.svg';
 import HeaderWithLogo from '@components/HeaderWithLogo';
 
 export default function Home() {

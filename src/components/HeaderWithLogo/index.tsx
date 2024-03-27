@@ -1,5 +1,5 @@
-import LogoIcon from '@assets/logo.svg';
-import UserIcon from '@assets/user.svg';
+import LogoIcon from '@assets/icons/logo.svg';
+import UserIcon from '@assets/icons/user.svg';
 import { css } from '@styled-system/css';
 
 const HeaderWithLogo = () => {

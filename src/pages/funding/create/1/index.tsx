@@ -7,7 +7,7 @@ import { css } from '@styled-system/css';
 import classNames from 'classnames';
 import { useState } from 'react';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
-import CancelIcon from '@assets/cancel-icon.svg';
+import CancelIcon from '@assets/icons/cancel-icon.svg';
 import ProgressBar from '@components/common/ProgressBar';
 
 interface FormInput {

@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Button from '@components/common/Button';
 import HeaderWithLogo from '@components/HeaderWithLogo';
-import UserIcon from '@assets/user.svg';
-import GoIcon from '@assets/go.svg';
-import ExitIcon from '@assets/exit.svg';
-import MyFundingIcon from '@assets/my-funding.svg';
-import ParticipatedFundingIcon from '@assets/participated_funding.svg';
+import UserIcon from '@assets/icons/user.svg';
+import GoIcon from '@assets/icons/go.svg';
+import ExitIcon from '@assets/icons/exit.svg';
+import MyFundingIcon from '@assets/icons/my-funding.svg';
+import ParticipatedFundingIcon from '@assets/icons/participated_funding.svg';
 import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
