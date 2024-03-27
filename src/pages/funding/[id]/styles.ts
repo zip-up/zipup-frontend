@@ -57,6 +57,7 @@ const desc = css(borderWithPadding, {
   fontSize: 'body2',
   lineHeight: '2.2rem',
   letterSpacing: '-0.014rem',
+  w: '100%',
 });
 
 export {

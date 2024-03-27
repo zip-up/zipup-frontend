@@ -18,7 +18,32 @@ export default function Funding() {
 
   if (!fundingInfo) return null;
 
-  const { title, imageUrl, status, percent, organizer: isOrganizer } = fundingInfo[0];
+  const { title, imageUrl, expirationDate, percent, goalPrice, description, isOrganizer } =
+    fundingInfo;
+
+  const isContributor = true;
+
+  const RoleBasedButton = () => {
+    if (isOrganizer) {
+      return (
+        <Button type="button" color="secondary" wFull onClick={() => {}}>
+          친구에게 공유하기
+        </Button>
+      );
+    }
+    if (isContributor) {
+      return (
+        <Button type="button" color="secondary" wFull onClick={() => {}}>
+          결제 취소하기
+        </Button>
+      );
+    }
+    return (
+      <Button type="button" color="secondary" wFull onClick={() => {}}>
+        이 펀딩 참여하기
+      </Button>
+    );
+  };
 
   return (
     <div className={style.pageLayout}>
@@ -32,33 +57,26 @@ export default function Funding() {
             <div className={style.statusMsg}>
               <span className={style.percentageText}>{percent}%</span>의 마음이 UP 되었어요
             </div>
-            <StatusTag daysLeft={34} />
+            <StatusTag daysLeft={expirationDate} />
           </div>
           <div>progress bar</div>
 
           <div className={style.captionWrapper}>
             <span>
-              펀딩 종료까지 <span className={style.blueText}>0일</span>
+              펀딩 종료까지 <span className={style.blueText}>{expirationDate}일</span>
             </span>
             <span>
-              <span className={style.blueText}>목표금액</span> 1,000,000원
+              <span className={style.blueText}>목표금액</span> {goalPrice.toLocaleString()}원
             </span>
           </div>
         </div>
 
-        <Button color="secondary" wFull onClick={() => {}}>
-          친구에게 공유하기
-        </Button>
+        <RoleBasedButton />
 
-        <div className={style.desc}>
-          이 곳에는 펀딩 소개가 들어갈거예요. 펀딩 등록시 입력한 소개를 여기에 노출시킬 거예요.
-          글자수 제한이 없어요.....
-        </div>
+        <div className={style.desc}>{description}</div>
       </article>
 
       <MessageList />
-
-      {/* <Link href={{ pathname: `/funding/${id}/payment`, query: { amount: 20000 } }}>결제하기</Link> */}
     </div>
   );
 }
