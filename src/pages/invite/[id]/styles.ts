@@ -27,6 +27,6 @@ const subTitle = css({
   mb: '1.5rem',
 });
 
-const buttonLink = cx(button, styles['secondary']);
+const buttonLink = cx(button, styles['secondary'], css({ w: '100%', h: '5.2rem', mt: '3rem' }));
 
 export { container, headTitle, subTitle, buttonLink };
