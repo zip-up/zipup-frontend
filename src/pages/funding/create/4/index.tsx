@@ -13,6 +13,9 @@ import { useRouter } from 'next/router';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import GiftIcon from '@assets/gift-icon.svg';
 import ProgressBar from '@components/common/ProgressBar';
+import { useRecoilState } from 'recoil';
+import { createFundState } from '@store/store';
+import { useCreateFund } from '@hooks/queries/useCreateFund';
 
 interface FormInput {
   address: string;
@@ -26,7 +29,9 @@ export default function CreatFundStep4() {
   const [isPrivacyShared, setIsPrivacyShared] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newFund, setNewFund] = useRecoilState(createFundState);
   const id = 1;
+  const { mutate: handleCreateFund } = useCreateFund();
 
   const {
     register,
@@ -37,10 +42,25 @@ export default function CreatFundStep4() {
   } = useForm<FormInput>();
 
   const handleCreateFundSubmit = (data: FormInput) => {
-    console.log(data);
     if (isTermsAgreed && isPrivacyShared) {
+      setNewFund({
+        ...newFund,
+        roadAddress: data.address,
+        detailAddress: data.detailAddress,
+        phoneNumber: String(data.phone),
+      });
       setIsModalOpen(true);
     }
+  };
+
+  const handleNext = () => {
+    handleCreateFund(newFund, {
+      onSuccess: data => {
+        console.log(data);
+        // setIsModalOpen(false);
+        // router.push('/funding/' + id);
+      },
+    });
   };
 
   return (
@@ -53,14 +73,7 @@ export default function CreatFundStep4() {
           subtitle="내 펀딩을 친구들에게 공유해볼까요?"
           buttonComponent={
             <div className={style.modal_button_wrapper}>
-              <Button
-                color="primary"
-                style={{ width: '10.9rem' }}
-                onClick={() => {
-                  setIsModalOpen(false);
-                  router.push('/funding/' + id);
-                }}
-              >
+              <Button color="primary" style={{ width: '10.9rem' }} onClick={handleNext}>
                 닫기
               </Button>
               <Button color="secondary" style={{ width: '16.8rem' }} onClick={() => null}>
