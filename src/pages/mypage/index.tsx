@@ -57,9 +57,9 @@ const MyPage = () => {
               <h2 className={style.go_funding_title}>내가 만든 펀딩</h2>
               <span className={style.go_funding_subtitle}>작성한 펀딩을 확인할 수 있어요</span>
             </div>
-            <div className={style.funding_image}>
+            <p className={style.funding_image}>
               <MyFundingIcon />
-            </div>
+            </p>
           </button>
           <button
             className={style.go_funding_btn}
@@ -69,9 +69,9 @@ const MyPage = () => {
               <h2 className={style.go_funding_title}>참여한 펀딩</h2>
               <span className={style.go_funding_subtitle}>결제한 펀딩을 확인할 수 있어요</span>
             </div>
-            <div className={style.funding_image}>
+            <p className={style.funding_image}>
               <ParticipatedFundingIcon />
-            </div>
+            </p>
           </button>
         </div>
         <footer className={style.footer}>

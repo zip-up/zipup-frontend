@@ -85,6 +85,15 @@ const go_funding_btn = css({
   display: 'flex',
   position: 'relative',
   cursor: 'pointer',
+  '& p': {
+    transition: 'transform 0.3s ease-in-out',
+    transformOrigin: 'bottom',
+  },
+  '&:hover p': {
+    transform: 'scale(1.1)',
+    transition: 'transform 0.3s ease-in-out',
+    transformOrigin: 'bottom',
+  },
 });
 
 const go_funding_info_box = css({
