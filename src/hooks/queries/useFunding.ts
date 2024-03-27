@@ -21,6 +21,7 @@ interface ResponseType {
   goalPrice: number;
   presentList: PresentList[];
   isOrganizer: boolean;
+  isParticipant: boolean;
   organizer: string;
 }
 

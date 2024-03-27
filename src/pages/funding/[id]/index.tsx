@@ -18,10 +18,17 @@ export default function Funding() {
 
   if (!fundingInfo) return null;
 
-  const { title, imageUrl, expirationDate, percent, goalPrice, description, isOrganizer } =
-    fundingInfo;
-
-  const isContributor = true;
+  const {
+    title,
+    imageUrl,
+    expirationDate,
+    percent,
+    goalPrice,
+    description,
+    isOrganizer,
+    isParticipant,
+    presentList,
+  } = fundingInfo;
 
   const RoleBasedButton = () => {
     if (isOrganizer) {
@@ -31,7 +38,7 @@ export default function Funding() {
         </Button>
       );
     }
-    if (isContributor) {
+    if (isParticipant) {
       return (
         <Button type="button" color="secondary" wFull onClick={() => {}}>
           결제 취소하기
@@ -76,7 +83,7 @@ export default function Funding() {
         <div className={style.desc}>{description}</div>
       </article>
 
-      <MessageList />
+      <MessageList messageList={presentList} />
     </div>
   );
 }
