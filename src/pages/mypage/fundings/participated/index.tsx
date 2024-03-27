@@ -3,23 +3,40 @@ import Header from '@components/common/Header';
 import { useRouter } from 'next/router';
 import React from 'react';
 import * as style from '../../styles';
+import { FundingInfo } from '@typings/funding';
 
-const data = [
+const data: FundingInfo[] = [
   {
-    title: '펀딩 제목입니다',
-    amount: 0,
+    id: '1',
+    title: '테스트1',
+    imageUrl: '',
+    status: '3',
+    percent: 0,
+    organizer: '',
   },
   {
-    title: '펀딩 제목입니다',
-    amount: 25,
+    id: '2',
+    title: '테스트2',
+    imageUrl: '',
+    status: '2',
+    percent: 25,
+    organizer: '',
   },
   {
-    title: '펀딩 제목입니다',
-    amount: 50,
+    id: '3',
+    title: '테스트3',
+    imageUrl: '',
+    status: '1',
+    percent: 50,
+    organizer: '',
   },
   {
-    title: '펀딩 제목입니다',
-    amount: 100,
+    id: '4',
+    title: '테스트4',
+    imageUrl: '',
+    status: '0',
+    percent: 99,
+    organizer: '',
   },
 ];
 
