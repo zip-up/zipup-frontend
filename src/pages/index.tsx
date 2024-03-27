@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Logo from '@assets/logo.svg';
 import Button from '@components/common/Button';
 import Image from 'next/image';
 import * as style from './style';
@@ -7,6 +6,7 @@ import { useState } from 'react';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import LoginIcon from '@assets/login-icon.svg';
 import LoginButtonIcon from '@assets/login-button.svg';
+import HeaderWithLogo from '@components/HeaderWithLogo';
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,13 +44,7 @@ export default function Home() {
         />
       )}
       <main>
-        <header className={style.header}>
-          <div className={style.box} />
-          <button className={style.logo}>
-            <Logo width={72.7} height={28} />
-          </button>
-          <div className={style.box} />
-        </header>
+        <HeaderWithLogo />
         <div className={style.text_box}>
           <p className={style.title}>
             조금씩 마음을 보태어 <span className={style.highlight}>집들이 선물</span>을 보내요
