@@ -41,15 +41,15 @@ export default function CreatFundStep4() {
     formState: { errors },
   } = useForm<FormInput>();
 
-  const handleCreateFundSubmit = (data: FormInput) => {
+  const handleCreateFundSubmit = () => {
     if (isTermsAgreed && isPrivacyShared) {
       setNewFund({
         ...newFund,
-        roadAddress: data.address,
-        detailAddress: data.detailAddress,
-        phoneNumber: String(data.phone),
+        roadAddress: getValues('address'),
+        detailAddress: getValues('detailAddress'),
+        phoneNumber: String(getValues('phone')),
       });
-      setIsModalOpen(true);
+      handleNext();
     }
   };
 
@@ -57,8 +57,6 @@ export default function CreatFundStep4() {
     handleCreateFund(newFund, {
       onSuccess: data => {
         console.log(data);
-        // setIsModalOpen(false);
-        // router.push('/funding/' + id);
       },
     });
   };
@@ -73,7 +71,14 @@ export default function CreatFundStep4() {
           subtitle="내 펀딩을 친구들에게 공유해볼까요?"
           buttonComponent={
             <div className={style.modal_button_wrapper}>
-              <Button color="primary" style={{ width: '10.9rem' }} onClick={handleNext}>
+              <Button
+                color="primary"
+                style={{ width: '10.9rem' }}
+                onClick={() => {
+                  setIsModalOpen(false);
+                  router.push('/funding/' + id);
+                }}
+              >
                 닫기
               </Button>
               <Button color="secondary" style={{ width: '16.8rem' }} onClick={() => null}>
@@ -162,7 +167,7 @@ export default function CreatFundStep4() {
         </div>
         <div className={classNames(flexbox, button)}>
           <Button
-            type="button"
+            type="submit"
             className={css({ width: '12.4rem' })}
             color="primary"
             onClick={() => setIsModalOpen(true)}
