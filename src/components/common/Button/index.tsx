@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 import { button, styles } from './styles';
-import { css } from '../../../../styled-system/css';
+import { css } from '@styled-system/css';
 import { CSSProperties, PropsWithChildren } from 'react';
 
 interface ButtonProps {
@@ -10,9 +10,11 @@ interface ButtonProps {
   className?: string;
   type?: 'button' | 'submit' | 'reset' | undefined;
   style?: CSSProperties;
+  wFull?: boolean;
 }
 
 export default function Button({
+  wFull = false,
   height = '5.2rem',
   onClick,
   color,
@@ -24,7 +26,12 @@ export default function Button({
   return (
     <button
       type={type}
-      className={classnames(button, styles[color], css({ height }), className)}
+      className={classnames(
+        button,
+        styles[color],
+        css(wFull && { width: '100%' }, { height }),
+        className,
+      )}
       onClick={onClick}
       style={style}
     >
