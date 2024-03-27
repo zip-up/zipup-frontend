@@ -1,6 +1,6 @@
 import * as style from './styles';
 import Image from 'next/image';
-import { MessageInfo } from '@hooks/queries/useFunding';
+import { MessageInfo } from '@typings/funding';
 
 interface MessageBoxProps {
   msg: MessageInfo;

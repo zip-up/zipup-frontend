@@ -1,4 +1,4 @@
-import { MessageInfo } from '@hooks/queries/useFunding';
+import { MessageInfo } from '@typings/funding';
 import MessageBox from './MessageBox';
 import * as style from './styles';
 
@@ -11,7 +11,7 @@ export default function MessageList({ messages }: MessageListProps) {
     <article className={style.msgsWrapper}>
       <h2 className={style.title}>친구들의 메세지</h2>
       {messages.map(msg => (
-        <MessageBox msg={msg} />
+        <MessageBox msg={msg} key={msg.id} />
       ))}
     </article>
   );

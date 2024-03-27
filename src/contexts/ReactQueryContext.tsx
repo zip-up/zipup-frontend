@@ -1,5 +1,5 @@
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { PropsWithChildren } from '../types/propsChildren';
+import { PropsWithChildren } from '@typings/propsChildren';
 
 export default function ReactQueryClient({ children }: PropsWithChildren) {
   const queryClient = new QueryClient({
