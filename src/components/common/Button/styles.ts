@@ -1,4 +1,4 @@
-import { css } from '../../../../styled-system/css';
+import { css } from '@styled-system/css';
 
 const button = css({
   borderRadius: '0.8rem',
