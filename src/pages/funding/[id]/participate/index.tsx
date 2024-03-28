@@ -1,18 +1,22 @@
 import Header from '@components/common/Header';
 import ProgressBar from '@components/common/ProgressBar';
-import { useState } from 'react';
+import { fundingFormState } from '@store/store';
+import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useRecoilState } from 'recoil';
 import * as style from './styles';
 
-interface IFormInput {
-  price: string;
+interface FormInputs {
+  price: number;
   enteredCustomPrice: boolean;
-  customPrice: string;
+  customPrice: number;
   senderName: string;
   msg: string;
 }
 
 export default function Participate() {
+  const [fundingForm, setFundingForm] = useRecoilState(fundingFormState);
+
   const {
     register,
     handleSubmit,
@@ -23,13 +27,19 @@ export default function Participate() {
     trigger,
     clearErrors,
     formState: { errors },
-  } = useForm<IFormInput>({
+  } = useForm<FormInputs>({
     defaultValues: {
       price: '행복의 오천원',
       enteredCustomPrice: false,
     },
   });
-  const onSubmit: SubmitHandler<IFormInput> = data => console.log(data);
+  const onSubmit: SubmitHandler<FormInputs> = ({
+    price,
+    enteredCustomPrice,
+    customPrice,
+    ...rest
+  }) => setFundingForm({ price: enteredCustomPrice ? customPrice : price, ...rest });
+
   const enteredCustomPrice = watch('enteredCustomPrice');
 
   const selected = watch('price');
@@ -76,8 +86,8 @@ export default function Participate() {
               type="checkbox"
               {...register('enteredCustomPrice', {
                 onChange: () => {
-                  resetField('price', { defaultValue: '' });
-                  resetField('customPrice', { defaultValue: '' });
+                  resetField('price', { defaultValue: 0 });
+                  resetField('customPrice', { defaultValue: 0 });
                   clearErrors('customPrice');
                 },
               })}
