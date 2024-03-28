@@ -13,6 +13,7 @@ const statusTag = cva({
     bg: {
       black: { bg: 'main.black' },
       blue: { bg: 'success' },
+      disabled: { bg: 'bg.300', color: 'text.200' },
     },
     size: {
       static: {
