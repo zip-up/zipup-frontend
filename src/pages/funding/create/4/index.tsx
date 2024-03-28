@@ -16,6 +16,7 @@ import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState } from 'recoil';
 import { createFundState } from '@store/store';
 import { useCreateFunding } from '@hooks/queries/useCreateFunding';
+import PageLayout from '@components/Layout/pageLayout';
 
 interface FormInput {
   address: string;
@@ -62,7 +63,7 @@ export default function CreatFundStep4() {
   };
 
   return (
-    <>
+    <PageLayout>
       {isModalOpen && (
         <ModalWithIcon
           width="31.7rem"
@@ -185,7 +186,7 @@ export default function CreatFundStep4() {
           onClose={() => setIsOpen(false)}
         />
       )}
-    </>
+    </PageLayout>
   );
 }
 

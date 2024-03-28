@@ -11,6 +11,7 @@ import CancelIcon from '@assets/cancel-icon.svg';
 import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState } from 'recoil';
 import { createFundState } from '@store/store';
+import PageLayout from '@components/Layout/pageLayout';
 
 interface FormInput {
   link: string;
@@ -26,7 +27,6 @@ export default function CreatFundStep1() {
     handleSubmit,
     formState: { errors },
   } = useForm<FormInput>();
-
   const handleCreateFundSubmit = (data: FormInput) => {
     setNewFund({ ...newFund, productUrl: data.link, goalPrice: data.targetMoney });
     router.push('/funding/create/2');
@@ -38,7 +38,7 @@ export default function CreatFundStep1() {
     );
 
   return (
-    <>
+    <PageLayout>
       {isOpen && (
         <ModalWithIcon
           onClose={() => setIsOpen(false)}
@@ -113,6 +113,6 @@ export default function CreatFundStep1() {
           다음
         </Button>
       </form>
-    </>
+    </PageLayout>
   );
 }

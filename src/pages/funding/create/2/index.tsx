@@ -9,6 +9,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState } from 'recoil';
 import { createFundState } from '@store/store';
+import PageLayout from '@components/Layout/pageLayout';
 
 interface FormInput {
   name: string;
@@ -34,7 +35,7 @@ export default function CreatFundStep2() {
   const validateString = (text: string) => /^[가-힣a-zA-Z]+$/.test(text);
 
   return (
-    <>
+    <PageLayout>
       <Header onGoBack={() => router.back()} />
       <ProgressBar width={css({ width: '16.4rem' })} />
       <h4 className={style.step_name}>Step 2</h4>
@@ -91,6 +92,6 @@ export default function CreatFundStep2() {
           다음
         </Button>
       </form>
-    </>
+    </PageLayout>
   );
 }
