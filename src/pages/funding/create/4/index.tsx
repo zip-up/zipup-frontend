@@ -13,6 +13,10 @@ import { useRouter } from 'next/router';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import GiftIcon from '@assets/gift-icon.svg';
 import ProgressBar from '@components/common/ProgressBar';
+import { useRecoilState } from 'recoil';
+import { createFundState } from '@store/store';
+import { useCreateFunding } from '@hooks/queries/useCreateFunding';
+import PageLayout from '@components/Layout/pageLayout';
 
 interface FormInput {
   address: string;
@@ -26,7 +30,9 @@ export default function CreatFundStep4() {
   const [isPrivacyShared, setIsPrivacyShared] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newFund, setNewFund] = useRecoilState(createFundState);
   const id = 1;
+  const { mutate: handleCreateFund } = useCreateFunding();
 
   const {
     register,
@@ -36,13 +42,28 @@ export default function CreatFundStep4() {
     formState: { errors },
   } = useForm<FormInput>();
 
-  const handleCreateFundSubmit = (data: FormInput) => {
-    console.log(data);
-    setIsModalOpen(true);
+  const handleCreateFundSubmit = () => {
+    if (isTermsAgreed && isPrivacyShared) {
+      setNewFund({
+        ...newFund,
+        roadAddress: getValues('address'),
+        detailAddress: getValues('detailAddress'),
+        phoneNumber: String(getValues('phone')),
+      });
+      handleNext();
+    }
+  };
+
+  const handleNext = () => {
+    handleCreateFund(newFund, {
+      onSuccess: data => {
+        console.log(data);
+      },
+    });
   };
 
   return (
-    <>
+    <PageLayout>
       {isModalOpen && (
         <ModalWithIcon
           width="31.7rem"
@@ -147,7 +168,7 @@ export default function CreatFundStep4() {
         </div>
         <div className={classNames(flexbox, button)}>
           <Button
-            type="button"
+            type="submit"
             className={css({ width: '12.4rem' })}
             color="primary"
             onClick={() => setIsModalOpen(true)}
@@ -165,7 +186,7 @@ export default function CreatFundStep4() {
           onClose={() => setIsOpen(false)}
         />
       )}
-    </>
+    </PageLayout>
   );
 }
 
