@@ -1,6 +1,6 @@
 import { css } from '@styled-system/css';
 import React from 'react';
-import BackIcon from '@assets/back.svg';
+import BackIcon from '@assets/icons/back.svg';
 
 interface HeaderProps {
   hasTitle?: boolean;

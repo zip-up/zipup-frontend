@@ -1,14 +1,14 @@
 /* eslint-disable react/display-name */
 import * as fundStyle from '@pages/funding/create/styles';
-import CalendarIcon from '@assets/calendar_month.svg';
+import CalendarIcon from '@assets/icons/calendar_month.svg';
 import { ko } from 'date-fns/locale';
 import { format } from 'date-fns';
 import ReactDatePicker, { registerLocale } from 'react-datepicker';
 import { forwardRef, useEffect, useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
-import AfterIcon from '@assets/after.svg';
-import BeforeIcon from '@assets/before.svg';
-import OpenIcon from '@assets/open.svg';
+import AfterIcon from '@assets/icons/after.svg';
+import BeforeIcon from '@assets/icons/before.svg';
+import OpenIcon from '@assets/icons/open.svg';
 import * as style from './styles';
 
 interface CalendarProps {

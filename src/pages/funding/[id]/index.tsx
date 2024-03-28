@@ -1,11 +1,11 @@
-import Link from 'next/link';
+// import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Header from '@components/common/Header';
 import * as style from './styles';
 import Button from '@components/common/Button';
 import MessageList from '@components/MessageList';
 import DefaultPresentImg from '@assets/images/default_present.svg';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { useGetFundingDeatil } from '@hooks/queries/useFunding';
 import FundingStatusBox from '@components/FundingStatusBox';
 
