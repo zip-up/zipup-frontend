@@ -11,20 +11,36 @@ import LoginButtonIcon from '@assets/images/login-button.svg';
 import { useSetRecoilState } from 'recoil';
 import { tokenState } from '@store/store';
 import { useRouter } from 'next/router';
+import { useAuth } from '@hooks/queries/useAuth';
+import { Auth } from '@typings/auth';
 
 export default function Home() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const setToken = useSetRecoilState(tokenState);
+  const [code, setCode] = useState('');
+  const [user, setUser] = useState<Auth>();
+  const { data, refetch, isLoading, error } = useAuth({ code });
+
+  if (!isLoading) {
+    console.log(error);
+    console.log(data);
+  }
 
   useEffect(() => {
-    const authorizationToken = router.query.Authorization;
-    if (authorizationToken) {
-      setToken(String(authorizationToken));
-      localStorage.setItem('@token', String(authorizationToken));
-      router.push('/funding/create/1');
+    setCode(router.asPath.slice(2));
+    console.log(code);
+  }, [router.asPath]);
+
+  useEffect(() => {
+    if (code) {
+      refetch();
     }
-  }, [router.query]);
+
+    if (data) {
+      setUser(data);
+    }
+  }, [code, data]);
 
   const getToken = async () => {
     window.location.href =
@@ -81,9 +97,13 @@ export default function Home() {
           <div className={style.image}>
             <Image src={''} alt="" />
           </div>
-          <Button color="primary" onClick={() => setIsOpen(true)}>
-            내 펀딩을 만들어볼까요?
-          </Button>
+          {isLoading ? (
+            <div>로딩중</div>
+          ) : (
+            <Button color="primary" onClick={() => setIsOpen(true)}>
+              내 펀딩을 만들어볼까요?
+            </Button>
+          )}
           <Button color="secondary" onClick={() => null}>
             서비스 둘러볼게요
           </Button>
