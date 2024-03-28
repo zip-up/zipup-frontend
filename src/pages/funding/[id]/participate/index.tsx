@@ -1,10 +1,12 @@
 import Header from '@components/common/Header';
 import ProgressBar from '@components/common/ProgressBar';
 import { fundingFormState } from '@store/store';
+import { css } from '@styled-system/css';
 import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import * as style from './styles';
+import { A, B } from '@assets/icons/priceLabel';
 
 interface FormInputs {
   price: number;
@@ -45,7 +47,7 @@ export default function Participate() {
   const [step, setStep] = useState(1);
 
   const priceLabel = [
-    { label: '행복의 오천원', price: 5000 },
+    { label: '행복의 오천원', price: 5000, icon_active: <A />, icon_disabled: <B /> },
     { label: '기쁨의 만원', price: 10000 },
     { label: '건강의 삼만원', price: 30000 },
     { label: '사랑의 오만원 ', price: 50000 },
@@ -60,16 +62,12 @@ export default function Participate() {
               <p>김집업님을 위한</p>마음을 보내주세요
             </div>
 
-            {priceLabel.map(({ label, price }, idx) => {
-              console.log(selected, price);
+            {priceLabel.map(({ label, price, icon_active, icon_disabled }, idx) => {
               return (
                 <>
-                  <label
-                    htmlFor={`price-${idx}`}
-                    key={idx}
-                    style={{ background: selected == price ? 'blue' : 'gray' }}
-                  >
-                    {label}
+                  <label htmlFor={`price-${idx}`} key={idx} className={style.label}>
+                    {icon_active}
+                    <span>{label}</span>
                   </label>
                   <input
                     {...register('price', {
@@ -160,12 +158,12 @@ export default function Participate() {
   };
 
   return (
-    <>
+    <div className={style.pageLayout}>
       <Header />
       <div className={style.container}>
-        <ProgressBar />
+        <ProgressBar width={css({ width: '16.2rem' })} />
         <form onSubmit={handleSubmit(onSubmit)}>{renderFormStep(step)}</form>
       </div>
-    </>
+    </div>
   );
 }
