@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 const useCreateFunding = () => {
   return useMutation({
     mutationFn: async (data: CreateFund) => {
-      const response = await Instance.post(process.env.NEXT_PUBLIC_BASE_URL + '/api/v1/fund', {
+      const response = await Instance.post('/v1/fund', {
         ...data,
       });
 
