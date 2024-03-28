@@ -1,18 +1,50 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Head from 'next/head';
 import Button from '@components/common/Button';
 import * as style from './style';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import LoginIcon from '@assets/icons/login-icon.svg';
 import LoginButtonIcon from '@assets/images/login-button.svg';
 import HomeImage from '@assets/images/home-image.svg';
 import HeaderWithLogo from '@components/HeaderWithLogo';
+import { useSetRecoilState } from 'recoil';
+import { tokenState } from '@store/store';
+import { useRouter } from 'next/router';
+import { useAuth } from '@hooks/queries/useAuth';
+import { Auth } from '@typings/auth';
 
 export default function Home() {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const setToken = useSetRecoilState(tokenState);
+  const [code, setCode] = useState('');
+  const [user, setUser] = useState<Auth>();
+  const { data, refetch, isLoading, error } = useAuth({ code });
 
-  const handleLogin = () => {
-    window.location.href = process.env.NEXT_PUBLIC_BASE_URL + '/oauth2/authorization/kakao';
+  if (!isLoading) {
+    console.log(error);
+    console.log(data);
+  }
+
+  useEffect(() => {
+    setCode(router.asPath.slice(2));
+    console.log(code);
+  }, [router.asPath]);
+
+  useEffect(() => {
+    if (code) {
+      refetch();
+    }
+
+    if (data) {
+      setUser(data);
+    }
+  }, [code, data]);
+
+  const getToken = async () => {
+    window.location.href =
+      process.env.NEXT_PUBLIC_BASE_URL.slice(0, -4) + '/oauth2/authorization/kakao';
   };
 
   return (
@@ -37,7 +69,7 @@ export default function Home() {
           onClose={() => setIsOpen(false)}
           icon={<LoginIcon />}
           buttonComponent={
-            <button className={style.button} onClick={handleLogin}>
+            <button className={style.button} onClick={getToken}>
               <LoginButtonIcon />
             </button>
           }
@@ -59,9 +91,13 @@ export default function Home() {
           <div className={style.image}>
             <HomeImage />
           </div>
-          <Button color="primary" onClick={() => setIsOpen(true)}>
-            내 펀딩을 만들어볼까요?
-          </Button>
+          {isLoading ? (
+            <div>로딩중</div>
+          ) : (
+            <Button color="primary" onClick={() => setIsOpen(true)}>
+              내 펀딩을 만들어볼까요?
+            </Button>
+          )}
           <Button color="secondary" onClick={() => null}>
             서비스 둘러볼게요
           </Button>

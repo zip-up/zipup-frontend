@@ -9,6 +9,9 @@ import { useState } from 'react';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import CancelIcon from '@assets/icons/cancel-icon.svg';
 import ProgressBar from '@components/common/ProgressBar';
+import { useRecoilState } from 'recoil';
+import { createFundState } from '@store/store';
+import PageLayout from '@components/Layout/pageLayout';
 
 interface FormInput {
   link: string;
@@ -18,14 +21,14 @@ interface FormInput {
 export default function CreatFundStep1() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const [newFund, setNewFund] = useRecoilState(createFundState);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormInput>();
-
   const handleCreateFundSubmit = (data: FormInput) => {
-    console.log(data);
+    setNewFund({ ...newFund, productUrl: data.link, goalPrice: data.targetMoney });
     router.push('/funding/create/2');
   };
 
@@ -35,7 +38,7 @@ export default function CreatFundStep1() {
     );
 
   return (
-    <>
+    <PageLayout>
       {isOpen && (
         <ModalWithIcon
           onClose={() => setIsOpen(false)}
@@ -110,6 +113,6 @@ export default function CreatFundStep1() {
           다음
         </Button>
       </form>
-    </>
+    </PageLayout>
   );
 }

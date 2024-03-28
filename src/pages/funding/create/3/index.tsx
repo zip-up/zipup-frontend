@@ -7,6 +7,9 @@ import { useForm } from 'react-hook-form';
 import DatePicker from '@components/Calendar';
 import { useEffect, useState } from 'react';
 import ProgressBar from '@components/common/ProgressBar';
+import { useRecoilState } from 'recoil';
+import { createFundState } from '@store/store';
+import PageLayout from '@components/Layout/pageLayout';
 
 interface FormInput {
   due: string;
@@ -17,6 +20,7 @@ export default function CreatFundStep3() {
   const router = useRouter();
   const [isTargetOpen, setisTargetOpen] = useState(false);
   const [isDueOpen, setisDueOpen] = useState(false);
+  const [newFund, setNewFund] = useRecoilState(createFundState);
   const {
     register,
     handleSubmit,
@@ -31,12 +35,12 @@ export default function CreatFundStep3() {
   }, [register]);
 
   const handleCreateFundSubmit = (data: FormInput) => {
-    console.log(data);
+    setNewFund({ ...newFund, fundingStart: data.target, fundingFinish: data.due });
     router.push('/funding/create/4');
   };
 
   return (
-    <>
+    <PageLayout>
       <Header onGoBack={() => router.back()} />
       <ProgressBar width={css({ width: '24.6rem' })} />
       <h4 className={style.step_name}>Step 3</h4>
@@ -76,6 +80,6 @@ export default function CreatFundStep3() {
           다음
         </Button>
       </form>
-    </>
+    </PageLayout>
   );
 }
