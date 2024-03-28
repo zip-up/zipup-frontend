@@ -23,13 +23,12 @@ export default function Participate() {
     watch,
     resetField,
     reset,
-    setError,
     trigger,
     clearErrors,
     formState: { errors },
   } = useForm<FormInputs>({
     defaultValues: {
-      price: '행복의 오천원',
+      price: 5000,
       enteredCustomPrice: false,
     },
   });
@@ -45,7 +44,12 @@ export default function Participate() {
   const selected = watch('price');
   const [step, setStep] = useState(1);
 
-  const priceLabel = ['행복의 오천원', '기쁨의 만원', '건강의 삼만원', '사랑의 오만원'];
+  const priceLabel = [
+    { label: '행복의 오천원', price: 5000 },
+    { label: '기쁨의 만원', price: 10000 },
+    { label: '건강의 삼만원', price: 30000 },
+    { label: '사랑의 오만원 ', price: 50000 },
+  ];
 
   const renderFormStep = (step: number) => {
     switch (step) {
@@ -55,25 +59,29 @@ export default function Participate() {
             <div className={style.title}>
               <p>김집업님을 위한</p>마음을 보내주세요
             </div>
-            {priceLabel.map((label, idx) => (
-              <>
-                <label
-                  htmlFor={`price-${label}`}
-                  key={idx}
-                  style={{ background: selected === label ? 'blue' : 'gray' }}
-                >
-                  {label}
-                </label>
-                <input
-                  {...register('price', {
-                    onChange: () => resetField('enteredCustomPrice'),
-                  })}
-                  type="radio"
-                  value={label}
-                  id={`price-${label}`}
-                />
-              </>
-            ))}
+
+            {priceLabel.map(({ label, price }, idx) => {
+              console.log(selected, price);
+              return (
+                <>
+                  <label
+                    htmlFor={`price-${idx}`}
+                    key={idx}
+                    style={{ background: selected == price ? 'blue' : 'gray' }}
+                  >
+                    {label}
+                  </label>
+                  <input
+                    {...register('price', {
+                      onChange: () => resetField('enteredCustomPrice'),
+                    })}
+                    type="radio"
+                    value={price}
+                    id={`price-${idx}`}
+                  />
+                </>
+              );
+            })}
 
             <label
               htmlFor="custmPrice"
@@ -87,7 +95,7 @@ export default function Participate() {
               {...register('enteredCustomPrice', {
                 onChange: () => {
                   resetField('price', { defaultValue: 0 });
-                  resetField('customPrice', { defaultValue: 0 });
+                  resetField('customPrice');
                   clearErrors('customPrice');
                 },
               })}
