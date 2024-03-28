@@ -20,7 +20,7 @@ const Card = ({ data, onClick }: CardProps) => {
         <div className={style.status}>
           <StatusTag daysLeft={Number(data.status)} />
         </div>
-        {false && <div className={style.blur} />}
+        {data.percent === 100 && <div className={style.blur} />}
         <p>{data.imageUrl ? <Image src={data.imageUrl} alt="펀딩 이미지" /> : <GiftIcon />}</p>
       </div>
       <div className={style.info_box}>

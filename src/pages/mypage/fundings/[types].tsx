@@ -1,9 +1,9 @@
 import Card from '@components/Card';
 import Header from '@components/common/Header';
-import { useRouter } from 'next/router';
-import React from 'react';
-import * as style from '../../styles';
 import { FundingInfo } from '@typings/funding';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
+import * as style from '../styles';
 
 const data: FundingInfo[] = [
   {
@@ -26,7 +26,7 @@ const data: FundingInfo[] = [
     id: '3',
     title: '테스트3',
     imageUrl: '',
-    status: '1',
+    status: '0',
     percent: 50,
     organizer: '',
   },
@@ -34,22 +34,33 @@ const data: FundingInfo[] = [
     id: '4',
     title: '테스트4',
     imageUrl: '',
-    status: '0',
-    percent: 99,
+    status: '70',
+    percent: 100,
     organizer: '',
   },
 ];
 
-export default function ParticipatedFundings() {
+export default function MyFundings() {
   const router = useRouter();
+  const { types } = router.query;
+
+  useEffect(() => {
+    if (String(types) !== 'my' && String(types) !== 'participated') {
+      router.push('/mypage');
+    }
+  }, [router.query]);
 
   return (
     <>
-      <Header hasTitle title="내가 참여한 펀딩" onGoBack={() => router.back()} />
+      <Header
+        hasTitle
+        title={String(types) === 'my' ? '내가 만든 펀딩' : '내가 참여한 펀딩'}
+        onGoBack={() => router.back()}
+      />
       <div className={style.card_content}>
         <div className={style.flex_container}>
           {data.map((item, index) => (
-            <Card key={index} data={item} />
+            <Card key={index} data={item} onClick={() => router.push('/funding/' + item.id)} />
           ))}
         </div>
       </div>
