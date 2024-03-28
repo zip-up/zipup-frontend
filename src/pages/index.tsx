@@ -1,18 +1,34 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Head from 'next/head';
 import Logo from '@assets/images/logo.svg';
 import Button from '@components/common/Button';
 import Image from 'next/image';
 import * as style from './style';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import LoginIcon from '@assets/login-icon.svg';
 import LoginButtonIcon from '@assets/images/login-button.svg';
+import { useSetRecoilState } from 'recoil';
+import { tokenState } from '@store/store';
+import { useRouter } from 'next/router';
 
 export default function Home() {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const setToken = useSetRecoilState(tokenState);
 
-  const handleLogin = () => {
-    window.location.href = process.env.NEXT_PUBLIC_BASE_URL + '/oauth2/authorization/kakao';
+  useEffect(() => {
+    const authorizationToken = router.query.Authorization;
+    if (authorizationToken) {
+      setToken(String(authorizationToken));
+      localStorage.setItem('@token', String(authorizationToken));
+      router.push('/funding/create/1');
+    }
+  }, [router.query]);
+
+  const getToken = async () => {
+    window.location.href =
+      process.env.NEXT_PUBLIC_BASE_URL.slice(0, -4) + '/oauth2/authorization/kakao';
   };
 
   return (
@@ -37,7 +53,7 @@ export default function Home() {
           onClose={() => setIsOpen(false)}
           icon={<LoginIcon />}
           buttonComponent={
-            <button className={style.button} onClick={handleLogin}>
+            <button className={style.button} onClick={getToken}>
               <LoginButtonIcon />
             </button>
           }

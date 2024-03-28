@@ -17,3 +17,8 @@ export const createFundState = atom<CreateFund>({
     user: '',
   },
 });
+
+export const tokenState = atom<string>({
+  key: 'token',
+  default: '',
+});
