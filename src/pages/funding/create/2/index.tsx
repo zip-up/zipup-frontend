@@ -7,6 +7,9 @@ import classNames from 'classnames';
 import { css } from '@styled-system/css';
 import TextareaAutosize from 'react-textarea-autosize';
 import ProgressBar from '@components/common/ProgressBar';
+import { useRecoilState } from 'recoil';
+import { createFundState } from '@store/store';
+import PageLayout from '@components/Layout/pageLayout';
 
 interface FormInput {
   name: string;
@@ -15,6 +18,7 @@ interface FormInput {
 
 export default function CreatFundStep2() {
   const router = useRouter();
+  const [newFund, setNewFund] = useRecoilState(createFundState);
   const {
     register,
     handleSubmit,
@@ -24,14 +28,14 @@ export default function CreatFundStep2() {
   } = useForm<FormInput>();
 
   const handleCreateFundSubmit = (data: FormInput) => {
-    console.log(data);
+    setNewFund({ ...newFund, title: data.name, description: data.textMessage });
     router.push('/funding/create/3');
   };
 
   const validateString = (text: string) => /^[가-힣a-zA-Z]+$/.test(text);
 
   return (
-    <>
+    <PageLayout>
       <Header onGoBack={() => router.back()} />
       <ProgressBar width={css({ width: '16.4rem' })} />
       <h4 className={style.step_name}>Step 2</h4>
@@ -88,6 +92,6 @@ export default function CreatFundStep2() {
           다음
         </Button>
       </form>
-    </>
+    </PageLayout>
   );
 }
