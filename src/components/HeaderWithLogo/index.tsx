@@ -1,17 +1,20 @@
 import LogoIcon from '@assets/images/logo.svg';
 import UserIcon from '@assets/icons/user.svg';
 import { css } from '@styled-system/css';
+import { useRouter } from 'next/router';
 
 const HeaderWithLogo = () => {
+  const router = useRouter();
+
   return (
     <header className={header}>
       <div className={box} />
       <button className={logo}>
         <LogoIcon width={72.7} height={28} />
       </button>
-      <div className={box}>
+      <button className={box} onClick={() => router.push('/mypage')}>
         <UserIcon width={24} height={24} />
-      </div>
+      </button>
     </header>
   );
 };
