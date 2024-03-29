@@ -11,8 +11,8 @@ import { useRouter } from 'next/router';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import GiftIcon from '@assets/icons/gift-icon.svg';
 import ProgressBar from '@components/common/ProgressBar';
-import { useRecoilState } from 'recoil';
-import { createFundState } from '@store/store';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { createFundState, tokenState } from '@store/store';
 import { useCreateFunding } from '@hooks/queries/useCreateFunding';
 import PageLayout from '@components/Layout/pageLayout';
 import TermsAndConditions from '@components/TermsAndConditions';
@@ -26,11 +26,12 @@ interface FormInput {
 
 export default function CreatFundStep4() {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [newFund, setNewFund] = useRecoilState(createFundState);
+  const token = useRecoilValue(tokenState);
+  const [id, setId] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
   const [isValid, setIsValid] = useState(false);
-  const id = 1;
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { mutate: handleCreateFund } = useCreateFunding();
 
   const {
@@ -47,18 +48,25 @@ export default function CreatFundStep4() {
         ...newFund,
         roadAddress: getValues('address'),
         detailAddress: getValues('detailAddress'),
-        phoneNumber: String(getValues('phone')),
+        phoneNumber: !getValues('phone') ? '' : String(getValues('phone')),
       });
       handleNext();
     }
   };
 
   const handleNext = () => {
-    handleCreateFund(newFund, {
-      onSuccess: data => {
-        console.log(data);
+    console.log(newFund, token);
+    handleCreateFund(
+      { data: newFund, token },
+      {
+        onSuccess: data => {
+          console.log(data);
+          if (data) {
+            setId(data.id);
+          }
+        },
       },
-    });
+    );
   };
 
   return (
@@ -79,7 +87,7 @@ export default function CreatFundStep4() {
                   router.push('/funding/' + id);
                 }}
               >
-                닫기
+                내 펀딩 보기
               </Button>
               <Button color="secondary" style={{ width: '16.8rem' }} onClick={() => null}>
                 친구에게 공유하기
@@ -140,7 +148,12 @@ export default function CreatFundStep4() {
           >
             나중에 입력
           </Button>
-          <Button type="submit" className={css({ width: '19.1rem' })} color="secondary">
+          <Button
+            type="submit"
+            className={css({ width: '19.1rem' })}
+            color="secondary"
+            onClick={() => setIsModalOpen(true)}
+          >
             등록 완료
           </Button>
         </div>

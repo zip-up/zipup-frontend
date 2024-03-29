@@ -4,9 +4,12 @@ import { useMutation } from '@tanstack/react-query';
 
 const useCreateFunding = () => {
   return useMutation({
-    mutationFn: async (data: CreateFund) => {
-      const response = await Instance.post('/v1/fund', {
-        ...data,
+    mutationFn: async ({ data, token }: { data: CreateFund; token: string }) => {
+      const response = await Instance.post('/v1/fund', JSON.stringify(data), {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       });
 
       return response.data;

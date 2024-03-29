@@ -35,7 +35,12 @@ export default function CreatFundStep3() {
   }, [register]);
 
   const handleCreateFundSubmit = (data: FormInput) => {
-    setNewFund({ ...newFund, fundingStart: data.target, fundingFinish: data.due });
+    setNewFund({
+      ...newFund,
+      fundingStart: new Date(data.target).toISOString().slice(0, -2),
+      fundingFinish: new Date(data.due).toISOString().slice(0, -2),
+    });
+
     router.push('/funding/create/4');
   };
 

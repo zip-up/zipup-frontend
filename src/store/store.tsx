@@ -1,5 +1,6 @@
 import { atom } from 'recoil';
 import { CreateFund } from './types';
+import { User } from '@typings/auth';
 
 export const createFundState = atom<CreateFund>({
   key: 'createFund',
@@ -31,3 +32,14 @@ export const fundingFormState = atom({
     msg: '',
   },
 });
+
+export const userState = atom<User>({
+  key: 'user',
+  default: {
+    id: '',
+    name: '',
+    email: '',
+    profileImage: '',
+  },
+});
+

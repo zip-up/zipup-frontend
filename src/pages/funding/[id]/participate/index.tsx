@@ -26,7 +26,6 @@ export default function Participate() {
   const [fundingForm, setFundingForm] = useRecoilState(fundingFormState);
 
   const router = useRouter();
-
   const { id: fundingId } = router.query;
 
   const {

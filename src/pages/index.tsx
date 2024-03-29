@@ -8,39 +8,38 @@ import LoginIcon from '@assets/icons/login-icon.svg';
 import LoginButtonIcon from '@assets/images/login-button.svg';
 import HomeImage from '@assets/images/home-image.svg';
 import HeaderWithLogo from '@components/HeaderWithLogo';
-import { useSetRecoilState } from 'recoil';
-import { tokenState } from '@store/store';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { tokenState, userState } from '@store/store';
 import { useRouter } from 'next/router';
 import { useAuth } from '@hooks/queries/useAuth';
-import { Auth } from '@typings/auth';
 
 export default function Home() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const setToken = useSetRecoilState(tokenState);
+  const [token, setToken] = useRecoilState(tokenState);
   const [code, setCode] = useState('');
-  const [user, setUser] = useState<Auth>();
-  const { data, refetch, isLoading, error } = useAuth({ code });
-
-  if (!isLoading) {
-    console.log(error);
-    console.log(data);
-  }
+  const setUser = useSetRecoilState(userState);
+  const { data, refetch, isLoading } = useAuth({ code });
 
   useEffect(() => {
-    setCode(router.asPath.slice(2));
-    console.log(code);
-  }, [router.asPath]);
-
-  useEffect(() => {
-    if (code) {
+    if (router.asPath.slice(2)) {
+      setCode(router.asPath.slice(2));
       refetch();
     }
+  }, [router]);
 
-    if (data) {
-      setUser(data);
+  useEffect(() => {
+    if (data && !isLoading) {
+      setUser({
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        profileImage: data.profileImage,
+      });
+      setToken(data.accesstoken);
+      localStorage.setItem('@token', data.accesstoken);
     }
-  }, [code, data]);
+  }, [isLoading]);
 
   const getToken = async () => {
     window.location.href =
@@ -91,13 +90,15 @@ export default function Home() {
           <div className={style.image}>
             <HomeImage />
           </div>
-          {isLoading ? (
-            <div>로딩중</div>
-          ) : (
-            <Button color="primary" onClick={() => setIsOpen(true)}>
-              내 펀딩을 만들어볼까요?
-            </Button>
-          )}
+
+          <Button
+            color={isLoading ? 'disabled' : 'primary'}
+            disabled={isLoading}
+            onClick={() => (token ? router.push('/funding/create/1') : setIsOpen(true))}
+          >
+            {isLoading ? '로그인 중...' : '내 펀딩을 만들어볼까요?'}
+          </Button>
+
           <Button color="secondary" onClick={() => null}>
             서비스 둘러볼게요
           </Button>

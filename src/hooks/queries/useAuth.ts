@@ -1,13 +1,13 @@
 import { Instance } from '@api/index';
 import { useQuery } from '@tanstack/react-query';
-import { Auth } from '@typings/auth';
+import { UserWithToken } from '@typings/auth';
 
 const useAuth = ({ code }: { code: string }) => {
-  return useQuery<Auth>({
+  return useQuery<UserWithToken>({
     enabled: false,
     queryKey: ['auth'],
     queryFn: async () => {
-      const response = await Instance.get<Auth>(`/v1/auth/get-authentication`, {
+      const response = await Instance.get<UserWithToken>(`/v1/auth/authentication`, {
         headers: {
           Authorization: code,
         },

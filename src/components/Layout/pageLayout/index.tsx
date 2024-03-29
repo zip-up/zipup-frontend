@@ -9,11 +9,11 @@ export default function PageLayout({ children }: PropsWithChildren) {
   const router = useRouter();
   const token = useRecoilValue(tokenState);
 
-  // useEffect(() => {
-  //   if (!token) {
-  //     router.push('/');
-  //   }
-  // }, [token]);
+  useEffect(() => {
+    if (!token) {
+      router.push('/');
+    }
+  }, [token]);
 
   return <div className={container}>{children}</div>;
 }

@@ -58,6 +58,44 @@ export default function Funding() {
     );
   };
 
+  const { data: fundingInfo } = useGetFundingDeatil();
+
+  if (!fundingInfo) return null;
+
+  const {
+    title,
+    imageUrl,
+    expirationDate,
+    percent,
+    goalPrice,
+    description,
+    isOrganizer,
+    isParticipant,
+    presentList: messageList,
+  } = fundingInfo;
+
+  const RoleBasedButton = () => {
+    if (isOrganizer) {
+      return (
+        <Button type="button" color="secondary" wFull onClick={() => {}}>
+          친구에게 공유하기
+        </Button>
+      );
+    }
+    if (isParticipant) {
+      return (
+        <Button type="button" color="secondary" wFull onClick={() => {}}>
+          결제 취소하기
+        </Button>
+      );
+    }
+    return (
+      <Button type="button" color="secondary" wFull onClick={() => {}}>
+        이 펀딩 참여하기
+      </Button>
+    );
+  };
+
   return (
     <div className={style.pageLayout}>
       <Header />
