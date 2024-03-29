@@ -5,6 +5,14 @@
     font-size: 62.5%;
   }
 
+  [type="radio"] {
+    appearance: none;
+  }
+
+  [type="checkbox"] { 
+    appearance: none; 
+  }
+
   body {
     font-size: 1.6rem;
 
