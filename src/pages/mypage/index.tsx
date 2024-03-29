@@ -9,25 +9,26 @@ import ParticipatedFundingIcon from '@assets/images/participated_funding.svg';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import * as style from './styles';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { tokenState, userState } from '@store/store';
 import { useLogout } from '@hooks/queries/useAuth';
-import { useEffect } from 'react';
 import PageLayout from '@components/Layout/pageLayout';
 
 const MyPage = () => {
   const router = useRouter();
   const user = useRecoilValue(userState);
-  const token = useRecoilValue(tokenState);
+  const [token, setToken] = useRecoilState(tokenState);
   const image = '';
-  const { data, refetch } = useLogout({ token });
+  const { mutate } = useLogout();
 
-  useEffect(() => {
-    if (data) {
-      // router.push('/');
-      console.log(data);
-    }
-  }, [data]);
+  const handleLogout = () => {
+    mutate({ token });
+
+    setToken('');
+    localStorage.removeItem('@token');
+    localStorage.removeItem('@user');
+    router.push('/');
+  };
 
   return (
     <PageLayout>
@@ -46,14 +47,14 @@ const MyPage = () => {
               <span className={style.name}>{user.name}</span>
               <span>님</span>
             </div>
-            <button className={style.logout} onClick={() => refetch()}>
+            <button className={style.logout} onClick={handleLogout}>
               <ExitIcon />
             </button>
           </div>
           <Button
             color="primary"
             className={style.button}
-            onClick={() => router.push('/funding/create/1')}
+            onClick={() => (token ? router.push('/funding/create/1') : router.push('/'))}
           >
             내 펀딩 만들러 가기 <GoIcon />
           </Button>
