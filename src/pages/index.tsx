@@ -11,7 +11,7 @@ import HeaderWithLogo from '@components/HeaderWithLogo';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { tokenState, userState } from '@store/store';
 import { useRouter } from 'next/router';
-import { useAuth } from '@hooks/queries/useAuth';
+import { useLogIn } from '@hooks/queries/useAuth';
 
 export default function Home() {
   const router = useRouter();
@@ -19,7 +19,7 @@ export default function Home() {
   const [token, setToken] = useRecoilState(tokenState);
   const [code, setCode] = useState('');
   const setUser = useSetRecoilState(userState);
-  const { data, refetch, isLoading } = useAuth({ code });
+  const { data, refetch, isLoading } = useLogIn({ code });
 
   useEffect(() => {
     if (router.asPath.slice(2)) {
@@ -75,7 +75,7 @@ export default function Home() {
         />
       )}
       <main>
-        <HeaderWithLogo />
+        <HeaderWithLogo onOpenLogin={() => setIsOpen(true)} />
         <div className={style.text_box}>
           <p className={style.title}>
             조금씩 마음을 보태어 <span className={style.highlight}>집들이 선물</span>을 보내요
