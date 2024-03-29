@@ -27,6 +27,8 @@ export default function Participate() {
 
   const router = useRouter();
 
+  const { id: fundingId } = router.query;
+
   const {
     register,
     handleSubmit,
@@ -48,7 +50,10 @@ export default function Participate() {
     enteredCustomPrice,
     customPrice,
     ...rest
-  }) => setFundingForm({ price: enteredCustomPrice ? customPrice : price, ...rest });
+  }) => {
+    setFundingForm({ price: enteredCustomPrice ? customPrice : price, ...rest });
+    router.push(`/funding/${fundingId}/payment`);
+  };
 
   const enteredCustomPrice = watch('enteredCustomPrice');
   const selected = watch('price');

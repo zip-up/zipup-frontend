@@ -12,9 +12,10 @@ import FundingStatusBox from '@components/FundingStatusBox';
 export default function Funding() {
   const router = useRouter();
 
-  const { id } = router.query;
+  const { id: fundingId } = router.query;
 
-  const { data: fundingInfo } = useGetFundingDeatil();
+  const userId = 1;
+  const { data: fundingInfo } = useGetFundingDeatil(fundingId, userId);
 
   if (!fundingInfo) return null;
 
@@ -46,7 +47,12 @@ export default function Funding() {
       );
     }
     return (
-      <Button type="button" color="secondary" wFull onClick={() => {}}>
+      <Button
+        type="button"
+        color="secondary"
+        wFull
+        onClick={() => router.push(`/funding/${fundingId}/participate`)}
+      >
         이 펀딩 참여하기
       </Button>
     );
