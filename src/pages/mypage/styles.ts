@@ -176,6 +176,47 @@ const flex_container = css({
   overflow: 'hidden',
 });
 
+
+const no_result = css({
+  marginTop: '19rem',
+});
+
+const icon_box = css({
+  width: '100%',
+  height: '10.4rem',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginBottom: '2.4rem',
+});
+
+const text_box = css({
+  height: '4.6rem',
+  width: '100%',
+  textAlign: 'center',
+});
+
+const title = css({
+  fontFamily: 'pretendard-semibold',
+  color: 'gray.60',
+  fontSize: 'subtitle2',
+  fontWeight: '600',
+});
+
+const desc = css({
+  fontFamily: 'pretendard-regular',
+  color: 'gray.60',
+  fontSize: 'body2',
+  marginTop: '0.4rem',
+});
+
+const no_result_button = css({
+  width: '12.2rem',
+  height: '4.9rem',
+  marginTop: '2.6rem',
+  margin: '0 auto',
+});
+
 export {
   content,
   profile_box,
@@ -198,4 +239,10 @@ export {
   pointer,
   card_content,
   flex_container,
+  icon_box,
+  text_box,
+  no_result,
+  title,
+  desc,
+  no_result_button,
 };

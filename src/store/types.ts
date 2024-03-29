@@ -9,5 +9,4 @@ export interface CreateFund {
   imageUrl: string;
   fundingStart: string;
   fundingFinish: string;
-  user: string;
 }

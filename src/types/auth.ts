@@ -3,8 +3,7 @@ export interface User {
   name: string;
   email: string;
   profileImage: string;
-
-};
+}
 
 export interface UserWithToken extends User {
   accesstoken: string;

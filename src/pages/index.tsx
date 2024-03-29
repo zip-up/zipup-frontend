@@ -11,7 +11,7 @@ import HeaderWithLogo from '@components/HeaderWithLogo';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { tokenState, userState } from '@store/store';
 import { useRouter } from 'next/router';
-import { useAuth } from '@hooks/queries/useAuth';
+import { useLogIn } from '@hooks/queries/useAuth';
 
 export default function Home() {
   const router = useRouter();
@@ -19,25 +19,26 @@ export default function Home() {
   const [token, setToken] = useRecoilState(tokenState);
   const [code, setCode] = useState('');
   const setUser = useSetRecoilState(userState);
-  const { data, refetch, isLoading } = useAuth({ code });
+  const { data, refetch, isLoading } = useLogIn({ code });
+
+  console.log(token);
 
   useEffect(() => {
-    if (router.asPath.slice(2)) {
+    console.log(router.asPath);
+    if (router.asPath.slice(2) && !isLoading) {
+      console.log(isLoading);
       setCode(router.asPath.slice(2));
       refetch();
     }
-  }, [router]);
+  }, [router, isLoading]);
 
   useEffect(() => {
     if (data && !isLoading) {
-      setUser({
-        id: data.id,
-        name: data.name,
-        email: data.email,
-        profileImage: data.profileImage,
-      });
-      setToken(data.accesstoken);
-      localStorage.setItem('@token', data.accesstoken);
+      const { accesstoken, ...rest } = data;
+      setUser(rest);
+      setToken(accesstoken);
+      localStorage.setItem('@token', accesstoken);
+      localStorage.setItem('@user', JSON.stringify(rest));
     }
   }, [isLoading]);
 
@@ -75,7 +76,7 @@ export default function Home() {
         />
       )}
       <main>
-        <HeaderWithLogo />
+        <HeaderWithLogo onOpenLogin={() => setIsOpen(true)} />
         <div className={style.text_box}>
           <p className={style.title}>
             조금씩 마음을 보태어 <span className={style.highlight}>집들이 선물</span>을 보내요
@@ -90,7 +91,6 @@ export default function Home() {
           <div className={style.image}>
             <HomeImage />
           </div>
-
           <Button
             color={isLoading ? 'disabled' : 'primary'}
             disabled={isLoading}
@@ -98,7 +98,6 @@ export default function Home() {
           >
             {isLoading ? '로그인 중...' : '내 펀딩을 만들어볼까요?'}
           </Button>
-
           <Button color="secondary" onClick={() => null}>
             서비스 둘러볼게요
           </Button>

@@ -55,7 +55,7 @@ export default function CreatFundStep4() {
   };
 
   const handleNext = () => {
-    console.log(newFund, token);
+
     handleCreateFund(
       { data: newFund, token },
       {

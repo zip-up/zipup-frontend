@@ -1,19 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { tokenState } from '@store/store';
+import { tokenState, userState } from '@store/store';
 import { css } from '@styled-system/css';
-import { useRouter } from 'next/router';
-import React, { PropsWithChildren, useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
+import { PropsWithChildren, useEffect } from 'react';
+import { useSetRecoilState } from 'recoil';
 
 export default function PageLayout({ children }: PropsWithChildren) {
-  const router = useRouter();
-  const token = useRecoilValue(tokenState);
+  const setToken = useSetRecoilState(tokenState);
+  const setUser = useSetRecoilState(userState);
 
   useEffect(() => {
-    if (!token) {
-      router.push('/');
+    const token = localStorage.getItem('@token');
+    const user = JSON.parse(localStorage.getItem('@user') as string);
+    if (token) {
+      setToken(token);
+      setUser(user);
     }
-  }, [token]);
+  }, [setToken]);
 
   return <div className={container}>{children}</div>;
 }

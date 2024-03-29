@@ -15,7 +15,10 @@ export const createFundState = atom<CreateFund>({
     imageUrl: '',
     fundingStart: '',
     fundingFinish: '',
+<<<<<<< HEAD
     user: '',
+=======
+>>>>>>> develop
   },
 });
 
@@ -42,4 +45,7 @@ export const userState = atom<User>({
     profileImage: '',
   },
 });
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
