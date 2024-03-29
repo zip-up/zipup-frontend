@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { usePaymentWidget, useRequestPayment, useStoreOrderInfo } from '@hooks/queries/usePayment';
 import { useRouter } from 'next/router';
 import { nanoid } from 'nanoid';
+import Button from '@components/common/Button';
+import { css } from '@styled-system/css';
 
 export default function Payment() {
   const router = useRouter();
@@ -34,10 +36,14 @@ export default function Payment() {
   }, [paymentWidget]);
 
   return (
-    <>
+    <div className={css({ display: 'flex', flexDir: 'column', p: '1.6rem' })}>
       <div id="payment-widget" />
       <div id="agreement" />
-      <button
+      <Button
+        type="button"
+        color="secondary"
+        className={css({ mt: '5rem' })}
+        wFull
         onClick={() => {
           storeOrderInfo({
             orderId: nanoid(),
@@ -46,7 +52,7 @@ export default function Payment() {
         }}
       >
         결제하기
-      </button>
-    </>
+      </Button>
+    </div>
   );
 }

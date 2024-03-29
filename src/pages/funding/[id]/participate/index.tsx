@@ -224,7 +224,7 @@ export default function Participate() {
             <TermsAndConditions data={createTerms} onSetIsValid={setIsValid} />
 
             <Button type="submit" color="secondary" wFull className={style.fixedPostionButton}>
-              결제하기
+              결제하러 가기
             </Button>
           </div>
         );
