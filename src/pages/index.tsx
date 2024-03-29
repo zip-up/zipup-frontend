@@ -90,16 +90,13 @@ export default function Home() {
           <div className={style.image}>
             <HomeImage />
           </div>
-          {isLoading ? (
-            <div>로딩중</div>
-          ) : (
-            <Button
-              color="primary"
-              onClick={() => (token ? router.push('/funding/create/1') : setIsOpen(true))}
-            >
-              내 펀딩을 만들어볼까요?
-            </Button>
-          )}
+          <Button
+            color={isLoading ? 'disabled' : 'primary'}
+            disabled={isLoading}
+            onClick={() => (token ? router.push('/funding/create/1') : setIsOpen(true))}
+          >
+            {isLoading ? '로그인 중...' : '내 펀딩을 만들어볼까요?'}
+          </Button>
           <Button color="secondary" onClick={() => null}>
             서비스 둘러볼게요
           </Button>
