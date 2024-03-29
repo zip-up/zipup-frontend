@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 import { CreateFund } from './types';
-import { Auth, User } from '@typings/auth';
+import { User } from '@typings/auth';
 
 export const createFundState = atom<CreateFund>({
   key: 'createFund',
@@ -15,7 +15,6 @@ export const createFundState = atom<CreateFund>({
     imageUrl: '',
     fundingStart: '',
     fundingFinish: '',
-    user: '',
   },
 });
 
