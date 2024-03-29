@@ -1,6 +1,5 @@
 import { css } from '@styled-system/css';
-import React from 'react';
-import BackIcon from '@assets/back.svg';
+import BackIcon from '@assets/icons/back.svg';
 import { useRouter } from 'next/router';
 
 interface HeaderProps {

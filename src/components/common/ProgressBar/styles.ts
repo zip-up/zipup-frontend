@@ -1,10 +1,8 @@
 import { css } from '@styled-system/css';
 
 const progressbar = css({
-  width: '32.8rem',
   height: '0.8rem',
   position: 'relative',
-  margin: '0.8rem auto',
 });
 
 const background_bar = css({

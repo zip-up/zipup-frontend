@@ -5,18 +5,18 @@ import { useForm } from 'react-hook-form';
 import * as style from '../styles';
 import { css } from '@styled-system/css';
 import classNames from 'classnames';
-import SearchIcon from '@assets/search.svg';
-import CheckedIcon from '@assets/checked.svg';
-import UnCheckedIcon from '@assets/unchecked.svg';
+import SearchIcon from '@assets/icons/search.svg';
 import AddressModal from '@components/modals/AddressModal';
 import { useRouter } from 'next/router';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
-import GiftIcon from '@assets/gift-icon.svg';
+import GiftIcon from '@assets/icons/gift-icon.svg';
 import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState } from 'recoil';
 import { createFundState } from '@store/store';
 import { useCreateFunding } from '@hooks/queries/useCreateFunding';
 import PageLayout from '@components/Layout/pageLayout';
+import TermsAndConditions from '@components/TermsAndConditions';
+import { createTerms } from '@constants/terms';
 
 interface FormInput {
   address: string;
@@ -26,11 +26,10 @@ interface FormInput {
 
 export default function CreatFundStep4() {
   const router = useRouter();
-  const [isTermsAgreed, setIsTermsAgreed] = useState(false);
-  const [isPrivacyShared, setIsPrivacyShared] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newFund, setNewFund] = useRecoilState(createFundState);
+  const [isValid, setIsValid] = useState(false);
   const id = 1;
   const { mutate: handleCreateFund } = useCreateFunding();
 
@@ -43,7 +42,7 @@ export default function CreatFundStep4() {
   } = useForm<FormInput>();
 
   const handleCreateFundSubmit = () => {
-    if (isTermsAgreed && isPrivacyShared) {
+    if (isValid) {
       setNewFund({
         ...newFund,
         roadAddress: getValues('address'),
@@ -131,41 +130,7 @@ export default function CreatFundStep4() {
         />
         <p className={style.error_text}>{errors.phone ? errors.phone.message : ''}</p>
 
-        <div
-          className={classNames(style.message, message_height, css({ flexDirection: 'column' }))}
-        >
-          <div className={flexbox}>
-            <div
-              className={style.message_icon}
-              onClick={() => setIsPrivacyShared(!isPrivacyShared)}
-            >
-              {isPrivacyShared ? <CheckedIcon /> : <UnCheckedIcon />}
-            </div>
-            <div className={add_margin}>
-              <p className={style.message_text}>구매조건 확인 및 결제대행 서비스 약관 동의</p>
-              <a
-                href="https://danisong.notion.site/fbf04b6c117f44e1a224394b89d3e6dc"
-                className={style.terms_conditions}
-              >
-                구매조건 확인 및 결제대행 서비스 약관 보기
-              </a>
-            </div>
-          </div>
-          <div className={flexbox}>
-            <div className={style.message_icon} onClick={() => setIsTermsAgreed(!isTermsAgreed)}>
-              {isTermsAgreed ? <CheckedIcon /> : <UnCheckedIcon />}
-            </div>
-            <div className={add_margin}>
-              <p className={style.message_text}>개인정보 제3자 제공 동의</p>
-              <a
-                href="https://danisong.notion.site/3-6b01ebda16e348488b1bb566c3451e41"
-                className={style.terms_conditions}
-              >
-                개인정보처리방침 전체내용 보기
-              </a>
-            </div>
-          </div>
-        </div>
+        <TermsAndConditions data={createTerms} onSetIsValid={setIsValid} />
         <div className={classNames(flexbox, button)}>
           <Button
             type="submit"
@@ -189,18 +154,9 @@ export default function CreatFundStep4() {
     </PageLayout>
   );
 }
-
-const message_height = css({
-  height: '10.2rem',
-});
-
 const flexbox = css({
   display: 'flex',
   gap: '0.8rem',
-});
-
-const add_margin = css({
-  marginTop: '-0.1rem',
 });
 
 const button = css({

@@ -70,29 +70,6 @@ const form = css({
   height: 'calc(100% - 19.1rem)',
 });
 
-const message = css({
-  width: '32.8rem',
-  height: '4rem',
-  borderRadius: '0.8rem',
-  backgroundColor: 'blue.10',
-  margin: '1.6rem auto',
-  padding: '1.2rem',
-  display: 'flex',
-  gap: '0.8rem',
-  fontFamily: 'pretendard-regular',
-  fontSize: 'caption1',
-});
-
-const message_icon = css({
-  width: '1.6rem',
-  height: '1.6rem',
-  cursor: 'pointer',
-});
-
-const message_text = css({
-  color: 'success',
-});
-
 const button = css({
   position: 'absolute',
   bottom: '2.5rem',
@@ -132,15 +109,6 @@ const date_box = css({
   marginBottom: '-0.2rem',
 });
 
-const terms_conditions = css({
-  color: 'text.200',
-  fontFamily: 'pretendard-regular',
-  fontSize: 'caption1',
-  textDecoration: 'underline',
-  textUnderlineOffset: '0.2rem',
-  cursor: 'pointer',
-});
-
 const error_text = css({
   marginTop: '0.8rem',
   fontFamily: 'pretendard-regular',
@@ -171,14 +139,10 @@ export {
   input,
   divider,
   form,
-  message,
-  message_icon,
-  message_text,
   button,
   pointer,
   text_placeholder,
   date_box,
-  terms_conditions,
   error_text,
   input_shape,
   modal_button_wrapper,

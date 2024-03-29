@@ -7,6 +7,15 @@ export type MessageInfo = {
   congratsMessage: string;
 };
 
+export type FundingInfo = {
+  id: string;
+  title: string;
+  imageUrl: string;
+  status: string;
+  percent: number;
+  organizer: string;
+};
+
 export type DetailFundingInfo = {
   id: string;
   title: string;
