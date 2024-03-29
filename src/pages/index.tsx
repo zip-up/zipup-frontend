@@ -12,6 +12,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { tokenState, userState } from '@store/store';
 import { useRouter } from 'next/router';
 import { useLogIn } from '@hooks/queries/useAuth';
+import PageLayout from '@components/Layout/pageLayout';
 
 export default function Home() {
   const router = useRouter();
@@ -21,12 +22,8 @@ export default function Home() {
   const setUser = useSetRecoilState(userState);
   const { data, refetch, isLoading } = useLogIn({ code });
 
-  console.log(token);
-
   useEffect(() => {
-    console.log(router.asPath);
     if (router.asPath.slice(2) && !isLoading) {
-      console.log(isLoading);
       setCode(router.asPath.slice(2));
       refetch();
     }
@@ -48,7 +45,7 @@ export default function Home() {
   };
 
   return (
-    <>
+    <PageLayout>
       <Head>
         <title>ZIPup | 집들이 선물 펀딩 서비스</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -103,6 +100,6 @@ export default function Home() {
           </Button>
         </div>
       </main>
-    </>
+    </PageLayout>
   );
 }
