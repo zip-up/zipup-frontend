@@ -3,7 +3,8 @@ import UserIcon from '@assets/icons/user.svg';
 import { css } from '@styled-system/css';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
-import { tokenState } from '@store/store';
+import { tokenState, userState } from '@store/store';
+import Image from 'next/image';
 
 interface HeaderWithLogoProps {
   onOpenLogin: () => void;
@@ -12,15 +13,20 @@ interface HeaderWithLogoProps {
 const HeaderWithLogo = ({ onOpenLogin }: HeaderWithLogoProps) => {
   const router = useRouter();
   const token = useRecoilValue(tokenState);
+  const user = useRecoilValue(userState);
 
   return (
     <header className={header}>
       <div className={box} />
-      <button className={logo}>
+      <button className={logo} onClick={() => router.push('/')}>
         <LogoIcon width={72.7} height={28} />
       </button>
       <button className={box} onClick={() => (token ? router.push('/mypage') : onOpenLogin())}>
-        <UserIcon width={24} height={24} />
+        {user.profileImage ? (
+          <Image src={user.profileImage} alt="profile image" width={24} height={24} />
+        ) : (
+          <UserIcon />
+        )}
       </button>
     </header>
   );
