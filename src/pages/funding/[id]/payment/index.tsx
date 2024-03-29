@@ -1,18 +1,25 @@
 import { useEffect } from 'react';
-import { usePaymentWidget, useRequestPayment } from '@hooks/queries/usePayment';
+import { usePaymentWidget, useRequestPayment, useStoreOrderInfo } from '@hooks/queries/usePayment';
 import { useRouter } from 'next/router';
+import { nanoid } from 'nanoid';
 
 export default function Payment() {
   const router = useRouter();
 
-  const { amount, id } = router.query as { amount: string; id: string };
+  const { amount = 25000, id: fundingId } = router.query as { amount: string; id: string };
 
   const widgetClientKey = process.env.NEXT_PUBLIC_CLIENT_KEY;
   const customerKey = 'NIFasERO7b3q-3VE-USyh';
 
   const { data: paymentWidget } = usePaymentWidget(widgetClientKey, customerKey);
 
+  // todo:: 결제 상품 및 결제자 정보 fetch
+
   const { mutate: handlePaymentRequest } = useRequestPayment();
+
+  const { mutate: storeOrderInfo } = useStoreOrderInfo((orderId: string) =>
+    handlePaymentRequest({ paymentWidget, fundingId, orderId }),
+  );
 
   useEffect(() => {
     if (!paymentWidget) return;
@@ -30,7 +37,16 @@ export default function Payment() {
     <>
       <div id="payment-widget" />
       <div id="agreement" />
-      <button onClick={() => handlePaymentRequest({ paymentWidget, id })}>결제하기</button>
+      <button
+        onClick={() => {
+          storeOrderInfo({
+            orderId: nanoid(),
+            amount: Number(amount),
+          });
+        }}
+      >
+        결제하기
+      </button>
     </>
   );
 }
