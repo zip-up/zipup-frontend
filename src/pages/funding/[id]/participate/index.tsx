@@ -230,7 +230,7 @@ export default function Participate() {
     <div className={style.pageLayout}>
       <Header onGoBack={step == 1 ? () => router.back() : () => setStep(1)} />
       <div className={style.container}>
-        <ProgressBar width={css({ width: step == 1 ? '16.2rem' : '32.8rem' })} />
+        <ProgressBar width={step == 1 ? '16.2rem' : '32.8rem'} />
         <form onSubmit={handleSubmit(onSubmit)}>{renderFormStep(step)}</form>
       </div>
     </div>
