@@ -6,36 +6,47 @@ import GoIcon from '@assets/icons/go.svg';
 import ExitIcon from '@assets/icons/exit.svg';
 import MyFundingIcon from '@assets/images/my-funding.svg';
 import ParticipatedFundingIcon from '@assets/images/participated_funding.svg';
-import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import * as style from './styles';
+import { useRecoilValue } from 'recoil';
+import { tokenState, userState } from '@store/store';
+import { useLogout } from '@hooks/queries/useAuth';
+import { useEffect } from 'react';
+import PageLayout from '@components/Layout/pageLayout';
 
 const MyPage = () => {
   const router = useRouter();
-  const isLoggedIn = true;
+  const user = useRecoilValue(userState);
+  const token = useRecoilValue(tokenState);
   const image = '';
+  const { data, refetch } = useLogout({ token });
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      router.push('/');
+    if (data) {
+      // router.push('/');
+      console.log(data);
     }
-  }, [isLoggedIn]);
+  }, [data]);
 
   return (
-    <>
-      <HeaderWithLogo />
+    <PageLayout>
+      <HeaderWithLogo onOpenLogin={() => router.push('/mypage')} />
       <div className={style.content}>
         <div className={style.profile_box}>
           <div className={style.info_box}>
             <div className={style.avatar}>
-              {image ? <Image src={''} alt="profile image" width={42} height={42} /> : <UserIcon />}
+              {image ? (
+                <Image src={user.profileImage} alt="profile image" width={42} height={42} />
+              ) : (
+                <UserIcon />
+              )}
             </div>
             <div className={style.name_box}>
-              <span className={style.name}>김집업</span>
+              <span className={style.name}>{user.name}</span>
               <span>님</span>
             </div>
-            <button className={style.logout}>
+            <button className={style.logout} onClick={() => refetch()}>
               <ExitIcon />
             </button>
           </div>
@@ -95,7 +106,7 @@ const MyPage = () => {
           </div>
         </footer>
       </div>
-    </>
+    </PageLayout>
   );
 };
 
