@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const {
-    query: { id: fundingId, paymentKey, orderId, amount, id },
+    query: { id: fundingId, paymentKey, orderId, amount },
   } = context;
 
   // 결제 승인 요청
@@ -17,9 +17,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
   try {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_BASE_URL}/v1/payment/confirm?paymentKey=${paymentKey}&orderId=${orderId}&amount=${amount}`,
-      {
-        headers: {},
-      },
     );
 
     return { props: { fundingId, orderId, amount } };
@@ -27,7 +24,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     console.log('결제 승인 요청 에러', e);
     return {
       redirect: {
-        destination: `/funding/${id}/payment/fail?code=${e.response?.data?.code}&message=${encodeURIComponent(e.response?.data?.message)}`,
+        destination: `/funding/${fundingId}/payment/fail?code=${e.response?.data?.code}&message=${encodeURIComponent(e.response?.data?.message)}`,
         permanent: false,
       },
     };
@@ -60,7 +57,7 @@ export default function Success({ fundingId, orderId, amount }: SuccessProps) {
         </div>
       </div>
 
-      <Image src="/payment_success.svg" alt="s" width={320} height={320} />
+      <Image src="/payment_success.svg" alt="결제 성공 이미지" width={320} height={320} />
       <Link href={`/funding/${fundingId}`} className={commonStyle.buttonLink}>
         돌아가기
       </Link>

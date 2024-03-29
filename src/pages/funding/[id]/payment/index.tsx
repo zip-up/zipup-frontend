@@ -4,23 +4,33 @@ import { useRouter } from 'next/router';
 import { nanoid } from 'nanoid';
 import Button from '@components/common/Button';
 import { css } from '@styled-system/css';
+import { useRecoilState } from 'recoil';
+import { fundingFormState, userState } from '@store/store';
+import { useGetFundingDeatil } from '@hooks/queries/useFunding';
 
 export default function Payment() {
   const router = useRouter();
+  const [fundingForm] = useRecoilState(fundingFormState);
+  const [userInfo] = useRecoilState(userState);
 
-  const { amount = 25000, id: fundingId } = router.query as { amount: string; id: string };
+  const { id: fundingId } = router.query as { id: string };
+  const { data: fundingInfo } = useGetFundingDeatil(fundingId, userInfo.id);
 
   const widgetClientKey = process.env.NEXT_PUBLIC_CLIENT_KEY;
-  const customerKey = 'NIFasERO7b3q-3VE-USyh';
+  const customerKey = userInfo.id;
 
   const { data: paymentWidget } = usePaymentWidget(widgetClientKey, customerKey);
-
-  // todo:: 결제 상품 및 결제자 정보 fetch
 
   const { mutate: handlePaymentRequest } = useRequestPayment();
 
   const { mutate: storeOrderInfo } = useStoreOrderInfo((orderId: string) =>
-    handlePaymentRequest({ paymentWidget, fundingId, orderId }),
+    handlePaymentRequest({
+      paymentWidget,
+      fundingId,
+      orderId,
+      customerName: userInfo.name,
+      orderName: fundingInfo?.title || '',
+    }),
   );
 
   useEffect(() => {
@@ -28,7 +38,7 @@ export default function Payment() {
 
     paymentWidget.renderPaymentMethods(
       '#payment-widget',
-      { value: Number(amount) },
+      { value: fundingForm.price },
       { variantKey: 'DEFAULT' },
     );
 
@@ -47,7 +57,7 @@ export default function Payment() {
         onClick={() => {
           storeOrderInfo({
             orderId: nanoid(),
-            amount: Number(amount),
+            amount: fundingForm.price,
           });
         }}
       >

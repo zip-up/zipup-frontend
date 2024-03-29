@@ -23,26 +23,17 @@ const useStoreOrderInfo = (successCallback: (orderId: string) => void) => {
 
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/v1/payment/?orderId=${orderId}&amount=${amount}`,
-        null,
-        {
-          headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('token'),
-          },
-        },
       );
 
       return orderId;
     },
-    onSuccess: (orderId: string) => {
-      console.log(orderId);
-      successCallback(orderId);
-    },
-    onError: e => {
-      console.log('결제 정보 저장 요청 실패', e);
+    onSuccess: (orderId: string) => successCallback(orderId),
+    onError: error => {
+      console.log('결제 정보 저장 요청 실패', error);
 
-      router.push(
-        `/funding/${router.query.id}/payment/fail?code=${router.query.id}&message=${router.query.id}`,
-      );
+      const { id } = router.query;
+
+      router.push(`/funding/${id}/payment/fail?code=${error?.code}&message=${error.message}`);
     },
   });
 };
@@ -53,10 +44,14 @@ const useRequestPayment = () => {
       paymentWidget,
       fundingId,
       orderId,
+      orderName,
+      customerName,
     }: {
       paymentWidget?: PaymentWidgetInstance;
       fundingId: string;
       orderId: string;
+      orderName: string;
+      customerName: string;
     }) => {
       const REDIRECT_URL = `${window.location.origin}/funding/${fundingId}/payment`;
 
@@ -64,10 +59,10 @@ const useRequestPayment = () => {
 
       return paymentWidget?.requestPayment({
         orderId,
-        orderName: '일리 캡슐 커피머신',
-        customerName: '고나현',
-        customerEmail: 'customer123@gmail.com',
-        customerMobilePhone: '01012341234',
+        orderName,
+        customerName,
+        customerEmail: '',
+        customerMobilePhone: '',
         successUrl: `${REDIRECT_URL}/success`,
         failUrl: `${REDIRECT_URL}/fail`,
       });

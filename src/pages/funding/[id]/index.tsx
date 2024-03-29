@@ -8,14 +8,16 @@ import DefaultPresentImg from '@assets/images/default_present.svg';
 // import Image from 'next/image';
 import { useGetFundingDeatil } from '@hooks/queries/useFunding';
 import FundingStatusBox from '@components/FundingStatusBox';
+import { useRecoilState } from 'recoil';
+import { userState } from '@store/store';
 
 export default function Funding() {
   const router = useRouter();
-
   const { id: fundingId } = router.query;
 
-  const userId = 1;
-  const { data: fundingInfo } = useGetFundingDeatil(fundingId, userId);
+  const [user] = useRecoilState(userState);
+
+  const { data: fundingInfo } = useGetFundingDeatil(fundingId, user.id);
 
   if (!fundingInfo) return null;
 
@@ -53,44 +55,6 @@ export default function Funding() {
         wFull
         onClick={() => router.push(`/funding/${fundingId}/participate`)}
       >
-        이 펀딩 참여하기
-      </Button>
-    );
-  };
-
-  const { data: fundingInfo } = useGetFundingDeatil();
-
-  if (!fundingInfo) return null;
-
-  const {
-    title,
-    imageUrl,
-    expirationDate,
-    percent,
-    goalPrice,
-    description,
-    isOrganizer,
-    isParticipant,
-    presentList: messageList,
-  } = fundingInfo;
-
-  const RoleBasedButton = () => {
-    if (isOrganizer) {
-      return (
-        <Button type="button" color="secondary" wFull onClick={() => {}}>
-          친구에게 공유하기
-        </Button>
-      );
-    }
-    if (isParticipant) {
-      return (
-        <Button type="button" color="secondary" wFull onClick={() => {}}>
-          결제 취소하기
-        </Button>
-      );
-    }
-    return (
-      <Button type="button" color="secondary" wFull onClick={() => {}}>
         이 펀딩 참여하기
       </Button>
     );
