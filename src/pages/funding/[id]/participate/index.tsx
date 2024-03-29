@@ -10,7 +10,7 @@ import { A, a } from '@assets/icons/priceLabel';
 import Button from '@components/common/Button';
 import { statusTag } from '@components/common/StatusTag/styles';
 import B from '@assets/icons/priceLabel/disabled/A.svg';
-import * as _s from '@pages/funding/create/styles';
+import { button, styles } from '@components/common/Button/styles';
 
 interface FormInputs {
   price: number;
@@ -37,13 +37,17 @@ export default function Participate() {
       price: 5000,
       enteredCustomPrice: false,
     },
+    mode: 'onSubmit',
   });
   const onSubmit: SubmitHandler<FormInputs> = ({
     price,
     enteredCustomPrice,
     customPrice,
     ...rest
-  }) => setFundingForm({ price: enteredCustomPrice ? customPrice : price, ...rest });
+  }) => {
+    console.log(price, enteredCustomPrice, customPrice, rest);
+    setFundingForm({ price: enteredCustomPrice ? customPrice : price, ...rest });
+  };
 
   const enteredCustomPrice = watch('enteredCustomPrice');
 
@@ -60,7 +64,7 @@ export default function Participate() {
     switch (step) {
       case 1:
         return (
-          <>
+          <div className={css({ pl: '1.6rem', pr: '1.6rem' })}>
             <div className={style.title}>
               <p>김집업님을 위한</p>마음을 보내주세요
             </div>
@@ -113,13 +117,14 @@ export default function Participate() {
                 })}
               />
 
-              <button
+              <Button
                 type="button"
+                color="secondary"
                 onClick={() => reset({ price: 5000 })}
                 className={style.resetButton}
               >
                 리셋
-              </button>
+              </Button>
             </div>
 
             {enteredCustomPrice && (
@@ -137,26 +142,35 @@ export default function Participate() {
                     },
                   })}
                   placeholder="보낼 금액의 숫자만 입력해주세요."
-                  className={style.inputWithoutMargin}
+                  className={cx(
+                    style.inputFormField,
+                    css({ borderColor: errors.customPrice ? 'error' : 'bg.300' }),
+                  )}
                 />
-                {errors.customPrice && <span>{errors.customPrice.message}</span>}
+                {errors.customPrice && (
+                  <span className={style.errorText}>{errors.customPrice.message}</span>
+                )}
               </div>
             )}
 
-            <Button
-              type="button"
+            <button
+              type="submit"
               color="secondary"
-              wFull
               onClick={async () => {
                 enteredCustomPrice && (await trigger('customPrice'));
 
                 !errors.customPrice && setStep(2);
               }}
-              style={{ position: 'relative', bottom: '-250px' }}
+              className={cx(
+                button,
+                styles['secondary'],
+                style.fixedPostionButton,
+                css({ h: '5.2rem' }),
+              )}
             >
               다음
-            </Button>
-          </>
+            </button>
+          </div>
         );
 
       case 2:
@@ -175,10 +189,15 @@ export default function Participate() {
                   required: '필수 항목을 입력해주세요.',
                   maxLength: 10,
                 })}
-                className={style.inputWithoutMargin}
+                className={cx(
+                  style.inputFormField,
+                  css({ borderColor: errors.senderName ? 'error' : 'bg.300' }),
+                )}
                 placeholder="보내는 사람의 이름을 입력해주세요."
               />
-              {errors.senderName && <span>{errors.senderName.message}</span>}
+              {errors.senderName && (
+                <span className={style.errorText}>{errors.senderName.message}</span>
+              )}
             </div>
 
             <div className={style.inputWithLabelWrapper}>
@@ -187,25 +206,28 @@ export default function Participate() {
               </label>
               <textarea
                 {...register('msg', { required: '필수 항목을 입력해주세요.', maxLength: 70 })}
-                className={style.messageInput}
+                className={cx(
+                  style.messageInput,
+                  css({ borderColor: errors.msg ? 'error' : 'bg.300' }),
+                )}
                 placeholder="친구에게 하고 싶은 말을 자유롭게 적어주세요."
               />
-              {errors.msg && <span>{errors.msg.message}</span>}
+              {errors.msg && <span className={style.errorText}>{errors.msg.message}</span>}
             </div>
 
-            <Button type="submit" color="secondary" wFull>
+            <Button type="submit" color="secondary" wFull className={style.fixedPostionButton}>
               결제하기
             </Button>
           </div>
         );
     }
   };
-
+  console.log(errors);
   return (
     <div className={style.pageLayout}>
       <Header />
       <div className={style.container}>
-        <ProgressBar width={css({ width: '16.2rem' })} />
+        <ProgressBar width={css({ width: step == 1 ? '16.2rem' : '32.8rem' })} />
         <form onSubmit={handleSubmit(onSubmit)}>{renderFormStep(step)}</form>
       </div>
     </div>
