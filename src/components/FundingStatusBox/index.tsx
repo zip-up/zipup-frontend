@@ -2,6 +2,7 @@ import StatusTag from '@components/common/StatusTag';
 import { cx } from '@styled-system/css';
 import { DetailFundingInfo } from '@typings/funding';
 import * as style from './styles';
+import ProgressBar from '@components/common/ProgressBar';
 
 interface FundingStatusBoxProps {
   type?: 'floating' | 'static';
@@ -20,7 +21,8 @@ export default function FundingStatusBox({
         </div>
         <StatusTag daysLeft={expirationDate} />
       </div>
-      <div>progress bar</div>
+
+      <ProgressBar isNotFull width={`${290 * (percent / 100)}px`} />
 
       <div className={style.captionWrapper}>
         <span>

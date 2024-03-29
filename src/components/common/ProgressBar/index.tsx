@@ -3,13 +3,15 @@ import * as style from './styles';
 import { css } from '@styled-system/css';
 
 interface ProgressBarProps {
+  isNotFull?: boolean;
   progressBarWidth?: string;
   width: string;
   noMargin?: boolean;
 }
 
 const ProgressBar = ({
-  progressBarWidth = css({ width: '32.8rem' }),
+  isNotFull,
+  progressBarWidth = css({ width: isNotFull ? '100%' : '32.8rem' }),
   width,
   noMargin = false,
 }: ProgressBarProps) => {
