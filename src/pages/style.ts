@@ -1,27 +1,5 @@
 import { css } from '../../styled-system/css';
 
-const header = css({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  height: '4.8rem',
-  padding: '0 1.7rem',
-  borderBottomWidth: '0.1rem',
-  borderBottomColor: 'gray.20',
-});
-
-const logo = css({
-  cursor: 'pointer',
-});
-
-const box = css({
-  width: '2.4rem',
-  height: '2.4rem',
-  '&:nth-of-type(2)': {
-    background: 'bg.300',
-  },
-});
-
 const text_box = css({
   display: 'flex',
   flexDirection: 'column',
@@ -63,7 +41,22 @@ const wrapper = css({
 const image = css({
   width: '32.7rem',
   height: '23.4rem',
-  background: 'bg.300',
+  display: 'flex',
+  justifyContent: 'center',
+  marginTop: '-0.9rem',
+  marginBottom: '0.9rem',
 });
 
-export { header, logo, box, text_box, title, highlight, subtitle, wrapper, image };
+const button = css({
+  position: 'absolute',
+  bottom: '1.8rem',
+  left: 0,
+  height: '4.9rem',
+  width: '29.7rem',
+  margin: '0 1rem',
+  display: 'flex',
+  justifyContent: 'center',
+  cursor: 'pointer',
+});
+
+export { text_box, title, highlight, subtitle, wrapper, image, button };
