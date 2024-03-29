@@ -11,6 +11,8 @@ import Button from '@components/common/Button';
 import { statusTag } from '@components/common/StatusTag/styles';
 import { button, styles } from '@components/common/Button/styles';
 import { useRouter } from 'next/router';
+import TermsAndConditions from '@components/TermsAndConditions';
+import { createTerms } from '@constants/terms';
 
 interface FormInputs {
   price: number;
@@ -51,6 +53,7 @@ export default function Participate() {
   const enteredCustomPrice = watch('enteredCustomPrice');
   const selected = watch('price');
   const [step, setStep] = useState(1);
+  const [isValid, setIsValid] = useState(false);
 
   const priceLabel = [
     { label: '행복의 오천원', price: 5000, icon_active: <A />, icon_disabled: <A_d /> },
@@ -212,6 +215,8 @@ export default function Participate() {
               />
               {errors.msg && <span className={style.errorText}>{errors.msg.message}</span>}
             </div>
+
+            <TermsAndConditions data={createTerms} onSetIsValid={setIsValid} />
 
             <Button type="submit" color="secondary" wFull className={style.fixedPostionButton}>
               결제하기
