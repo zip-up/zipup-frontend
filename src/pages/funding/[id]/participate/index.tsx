@@ -2,7 +2,7 @@ import Header from '@components/common/Header';
 import ProgressBar from '@components/common/ProgressBar';
 import { fundingFormState } from '@store/store';
 import { css, cx } from '@styled-system/css';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import * as style from './styles';
@@ -68,7 +68,7 @@ export default function Participate() {
             <div className={style.buttonWrapper}>
               {priceLabel.map(({ label, price, icon_active, icon_disabled }, idx) => {
                 return (
-                  <>
+                  <Fragment key={idx}>
                     <label
                       htmlFor={`price-${idx}`}
                       key={idx}
@@ -88,7 +88,7 @@ export default function Participate() {
                       value={price}
                       id={`price-${idx}`}
                     />
-                  </>
+                  </Fragment>
                 );
               })}
 
@@ -193,7 +193,7 @@ export default function Participate() {
               {errors.msg && <span>{errors.msg.message}</span>}
             </div>
 
-            <Button color="secondary" wFull>
+            <Button type="submit" color="secondary" wFull>
               결제하기
             </Button>
           </div>
