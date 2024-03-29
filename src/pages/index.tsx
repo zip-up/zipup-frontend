@@ -21,12 +21,16 @@ export default function Home() {
   const setUser = useSetRecoilState(userState);
   const { data, refetch, isLoading } = useLogIn({ code });
 
+  console.log(token);
+
   useEffect(() => {
-    if (router.asPath.slice(2)) {
+    console.log(router.asPath);
+    if (router.asPath.slice(2) && !isLoading) {
+      console.log(isLoading);
       setCode(router.asPath.slice(2));
       refetch();
     }
-  }, [router]);
+  }, [router, isLoading]);
 
   useEffect(() => {
     if (data && !isLoading) {
