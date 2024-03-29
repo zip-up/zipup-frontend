@@ -2,10 +2,10 @@ import { Instance } from '@api/index';
 import { useQuery } from '@tanstack/react-query';
 import { UserWithToken } from '@typings/auth';
 
-const useAuth = ({ code }: { code: string }) => {
+const useLogIn = ({ code }: { code: string }) => {
   return useQuery<UserWithToken>({
     enabled: false,
-    queryKey: ['auth'],
+    queryKey: ['login'],
     queryFn: async () => {
       const response = await Instance.get<UserWithToken>(`/v1/auth/authentication`, {
         headers: {
@@ -17,4 +17,19 @@ const useAuth = ({ code }: { code: string }) => {
   });
 };
 
-export { useAuth };
+const useLogout = ({ token }: { token: string }) => {
+  return useQuery({
+    enabled: false,
+    queryKey: ['logout'],
+    queryFn: async () => {
+      const response = await Instance.get(`/v1/auth/sign-out`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    },
+  });
+};
+
+export { useLogIn, useLogout };
