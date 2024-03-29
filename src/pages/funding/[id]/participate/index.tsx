@@ -6,10 +6,9 @@ import { Fragment, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import * as style from './styles';
-import { A, a } from '@assets/icons/priceLabel';
+import { A, B, C, D, E, A_d, B_d, C_d, D_d, E_d } from '@assets/icons/priceLabel/index';
 import Button from '@components/common/Button';
 import { statusTag } from '@components/common/StatusTag/styles';
-import B from '@assets/icons/priceLabel/disabled/A.svg';
 import { button, styles } from '@components/common/Button/styles';
 import { useRouter } from 'next/router';
 
@@ -47,22 +46,19 @@ export default function Participate() {
     enteredCustomPrice,
     customPrice,
     ...rest
-  }) => {
-    console.log(price, enteredCustomPrice, customPrice, rest);
-    setFundingForm({ price: enteredCustomPrice ? customPrice : price, ...rest });
-  };
+  }) => setFundingForm({ price: enteredCustomPrice ? customPrice : price, ...rest });
 
   const enteredCustomPrice = watch('enteredCustomPrice');
-
   const selected = watch('price');
   const [step, setStep] = useState(1);
 
   const priceLabel = [
-    { label: '행복의 오천원', price: 5000, icon_active: <A />, icon_disabled: <B /> },
-    { label: '기쁨의 만원', price: 10000 },
-    { label: '건강의 삼만원', price: 30000 },
-    { label: '사랑의 오만원 ', price: 50000 },
+    { label: '행복의 오천원', price: 5000, icon_active: <A />, icon_disabled: <A_d /> },
+    { label: '기쁨의 만원', price: 10000, icon_active: <B />, icon_disabled: <B_d /> },
+    { label: '건강의 삼만원', price: 30000, icon_active: <C />, icon_disabled: <C_d /> },
+    { label: '사랑의 오만원 ', price: 50000, icon_active: <D />, icon_disabled: <D_d /> },
   ];
+
   const renderFormStep = (step: number) => {
     switch (step) {
       case 1:
@@ -106,6 +102,7 @@ export default function Participate() {
                   style.label,
                 )}
               >
+                {enteredCustomPrice ? <E /> : <E_d />}
                 사랑하는 만큼 직접 기입하기
               </label>
               <input
@@ -119,7 +116,6 @@ export default function Participate() {
                   },
                 })}
               />
-
               <Button
                 type="button"
                 color="secondary"
@@ -161,7 +157,6 @@ export default function Participate() {
               color="secondary"
               onClick={async () => {
                 enteredCustomPrice && (await trigger('customPrice'));
-
                 !errors.customPrice && setStep(2);
               }}
               className={cx(
