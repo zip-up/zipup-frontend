@@ -14,7 +14,6 @@ const HeaderWithLogo = ({ onOpenLogin }: HeaderWithLogoProps) => {
   const router = useRouter();
   const token = useRecoilValue(tokenState);
   const user = useRecoilValue(userState);
-  console.log(user);
 
   return (
     <header className={header}>
@@ -26,7 +25,7 @@ const HeaderWithLogo = ({ onOpenLogin }: HeaderWithLogoProps) => {
         {user.profileImage ? (
           <Image src={user.profileImage} alt="profile image" width={24} height={24} />
         ) : (
-          <UserIcon width={24} height={24} />
+          <UserIcon />
         )}
       </button>
     </header>
