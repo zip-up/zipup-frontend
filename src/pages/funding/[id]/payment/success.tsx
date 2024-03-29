@@ -10,27 +10,21 @@ export const getServerSideProps: GetServerSideProps = async context => {
   // 서버에서 amount를 받아와 suceess url parameter의 amount와 비교하는 로직이 선행되어야 함.
   //  if (amount !== userInputAmount) return redirect('/fail');
 
-  const encryptedSecretKey = `Basic ${btoa(process.env.NEXT_PUBLIC_SECRET_KEY + ':')}`;
-
   try {
-    const response = await axios.post(
-      'https://api.tosspayments.com/v1/payments/confirm',
-      {
-        paymentKey,
-        orderId,
-        amount,
-      },
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/v1/payment/confirm?paymentKey=${paymentKey}&orderId=${orderId}&amount=${amount}`,
       {
         headers: {
-          Authorization: encryptedSecretKey,
+          Authorization: localStorage.getItem('token'),
         },
       },
     );
+
     return { props: { paymentKey, orderId, amount } };
   } catch (e: any) {
     return {
       redirect: {
-        destination: `/funding/${id}/payment/fail?code=${e.response.data.code}&message=${encodeURIComponent(e.response.data.message)}`,
+        destination: `/funding/${id}/payment/fail?code=${e.response?.data?.code}&message=${encodeURIComponent(e.response?.data?.message)}`,
         permanent: false,
       },
     };

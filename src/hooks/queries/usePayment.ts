@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { loadPaymentWidget, PaymentWidgetInstance } from '@tosspayments/payment-widget-sdk';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 const usePaymentWidget = (clientKey: string, customerKey: string) => {
   return useQuery<PaymentWidgetInstance>({
@@ -14,24 +15,34 @@ const usePaymentWidget = (clientKey: string, customerKey: string) => {
 };
 
 const useStoreOrderInfo = (successCallback: (orderId: string) => void) => {
+  const router = useRouter();
+
   return useMutation({
     mutationFn: async ({ orderId, amount }: { orderId: string; amount: number }) => {
       // if (!paymentWidget) throw new Error('결제 서비스를 이용할 수 없습니다.');
 
       const response = await axios.post(
-        `https://api.zip-up.kro.kr/api/v1/payment?orderId=${orderId}&amount=${amount}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/v1/payment/?orderId=${orderId}&amount=${amount}`,
+        null,
+        {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token'),
+          },
+        },
       );
-
-      console.log('결제 요청 전 정보 저장', response);
 
       return orderId;
     },
     onSuccess: (orderId: string) => {
       console.log(orderId);
-      //  successCallback(orderId);
+      successCallback(orderId);
     },
     onError: e => {
       console.log('결제 정보 저장 요청 실패', e);
+
+      router.push(
+        `/funding/${router.query.id}/payment/fail?code=${router.query.id}&message=${router.query.id}`,
+      );
     },
   });
 };
