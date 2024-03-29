@@ -30,14 +30,11 @@ export default function Home() {
 
   useEffect(() => {
     if (data && !isLoading) {
-      setUser({
-        id: data.id,
-        name: data.name,
-        email: data.email,
-        profileImage: data.profileImage,
-      });
-      setToken(data.accesstoken);
-      localStorage.setItem('@token', data.accesstoken);
+      const { accesstoken, ...rest } = data;
+      setUser(rest);
+      setToken(accesstoken);
+      localStorage.setItem('@token', accesstoken);
+      localStorage.setItem('@user', JSON.stringify(rest));
     }
   }, [isLoading]);
 
