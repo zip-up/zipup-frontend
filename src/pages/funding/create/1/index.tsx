@@ -12,6 +12,7 @@ import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState } from 'recoil';
 import { createFundState } from '@store/store';
 import PageLayout from '@components/Layout/pageLayout';
+import { message, message_icon, message_text } from '@components/TermsAndConditions/styles';
 
 interface FormInput {
   link: string;
@@ -47,7 +48,7 @@ export default function CreatFundStep1() {
           icon={<CancelIcon />}
           buttonComponent={
             <div className={style.modal_button_wrapper}>
-              <Button color="primary" style={{ width: '10.9rem' }} onClick={() => router.push('/')}>
+              <Button color="primary" style={{ width: '10.9rem' }} onClick={() => router.back()}>
                 취소하기
               </Button>
               <Button
@@ -103,9 +104,9 @@ export default function CreatFundStep1() {
         />
         {errors.targetMoney && <p className={style.error_text}>{errors.targetMoney.message}</p>}
 
-        <div className={style.message}>
-          <div className={style.message_icon} />
-          <span className={style.message_text}>
+        <div className={message}>
+          <div className={message_icon} />
+          <span className={message_text}>
             설정하신 목표 금액을 확인하고 최종 금액을 안내드릴게요 .
           </span>
         </div>
