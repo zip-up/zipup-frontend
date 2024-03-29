@@ -11,6 +11,7 @@ interface ButtonProps {
   type?: 'button' | 'submit' | 'reset' | undefined;
   style?: CSSProperties;
   wFull?: boolean;
+  disabled?: boolean;
 }
 
 export default function Button({
@@ -22,6 +23,7 @@ export default function Button({
   className,
   type = 'button',
   style,
+  disabled,
 }: PropsWithChildren<ButtonProps>) {
   return (
     <button
@@ -34,6 +36,7 @@ export default function Button({
       )}
       onClick={onClick}
       style={style}
+      disabled={disabled}
     >
       {children}
     </button>
