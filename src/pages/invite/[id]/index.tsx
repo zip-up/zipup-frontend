@@ -32,7 +32,7 @@ export default function Invite({ id = '123' }: InviteProps) {
         <p>성공적인 집들이를 위해 선물 펀딩을 받고 있어요</p>사랑하는 친구를 위해 함께해주세요!
       </div>
       <div className={style.positionedParent}>
-        <Image src="/image_2.svg" alt="s" width={300} height={300} />
+        <Image src="/invite.svg" alt="s" width={300} height={300} />
         <div className={style.positionedWrapper}>
           <FundingStatusBox
             type="floating"
