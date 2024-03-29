@@ -1,17 +1,22 @@
 import { css } from '@styled-system/css';
 import React from 'react';
 import BackIcon from '@assets/back.svg';
+import { useRouter } from 'next/router';
 
 interface HeaderProps {
   hasTitle?: boolean;
   title?: string;
-  onGoBack: () => void;
+  onGoBack?: () => void;
 }
 
 export default function Header({ hasTitle, title, onGoBack }: HeaderProps) {
+  const router = useRouter();
+
+  const handleGoBack = () => router.back();
+
   return (
     <header className={header}>
-      <button className={wrapper} onClick={onGoBack}>
+      <button className={wrapper} onClick={onGoBack || handleGoBack}>
         <BackIcon />
       </button>
       {hasTitle && <h2 className={styled_title}>{title}</h2>}

@@ -2,7 +2,7 @@ import Header from '@components/common/Header';
 import ProgressBar from '@components/common/ProgressBar';
 import { fundingFormState } from '@store/store';
 import { css, cx } from '@styled-system/css';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import * as style from './styles';
@@ -11,6 +11,7 @@ import Button from '@components/common/Button';
 import { statusTag } from '@components/common/StatusTag/styles';
 import B from '@assets/icons/priceLabel/disabled/A.svg';
 import { button, styles } from '@components/common/Button/styles';
+import { useRouter } from 'next/router';
 
 interface FormInputs {
   price: number;
@@ -22,6 +23,8 @@ interface FormInputs {
 
 export default function Participate() {
   const [fundingForm, setFundingForm] = useRecoilState(fundingFormState);
+
+  const router = useRouter();
 
   const {
     register,
@@ -222,10 +225,10 @@ export default function Participate() {
         );
     }
   };
-  console.log(errors);
+
   return (
     <div className={style.pageLayout}>
-      <Header />
+      <Header onGoBack={step == 1 ? () => router.back() : () => setStep(1)} />
       <div className={style.container}>
         <ProgressBar width={css({ width: step == 1 ? '16.2rem' : '32.8rem' })} />
         <form onSubmit={handleSubmit(onSubmit)}>{renderFormStep(step)}</form>
