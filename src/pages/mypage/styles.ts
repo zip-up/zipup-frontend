@@ -127,7 +127,6 @@ const funding_image = css({
 
 const footer = css({
   height: '14.8rem',
-  width: '100%',
   position: 'absolute',
   bottom: 0,
 });
@@ -175,7 +174,6 @@ const flex_container = css({
   rowGap: '1.6rem',
   overflow: 'hidden',
 });
-
 
 const no_result = css({
   marginTop: '19rem',

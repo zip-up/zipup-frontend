@@ -39,7 +39,6 @@ export default function CreatFundStep3() {
       fundingStart: new Date(data.target).toISOString().slice(0, -2),
       fundingFinish: new Date(data.due).toISOString().slice(0, -2),
     });
-
     router.push('/funding/create/4');
   };
 

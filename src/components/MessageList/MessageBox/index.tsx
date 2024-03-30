@@ -1,6 +1,6 @@
 import * as style from './styles';
 import { MessageInfo } from '@typings/funding';
-import UserIcon from '@assets/icons/user.svg';
+import UserIcon from '@assets/icons/user_m.svg';
 import Image from 'next/image';
 interface MessageBoxProps {
   msg: MessageInfo;

@@ -14,9 +14,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
     query: { id: fundingId, paymentKey, orderId, amount },
   } = context;
 
-  // 결제 승인 요청
-  // 서버에서 amount를 받아와 suceess url parameter의 amount와 비교하는 로직이 선행되어야 함.
-  //  if (amount !== userInputAmount) return redirect('/fail');
 
   try {
     const response = await Instance.get(
