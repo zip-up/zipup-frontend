@@ -11,7 +11,6 @@ export default function MessageBox({
 }: MessageBoxProps) {
   return (
     <div className={style.msgBox}>
-      {/* <HeaderWithLogo profileImage={profileImage}/> */}
       <span className={style.image}>
         {profileImage ? (
           <Image src={profileImage} alt="프로필 이미지" width="20" height="20" />
