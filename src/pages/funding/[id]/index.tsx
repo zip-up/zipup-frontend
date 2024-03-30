@@ -6,16 +6,12 @@ import MessageList from '@components/MessageList';
 import DefaultPresentImg from '@assets/images/default_present.svg';
 import { useGetFundingDeatil } from '@hooks/queries/useFunding';
 import FundingStatusBox from '@components/FundingStatusBox';
-import { useRecoilState } from 'recoil';
-import { userState } from '@store/store';
 
 export default function Funding() {
   const router = useRouter();
   const { id: fundingId } = router.query;
 
-  const [user] = useRecoilState(userState);
-
-  const { data: fundingInfo } = useGetFundingDeatil(fundingId, user.id);
+  const { data: fundingInfo } = useGetFundingDeatil(fundingId);
 
   if (!fundingInfo) return null;
 

@@ -1,16 +1,15 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Instance } from '@api/index';
 import { DetailFundingInfo } from '@typings/funding';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { getLoacalStorage } from '@store/localStorage';
 
-const useGetFundingDeatil = (fundingId: string, userId: string) => {
+const useGetFundingDeatil = (fundingId: string) => {
   return useQuery<DetailFundingInfo>({
     queryKey: ['funding', fundingId],
     queryFn: async () => {
-      const response = await Instance.get<DetailFundingInfo>(
-        `/v1/fund?funding=${fundingId}&user=${userId}`,
+      const response = await axios.get<DetailFundingInfo>(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/v1/fund?funding=${fundingId}`,
       );
 
       return response.data;
