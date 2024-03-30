@@ -6,12 +6,15 @@ import MessageList from '@components/MessageList';
 import DefaultPresentImg from '@assets/images/default_present.svg';
 import { useGetFundingDeatil } from '@hooks/queries/useFunding';
 import FundingStatusBox from '@components/FundingStatusBox';
+import { useState } from 'react';
+import LoginModal from '@components/modals/LoginModal';
 
 export default function Funding() {
   const router = useRouter();
   const { id: fundingId } = router.query;
 
   const { data: fundingInfo } = useGetFundingDeatil(fundingId);
+  const [isModalOn, setIsModalOn] = useState(false);
 
   if (!fundingInfo) return null;
 
@@ -47,7 +50,12 @@ export default function Funding() {
         type="button"
         color="secondary"
         wFull
-        onClick={() => router.push(`/funding/${fundingId}/participate`)}
+        onClick={() => {
+          if (localStorage.getItem('@user'))
+            return router.push(`/funding/${fundingId}/participate`);
+
+          setIsModalOn(true);
+        }}
       >
         이 펀딩 참여하기
       </Button>
@@ -73,8 +81,9 @@ export default function Funding() {
 
         <div className={style.desc}>{description}</div>
       </article>
-
       <MessageList messages={messageList} />
+
+      {isModalOn && <LoginModal onClick={() => {}} onClose={() => setIsModalOn(false)} />}
     </div>
   );
 }
