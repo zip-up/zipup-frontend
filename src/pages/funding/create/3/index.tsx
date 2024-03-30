@@ -2,7 +2,6 @@ import Button from '@components/common/Button';
 import Header from '@components/common/Header';
 import { useRouter } from 'next/router';
 import * as style from '../styles';
-import { css } from '@styled-system/css';
 import { useForm } from 'react-hook-form';
 import DatePicker from '@components/Calendar';
 import { useEffect, useState } from 'react';
