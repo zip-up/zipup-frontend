@@ -4,6 +4,7 @@ import * as style from './styles';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Instance } from '@api/index';
+import { css, cx } from '@styled-system/css';
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const {
@@ -57,8 +58,8 @@ export default function Success({ fundingId, orderId, amount }: SuccessProps) {
         </div>
       </div>
 
-      <Image src="/payment_success.svg" alt="결제 성공 이미지" width={320} height={320} />
-      <Link href={`/funding/${fundingId}`} className={commonStyle.buttonLink}>
+      <Image src="/payment_success.png" alt="결제 성공 이미지" width={280} height={300} />
+      <Link href={`/funding/${fundingId}`} className={cx(commonStyle.buttonLink, css({ mt: 0 }))}>
         돌아가기
       </Link>
     </div>
