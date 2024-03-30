@@ -46,18 +46,6 @@ const image = css({
   marginBottom: '0.9rem',
 });
 
-const button = css({
-  position: 'absolute',
-  bottom: '1.8rem',
-  left: 0,
-  height: '4.9rem',
-  width: '29.7rem',
-  margin: '0 1rem',
-  display: 'flex',
-  justifyContent: 'center',
-  cursor: 'pointer',
-});
-
 const service_box = css({
   width: '100%',
   height: '49.6rem',
@@ -156,7 +144,6 @@ export {
   subtitle,
   wrapper,
   image,
-  button,
   service_box,
   service_desc_box,
   service_desc_card,
