@@ -79,9 +79,8 @@ export default function CreatFundStep4() {
     window.Kakao.Share.sendDefault({
       objectType: 'feed',
       content: {
-        title: `${user.name}님의 집들이에 당신을 초대합니다!`,
-        description:
-          '성공적인 집들이를 위해 집업에서 선물 펀딩을 받고 있어요.\n사랑하는 친구를 위해 함께해주세요!',
+        title: `${user.name}님의 집들이에 당신을 초대합니다.`,
+        description: '집업에서 선물 펀딩에 함께해주세요!',
         imageUrl: newFund.imageUrl,
         link: {
           mobileWebUrl: `http://localhost:3000/funding/${id}`,
