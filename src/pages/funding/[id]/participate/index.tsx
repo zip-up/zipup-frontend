@@ -14,6 +14,7 @@ import { useRouter } from 'next/router';
 import TermsAndConditions from '@components/TermsAndConditions';
 import { createTerms } from '@constants/terms';
 import { getLoacalStorage, setLocalStorage } from '@store/localStorage';
+import { useGetFundingDeatil } from '@hooks/queries/useFunding';
 
 interface FormInputs {
   price: number;
@@ -25,11 +26,12 @@ interface FormInputs {
 
 export default function Participate() {
   const [fundingForm, setFundingForm] = useRecoilState(fundingFormState);
-
   const userInfo = getLoacalStorage('@user');
 
   const router = useRouter();
   const { id: fundingId } = router.query;
+
+  const { data: fundingInfo } = useGetFundingDeatil(fundingId);
 
   const {
     register,
@@ -86,7 +88,7 @@ export default function Participate() {
         return (
           <div className={css({ pl: '1.6rem', pr: '1.6rem' })}>
             <div className={style.title}>
-              <p>김집업님을 위한</p>마음을 보내주세요
+              <p>{fundingInfo?.organizerName}님을 위한</p>마음을 보내주세요
             </div>
 
             <div className={style.buttonWrapper}>
@@ -196,7 +198,7 @@ export default function Participate() {
         return (
           <div className={style.container}>
             <div className={style.title}>
-              <p>김집업님에게</p>하고 싶은 말을 적어주세요
+              <p>{fundingInfo?.organizerName}님에게</p>하고 싶은 말을 적어주세요
             </div>
 
             <div className={style.inputWithLabelWrapper}>

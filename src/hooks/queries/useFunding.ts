@@ -5,13 +5,27 @@ import axios from 'axios';
 import { getLoacalStorage } from '@store/localStorage';
 
 const useGetFundingDeatil = (fundingId: string) => {
+  const token = getLoacalStorage('@token');
+
   return useQuery<DetailFundingInfo>({
     queryKey: ['funding', fundingId],
     queryFn: async () => {
+      if (token) {
+        const response = await axios.get<DetailFundingInfo>(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/v1/fund?funding=${fundingId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+        return response.data;
+      }
+
       const response = await axios.get<DetailFundingInfo>(
         `${process.env.NEXT_PUBLIC_BASE_URL}/v1/fund?funding=${fundingId}`,
       );
-
+     
       return response.data;
     },
   });
