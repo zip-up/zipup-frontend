@@ -58,7 +58,7 @@ export default function Participate() {
     setLocalStorage('@participateInfo', {
       participateId: userInfo.id,
       senderName,
-      congrateMessage: msg,
+      congratsMessage: msg,
     });
 
     setFundingForm({
