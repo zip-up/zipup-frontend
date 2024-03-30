@@ -56,8 +56,6 @@ export default function Home() {
   const [isBrowsingService, setIsBrowsingService] = useState(false);
   const { data, refetch, isLoading } = useLogIn({ code });
 
-  console.log(token);
-
   useEffect(() => {
     console.log(router.asPath);
     if (router.asPath.slice(2) && !isLoading) {

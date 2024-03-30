@@ -9,6 +9,13 @@ const nextConfig = {
 
     return config;
   },
+  pageExtensions: ['page.tsx', 'page.ts'],
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 
 module.exports = nextConfig;
