@@ -32,6 +32,7 @@ export default function CreatFundStep4() {
   const [isOpen, setIsOpen] = useState(false);
   const [isValid, setIsValid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
   const { mutate: handleCreateFund } = useCreateFunding();
 
   const {
@@ -50,6 +51,7 @@ export default function CreatFundStep4() {
         detailAddress: getValues('detailAddress'),
         phoneNumber: !getValues('phone') ? '' : String(getValues('phone')),
       });
+      setIsButtonClicked(true);
       handleNext();
     }
   };
@@ -62,6 +64,7 @@ export default function CreatFundStep4() {
           console.log(data);
           if (data) {
             setId(data.id);
+            setIsModalOpen(true);
           }
         },
       },
@@ -142,18 +145,18 @@ export default function CreatFundStep4() {
           <Button
             type="submit"
             className={css({ width: '12.4rem' })}
-            color="primary"
-            onClick={() => setIsModalOpen(true)}
+            color={isButtonClicked ? 'disabled' : 'primary'}
+            disabled={isButtonClicked}
           >
             나중에 입력
           </Button>
           <Button
             type="submit"
             className={css({ width: '19.1rem' })}
-            color="secondary"
-            onClick={() => setIsModalOpen(true)}
+            color={isButtonClicked ? 'disabled' : 'secondary'}
+            disabled={isButtonClicked}
           >
-            등록 완료
+            {isButtonClicked ? '등록 중...' : '등록 완료'}
           </Button>
         </div>
       </form>
