@@ -46,7 +46,7 @@ export default function CreatFundStep3() {
   return (
     <>
       <Header onGoBack={() => router.back()} />
-      <ProgressBar width={css({ width: '24.6rem' })} />
+      <ProgressBar width={'24.6rem'} />
       <h4 className={style.step_name}>Step 3</h4>
       <h2 className={style.title}>목표 금액과 기간을 입력해주세요.</h2>
       <form className={style.form} onSubmit={handleSubmit(handleCreateFundSubmit)}>

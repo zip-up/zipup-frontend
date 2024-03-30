@@ -36,7 +36,7 @@ export default function CreatFundStep2() {
   return (
     <>
       <Header onGoBack={() => router.back()} />
-      <ProgressBar width={css({ width: '16.4rem' })} />
+      <ProgressBar width={'16.4rem'} />
       <h4 className={style.step_name}>Step 2</h4>
       <h2 className={style.title}>내 펀딩에 대해 설명해주세요.</h2>
       <form className={style.form} onSubmit={handleSubmit(handleCreateFundSubmit)}>

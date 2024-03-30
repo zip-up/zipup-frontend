@@ -21,7 +21,7 @@ const ProgressBar = ({
       style={{ margin: noMargin ? 0 : '0.8rem auto' }}
     >
       <div className={style.background_bar} />
-      <div className={style.current_progress} style={{ width }} />
+      <div className={style.current_progress} style={{ width, maxWidth: '100%' }} />
     </div>
   );
 };

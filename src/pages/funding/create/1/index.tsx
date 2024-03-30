@@ -62,7 +62,7 @@ export default function CreatFundStep1() {
         />
       )}
       <Header onGoBack={() => setIsOpen(true)} />
-      <ProgressBar width={css({ width: '8.2rem' })} />
+      <ProgressBar width={'8.2rem'} />
       <h4 className={style.step_name}>Step 1</h4>
       <h2 className={style.title}>어떤 집들이 선물을 원하시나요?</h2>
       <form className={style.form} onSubmit={handleSubmit(handleCreateFundSubmit)}>

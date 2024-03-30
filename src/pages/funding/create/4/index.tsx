@@ -96,7 +96,7 @@ export default function CreatFundStep4() {
         />
       )}
       <Header onGoBack={() => router.back()} />
-      <ProgressBar width={css({ width: '100%' })} />
+      <ProgressBar width={'100%'} />
       <h4 className={style.step_name}>Step 4</h4>
       <h2 className={style.title}>배송 정보를 입력해주세요.</h2>
 
