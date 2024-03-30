@@ -127,7 +127,6 @@ const funding_image = css({
 
 const footer = css({
   height: '14.8rem',
-  width: '100%',
   position: 'absolute',
   bottom: 0,
 });
