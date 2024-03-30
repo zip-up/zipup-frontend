@@ -29,4 +29,5 @@ export type DetailFundingInfo = {
   isOrganizer: boolean;
   isParticipant: boolean;
   organizer: string;
+  organizerName: string;
 };
