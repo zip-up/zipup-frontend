@@ -12,7 +12,7 @@ import ModalWithIcon from '@components/modals/ModalWithIcon';
 import GiftIcon from '@assets/icons/gift-icon.svg';
 import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { createFundState, tokenState } from '@store/store';
+import { createFundState, tokenState, userState } from '@store/store';
 import { useCreateFunding } from '@hooks/queries/useCreateFunding';
 import PageLayout from '@components/Layout/pageLayout';
 import TermsAndConditions from '@components/TermsAndConditions';
@@ -28,6 +28,7 @@ export default function CreatFundStep4() {
   const router = useRouter();
   const [newFund, setNewFund] = useRecoilState(createFundState);
   const token = useRecoilValue(tokenState);
+  const user = useRecoilValue(userState);
   const [id, setId] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [isValid, setIsValid] = useState(false);
@@ -45,18 +46,20 @@ export default function CreatFundStep4() {
 
   const handleCreateFundSubmit = () => {
     if (isValid) {
-      setNewFund({
-        ...newFund,
-        roadAddress: getValues('address'),
-        detailAddress: getValues('detailAddress'),
-        phoneNumber: !getValues('phone') ? '' : String(getValues('phone')),
-      });
-      setIsButtonClicked(true);
       handleNext();
     }
   };
 
   const handleNext = () => {
+    setIsButtonClicked(true);
+
+    setNewFund({
+      ...newFund,
+      roadAddress: getValues('address'),
+      detailAddress: getValues('detailAddress'),
+      phoneNumber: !getValues('phone') ? '' : String(getValues('phone')),
+    });
+
     handleCreateFund(
       { data: newFund, token },
       {
@@ -74,28 +77,21 @@ export default function CreatFundStep4() {
     window.Kakao.Share.sendDefault({
       objectType: 'feed',
       content: {
-        title: '오늘의 디저트',
-        description: '아메리카노, 빵, 케익',
-        imageUrl:
-          'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
+        title: `${user.name}님의 집들이에 당신을 초대합니다!`,
+        description:
+          '성공적인 집들이를 위해 집업에서 선물 펀딩을 받고 있어요.\n사랑하는 친구를 위해 함께해주세요!',
+        imageUrl: newFund.imageUrl,
         link: {
-          mobileWebUrl: 'https://developers.kakao.com',
-          webUrl: 'https://developers.kakao.com',
+          mobileWebUrl: `localhost:3000/funding/${id}`,
+          webUrl: `localhost:3000/funding/${id}`,
         },
       },
       buttons: [
         {
-          title: '웹으로 이동',
+          title: '집업으로 이동하기',
           link: {
-            mobileWebUrl: 'https://developers.kakao.com',
-            webUrl: 'https://developers.kakao.com',
-          },
-        },
-        {
-          title: '앱으로 이동',
-          link: {
-            mobileWebUrl: 'https://developers.kakao.com',
-            webUrl: 'https://developers.kakao.com',
+            mobileWebUrl: 'localhost:3000',
+            webUrl: 'localhost:3000',
           },
         },
       ],
