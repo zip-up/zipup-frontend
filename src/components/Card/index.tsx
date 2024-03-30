@@ -31,7 +31,7 @@ const Card = ({ data, onClick }: CardProps) => {
           {data.imageUrl === 'https:' ? (
             <GiftIcon />
           ) : (
-            <img src={data.imageUrl} alt="펀딩 이미지" width={100} height={120} />
+            <img src={data.imageUrl} alt="펀딩 이미지" style={{ width: '100%' }} />
           )}
         </p>
       </div>
