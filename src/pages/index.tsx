@@ -56,8 +56,12 @@ export default function Home() {
   const [isBrowsingService, setIsBrowsingService] = useState(false);
   const { data, refetch, isLoading } = useLogIn({ code });
 
+  console.log(token);
+
   useEffect(() => {
+    console.log(router.asPath);
     if (router.asPath.slice(2) && !isLoading) {
+      console.log(isLoading);
       setCode(router.asPath.slice(2));
       refetch();
     }
@@ -80,7 +84,7 @@ export default function Home() {
   };
 
   return (
-    <PageLayout>
+    <>
       <Head>
         <title>ZIPup | 집들이 선물 펀딩 서비스</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -188,6 +192,6 @@ export default function Home() {
           </>
         )}
       </main>
-    </PageLayout>
+    </>
   );
 }

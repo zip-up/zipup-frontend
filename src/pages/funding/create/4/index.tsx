@@ -61,7 +61,6 @@ export default function CreatFundStep4() {
       { data: newFund, token },
       {
         onSuccess: data => {
-          console.log(data);
           if (data) {
             setId(data.id);
             setIsModalOpen(true);
