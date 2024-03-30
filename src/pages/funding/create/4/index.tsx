@@ -83,16 +83,16 @@ export default function CreatFundStep4() {
         description: '집업에서 선물 펀딩에 함께해주세요!',
         imageUrl: newFund.imageUrl,
         link: {
-          mobileWebUrl: `http://localhost:3000/funding/${id}`,
-          webUrl: `http://localhost:3000/funding/${id}`,
+          mobileWebUrl: `https://zip-up.vercel.app/funding/${id}`,
+          webUrl: `https://zip-up.vercel.app/funding/${id}`,
         },
       },
       buttons: [
         {
           title: '자세히 보기',
           link: {
-            mobileWebUrl: `http://localhost:3000/funding/${id}`,
-            webUrl: `http://localhost:3000/funding/${id}`,
+            mobileWebUrl: `https://zip-up.vercel.app/funding/${id}`,
+            webUrl: `https://zip-up.vercel.app/funding/${id}`,
           },
         },
       ],
