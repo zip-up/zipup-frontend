@@ -11,7 +11,6 @@ import CancelIcon from '@assets/icons/cancel-icon.svg';
 import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState } from 'recoil';
 import { createFundState } from '@store/store';
-import PageLayout from '@components/Layout/pageLayout';
 import { message, message_icon, message_text } from '@components/TermsAndConditions/styles';
 
 interface FormInput {
@@ -39,7 +38,7 @@ export default function CreatFundStep1() {
     );
 
   return (
-    <PageLayout>
+    <>
       {isOpen && (
         <ModalWithIcon
           onClose={() => setIsOpen(false)}
@@ -114,6 +113,6 @@ export default function CreatFundStep1() {
           다음
         </Button>
       </form>
-    </PageLayout>
+    </>
   );
 }

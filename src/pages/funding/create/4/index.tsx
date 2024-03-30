@@ -14,7 +14,6 @@ import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { createFundState, tokenState } from '@store/store';
 import { useCreateFunding } from '@hooks/queries/useCreateFunding';
-import PageLayout from '@components/Layout/pageLayout';
 import TermsAndConditions from '@components/TermsAndConditions';
 import { createTerms } from '@constants/terms';
 
@@ -55,7 +54,6 @@ export default function CreatFundStep4() {
   };
 
   const handleNext = () => {
-
     handleCreateFund(
       { data: newFund, token },
       {
@@ -70,7 +68,7 @@ export default function CreatFundStep4() {
   };
 
   return (
-    <PageLayout>
+    <>
       {isModalOpen && (
         <ModalWithIcon
           width="31.7rem"
@@ -164,7 +162,7 @@ export default function CreatFundStep4() {
           onClose={() => setIsOpen(false)}
         />
       )}
-    </PageLayout>
+    </>
   );
 }
 const flexbox = css({

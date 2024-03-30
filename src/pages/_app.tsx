@@ -4,13 +4,13 @@ import '@styles/globals.css';
 import { RecoilRoot } from 'recoil';
 import Layout from '@components/Layout';
 import ReactQueryClient from '@contexts/ReactQueryContext';
-import PageLayout from '@components/Layout/pageLayout';
+import AuthRoot from '@components/Layout/AuthRoot';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <Layout>
       <RecoilRoot>
-        <PageLayout>
+        <AuthRoot>
           <ReactQueryClient>
             <Component {...pageProps} />
             {/* <ToastContainer
@@ -22,7 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
               theme="light"
             /> */}
           </ReactQueryClient>
-        </PageLayout>
+        </AuthRoot>
       </RecoilRoot>
     </Layout>
   );

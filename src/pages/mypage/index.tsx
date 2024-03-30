@@ -12,7 +12,6 @@ import * as style from './styles';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { tokenState, userState } from '@store/store';
 import { useLogout } from '@hooks/queries/useAuth';
-import PageLayout from '@components/Layout/pageLayout';
 
 const MyPage = () => {
   const router = useRouter();
@@ -31,7 +30,7 @@ const MyPage = () => {
   };
 
   return (
-    <PageLayout>
+    <>
       <HeaderWithLogo onOpenLogin={() => router.push('/mypage')} />
       <div className={style.content}>
         <div className={style.profile_box}>
@@ -107,7 +106,7 @@ const MyPage = () => {
           </div>
         </footer>
       </div>
-    </PageLayout>
+    </>
   );
 };
 

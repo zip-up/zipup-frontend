@@ -8,7 +8,6 @@ import { useGetMyFundingList, useGetParticipatedList } from '@hooks/queries/useG
 import { useRecoilValue } from 'recoil';
 import { tokenState, userState } from '@store/store';
 import { FundingInfo } from '@typings/funding';
-import PageLayout from '@components/Layout/pageLayout';
 import classNames from 'classnames';
 import { flex } from '@styled-system/patterns';
 import GiftIcon from '@assets/icons/big-gift-image.svg';
@@ -62,7 +61,7 @@ export default function MyFundings() {
   }, [myFundingList, participatedList]);
 
   return (
-    <PageLayout>
+    <>
       <Header
         hasTitle
         title={String(types) === 'my' ? '내가 만든 펀딩' : '내가 참여한 펀딩'}
@@ -112,6 +111,6 @@ export default function MyFundings() {
           </div>
         </div>
       )}
-    </PageLayout>
+    </>
   );
 }

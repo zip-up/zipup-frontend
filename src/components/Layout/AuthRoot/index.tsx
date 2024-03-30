@@ -4,7 +4,7 @@ import { css } from '@styled-system/css';
 import { PropsWithChildren, useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 
-export default function PageLayout({ children }: PropsWithChildren) {
+export default function AuthRoot({ children }: PropsWithChildren) {
   const setToken = useSetRecoilState(tokenState);
   const setUser = useSetRecoilState(userState);
 
