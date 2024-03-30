@@ -9,10 +9,12 @@ const msgBox = hstack({
   justifyContent: 'flex-start',
   fontSize: 'body2',
   color: 'text.100',
-  gap: '4rem',
+  gap: '3rem',
   bg: 'bg.100',
   w: '100%',
 });
+
+const image = css({ w: '5rem' });
 
 const infoWrapper = vstack({ gap: '1.3rem', alignItems: 'flex-start' });
 
@@ -32,4 +34,4 @@ const blueText = css({
   color: 'main.blue',
 });
 
-export { msgBox, info, comment, infoWrapper, blueText };
+export { msgBox, image, info, comment, infoWrapper, blueText };
