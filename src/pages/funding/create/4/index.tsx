@@ -14,6 +14,7 @@ import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { createFundState, tokenState } from '@store/store';
 import { useCreateFunding } from '@hooks/queries/useCreateFunding';
+import PageLayout from '@components/Layout/pageLayout';
 import TermsAndConditions from '@components/TermsAndConditions';
 import { createTerms } from '@constants/terms';
 
@@ -58,9 +59,9 @@ export default function CreatFundStep4() {
       { data: newFund, token },
       {
         onSuccess: data => {
-          console.log(data);
           if (data) {
             setId(data.id);
+            setIsModalOpen(true);
           }
         },
       },
@@ -68,7 +69,7 @@ export default function CreatFundStep4() {
   };
 
   return (
-    <>
+    <PageLayout>
       {isModalOpen && (
         <ModalWithIcon
           width="31.7rem"
@@ -96,7 +97,7 @@ export default function CreatFundStep4() {
         />
       )}
       <Header onGoBack={() => router.back()} />
-      <ProgressBar width={'100%'} />
+      <ProgressBar width={css({ width: '100%' })} />
       <h4 className={style.step_name}>Step 4</h4>
       <h2 className={style.title}>배송 정보를 입력해주세요.</h2>
 
@@ -138,20 +139,10 @@ export default function CreatFundStep4() {
 
         <TermsAndConditions data={createTerms} onSetIsValid={setIsValid} />
         <div className={classNames(flexbox, button)}>
-          <Button
-            type="submit"
-            className={css({ width: '12.4rem' })}
-            color="primary"
-            onClick={() => setIsModalOpen(true)}
-          >
+          <Button type="submit" className={css({ width: '12.4rem' })} color="primary">
             나중에 입력
           </Button>
-          <Button
-            type="submit"
-            className={css({ width: '19.1rem' })}
-            color="secondary"
-            onClick={() => setIsModalOpen(true)}
-          >
+          <Button type="submit" className={css({ width: '19.1rem' })} color="secondary">
             등록 완료
           </Button>
         </div>
@@ -162,7 +153,7 @@ export default function CreatFundStep4() {
           onClose={() => setIsOpen(false)}
         />
       )}
-    </>
+    </PageLayout>
   );
 }
 const flexbox = css({
