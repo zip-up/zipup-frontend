@@ -12,13 +12,48 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { tokenState, userState } from '@store/store';
 import { useRouter } from 'next/router';
 import { useLogIn } from '@hooks/queries/useAuth';
+import PageLayout from '@components/Layout/pageLayout';
+import { css } from '@styled-system/css';
+import CreateImage from '@assets/images/funding_create_image.svg';
+import DeliveryImage from '@assets/images/funding_delivery_image.svg';
+import ParticipateImage from '@assets/images/funding_participate_image.svg';
+import TargetImage from '@assets/images/funding_target_image.svg';
+import classNames from 'classnames';
+
+const descData = [
+  {
+    title: '펀딩 개설 후 공유',
+    desc1: '원하는 선물을 등록하고 링크를 공유해요',
+    desc2: '마음을 모으는 건 집업이 할게요',
+    icon: <CreateImage />,
+  },
+  {
+    title: '선물 펀딩 참여',
+    desc1: '예산이 부족해도 괜찮아요',
+    desc2: '축하하는 마음에 집중할 수 있어요',
+    icon: <ParticipateImage />,
+  },
+  {
+    title: '목표 금액 달설',
+    desc1: '친구들에게 축하 메세지를 받아요',
+    desc2: '따뜻한 집들이를 준비해요',
+    icon: <TargetImage />,
+  },
+  {
+    title: '선물 배송',
+    desc1: '내가 정말 원하던 선물!',
+    desc2: '집 앞에서 바로 만나요',
+    icon: <DeliveryImage />,
+  },
+];
 
 export default function Home() {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
-  const [token, setToken] = useRecoilState(tokenState);
-  const [code, setCode] = useState('');
   const setUser = useSetRecoilState(userState);
+  const [token, setToken] = useRecoilState(tokenState);
+  const [isOpen, setIsOpen] = useState(false);
+  const [code, setCode] = useState('');
+  const [isBrowsingService, setIsBrowsingService] = useState(false);
   const { data, refetch, isLoading } = useLogIn({ code });
 
   console.log(token);
@@ -39,6 +74,7 @@ export default function Home() {
       setToken(accesstoken);
       localStorage.setItem('@token', accesstoken);
       localStorage.setItem('@user', JSON.stringify(rest));
+      router.push('/');
     }
   }, [isLoading]);
 
@@ -87,21 +123,74 @@ export default function Home() {
             집들이 선물 펀딩 서비스
           </span>
         </div>
+
         <div className={style.wrapper}>
           <div className={style.image}>
             <HomeImage />
           </div>
-          <Button
-            color={isLoading ? 'disabled' : 'primary'}
-            disabled={isLoading}
-            onClick={() => (token ? router.push('/funding/create/1') : setIsOpen(true))}
-          >
-            {isLoading ? '로그인 중...' : '내 펀딩을 만들어볼까요?'}
-          </Button>
-          <Button color="secondary" onClick={() => null}>
-            서비스 둘러볼게요
-          </Button>
+          {!isBrowsingService && (
+            <>
+              <Button
+                color={isLoading ? 'disabled' : 'primary'}
+                disabled={isLoading}
+                onClick={() => (token ? router.push('/funding/create/1') : setIsOpen(true))}
+              >
+                {isLoading ? '로그인 중...' : '내 펀딩을 만들어볼까요?'}
+              </Button>
+              <Button color="secondary" onClick={() => setIsBrowsingService(true)}>
+                서비스 둘러볼게요
+              </Button>
+            </>
+          )}
         </div>
+        {isBrowsingService && (
+          <>
+            <div className={style.service_box}>
+              <div className={style.service_title_box}>
+                <span className={style.service_title}>집들이 선물, 어떻게 받을 수 있나요?</span>
+              </div>
+              <div className={style.service_desc_box}>
+                {descData.map(item => (
+                  <div key={item.title} className={style.service_desc_card}>
+                    <div
+                      style={{
+                        height: '5.6rem',
+                        width: '5.6rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      {item.icon}
+                    </div>
+                    <div className={style.service_text_box}>
+                      <p className={style.text_title}>{item.title}</p>
+                      <p className={style.text_desc}>{item.desc1}</p>
+                      <p className={classNames(style.text_desc, css({ marginTop: '-0.3rem' }))}>
+                        {item.desc2}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className={style.login_box}>
+                <span className={style.login_text}>
+                  {token
+                    ? '내 펀딩을 만들어볼까요?'
+                    : '카카오로 5초만에 로그인하고\n바로 시작해볼까요?'}
+                </span>
+                <Button
+                  type="button"
+                  color="secondary"
+                  className={style.login_button}
+                  onClick={() => (token ? router.push('/funding/create/1') : setIsOpen(true))}
+                >
+                  {token ? '내 펀딩 만들러 가기' : '지금 시작하기'}
+                </Button>
+              </div>
+            </div>
+          </>
+        )}
       </main>
     </>
   );

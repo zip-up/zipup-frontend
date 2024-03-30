@@ -6,6 +6,7 @@ import ProgressBar from '@components/common/ProgressBar';
 import { FundingInfo } from '@typings/funding';
 import Image from 'next/image';
 import * as style from './styles';
+import classNames from 'classnames';
 
 interface CardProps {
   data: FundingInfo;
@@ -17,7 +18,12 @@ const Card = ({ data, onClick }: CardProps) => {
 
   return (
     <div className={style.container} onClick={onClick}>
-      <div className={style.image_box}>
+      <div
+        className={classNames(
+          style.image_box,
+          css({ backgroundColor: data.imageUrl.length <= 6 ? 'blue.10' : 'white' }),
+        )}
+      >
         <div className={style.status}>
           <StatusTag daysLeft={Number(data.status)} />
         </div>
@@ -34,7 +40,11 @@ const Card = ({ data, onClick }: CardProps) => {
         <ProgressBar
           noMargin
           progressBarWidth={css({ width: PROGRESS_BAR_BASE_WIDTH * 0.1 + 'rem' })}
-          width={(PROGRESS_BAR_BASE_WIDTH * data.percent) / 1000 + 'rem'}
+          width={
+            data.percent >= 100
+              ? '14.1rem'
+              : (PROGRESS_BAR_BASE_WIDTH * data.percent) / 1000 + 'rem'
+          }
         />
         <div className={style.title}>{data.title}</div>
         <div className={style.percent}>{data.percent}% 달성</div>
