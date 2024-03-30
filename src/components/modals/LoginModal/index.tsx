@@ -1,7 +1,7 @@
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import LoginIcon from '@assets/icons/login-icon.svg';
 import LoginButtonIcon from '@assets/images/login-button.svg';
-import { css } from '@styled-system/css';
+import { css } from 'styled-system/css';
 
 interface LoginModalProps {
   onClose: () => void;
