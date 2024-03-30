@@ -39,7 +39,11 @@ const Card = ({ data, onClick }: CardProps) => {
         <ProgressBar
           noMargin
           progressBarWidth={css({ width: PROGRESS_BAR_BASE_WIDTH * 0.1 + 'rem' })}
-          width={(PROGRESS_BAR_BASE_WIDTH * data.percent) / 1000 + 'rem'}
+          width={
+            data.percent >= 100
+              ? '14.1rem'
+              : (PROGRESS_BAR_BASE_WIDTH * data.percent) / 1000 + 'rem'
+          }
         />
         <div className={style.title}>{data.title}</div>
         <div className={style.percent}>{data.percent}% 달성</div>
