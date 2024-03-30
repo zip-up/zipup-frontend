@@ -1,5 +1,5 @@
-import { float, vstack } from '@styled-system/patterns';
-import { css, cx } from '@styled-system/css';
+import { float, vstack } from 'styled-system/patterns';
+import { css, cx } from 'styled-system/css';
 import { button, styles } from '@components/common/Button/styles';
 
 const container = vstack({

@@ -1,4 +1,4 @@
-import { css } from '@styled-system/css';
+import { css } from 'styled-system/css';
 import BackIcon from '@assets/icons/back.svg';
 import { useRouter } from 'next/router';
 

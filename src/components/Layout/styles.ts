@@ -1,4 +1,4 @@
-import { css } from '@styled-system/css';
+import { css } from 'styled-system/css';
 
 const container = css({
   height: '100vh',

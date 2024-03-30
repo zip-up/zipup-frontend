@@ -1,5 +1,4 @@
 import FundingStatusBox from '@components/FundingStatusBox';
-import { css } from '@styled-system/css';
 import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';

@@ -3,7 +3,7 @@ import Header from '@components/common/Header';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import * as style from '../styles';
-import { css } from '@styled-system/css';
+import { css } from 'styled-system/css';
 import classNames from 'classnames';
 import { useState } from 'react';
 import ModalWithIcon from '@components/modals/ModalWithIcon';

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import * as style from '../styles';
 import classNames from 'classnames';
-import { css } from '@styled-system/css';
+import { css } from 'styled-system/css';
 import TextareaAutosize from 'react-textarea-autosize';
 import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState } from 'recoil';
