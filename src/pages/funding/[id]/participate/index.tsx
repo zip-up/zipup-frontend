@@ -13,6 +13,7 @@ import { button, styles } from '@components/common/Button/styles';
 import { useRouter } from 'next/router';
 import TermsAndConditions from '@components/TermsAndConditions';
 import { createTerms } from '@constants/terms';
+import { getLoacalStorage, setLocalStorage } from '@store/localStorage';
 
 interface FormInputs {
   price: number;
@@ -24,6 +25,8 @@ interface FormInputs {
 
 export default function Participate() {
   const [fundingForm, setFundingForm] = useRecoilState(fundingFormState);
+
+  const userInfo = getLoacalStorage('@user');
 
   const router = useRouter();
   const { id: fundingId } = router.query;
@@ -44,13 +47,25 @@ export default function Participate() {
     },
     mode: 'onSubmit',
   });
+
   const onSubmit: SubmitHandler<FormInputs> = ({
     price,
     enteredCustomPrice,
     customPrice,
-    ...rest
+    senderName,
+    msg,
   }) => {
-    setFundingForm({ price: enteredCustomPrice ? customPrice : price, ...rest });
+    setLocalStorage('@participateInfo', {
+      participateId: userInfo.id,
+      senderName,
+      congrateMessage: msg,
+    });
+
+    setFundingForm({
+      participateId: userInfo?.id,
+      price: enteredCustomPrice ? customPrice : price,
+    });
+
     router.push(`/funding/${fundingId}/payment`);
   };
 

@@ -5,6 +5,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Instance } from '@api/index';
 import { css, cx } from '@styled-system/css';
+import { useEffect } from 'react';
+import { getLoacalStorage } from '@store/localStorage';
+import { useParticipateFunding } from '@hooks/queries/useFunding';
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const {
@@ -20,7 +23,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
       `/v1/payment/confirm?paymentKey=${paymentKey}&orderId=${orderId}&amount=${amount}`,
     );
 
-    return { props: { fundingId, orderId, amount } };
+    return { props: { fundingId, orderId, amount, paymentId: response.data.id } };
   } catch (e: any) {
     console.log('결제 승인 요청 에러', e);
     return {
@@ -36,9 +39,24 @@ interface SuccessProps {
   fundingId: string;
   orderId: string;
   amount: string;
+  paymentId: string;
 }
 
-export default function Success({ fundingId, orderId, amount }: SuccessProps) {
+export default function Success({ fundingId, orderId, amount, paymentId }: SuccessProps) {
+  const participateInfo = getLoacalStorage('@participateInfo');
+
+  const { mutate, isPending } = useParticipateFunding();
+
+  useEffect(() => {
+    mutate({
+      fundingId,
+      paymentId,
+      ...participateInfo,
+    });
+  }, []);
+
+  if (isPending) return <span>로딩 중....</span>;
+
   return (
     <div className={commonStyle.container}>
       <h1 className={commonStyle.headTitle}>
