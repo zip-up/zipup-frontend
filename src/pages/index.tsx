@@ -70,6 +70,7 @@ export default function Home() {
       setToken(accesstoken);
       localStorage.setItem('@token', accesstoken);
       localStorage.setItem('@user', JSON.stringify(rest));
+      router.push('/');
     }
   }, [isLoading]);
 
