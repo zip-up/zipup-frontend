@@ -3,9 +3,6 @@ import Head from 'next/head';
 import Button from '@components/common/Button';
 import * as style from './style';
 import { useEffect, useState } from 'react';
-import ModalWithIcon from '@components/modals/ModalWithIcon';
-import LoginIcon from '@assets/icons/login-icon.svg';
-import LoginButtonIcon from '@assets/images/login-button.svg';
 import HomeImage from '@assets/images/home-image.svg';
 import HeaderWithLogo from '@components/HeaderWithLogo';
 import { useRecoilState, useSetRecoilState } from 'recoil';
@@ -18,6 +15,7 @@ import DeliveryImage from '@assets/images/funding_delivery_image.svg';
 import ParticipateImage from '@assets/images/funding_participate_image.svg';
 import TargetImage from '@assets/images/funding_target_image.svg';
 import classNames from 'classnames';
+import LoginModal from '@components/modals/LoginModal';
 
 const descData = [
   {
@@ -33,7 +31,7 @@ const descData = [
     icon: <ParticipateImage />,
   },
   {
-    title: '목표 금액 달설',
+    title: '목표 금액 달성',
     desc1: '친구들에게 축하 메세지를 받아요',
     desc2: '따뜻한 집들이를 준비해요',
     icon: <TargetImage />,
@@ -95,21 +93,9 @@ export default function Home() {
           `}
         </style>
       </Head>
-      {isOpen && (
-        <ModalWithIcon
-          title="로그인이 필요한 서비스입니다."
-          subtitle="카카오 로그인으로 5초만에 시작해요!"
-          onClose={() => setIsOpen(false)}
-          icon={<LoginIcon />}
-          buttonComponent={
-            <button className={style.button} onClick={getToken}>
-              <LoginButtonIcon />
-            </button>
-          }
-        />
-      )}
+      {isOpen && <LoginModal onClose={() => setIsOpen(false)} onClick={getToken} />}
       <main>
-        <HeaderWithLogo onOpenLogin={() => setIsOpen(true)} />
+        <HeaderWithLogo onOpen={() => setIsOpen(true)} />
         <div className={style.text_box}>
           <p className={style.title}>
             조금씩 마음을 보태어 <span className={style.highlight}>집들이 선물</span>을 보내요
