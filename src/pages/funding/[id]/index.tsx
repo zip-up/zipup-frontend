@@ -9,7 +9,6 @@ import FundingStatusBox from '@components/FundingStatusBox';
 import { useRecoilState } from 'recoil';
 import { userState } from '@store/store';
 
-
 export default function Funding() {
   const router = useRouter();
   const { id: fundingId } = router.query;

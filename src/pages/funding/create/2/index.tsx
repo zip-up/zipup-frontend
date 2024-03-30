@@ -31,7 +31,7 @@ export default function CreatFundStep2() {
     router.push('/funding/create/3');
   };
 
-  const validateString = (text: string) => /^[가-힣a-zA-Z]+$/.test(text);
+  const validateString = (text: string) => /^[가-힣a-zA-Z ]+$/.test(text);
 
   return (
     <>
