@@ -1,6 +1,6 @@
+import { Instance } from '@api/index';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { loadPaymentWidget, PaymentWidgetInstance } from '@tosspayments/payment-widget-sdk';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 
 const usePaymentWidget = (clientKey: string, customerKey: string) => {
@@ -21,7 +21,7 @@ const useStoreOrderInfo = (successCallback: (orderId: string) => void) => {
     mutationFn: async ({ orderId, amount }: { orderId: string; amount: number }) => {
       // if (!paymentWidget) throw new Error('결제 서비스를 이용할 수 없습니다.');
 
-      const response = await axios.post(
+      const response = await Instance.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/v1/payment/?orderId=${orderId}&amount=${amount}`,
       );
 
@@ -61,8 +61,6 @@ const useRequestPayment = () => {
         orderId,
         orderName,
         customerName,
-        customerEmail: '',
-        customerMobilePhone: '',
         successUrl: `${REDIRECT_URL}/success`,
         failUrl: `${REDIRECT_URL}/fail`,
       });

@@ -1,9 +1,9 @@
 import { GetServerSideProps } from 'next';
-import axios from 'axios';
 import * as commonStyle from '@pages/invite/[id]/styles';
 import * as style from './styles';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Instance } from '@api/index';
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const {
@@ -15,8 +15,8 @@ export const getServerSideProps: GetServerSideProps = async context => {
   //  if (amount !== userInputAmount) return redirect('/fail');
 
   try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/v1/payment/confirm?paymentKey=${paymentKey}&orderId=${orderId}&amount=${amount}`,
+    const response = await Instance.get(
+      `/v1/payment/confirm?paymentKey=${paymentKey}&orderId=${orderId}&amount=${amount}`,
     );
 
     return { props: { fundingId, orderId, amount } };
