@@ -9,7 +9,6 @@ import { useEffect, useState } from 'react';
 import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState } from 'recoil';
 import { createFundState } from '@store/store';
-import PageLayout from '@components/Layout/pageLayout';
 
 interface FormInput {
   due: string;
@@ -44,9 +43,9 @@ export default function CreatFundStep3() {
   };
 
   return (
-    <PageLayout>
+    <>
       <Header onGoBack={() => router.back()} />
-      <ProgressBar width={css({ width: '24.6rem' })} />
+      <ProgressBar width={'24.6rem'} />
       <h4 className={style.step_name}>Step 3</h4>
       <h2 className={style.title}>목표 금액과 기간을 입력해주세요.</h2>
       <form className={style.form} onSubmit={handleSubmit(handleCreateFundSubmit)}>
@@ -84,6 +83,6 @@ export default function CreatFundStep3() {
           다음
         </Button>
       </form>
-    </PageLayout>
+    </>
   );
 }

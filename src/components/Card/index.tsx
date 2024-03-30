@@ -4,6 +4,7 @@ import GiftIcon from '@assets/icons/gift-image.svg';
 import StatusTag from '@components/common/StatusTag';
 import ProgressBar from '@components/common/ProgressBar';
 import { FundingInfo } from '@typings/funding';
+import Image from 'next/image';
 import * as style from './styles';
 
 interface CardProps {

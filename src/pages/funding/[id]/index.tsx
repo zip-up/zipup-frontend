@@ -1,20 +1,21 @@
-// import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Header from '@components/common/Header';
 import * as style from './styles';
 import Button from '@components/common/Button';
 import MessageList from '@components/MessageList';
 import DefaultPresentImg from '@assets/images/default_present.svg';
-// import Image from 'next/image';
 import { useGetFundingDeatil } from '@hooks/queries/useFunding';
 import FundingStatusBox from '@components/FundingStatusBox';
+import { useRecoilState } from 'recoil';
+import { userState } from '@store/store';
 
 export default function Funding() {
   const router = useRouter();
+  const { id: fundingId } = router.query;
 
-  const { id } = router.query;
+  const [user] = useRecoilState(userState);
 
-  const { data: fundingInfo } = useGetFundingDeatil();
+  const { data: fundingInfo } = useGetFundingDeatil(fundingId, user.id);
 
   if (!fundingInfo) return null;
 
@@ -46,7 +47,12 @@ export default function Funding() {
       );
     }
     return (
-      <Button type="button" color="secondary" wFull onClick={() => {}}>
+      <Button
+        type="button"
+        color="secondary"
+        wFull
+        onClick={() => router.push(`/funding/${fundingId}/participate`)}
+      >
         이 펀딩 참여하기
       </Button>
     );
@@ -55,7 +61,13 @@ export default function Funding() {
   return (
     <div className={style.pageLayout}>
       <Header />
-      <DefaultPresentImg />
+      {!imageUrl ? (
+        <DefaultPresentImg />
+      ) : (
+        <div className={style.imageWrapper}>
+          <img src={imageUrl} alt="상품 이미지" />
+        </div>
+      )}
       <article className={style.wrapper}>
         <h2 className={style.title}>{title}</h2>
 

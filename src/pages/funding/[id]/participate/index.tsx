@@ -13,6 +13,7 @@ import { button, styles } from '@components/common/Button/styles';
 import { useRouter } from 'next/router';
 import TermsAndConditions from '@components/TermsAndConditions';
 import { createTerms } from '@constants/terms';
+import { getLoacalStorage, setLocalStorage } from '@store/localStorage';
 
 interface FormInputs {
   price: number;
@@ -25,7 +26,10 @@ interface FormInputs {
 export default function Participate() {
   const [fundingForm, setFundingForm] = useRecoilState(fundingFormState);
 
+  const userInfo = getLoacalStorage('@user');
+
   const router = useRouter();
+  const { id: fundingId } = router.query;
 
   const {
     register,
@@ -47,8 +51,22 @@ export default function Participate() {
     price,
     enteredCustomPrice,
     customPrice,
-    ...rest
-  }) => setFundingForm({ price: enteredCustomPrice ? customPrice : price, ...rest });
+    senderName,
+    msg,
+  }) => {
+    setLocalStorage('@participateInfo', {
+      participateId: userInfo.id,
+      senderName,
+      congratsMessage: msg,
+    });
+
+    setFundingForm({
+      participateId: userInfo?.id,
+      price: enteredCustomPrice ? customPrice : price,
+    });
+
+    router.push(`/funding/${fundingId}/payment`);
+  };
 
   const enteredCustomPrice = watch('enteredCustomPrice');
   const selected = watch('price');
@@ -219,7 +237,7 @@ export default function Participate() {
             <TermsAndConditions data={createTerms} onSetIsValid={setIsValid} />
 
             <Button type="submit" color="secondary" wFull className={style.fixedPostionButton}>
-              결제하기
+              결제하러 가기
             </Button>
           </div>
         );

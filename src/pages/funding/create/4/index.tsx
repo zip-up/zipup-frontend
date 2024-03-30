@@ -14,7 +14,6 @@ import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { createFundState, tokenState } from '@store/store';
 import { useCreateFunding } from '@hooks/queries/useCreateFunding';
-import PageLayout from '@components/Layout/pageLayout';
 import TermsAndConditions from '@components/TermsAndConditions';
 import { createTerms } from '@constants/terms';
 
@@ -69,7 +68,7 @@ export default function CreatFundStep4() {
   };
 
   return (
-    <PageLayout>
+    <>
       {isModalOpen && (
         <ModalWithIcon
           width="31.7rem"
@@ -97,7 +96,7 @@ export default function CreatFundStep4() {
         />
       )}
       <Header onGoBack={() => router.back()} />
-      <ProgressBar width={css({ width: '100%' })} />
+      <ProgressBar width={'100%'} />
       <h4 className={style.step_name}>Step 4</h4>
       <h2 className={style.title}>배송 정보를 입력해주세요.</h2>
 
@@ -163,7 +162,7 @@ export default function CreatFundStep4() {
           onClose={() => setIsOpen(false)}
         />
       )}
-    </PageLayout>
+    </>
   );
 }
 const flexbox = css({

@@ -26,6 +26,7 @@ export const tokenState = atom<string>({
 export const fundingFormState = atom({
   key: 'fundingParticipateForm',
   default: {
+    participateId: '',
     senderName: '',
     price: 0,
     msg: '',
