@@ -5,6 +5,7 @@ import StatusTag from '@components/common/StatusTag';
 import ProgressBar from '@components/common/ProgressBar';
 import { FundingInfo } from '@typings/funding';
 import * as style from './styles';
+import classNames from 'classnames';
 
 interface CardProps {
   data: FundingInfo;
@@ -16,7 +17,12 @@ const Card = ({ data, onClick }: CardProps) => {
 
   return (
     <div className={style.container} onClick={onClick}>
-      <div className={style.image_box}>
+      <div
+        className={classNames(
+          style.image_box,
+          css({ backgroundColor: data.imageUrl.length <= 6 ? 'blue.10' : 'white' }),
+        )}
+      >
         <div className={style.status}>
           <StatusTag daysLeft={Number(data.status)} />
         </div>
