@@ -25,9 +25,10 @@ const useGetFundingDeatil = (fundingId: string) => {
       const response = await axios.get<DetailFundingInfo>(
         `${process.env.NEXT_PUBLIC_BASE_URL}/v1/fund?funding=${fundingId}`,
       );
-     
+
       return response.data;
     },
+    enabled: !!fundingId,
   });
 };
 

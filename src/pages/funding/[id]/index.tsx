@@ -11,7 +11,8 @@ import LoginModal from '@components/modals/LoginModal';
 
 export default function Funding() {
   const router = useRouter();
-  const { id: fundingId } = router.query;
+
+    const { id: fundingId } = router.query;
 
   const { data: fundingInfo } = useGetFundingDeatil(fundingId);
   const [isModalOn, setIsModalOn] = useState(false);
