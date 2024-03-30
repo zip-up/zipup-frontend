@@ -52,18 +52,17 @@ export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const [code, setCode] = useState('');
   const [isBrowsingService, setIsBrowsingService] = useState(false);
-  const { data, refetch, isLoading } = useLogIn({ code });
+  const { data, isLoading } = useLogIn({ code });
 
   useEffect(() => {
-    console.log(router.asPath);
-    if (router.asPath.slice(2) && !isLoading) {
+    if (router.isReady && router.asPath.length > 2) {
       setCode(router.asPath.slice(2));
-      refetch();
     }
-  }, [router, isLoading]);
+  }, [router.isReady, router.query, code]);
 
   useEffect(() => {
-    if (data && !isLoading) {
+    if (data) {
+      console.log(data);
       const { accesstoken, ...rest } = data;
       setUser(rest);
       setToken(accesstoken);
@@ -71,7 +70,7 @@ export default function Home() {
       localStorage.setItem('@user', JSON.stringify(rest));
       router.push('/');
     }
-  }, [isLoading]);
+  }, [data]);
 
   const handleLogin = async () => {
     window.location.href =
