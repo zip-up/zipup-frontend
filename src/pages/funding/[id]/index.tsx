@@ -12,7 +12,7 @@ import LoginModal from '@components/modals/LoginModal';
 export default function Funding() {
   const router = useRouter();
 
-    const { id: fundingId } = router.query;
+  const { id: fundingId } = router.query;
 
   const { data: fundingInfo } = useGetFundingDeatil(fundingId);
   const [isModalOn, setIsModalOn] = useState(false);
@@ -63,6 +63,11 @@ export default function Funding() {
     );
   };
 
+  const handleLogin = async () => {
+    window.location.href =
+      process.env.NEXT_PUBLIC_BASE_URL.slice(0, -4) + '/oauth2/authorization/kakao';
+  };
+
   return (
     <div className={style.pageLayout}>
       <Header />
@@ -84,7 +89,9 @@ export default function Funding() {
       </article>
       <MessageList messages={messageList} />
 
-      {isModalOn && <LoginModal onClick={() => {}} onClose={() => setIsModalOn(false)} />}
+      {isModalOn && (
+        <LoginModal onClick={() => handleLogin()} onClose={() => setIsModalOn(false)} />
+      )}
     </div>
   );
 }
