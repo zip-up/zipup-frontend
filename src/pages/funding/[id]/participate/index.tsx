@@ -7,7 +7,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import * as style from './styles';
 import { A, B, C, D, E, A_d, B_d, C_d, D_d, E_d } from '@assets/icons/priceLabel/index';
-import Button from '@components/common/Button';
+import Button, { BottomFixedStyle } from '@components/common/Button';
 import { statusTag } from '@components/common/StatusTag/styles';
 import { button, styles } from '@components/common/Button/styles';
 import { useRouter } from 'next/router';
@@ -182,12 +182,7 @@ export default function Participate() {
                 enteredCustomPrice && (await trigger('customPrice'));
                 !errors.customPrice && setStep(2);
               }}
-              className={cx(
-                button,
-                styles['secondary'],
-                style.fixedPostionButton,
-                css({ h: '5.2rem' }),
-              )}
+              className={cx(button, styles['secondary'], BottomFixedStyle, css({ h: '5.2rem' }))}
             >
               다음
             </button>
@@ -238,7 +233,13 @@ export default function Participate() {
 
             <TermsAndConditions data={createTerms} onSetIsValid={setIsValid} />
 
-            <Button type="submit" color="secondary" wFull className={style.fixedPostionButton}>
+            <Button
+              type="submit"
+              color="secondary"
+              isBottomFixed
+              wFull
+              className={style.fixedPostionButton}
+            >
               결제하러 가기
             </Button>
           </div>

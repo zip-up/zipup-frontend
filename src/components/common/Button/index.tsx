@@ -12,7 +12,17 @@ interface ButtonProps {
   style?: CSSProperties;
   wFull?: boolean;
   disabled?: boolean;
+  isBottomFixed?: boolean;
 }
+
+export const BottomFixedStyle = css({
+  position: 'fixed',
+  bottom: '24px',
+  width: '100%',
+  transform: 'translateX(-50%)',
+  left: '50%',
+  maxWidth: '32.8rem',
+});
 
 export default function Button({
   wFull = false,
@@ -24,6 +34,7 @@ export default function Button({
   type = 'button',
   style,
   disabled,
+  isBottomFixed = false,
 }: PropsWithChildren<ButtonProps>) {
   return (
     <button
@@ -33,6 +44,7 @@ export default function Button({
         styles[color],
         css(wFull && { width: '100%' }, { height }),
         className,
+        isBottomFixed && BottomFixedStyle,
       )}
       onClick={onClick}
       style={style}

@@ -54,6 +54,7 @@ export default function Payment() {
         color="secondary"
         className={css({ mt: '5rem' })}
         wFull
+        isBottomFixed
         onClick={() => {
           storeOrderInfo({
             orderId: nanoid(),

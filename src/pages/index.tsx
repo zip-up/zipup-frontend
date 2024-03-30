@@ -94,87 +94,86 @@ export default function Home() {
         </style>
       </Head>
       {isOpen && <LoginModal onClose={() => setIsOpen(false)} onClick={handleLogin} />}
-      <main>
-        <HeaderWithLogo onOpen={() => setIsOpen(true)} />
-        <div className={style.text_box}>
-          <p className={style.title}>
-            조금씩 마음을 보태어 <span className={style.highlight}>집들이 선물</span>을 보내요
-          </p>
-          <span className={style.subtitle}>
-            더나은 집들이 경험을 위한
-            <br />
-            집들이 선물 펀딩 서비스
-          </span>
-        </div>
 
-        <div className={style.wrapper}>
-          <div className={style.image}>
-            <HomeImage />
-          </div>
-          {!isBrowsingService && (
-            <>
-              <Button
-                color={isLoading ? 'disabled' : 'primary'}
-                disabled={isLoading}
-                onClick={() => (token ? router.push('/funding/create/1') : setIsOpen(true))}
-              >
-                {isLoading ? '로그인 중...' : '내 펀딩을 만들어볼까요?'}
-              </Button>
-              <Button color="secondary" onClick={() => setIsBrowsingService(true)}>
-                서비스 둘러볼게요
-              </Button>
-            </>
-          )}
+      <HeaderWithLogo onOpen={() => setIsOpen(true)} />
+      <div className={style.text_box}>
+        <p className={style.title}>
+          조금씩 마음을 보태어 <span className={style.highlight}>집들이 선물</span>을 보내요
+        </p>
+        <span className={style.subtitle}>
+          더나은 집들이 경험을 위한
+          <br />
+          집들이 선물 펀딩 서비스
+        </span>
+      </div>
+
+      <div className={style.wrapper}>
+        <div className={style.image}>
+          <HomeImage />
         </div>
-        {isBrowsingService && (
+        {!isBrowsingService && (
           <>
-            <div className={style.service_box}>
-              <div className={style.service_title_box}>
-                <span className={style.service_title}>집들이 선물, 어떻게 받을 수 있나요?</span>
-              </div>
-              <div className={style.service_desc_box}>
-                {descData.map(item => (
-                  <div key={item.title} className={style.service_desc_card}>
-                    <div
-                      style={{
-                        height: '5.6rem',
-                        width: '5.6rem',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      {item.icon}
-                    </div>
-                    <div className={style.service_text_box}>
-                      <p className={style.text_title}>{item.title}</p>
-                      <p className={style.text_desc}>{item.desc1}</p>
-                      <p className={classNames(style.text_desc, css({ marginTop: '-0.3rem' }))}>
-                        {item.desc2}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className={style.login_box}>
-                <span className={style.login_text}>
-                  {token
-                    ? '내 펀딩을 만들어볼까요?'
-                    : '카카오로 5초만에 로그인하고\n바로 시작해볼까요?'}
-                </span>
-                <Button
-                  type="button"
-                  color="secondary"
-                  className={style.login_button}
-                  onClick={() => (token ? router.push('/funding/create/1') : setIsOpen(true))}
-                >
-                  {token ? '내 펀딩 만들러 가기' : '지금 시작하기'}
-                </Button>
-              </div>
-            </div>
+            <Button
+              color={isLoading ? 'disabled' : 'primary'}
+              disabled={isLoading}
+              onClick={() => (token ? router.push('/funding/create/1') : setIsOpen(true))}
+            >
+              {isLoading ? '로그인 중...' : '내 펀딩을 만들어볼까요?'}
+            </Button>
+            <Button color="secondary" onClick={() => setIsBrowsingService(true)} isBottomFixed>
+              서비스 둘러볼게요
+            </Button>
           </>
         )}
-      </main>
+      </div>
+      {isBrowsingService && (
+        <>
+          <div className={style.service_box}>
+            <div className={style.service_title_box}>
+              <span className={style.service_title}>집들이 선물, 어떻게 받을 수 있나요?</span>
+            </div>
+            <div className={style.service_desc_box}>
+              {descData.map(item => (
+                <div key={item.title} className={style.service_desc_card}>
+                  <div
+                    style={{
+                      height: '5.6rem',
+                      width: '5.6rem',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    {item.icon}
+                  </div>
+                  <div className={style.service_text_box}>
+                    <p className={style.text_title}>{item.title}</p>
+                    <p className={style.text_desc}>{item.desc1}</p>
+                    <p className={classNames(style.text_desc, css({ marginTop: '-0.3rem' }))}>
+                      {item.desc2}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className={style.login_box}>
+              <span className={style.login_text}>
+                {token
+                  ? '내 펀딩을 만들어볼까요?'
+                  : '카카오로 5초만에 로그인하고\n바로 시작해볼까요?'}
+              </span>
+              <Button
+                type="button"
+                color="secondary"
+                className={style.login_button}
+                onClick={() => (token ? router.push('/funding/create/1') : setIsOpen(true))}
+              >
+                {token ? '내 펀딩 만들러 가기' : '지금 시작하기'}
+              </Button>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 }
