@@ -1,10 +1,10 @@
+/* eslint-disable @next/next/no-img-element */
 import LogoIcon from '@assets/images/logo.svg';
 import UserIcon from '@assets/icons/user.svg';
 import { css } from '@styled-system/css';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 import { tokenState, userState } from '@store/store';
-import Image from 'next/image';
 
 interface HeaderWithLogoProps {
   onOpenLogin: () => void;
@@ -23,7 +23,7 @@ const HeaderWithLogo = ({ onOpenLogin }: HeaderWithLogoProps) => {
       </button>
       <button className={box} onClick={() => (token ? router.push('/mypage') : onOpenLogin())}>
         {user.profileImage ? (
-          <Image src={user.profileImage} alt="profile image" width={24} height={24} />
+          <img src={user.profileImage} alt="profile image" width={24} height={24} />
         ) : (
           <UserIcon />
         )}
