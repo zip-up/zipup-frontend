@@ -10,6 +10,13 @@ export default defineConfig({
   // Files to exclude
   exclude: [],
 
+  importMap: {
+    css: 'styled-system/css',
+    recipes: 'styled-system/recipes',
+    patterns: 'styled-system/patterns',
+    jsx: 'styled-system/jsx',
+  },
+
   // Useful for theme customization
   theme: {
     extend: {
