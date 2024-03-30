@@ -9,7 +9,7 @@ import { useRecoilValue } from 'recoil';
 import { tokenState, userState } from '@store/store';
 import { FundingInfo } from '@typings/funding';
 import classNames from 'classnames';
-import { flex } from '@styled-system/patterns';
+import { flex } from 'styled-system/patterns';
 import GiftIcon from '@assets/icons/big-gift-image.svg';
 import Button from '@components/common/Button';
 

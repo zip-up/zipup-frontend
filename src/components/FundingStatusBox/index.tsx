@@ -1,5 +1,5 @@
 import StatusTag from '@components/common/StatusTag';
-import { cx } from '@styled-system/css';
+import { cx } from 'styled-system/css';
 import { DetailFundingInfo } from '@typings/funding';
 import * as style from './styles';
 import ProgressBar from '@components/common/ProgressBar';

@@ -25,11 +25,7 @@
       "@store/*": ["src/store/*"],
       "@contexts/*": ["src/contexts/*"],
       "@styles/*": ["src/styles/*"],
-      "@assets/*": ["src/assets/*"],
-      "@styled-system/css": ["styled-system/css"],
-      "@styled-system/recipes": ["styled-system/recipes"],
-      "@styled-system/patterns": ["styled-system/patterns"],
-      "@styled-system/jsx": ["styled-system/jsx"]
+      "@assets/*": ["src/assets/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

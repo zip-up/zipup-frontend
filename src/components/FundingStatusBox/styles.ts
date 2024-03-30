@@ -1,5 +1,5 @@
-import { css, cva, cx } from '@styled-system/css';
-import { wrap } from '@styled-system/patterns';
+import { css, cva, cx } from 'styled-system/css';
+import { wrap } from 'styled-system/patterns';
 
 const statusBox = cva({
   base: {

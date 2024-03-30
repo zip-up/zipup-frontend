@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { css } from '@styled-system/css';
+import { css } from 'styled-system/css';
 import GiftIcon from '@assets/icons/gift-image.svg';
 import StatusTag from '@components/common/StatusTag';
 import ProgressBar from '@components/common/ProgressBar';

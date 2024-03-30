@@ -1,5 +1,5 @@
-import { css } from '@styled-system/css';
-import { hstack, vstack, wrap } from '@styled-system/patterns';
+import { css } from 'styled-system/css';
+import { hstack, vstack, wrap } from 'styled-system/patterns';
 
 const msgBox = hstack({
   p: '1.4rem 2rem',

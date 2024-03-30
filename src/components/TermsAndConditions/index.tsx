@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { css } from '@styled-system/css';
+import { css } from 'styled-system/css';
 import Terms from './Terms';
 import * as style from './styles';
 import { useEffect, useState } from 'react';

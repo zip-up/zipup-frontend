@@ -1,7 +1,7 @@
 import Header from '@components/common/Header';
 import ProgressBar from '@components/common/ProgressBar';
 import { fundingFormState } from '@store/store';
-import { css, cx } from '@styled-system/css';
+import { css, cx } from 'styled-system/css';
 import { Fragment, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
