@@ -3,22 +3,19 @@ import Head from 'next/head';
 import Button from '@components/common/Button';
 import * as style from './style';
 import { useEffect, useState } from 'react';
-import ModalWithIcon from '@components/modals/ModalWithIcon';
-import LoginIcon from '@assets/icons/login-icon.svg';
-import LoginButtonIcon from '@assets/images/login-button.svg';
 import HomeImage from '@assets/images/home-image.svg';
 import HeaderWithLogo from '@components/HeaderWithLogo';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { tokenState, userState } from '@store/store';
 import { useRouter } from 'next/router';
 import { useLogIn } from '@hooks/queries/useAuth';
-import PageLayout from '@components/Layout/pageLayout';
 import { css } from '@styled-system/css';
 import CreateImage from '@assets/images/funding_create_image.svg';
 import DeliveryImage from '@assets/images/funding_delivery_image.svg';
 import ParticipateImage from '@assets/images/funding_participate_image.svg';
 import TargetImage from '@assets/images/funding_target_image.svg';
 import classNames from 'classnames';
+import LoginModal from '@components/modals/LoginModal';
 
 const descData = [
   {
@@ -78,7 +75,7 @@ export default function Home() {
     }
   }, [isLoading]);
 
-  const getToken = async () => {
+  const handleLogin = async () => {
     window.location.href =
       process.env.NEXT_PUBLIC_BASE_URL.slice(0, -4) + '/oauth2/authorization/kakao';
   };
@@ -98,21 +95,9 @@ export default function Home() {
           `}
         </style>
       </Head>
-      {isOpen && (
-        <ModalWithIcon
-          title="로그인이 필요한 서비스입니다."
-          subtitle="카카오 로그인으로 5초만에 시작해요!"
-          onClose={() => setIsOpen(false)}
-          icon={<LoginIcon />}
-          buttonComponent={
-            <button className={style.button} onClick={getToken}>
-              <LoginButtonIcon />
-            </button>
-          }
-        />
-      )}
+      {isOpen && <LoginModal onClose={() => setIsOpen(false)} onClick={handleLogin} />}
       <main>
-        <HeaderWithLogo onOpenLogin={() => setIsOpen(true)} />
+        <HeaderWithLogo onOpen={() => setIsOpen(true)} />
         <div className={style.text_box}>
           <p className={style.title}>
             조금씩 마음을 보태어 <span className={style.highlight}>집들이 선물</span>을 보내요
