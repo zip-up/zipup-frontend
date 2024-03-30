@@ -51,12 +51,12 @@ export default function MyFundings() {
         refetchParticipatedList();
       }
     }
-  }, [user]);
+  }, [user.id]);
 
   useEffect(() => {
-    if (String(types) === 'my') {
+    if (String(types) === 'my' && myFundingList) {
       setData(myFundingList || []);
-    } else if (String(types) === 'participated') {
+    } else if (String(types) === 'participated' && participatedList) {
       setData(participatedList || []);
     }
   }, [myFundingList, participatedList]);

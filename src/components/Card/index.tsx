@@ -1,9 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 import { css } from '@styled-system/css';
 import GiftIcon from '@assets/icons/gift-image.svg';
 import StatusTag from '@components/common/StatusTag';
 import ProgressBar from '@components/common/ProgressBar';
 import { FundingInfo } from '@typings/funding';
-import Image from 'next/image';
 import * as style from './styles';
 
 interface CardProps {
@@ -21,7 +21,13 @@ const Card = ({ data, onClick }: CardProps) => {
           <StatusTag daysLeft={Number(data.status)} />
         </div>
         {data.percent === 100 && <div className={style.blur} />}
-        <p>{data.imageUrl ? <Image src={data.imageUrl} alt="펀딩 이미지" /> : <GiftIcon />}</p>
+        <p>
+          {data.imageUrl === 'https:' ? (
+            <GiftIcon />
+          ) : (
+            <img src={data.imageUrl} alt="펀딩 이미지" width={100} height={120} />
+          )}
+        </p>
       </div>
       <div className={style.info_box}>
         <ProgressBar
