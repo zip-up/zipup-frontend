@@ -31,7 +31,7 @@ export default function Participate() {
   const router = useRouter();
   const { id: fundingId } = router.query;
 
-  const { data: fundingInfo } = useGetFundingDeatil(fundingId);
+  const { data: fundingInfo } = useGetFundingDeatil(String(fundingId));
 
   const {
     register,

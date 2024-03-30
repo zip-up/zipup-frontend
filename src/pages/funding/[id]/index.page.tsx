@@ -11,7 +11,7 @@ export default function Funding() {
   const router = useRouter();
   const { id: fundingId } = router.query;
 
-  const { data: fundingInfo } = useGetFundingDeatil(fundingId);
+  const { data: fundingInfo } = useGetFundingDeatil(String(fundingId));
 
   if (!fundingInfo) return null;
 

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-sync-scripts */
 /* eslint-disable react-hooks/exhaustive-deps */
 import Head from 'next/head';
 import Button from '@components/common/Button';
@@ -56,7 +57,6 @@ export default function Home() {
   useEffect(() => {
     console.log(router.asPath);
     if (router.asPath.slice(2) && !isLoading) {
-      console.log(isLoading);
       setCode(router.asPath.slice(2));
       refetch();
     }
@@ -73,7 +73,7 @@ export default function Home() {
     }
   }, [isLoading]);
 
-  const getToken = async () => {
+  const handleLogin = async () => {
     window.location.href =
       process.env.NEXT_PUBLIC_BASE_URL.slice(0, -4) + '/oauth2/authorization/kakao';
   };
@@ -93,7 +93,7 @@ export default function Home() {
           `}
         </style>
       </Head>
-      {isOpen && <LoginModal onClose={() => setIsOpen(false)} onClick={getToken} />}
+      {isOpen && <LoginModal onClose={() => setIsOpen(false)} onClick={handleLogin} />}
       <main>
         <HeaderWithLogo onOpen={() => setIsOpen(true)} />
         <div className={style.text_box}>
