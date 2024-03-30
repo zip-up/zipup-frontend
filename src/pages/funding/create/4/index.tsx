@@ -86,15 +86,6 @@ export default function CreatFundStep4() {
           webUrl: `localhost:3000/funding/${id}`,
         },
       },
-      buttons: [
-        {
-          title: '집업으로 이동하기',
-          link: {
-            mobileWebUrl: 'localhost:3000',
-            webUrl: 'localhost:3000',
-          },
-        },
-      ],
     });
   };
 
