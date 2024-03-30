@@ -10,7 +10,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { tokenState, userState } from '@store/store';
 import { useRouter } from 'next/router';
 import { useLogIn } from '@hooks/queries/useAuth';
-import { css } from '@styled-system/css';
+import { css } from 'styled-system/css';
 import CreateImage from '@assets/images/funding_create_image.svg';
 import DeliveryImage from '@assets/images/funding_delivery_image.svg';
 import ParticipateImage from '@assets/images/funding_participate_image.svg';
@@ -32,7 +32,7 @@ const descData = [
     icon: <ParticipateImage />,
   },
   {
-    title: '목표 금액 달설',
+    title: '목표 금액 달성',
     desc1: '친구들에게 축하 메세지를 받아요',
     desc2: '따뜻한 집들이를 준비해요',
     icon: <TargetImage />,
