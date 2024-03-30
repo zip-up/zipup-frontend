@@ -65,7 +65,9 @@ export default function CreatFundStep4() {
       {
         onSuccess: data => {
           if (data) {
+            console.log(data);
             setId(data.id);
+            setNewFund({ ...newFund, imageUrl: data.imageUrl });
             setIsModalOpen(true);
           }
         },
@@ -80,8 +82,7 @@ export default function CreatFundStep4() {
         title: `${user.name}님의 집들이에 당신을 초대합니다!`,
         description:
           '성공적인 집들이를 위해 집업에서 선물 펀딩을 받고 있어요.\n사랑하는 친구를 위해 함께해주세요!',
-        imageUrl:
-          'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
+        imageUrl: newFund.imageUrl,
         link: {
           mobileWebUrl: `http://localhost:3000/funding/${id}`,
           webUrl: `http://localhost:3000/funding/${id}`,
@@ -97,6 +98,7 @@ export default function CreatFundStep4() {
         },
       ],
     });
+    setIsButtonClicked(false);
   };
 
   return (
