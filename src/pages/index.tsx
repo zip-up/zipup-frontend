@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-sync-scripts */
 /* eslint-disable react-hooks/exhaustive-deps */
 import Head from 'next/head';
 import Button from '@components/common/Button';
@@ -12,7 +13,6 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { tokenState, userState } from '@store/store';
 import { useRouter } from 'next/router';
 import { useLogIn } from '@hooks/queries/useAuth';
-import PageLayout from '@components/Layout/pageLayout';
 import { css } from '@styled-system/css';
 import CreateImage from '@assets/images/funding_create_image.svg';
 import DeliveryImage from '@assets/images/funding_delivery_image.svg';
@@ -56,12 +56,9 @@ export default function Home() {
   const [isBrowsingService, setIsBrowsingService] = useState(false);
   const { data, refetch, isLoading } = useLogIn({ code });
 
-  console.log(token);
-
   useEffect(() => {
     console.log(router.asPath);
     if (router.asPath.slice(2) && !isLoading) {
-      console.log(isLoading);
       setCode(router.asPath.slice(2));
       refetch();
     }
@@ -88,6 +85,11 @@ export default function Home() {
       <Head>
         <title>ZIPup | 집들이 선물 펀딩 서비스</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script
+          src="https://t1.kakaocdn.net/kakao_js_sdk/2.2.0/kakao.min.js"
+          integrity="sha384-x+WG2i7pOR+oWb6O5GV5f1KN2Ko6N7PTGPS7UlasYWNxZMKQA63Cj/B2lbUmUfuC"
+          crossOrigin="anonymous"
+        ></script>
         <style>
           {`
             :root {

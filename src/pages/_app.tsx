@@ -5,8 +5,13 @@ import { RecoilRoot } from 'recoil';
 import Layout from '@components/Layout';
 import ReactQueryClient from '@contexts/ReactQueryContext';
 import AuthRoot from '@components/Layout/AuthRoot';
+import { useEffect } from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY);
+  }, []);
+
   return (
     <Layout>
       <RecoilRoot>
