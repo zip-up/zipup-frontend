@@ -5,3 +5,7 @@ namespace NodeJS {
     NEXT_PUBLIC_SECRET_KEY: string;
   }
 }
+
+interface Window {
+  Kakao: any;
+}

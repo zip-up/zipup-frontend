@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-sync-scripts */
 /* eslint-disable react-hooks/exhaustive-deps */
 import Head from 'next/head';
 import Button from '@components/common/Button';
@@ -53,12 +54,9 @@ export default function Home() {
   const [isBrowsingService, setIsBrowsingService] = useState(false);
   const { data, refetch, isLoading } = useLogIn({ code });
 
-  console.log(token);
-
   useEffect(() => {
     console.log(router.asPath);
     if (router.asPath.slice(2) && !isLoading) {
-      console.log(isLoading);
       setCode(router.asPath.slice(2));
       refetch();
     }
