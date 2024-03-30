@@ -80,12 +80,22 @@ export default function CreatFundStep4() {
         title: `${user.name}님의 집들이에 당신을 초대합니다!`,
         description:
           '성공적인 집들이를 위해 집업에서 선물 펀딩을 받고 있어요.\n사랑하는 친구를 위해 함께해주세요!',
-        imageUrl: newFund.imageUrl,
+        imageUrl:
+          'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
         link: {
-          mobileWebUrl: `localhost:3000/funding/${id}`,
-          webUrl: `localhost:3000/funding/${id}`,
+          mobileWebUrl: `http://localhost:3000/funding/${id}`,
+          webUrl: `http://localhost:3000/funding/${id}`,
         },
       },
+      buttons: [
+        {
+          title: '자세히 보기',
+          link: {
+            mobileWebUrl: `http://localhost:3000/funding/${id}`,
+            webUrl: `http://localhost:3000/funding/${id}`,
+          },
+        },
+      ],
     });
   };
 

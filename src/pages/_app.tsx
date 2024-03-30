@@ -8,8 +8,26 @@ import AuthRoot from '@components/Layout/AuthRoot';
 import { useEffect } from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
+  const loadKakaoSDK = (callback: () => void) => {
+    const existingScript = document.getElementById('kakao-js-sdk');
+    if (!window.Kakao && !existingScript) {
+      const script = document.createElement('script');
+      script.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.2.0/kakao.min.js';
+      script.integrity = 'sha384-x+WG2i7pOR+oWb6O5GV5f1KN2Ko6N7PTGPS7UlasYWNxZMKQA63Cj/B2lbUmUfuC';
+      script.crossOrigin = 'anonymous';
+      script.onload = callback;
+      document.body.appendChild(script);
+    } else if (window.Kakao && existingScript) {
+      callback();
+    }
+  };
+
   useEffect(() => {
-    window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY);
+    loadKakaoSDK(() => {
+      if (window.Kakao.isInitialized()) {
+        window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY);
+      }
+    });
   }, []);
 
   return (
