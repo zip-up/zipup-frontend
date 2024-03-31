@@ -9,7 +9,8 @@ interface FundListProps {
 
 const useGetMyFundingList = ({ uuid, token }: FundListProps) => {
   return useQuery<FundingInfo[]>({
-    enabled: false,
+    enabled: !!uuid,
+    refetchOnWindowFocus: false,
     queryKey: ['get-my-funding-list', uuid],
     queryFn: async () => {
       const response = await Instance.get(`/v1/fund/list`, {
@@ -27,18 +28,23 @@ const useGetMyFundingList = ({ uuid, token }: FundListProps) => {
 
 const useGetParticipatedList = ({ uuid, token }: FundListProps) => {
   return useQuery<FundingInfo[]>({
-    enabled: false,
+    enabled: !!uuid,
+    refetchOnWindowFocus: false,
     queryKey: ['get-participated-funding-list', uuid],
     queryFn: async () => {
-      const response = await Instance.get(`/v1/present/list`, {
-        params: {
-          user: uuid,
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return response.data;
+      try {
+        const response = await Instance.get(`/v1/present/list`, {
+          params: {
+            user: uuid,
+          },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw new Error(`${error}`);
+      }
     },
   });
 };
