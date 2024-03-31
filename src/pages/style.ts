@@ -4,6 +4,7 @@ const text_box = css({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
+  mt: '3rem',
 });
 
 const title = css({
@@ -35,6 +36,7 @@ const wrapper = css({
   display: 'flex',
   flexDirection: 'column',
   gap: '1.6rem',
+
 });
 
 const image = css({

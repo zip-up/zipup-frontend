@@ -116,6 +116,8 @@ export default function Home() {
               color={isLoading ? 'disabled' : 'primary'}
               disabled={isLoading}
               onClick={() => (token ? router.push('/funding/create/1') : setIsOpen(true))}
+              isBottomFixed
+              bottomOffset="90px"
             >
               {isLoading ? '로그인 중...' : '내 펀딩을 만들어볼까요?'}
             </Button>
