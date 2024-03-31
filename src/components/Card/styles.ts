@@ -20,10 +20,12 @@ const image_box = css({
   overflow: 'hidden',
   '& p': {
     transition: 'transform 0.3s ease-in-out',
+    borderRadius: '1rem 1rem 0 0',
   },
   '&:hover p': {
     transform: 'scale(1.1)',
     transition: 'transform 0.3s ease-in-out',
+    borderRadius: '1rem 1rem 0 0',
   },
 });
 
