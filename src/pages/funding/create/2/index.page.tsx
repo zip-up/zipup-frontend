@@ -31,8 +31,6 @@ export default function CreatFundStep2() {
     router.push('/funding/create/3');
   };
 
-  const validateString = (text: string) => /^[가-힣a-zA-Z0-9 ]+$/.test(text);
-
   return (
     <>
       <Header onGoBack={() => router.back()} />
@@ -52,7 +50,6 @@ export default function CreatFundStep2() {
           placeholder="나만의 펀딩 이름을 입력해주세요."
           {...register('name', {
             required: '필수 항목을 입력하지 않았습니다.',
-            validate: value => validateString(value) || '잘못된 형식입니다.',
           })}
         />
         {errors.name && <p className={style.error_text}>{errors.name.message}</p>}
