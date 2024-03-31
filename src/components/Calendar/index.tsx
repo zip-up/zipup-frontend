@@ -63,6 +63,7 @@ export default function Calendar({ date, onSetDate, onSetIsOpen, checkIsOpen }: 
           handleDateChange(date);
           setIsOpen(false);
         }}
+        popperPlacement="bottom"
         locale={'ko'}
         renderCustomHeader={({ date, decreaseMonth, increaseMonth }) => (
           <div className={style.header}>
