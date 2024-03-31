@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { css, cx } from '@styled-system/css';
+import { css, cx } from 'styled-system/css';
 import { button, styles } from '@components/common/Button/styles';
 
 export default function Custom404() {
