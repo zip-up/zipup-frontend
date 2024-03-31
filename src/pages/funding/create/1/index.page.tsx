@@ -11,7 +11,8 @@ import CancelIcon from '@assets/icons/cancel-icon.svg';
 import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState } from 'recoil';
 import { createFundState } from '@store/store';
-import { message, message_icon, message_text } from '@components/TermsAndConditions/styles';
+import { message, message_text } from '@components/TermsAndConditions/styles';
+import InfoIcon from '@assets/icons/info.svg';
 
 interface FormInput {
   link: string;
@@ -104,7 +105,7 @@ export default function CreatFundStep1() {
         {errors.targetMoney && <p className={style.error_text}>{errors.targetMoney.message}</p>}
 
         <div className={message}>
-          <div className={message_icon} />
+          <InfoIcon />
           <span className={message_text}>
             설정하신 목표 금액을 확인하고 최종 금액을 안내드릴게요 .
           </span>
