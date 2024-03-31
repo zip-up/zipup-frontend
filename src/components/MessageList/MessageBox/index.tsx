@@ -11,7 +11,7 @@ export default function MessageBox({
 }: MessageBoxProps) {
   return (
     <div className={style.msgBox}>
-      {profileImage ? <Profile src={profileImage} width={5} height={5} /> : <UserIcon />}
+      {profileImage ? <Profile src={profileImage} width={'5rem'} height={'5rem'} /> : <UserIcon />}
       <div className={style.infoWrapper}>
         <div className={style.info}>
           {senderName}
