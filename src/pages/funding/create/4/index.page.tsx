@@ -17,6 +17,7 @@ import { useCreateFunding } from '@hooks/queries/useCreateFunding';
 import PageLayout from '@components/Layout/pageLayout';
 import TermsAndConditions from '@components/TermsAndConditions';
 import { createTerms } from '@constants/terms';
+import Spinner from '@components/common/Spinner';
 
 interface FormInput {
   address: string;
@@ -185,7 +186,7 @@ export default function CreatFundStep4() {
             color={isButtonClicked ? 'disabled' : 'secondary'}
             disabled={isButtonClicked}
           >
-            {isButtonClicked ? '등록 중...' : '등록 완료'}
+            {isButtonClicked ? <Spinner size="sm" /> : '등록 완료'}
           </Button>
         </div>
       </form>
