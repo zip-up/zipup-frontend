@@ -1,16 +1,16 @@
-/* eslint-disable @next/next/no-img-element */
 import LogoIcon from '@assets/images/logo.svg';
 import UserIcon from '@assets/icons/user.svg';
-import { css } from '@styled-system/css';
+import { css } from 'styled-system/css';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 import { tokenState, userState } from '@store/store';
+import Image from 'next/image';
 
 interface HeaderWithLogoProps {
-  onOpenLogin: () => void;
+  onOpen: () => void;
 }
 
-const HeaderWithLogo = ({ onOpenLogin }: HeaderWithLogoProps) => {
+const HeaderWithLogo = ({ onOpen }: HeaderWithLogoProps) => {
   const router = useRouter();
   const token = useRecoilValue(tokenState);
   const user = useRecoilValue(userState);
@@ -21,9 +21,9 @@ const HeaderWithLogo = ({ onOpenLogin }: HeaderWithLogoProps) => {
       <button className={logo} onClick={() => router.push('/')}>
         <LogoIcon width={72.7} height={28} />
       </button>
-      <button className={box} onClick={() => (token ? router.push('/mypage') : onOpenLogin())}>
+      <button className={box} data-d onClick={() => (token ? router.push('/mypage') : onOpen())}>
         {user.profileImage ? (
-          <img src={user.profileImage} alt="profile image" width={24} height={24} />
+          <Image src={user.profileImage} alt="profile image" width={24} height={24} />
         ) : (
           <UserIcon />
         )}

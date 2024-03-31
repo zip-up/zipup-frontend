@@ -1,5 +1,5 @@
-import { css } from '@styled-system/css';
-import { vstack } from '@styled-system/patterns';
+import { css } from 'styled-system/css';
+import { vstack } from 'styled-system/patterns';
 
 const msgsWrapper = vstack({
   bg: 'bg.200',

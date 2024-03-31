@@ -1,5 +1,5 @@
-import { css } from '@styled-system/css';
-import { vstack, wrap } from '@styled-system/patterns';
+import { css } from 'styled-system/css';
+import { vstack, wrap } from 'styled-system/patterns';
 
 const pageLayout = vstack({ gap: '0' });
 
@@ -26,4 +26,16 @@ const desc = css(borderWithPadding, {
   w: '100%',
 });
 
-export { pageLayout, wrapper, title, desc };
+const imageWrapper = css({
+  width: '360px',
+  height: 'fit-content',
+  minHeight: '225px',
+  maxHeight: '230px',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  overflow: 'hidden',
+});
+
+export { pageLayout, wrapper, title, desc, imageWrapper };

@@ -4,12 +4,11 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import * as style from '../styles';
 import classNames from 'classnames';
-import { css } from '@styled-system/css';
+import { css } from 'styled-system/css';
 import TextareaAutosize from 'react-textarea-autosize';
 import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState } from 'recoil';
 import { createFundState } from '@store/store';
-import PageLayout from '@components/Layout/pageLayout';
 
 interface FormInput {
   name: string;
@@ -32,12 +31,12 @@ export default function CreatFundStep2() {
     router.push('/funding/create/3');
   };
 
-  const validateString = (text: string) => /^[가-힣a-zA-Z]+$/.test(text);
+  const validateString = (text: string) => /^[가-힣a-zA-Z0-9 ]+$/.test(text);
 
   return (
-    <PageLayout>
+    <>
       <Header onGoBack={() => router.back()} />
-      <ProgressBar width={css({ width: '16.4rem' })} />
+      <ProgressBar width={'16.4rem'} />
       <h4 className={style.step_name}>Step 2</h4>
       <h2 className={style.title}>내 펀딩에 대해 설명해주세요.</h2>
       <form className={style.form} onSubmit={handleSubmit(handleCreateFundSubmit)}>
@@ -92,6 +91,6 @@ export default function CreatFundStep2() {
           다음
         </Button>
       </form>
-    </PageLayout>
+    </>
   );
 }

@@ -1,6 +1,7 @@
-import { float, vstack } from '@styled-system/patterns';
-import { css, cx } from '@styled-system/css';
+import { float, vstack } from 'styled-system/patterns';
+import { css, cx } from 'styled-system/css';
 import { button, styles } from '@components/common/Button/styles';
+import { BottomFixedStyle } from '@components/common/Button';
 
 const container = vstack({
   m: '0 auto',
@@ -35,6 +36,11 @@ const positionedWrapper = float({
   fontSize: '85%',
 });
 
-const buttonLink = cx(button, styles['secondary'], css({ w: '100%', h: '5.2rem', mt: '3rem' }));
+const buttonLink = cx(
+  button,
+  styles['secondary'],
+  BottomFixedStyle,
+  css({ h: '5.2rem', mt: '3rem' }),
+);
 
 export { container, headTitle, subTitle, buttonLink, positionedParent, positionedWrapper };

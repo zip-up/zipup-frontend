@@ -1,10 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import { css } from '@styled-system/css';
+import { css } from 'styled-system/css';
 import GiftIcon from '@assets/icons/gift-image.svg';
 import StatusTag from '@components/common/StatusTag';
 import ProgressBar from '@components/common/ProgressBar';
 import { FundingInfo } from '@typings/funding';
 import * as style from './styles';
+import classNames from 'classnames';
 
 interface CardProps {
   data: FundingInfo;
@@ -16,7 +17,12 @@ const Card = ({ data, onClick }: CardProps) => {
 
   return (
     <div className={style.container} onClick={onClick}>
-      <div className={style.image_box}>
+      <div
+        className={classNames(
+          style.image_box,
+          css({ backgroundColor: data.imageUrl.length <= 6 ? 'blue.10' : 'white' }),
+        )}
+      >
         <div className={style.status}>
           <StatusTag daysLeft={Number(data.status)} />
         </div>
@@ -25,7 +31,7 @@ const Card = ({ data, onClick }: CardProps) => {
           {data.imageUrl === 'https:' ? (
             <GiftIcon />
           ) : (
-            <img src={data.imageUrl} alt="펀딩 이미지" width={100} height={120} />
+            <img src={data.imageUrl} alt="펀딩 이미지" style={{ width: '100%' }} />
           )}
         </p>
       </div>
@@ -33,7 +39,11 @@ const Card = ({ data, onClick }: CardProps) => {
         <ProgressBar
           noMargin
           progressBarWidth={css({ width: PROGRESS_BAR_BASE_WIDTH * 0.1 + 'rem' })}
-          width={(PROGRESS_BAR_BASE_WIDTH * data.percent) / 1000 + 'rem'}
+          width={
+            data.percent >= 100
+              ? '14.1rem'
+              : (PROGRESS_BAR_BASE_WIDTH * data.percent) / 1000 + 'rem'
+          }
         />
         <div className={style.title}>{data.title}</div>
         <div className={style.percent}>{data.percent}% 달성</div>

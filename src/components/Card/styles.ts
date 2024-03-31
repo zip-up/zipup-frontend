@@ -1,4 +1,4 @@
-import { css } from '@styled-system/css';
+import { css } from 'styled-system/css';
 
 const container = css({
   width: '15.6rem',
@@ -12,7 +12,6 @@ const container = css({
 const image_box = css({
   width: '100%',
   height: '12rem',
-  backgroundColor: 'blue.10',
   borderRadius: '1rem 1rem 0 0',
   display: 'flex',
   justifyContent: 'center',

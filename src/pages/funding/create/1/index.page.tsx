@@ -3,7 +3,7 @@ import Header from '@components/common/Header';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import * as style from '../styles';
-import { css } from '@styled-system/css';
+import { css } from 'styled-system/css';
 import classNames from 'classnames';
 import { useState } from 'react';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
@@ -11,7 +11,6 @@ import CancelIcon from '@assets/icons/cancel-icon.svg';
 import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState } from 'recoil';
 import { createFundState } from '@store/store';
-import PageLayout from '@components/Layout/pageLayout';
 import { message, message_icon, message_text } from '@components/TermsAndConditions/styles';
 
 interface FormInput {
@@ -39,7 +38,7 @@ export default function CreatFundStep1() {
     );
 
   return (
-    <PageLayout>
+    <>
       {isOpen && (
         <ModalWithIcon
           onClose={() => setIsOpen(false)}
@@ -63,7 +62,7 @@ export default function CreatFundStep1() {
         />
       )}
       <Header onGoBack={() => setIsOpen(true)} />
-      <ProgressBar width={css({ width: '8.2rem' })} />
+      <ProgressBar width={'8.2rem'} />
       <h4 className={style.step_name}>Step 1</h4>
       <h2 className={style.title}>어떤 집들이 선물을 원하시나요?</h2>
       <form className={style.form} onSubmit={handleSubmit(handleCreateFundSubmit)}>
@@ -114,6 +113,6 @@ export default function CreatFundStep1() {
           다음
         </Button>
       </form>
-    </PageLayout>
+    </>
   );
 }

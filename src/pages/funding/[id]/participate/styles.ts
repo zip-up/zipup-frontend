@@ -1,5 +1,5 @@
-import { vstack } from '@styled-system/patterns';
-import { css, cx } from '@styled-system/css';
+import { vstack } from 'styled-system/patterns';
+import { css, cx } from 'styled-system/css';
 import { statusTag } from '@components/common/StatusTag/styles';
 import * as createFormStyle from '@pages/funding/create/styles';
 

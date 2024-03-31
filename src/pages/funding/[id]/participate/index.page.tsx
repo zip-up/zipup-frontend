@@ -1,18 +1,20 @@
 import Header from '@components/common/Header';
 import ProgressBar from '@components/common/ProgressBar';
 import { fundingFormState } from '@store/store';
-import { css, cx } from '@styled-system/css';
+import { css, cx } from 'styled-system/css';
 import { Fragment, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import * as style from './styles';
 import { A, B, C, D, E, A_d, B_d, C_d, D_d, E_d } from '@assets/icons/priceLabel/index';
-import Button from '@components/common/Button';
+import Button, { BottomFixedStyle } from '@components/common/Button';
 import { statusTag } from '@components/common/StatusTag/styles';
 import { button, styles } from '@components/common/Button/styles';
 import { useRouter } from 'next/router';
 import TermsAndConditions from '@components/TermsAndConditions';
 import { createTerms } from '@constants/terms';
+import { getLoacalStorage, setLocalStorage } from '@store/localStorage';
+import { useGetFundingDeatil } from '@hooks/queries/useFunding';
 
 interface FormInputs {
   price: number;
@@ -24,8 +26,12 @@ interface FormInputs {
 
 export default function Participate() {
   const [fundingForm, setFundingForm] = useRecoilState(fundingFormState);
+  const userInfo = getLoacalStorage('@user');
 
   const router = useRouter();
+  const { id: fundingId } = router.query;
+
+  const { data: fundingInfo } = useGetFundingDeatil(String(fundingId));
 
   const {
     register,
@@ -47,8 +53,22 @@ export default function Participate() {
     price,
     enteredCustomPrice,
     customPrice,
-    ...rest
-  }) => setFundingForm({ price: enteredCustomPrice ? customPrice : price, ...rest });
+    senderName,
+    msg,
+  }) => {
+    setLocalStorage('@participateInfo', {
+      participateId: userInfo.id,
+      senderName,
+      congratsMessage: msg,
+    });
+
+    setFundingForm({
+      participateId: userInfo?.id,
+      price: enteredCustomPrice ? customPrice : price,
+    });
+
+    router.push(`/funding/${fundingId}/payment`);
+  };
 
   const enteredCustomPrice = watch('enteredCustomPrice');
   const selected = watch('price');
@@ -68,7 +88,7 @@ export default function Participate() {
         return (
           <div className={css({ pl: '1.6rem', pr: '1.6rem' })}>
             <div className={style.title}>
-              <p>김집업님을 위한</p>마음을 보내주세요
+              <p>{fundingInfo?.organizerName}님을 위한</p>마음을 보내주세요
             </div>
 
             <div className={style.buttonWrapper}>
@@ -162,12 +182,7 @@ export default function Participate() {
                 enteredCustomPrice && (await trigger('customPrice'));
                 !errors.customPrice && setStep(2);
               }}
-              className={cx(
-                button,
-                styles['secondary'],
-                style.fixedPostionButton,
-                css({ h: '5.2rem' }),
-              )}
+              className={cx(button, styles['secondary'], BottomFixedStyle, css({ h: '5.2rem' }))}
             >
               다음
             </button>
@@ -178,7 +193,7 @@ export default function Participate() {
         return (
           <div className={style.container}>
             <div className={style.title}>
-              <p>김집업님에게</p>하고 싶은 말을 적어주세요
+              <p>{fundingInfo?.organizerName}님에게</p>하고 싶은 말을 적어주세요
             </div>
 
             <div className={style.inputWithLabelWrapper}>
@@ -218,8 +233,14 @@ export default function Participate() {
 
             <TermsAndConditions data={createTerms} onSetIsValid={setIsValid} />
 
-            <Button type="submit" color="secondary" wFull className={style.fixedPostionButton}>
-              결제하기
+            <Button
+              type="submit"
+              color="secondary"
+              isBottomFixed
+              wFull
+              className={style.fixedPostionButton}
+            >
+              결제하러 가기
             </Button>
           </div>
         );

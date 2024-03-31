@@ -1,4 +1,4 @@
-import { css } from '@styled-system/css';
+import { css } from 'styled-system/css';
 
 const content = css({
   height: 'calc(100% - 4.8rem)',
@@ -127,7 +127,6 @@ const funding_image = css({
 
 const footer = css({
   height: '14.8rem',
-  width: '100%',
   position: 'absolute',
   bottom: 0,
 });
