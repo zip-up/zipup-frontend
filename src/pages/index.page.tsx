@@ -17,6 +17,7 @@ import ParticipateImage from '@assets/images/funding_participate_image.svg';
 import TargetImage from '@assets/images/funding_target_image.svg';
 import classNames from 'classnames';
 import LoginModal from '@components/modals/LoginModal';
+import Spinner from '@components/common/Spinner';
 
 const descData = [
   {
@@ -119,7 +120,7 @@ export default function Home() {
               isBottomFixed
               bottomOffset="90px"
             >
-              {isLoading ? '로그인 중...' : '내 펀딩을 만들어볼까요?'}
+              {isLoading ? <Spinner size="sm" /> : '내 펀딩을 만들어볼까요?'}
             </Button>
             <Button color="secondary" onClick={() => setIsBrowsingService(true)} isBottomFixed>
               서비스 둘러볼게요
