@@ -21,7 +21,7 @@ const HeaderWithLogo = ({ onOpen }: HeaderWithLogoProps) => {
       <button className={logo} onClick={() => router.push('/')}>
         <LogoIcon width={72.7} height={28} />
       </button>
-      <button className={box} onClick={() => (token ? router.push('/mypage') : onOpen())}>
+      <button className={box} data-d onClick={() => (token ? router.push('/mypage') : onOpen())}>
         {user.profileImage ? (
           <Image src={user.profileImage} alt="profile image" width={24} height={24} />
         ) : (

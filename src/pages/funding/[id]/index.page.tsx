@@ -6,15 +6,19 @@ import MessageList from '@components/MessageList';
 import DefaultPresentImg from '@assets/images/default_present.svg';
 import { useGetFundingDeatil } from '@hooks/queries/useFunding';
 import FundingStatusBox from '@components/FundingStatusBox';
+import { useState } from 'react';
+import LoginModal from '@components/modals/LoginModal';
 import { useRecoilValue } from 'recoil';
 import { userState } from '@store/store';
 
 export default function Funding() {
   const router = useRouter();
+
   const { id: fundingId } = router.query;
   const user = useRecoilValue(userState);
 
-  const { data: fundingInfo } = useGetFundingDeatil(String(fundingId));
+  const { data: fundingInfo } = useGetFundingDeatil(fundingId);
+  const [isModalOn, setIsModalOn] = useState(false);
 
   if (!fundingInfo) return null;
 
@@ -74,11 +78,21 @@ export default function Funding() {
         type="button"
         color="secondary"
         wFull
-        onClick={() => router.push(`/funding/${fundingId}/participate`)}
+        onClick={() => {
+          if (localStorage.getItem('@user'))
+            return router.push(`/funding/${fundingId}/participate`);
+
+          setIsModalOn(true);
+        }}
       >
         이 펀딩 참여하기
       </Button>
     );
+  };
+
+  const handleLogin = async () => {
+    window.location.href =
+      process.env.NEXT_PUBLIC_BASE_URL.slice(0, -4) + '/oauth2/authorization/kakao';
   };
 
   return (
@@ -100,8 +114,11 @@ export default function Funding() {
 
         <div className={style.desc}>{description}</div>
       </article>
-
       <MessageList messages={messageList} />
+
+      {isModalOn && (
+        <LoginModal onClick={() => handleLogin()} onClose={() => setIsModalOn(false)} />
+      )}
     </div>
   );
 }
