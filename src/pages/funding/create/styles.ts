@@ -75,6 +75,7 @@ const button = css({
   bottom: '2.5rem',
   width: '32.7rem',
   marginLeft: '1.6rem',
+  zIndex: 1,
 });
 
 const pointer = css({

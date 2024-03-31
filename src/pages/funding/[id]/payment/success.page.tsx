@@ -7,18 +7,19 @@ import { Instance } from '@api/index';
 import { css, cx } from 'styled-system/css';
 import { useEffect } from 'react';
 import { getLoacalStorage } from '@store/localStorage';
-import { useParticipateFunding } from '@hooks/queries/useFunding';
+import { useGetFundingDeatil, useParticipateFunding } from '@hooks/queries/useFunding';
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const {
     query: { id: fundingId, paymentKey, orderId, amount },
   } = context;
 
-
   try {
     const response = await Instance.get(
       `/v1/payment/confirm?paymentKey=${paymentKey}&orderId=${orderId}&amount=${amount}`,
     );
+
+    if (!response.data.id) throw new Error('결제 승인 요청 실패');
 
     return { props: { fundingId, orderId, amount, paymentId: response.data.id } };
   } catch (e: any) {
@@ -37,22 +38,27 @@ interface SuccessProps {
   orderId: string;
   amount: string;
   paymentId: string;
+  organizerName: string;
 }
 
 export default function Success({ fundingId, orderId, amount, paymentId }: SuccessProps) {
   const participateInfo = getLoacalStorage('@participateInfo');
 
-  const { mutate, isPending } = useParticipateFunding();
+  const { mutate, isPending: isMutating } = useParticipateFunding();
+
+  const { data: fundingInfo, isLoading } = useGetFundingDeatil(fundingId);
 
   useEffect(() => {
+    if (isLoading) return;
+
     mutate({
       fundingId,
       paymentId,
       ...participateInfo,
     });
-  }, []);
+  }, [isLoading]);
 
-  if (isPending) return <span>로딩 중....</span>;
+  if (isMutating || isLoading) return <span>로딩 중....</span>;
 
   return (
     <div className={commonStyle.container}>
@@ -61,7 +67,7 @@ export default function Success({ fundingId, orderId, amount, paymentId }: Succe
       </h1>
       <div className={commonStyle.subTitle}>
         <p>결제를 성공적으로 완료했어요.</p>
-        {participateInfo?.name}님의 집들이를 UP해주셔서 감사해요!
+        {fundingInfo?.organizerName}님의 집들이를 UP해주셔서 감사해요!
       </div>
 
       <div className={style.orderInfoWrapper}>

@@ -104,7 +104,7 @@ export default function CreatFundStep1() {
         />
         {errors.targetMoney && <p className={style.error_text}>{errors.targetMoney.message}</p>}
 
-        <div className={message}>
+        <div className={classNames(message, css({ alignItems: 'center' }))}>
           <InfoIcon />
           <span className={message_text}>
             설정하신 목표 금액을 확인하고 최종 금액을 안내드릴게요 .

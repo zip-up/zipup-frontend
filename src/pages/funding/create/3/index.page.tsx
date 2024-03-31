@@ -14,7 +14,7 @@ interface FormInput {
   target: string;
 }
 
-export default function CreatFundStep3() {
+export default function CreateFundStep3() {
   const router = useRouter();
   const [isTargetOpen, setisTargetOpen] = useState(false);
   const [isDueOpen, setisDueOpen] = useState(false);
@@ -52,14 +52,12 @@ export default function CreatFundStep3() {
           <span className={style.subtitle}>집들이 날짜가 언제인가요?</span>
           <span className={style.required}>*</span>
         </label>
-
         <DatePicker
           date={watch('target')}
           onSetDate={date => setValue('target', date)}
           onSetIsOpen={setisTargetOpen}
           checkIsOpen={isDueOpen}
         />
-
         {errors.target && !watch('target') && (
           <p className={style.error_text}>{errors.target.message}</p>
         )}

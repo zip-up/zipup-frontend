@@ -22,11 +22,7 @@ const HeaderWithLogo = ({ onOpen }: HeaderWithLogoProps) => {
         <LogoIcon width={72.7} height={28} />
       </button>
       <button className={box} data-d onClick={() => (token ? router.push('/mypage') : onOpen())}>
-        {user.profileImage ? (
-          <Profile src={user.profileImage} width="5rem" height="5rem" />
-        ) : (
-          <UserIcon />
-        )}
+        {user.profileImage ? <Profile src={user.profileImage} isFull /> : <UserIcon />}
       </button>
     </header>
   );
@@ -49,8 +45,8 @@ const logo = css({
 });
 
 const box = css({
-  width: '2.4rem',
-  height: '2.4rem',
+  width: '3rem',
+  height: '3rem',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

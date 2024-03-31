@@ -8,7 +8,6 @@ const message = css({
   margin: '1.6rem auto',
   padding: '1.2rem',
   display: 'flex',
-  alignItems: 'center',
   gap: '0.8rem',
   fontFamily: 'pretendard-regular',
   fontSize: 'caption1',
