@@ -6,5 +6,6 @@ export interface User {
 }
 
 export interface UserWithToken extends User {
-  accesstoken: string;
+  accessToken: string;
+  refreshToken: string;
 }

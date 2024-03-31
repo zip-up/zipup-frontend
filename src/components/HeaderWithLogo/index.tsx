@@ -7,10 +7,10 @@ import { tokenState, userState } from '@store/store';
 import Image from 'next/image';
 
 interface HeaderWithLogoProps {
-  onOpenLogin: () => void;
+  onOpen: () => void;
 }
 
-const HeaderWithLogo = ({ onOpenLogin }: HeaderWithLogoProps) => {
+const HeaderWithLogo = ({ onOpen }: HeaderWithLogoProps) => {
   const router = useRouter();
   const token = useRecoilValue(tokenState);
   const user = useRecoilValue(userState);
@@ -21,7 +21,7 @@ const HeaderWithLogo = ({ onOpenLogin }: HeaderWithLogoProps) => {
       <button className={logo} onClick={() => router.push('/')}>
         <LogoIcon width={72.7} height={28} />
       </button>
-      <button className={box} onClick={() => (token ? router.push('/mypage') : onOpenLogin())}>
+      <button className={box} data-d onClick={() => (token ? router.push('/mypage') : onOpen())}>
         {user.profileImage ? (
           <Image src={user.profileImage} alt="profile image" width={24} height={24} />
         ) : (

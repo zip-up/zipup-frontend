@@ -86,9 +86,14 @@ export default defineConfig({
           caption1: { value: '1.2rem' },
         },
       },
+      keyframes: {
+        spin: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+      },
     },
   },
-
   // The output directory for your css system
   outdir: 'styled-system',
 });

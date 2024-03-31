@@ -31,7 +31,7 @@ const MyPage = () => {
 
   return (
     <>
-      <HeaderWithLogo onOpenLogin={() => router.push('/mypage')} />
+      <HeaderWithLogo onOpen={() => router.push('/mypage')} />
       <div className={style.content}>
         <div className={style.profile_box}>
           <div className={style.info_box}>

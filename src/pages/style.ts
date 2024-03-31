@@ -4,6 +4,7 @@ const text_box = css({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
+  mt: '3rem',
 });
 
 const title = css({
@@ -44,18 +45,6 @@ const image = css({
   justifyContent: 'center',
   marginTop: '-0.9rem',
   marginBottom: '0.9rem',
-});
-
-const button = css({
-  position: 'absolute',
-  bottom: '1.8rem',
-  left: 0,
-  height: '4.9rem',
-  width: '29.7rem',
-  margin: '0 1rem',
-  display: 'flex',
-  justifyContent: 'center',
-  cursor: 'pointer',
 });
 
 const service_box = css({
@@ -156,7 +145,6 @@ export {
   subtitle,
   wrapper,
   image,
-  button,
   service_box,
   service_desc_box,
   service_desc_card,

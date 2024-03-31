@@ -12,11 +12,12 @@ import ModalWithIcon from '@components/modals/ModalWithIcon';
 import GiftIcon from '@assets/icons/gift-icon.svg';
 import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { createFundState, tokenState } from '@store/store';
+import { createFundState, tokenState, userState } from '@store/store';
 import { useCreateFunding } from '@hooks/queries/useCreateFunding';
 import PageLayout from '@components/Layout/pageLayout';
 import TermsAndConditions from '@components/TermsAndConditions';
 import { createTerms } from '@constants/terms';
+import Spinner from '@components/common/Spinner';
 
 interface FormInput {
   address: string;
@@ -28,6 +29,7 @@ export default function CreatFundStep4() {
   const router = useRouter();
   const [newFund, setNewFund] = useRecoilState(createFundState);
   const token = useRecoilValue(tokenState);
+  const user = useRecoilValue(userState);
   const [id, setId] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [isValid, setIsValid] = useState(false);
@@ -45,29 +47,58 @@ export default function CreatFundStep4() {
 
   const handleCreateFundSubmit = () => {
     if (isValid) {
-      setNewFund({
-        ...newFund,
-        roadAddress: getValues('address'),
-        detailAddress: getValues('detailAddress'),
-        phoneNumber: !getValues('phone') ? '' : String(getValues('phone')),
-      });
-      setIsButtonClicked(true);
       handleNext();
     }
   };
 
   const handleNext = () => {
+    setIsButtonClicked(true);
+
+    setNewFund({
+      ...newFund,
+      roadAddress: getValues('address'),
+      detailAddress: getValues('detailAddress'),
+      phoneNumber: !getValues('phone') ? '' : String(getValues('phone')),
+    });
+
     handleCreateFund(
       { data: newFund, token },
       {
         onSuccess: data => {
           if (data) {
+            console.log(data);
             setId(data.id);
+            setNewFund({ ...newFund, imageUrl: data.imageUrl });
             setIsModalOpen(true);
           }
         },
       },
     );
+  };
+
+  const handleShareKakao = () => {
+    window.Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: `${user.name}님의 집들이에 당신을 초대합니다.`,
+        description: '집업에서 선물 펀딩에 함께해주세요!',
+        imageUrl: newFund.imageUrl,
+        link: {
+          mobileWebUrl: `https://zip-up.vercel.app/funding/${id}`,
+          webUrl: `https://zip-up.vercel.app/funding/${id}`,
+        },
+      },
+      buttons: [
+        {
+          title: '자세히 보기',
+          link: {
+            mobileWebUrl: `https://zip-up.vercel.app/funding/${id}`,
+            webUrl: `https://zip-up.vercel.app/funding/${id}`,
+          },
+        },
+      ],
+    });
+    setIsButtonClicked(false);
   };
 
   return (
@@ -90,7 +121,7 @@ export default function CreatFundStep4() {
               >
                 내 펀딩 보기
               </Button>
-              <Button color="secondary" style={{ width: '16.8rem' }} onClick={() => null}>
+              <Button color="secondary" style={{ width: '16.8rem' }} onClick={handleShareKakao}>
                 친구에게 공유하기
               </Button>
             </div>
@@ -155,7 +186,7 @@ export default function CreatFundStep4() {
             color={isButtonClicked ? 'disabled' : 'secondary'}
             disabled={isButtonClicked}
           >
-            {isButtonClicked ? '등록 중...' : '등록 완료'}
+            {isButtonClicked ? <Spinner size="sm" /> : '등록 완료'}
           </Button>
         </div>
       </form>
