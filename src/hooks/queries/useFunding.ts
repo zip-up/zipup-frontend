@@ -3,7 +3,7 @@ import { DetailFundingInfo } from '@typings/funding';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { getLoacalStorage } from '@store/localStorage';
-import { Instance } from '@api/index';
+import { Instance, InstanceWithToken } from '@api/index';
 
 const useGetFundingDeatil = (fundingId: string) => {
   const token = getLoacalStorage('@token');
@@ -12,17 +12,14 @@ const useGetFundingDeatil = (fundingId: string) => {
     queryKey: ['funding', fundingId],
     queryFn: async () => {
       if (token) {
-        const response = await Instance.get<DetailFundingInfo>(`/v1/fund?funding=${fundingId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await InstanceWithToken.get<DetailFundingInfo>(
+          `/v1/fund?funding=${fundingId}`,
+        );
+
         return response.data;
       }
 
-      const response = await axios.get<DetailFundingInfo>(
-        `http://110.165.18.128:9090/api/v1/fund?funding=${fundingId}`,
-      );
+      const response = await Instance.get<DetailFundingInfo>(`/v1/fund?funding=${fundingId}`);
 
       return response.data;
     },
