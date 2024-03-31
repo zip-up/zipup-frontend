@@ -47,15 +47,15 @@ const useRefresh = async (refreshToken: string) => {
         'refresh-token': refreshToken,
       },
     });
-    const { token, refreshToken: newRefreshToken } = response.data;
-    localStorage.setItem('@token', token);
+    const { accessToken, refreshToken: newRefreshToken } = response.data;
+    localStorage.setItem('@token', accessToken);
     localStorage.setItem('@refresh', newRefreshToken);
-    Instance.defaults.headers.common.Authorization = `Bearer ${token}`;
-    return token;
+    Instance.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+    return accessToken;
   } catch (error) {
     console.error('Token refresh failed:', error);
-    // 토큰 갱신 실패 시 로그인 페이지로 리디렉션
-    window.location.replace('/sign-in');
+    // 토큰 갱신 실패 시 홈 페이지로 리디렉션
+    window.location.replace('/');
     return null;
   }
 };
@@ -68,9 +68,9 @@ Instance.interceptors.response.use(
       originalRequest._retry = true;
       const refreshTokenValue = localStorage.getItem('@refresh');
       if (refreshTokenValue) {
-        const newToken = await useRefresh(refreshTokenValue);
-        if (newToken) {
-          originalRequest.headers.Authorization = `Bearer ${newToken}`;
+        const token = await useRefresh(refreshTokenValue);
+        if (token) {
+          originalRequest.headers.Authorization = `Bearer ${token}`;
           return axios(originalRequest);
         }
       }
