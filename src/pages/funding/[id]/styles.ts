@@ -1,5 +1,5 @@
-import { css } from '@styled-system/css';
-import { vstack, wrap } from '@styled-system/patterns';
+import { css } from 'styled-system/css';
+import { vstack, wrap } from 'styled-system/patterns';
 
 const pageLayout = vstack({ gap: '0' });
 

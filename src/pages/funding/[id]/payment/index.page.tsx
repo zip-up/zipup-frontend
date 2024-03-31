@@ -3,7 +3,7 @@ import { usePaymentWidget, useRequestPayment, useStoreOrderInfo } from '@hooks/q
 import { useRouter } from 'next/router';
 import { nanoid } from 'nanoid';
 import Button from '@components/common/Button';
-import { css } from '@styled-system/css';
+import { css } from 'styled-system/css';
 import { useRecoilState } from 'recoil';
 import { fundingFormState, userState } from '@store/store';
 import { useGetFundingDeatil } from '@hooks/queries/useFunding';

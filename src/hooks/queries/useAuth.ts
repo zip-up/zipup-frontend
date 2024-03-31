@@ -4,15 +4,20 @@ import { UserWithToken } from '@typings/auth';
 
 const useLogIn = ({ code }: { code: string }) => {
   return useQuery<UserWithToken>({
-    enabled: false,
-    queryKey: ['login'],
+    enabled: !!code,
+    queryKey: ['login', code],
     queryFn: async () => {
-      const response = await Instance.get<UserWithToken>(`/v1/auth/authentication`, {
-        headers: {
-          Authorization: code,
-        },
-      });
-      return response.data;
+      try {
+        const response = await Instance.get<UserWithToken>(`/v1/auth/authentication`, {
+          headers: {
+            Authorization: code,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        console.error('로그인 오류:', error);
+        throw error;
+      }
     },
   });
 };

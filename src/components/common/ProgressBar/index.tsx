@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import * as style from './styles';
-import { css } from '@styled-system/css';
+import { css } from 'styled-system/css';
 
 interface ProgressBarProps {
   isNotFull?: boolean;

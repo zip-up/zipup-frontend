@@ -3,7 +3,7 @@ import * as commonStyle from '@pages/invite/[id]/styles';
 import * as style from './styles';
 import Image from 'next/image';
 import Link from 'next/link';
-import { css, cx } from '@styled-system/css';
+import { css, cx } from 'styled-system/css';
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const {

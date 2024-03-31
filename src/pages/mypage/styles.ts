@@ -1,4 +1,4 @@
-import { css } from '@styled-system/css';
+import { css } from 'styled-system/css';
 
 const content = css({
   height: 'calc(100% - 4.8rem)',

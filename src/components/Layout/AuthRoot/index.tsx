@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { tokenState, userState } from '@store/store';
-import { css } from '@styled-system/css';
+import { css } from 'styled-system/css';
 import { PropsWithChildren, useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 

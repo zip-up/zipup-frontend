@@ -3,7 +3,7 @@ import Header from '@components/common/Header';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as style from '../styles';
-import { css } from '@styled-system/css';
+import { css } from 'styled-system/css';
 import classNames from 'classnames';
 import SearchIcon from '@assets/icons/search.svg';
 import AddressModal from '@components/modals/AddressModal';

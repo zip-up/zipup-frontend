@@ -25,10 +25,9 @@
       "@store/*": ["src/store/*"],
       "@contexts/*": ["src/contexts/*"],
       "@styles/*": ["src/styles/*"],
-      "@assets/*": ["src/assets/*"],
-      "@styled-system/*": ["styled-system/*"]
+      "@assets/*": ["src/assets/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "styled-system"]
 }

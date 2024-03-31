@@ -1,6 +1,6 @@
 import LogoIcon from '@assets/images/logo.svg';
 import UserIcon from '@assets/icons/user.svg';
-import { css } from '@styled-system/css';
+import { css } from 'styled-system/css';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 import { tokenState, userState } from '@store/store';

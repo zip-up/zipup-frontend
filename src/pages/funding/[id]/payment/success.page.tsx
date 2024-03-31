@@ -4,7 +4,7 @@ import * as style from './styles';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Instance } from '@api/index';
-import { css, cx } from '@styled-system/css';
+import { css, cx } from 'styled-system/css';
 import { useEffect } from 'react';
 import { getLoacalStorage } from '@store/localStorage';
 import { useParticipateFunding } from '@hooks/queries/useFunding';
