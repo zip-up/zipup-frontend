@@ -63,10 +63,11 @@ export default function Home() {
   useEffect(() => {
     if (data) {
       console.log(data);
-      const { accesstoken, ...rest } = data;
+      const { accessToken, refreshToken, ...rest } = data;
       setUser(rest);
-      setToken(accesstoken);
-      localStorage.setItem('@token', accesstoken);
+      setToken(accessToken);
+      localStorage.setItem('@token', accessToken);
+      localStorage.setItem('@refresh', refreshToken);
       localStorage.setItem('@user', JSON.stringify(rest));
       router.push('/');
     }
