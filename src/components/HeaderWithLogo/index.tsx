@@ -4,7 +4,7 @@ import { css } from 'styled-system/css';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 import { tokenState, userState } from '@store/store';
-import Image from 'next/image';
+import Profile from '@components/common/Profile';
 
 interface HeaderWithLogoProps {
   onOpen: () => void;
@@ -23,7 +23,7 @@ const HeaderWithLogo = ({ onOpen }: HeaderWithLogoProps) => {
       </button>
       <button className={box} data-d onClick={() => (token ? router.push('/mypage') : onOpen())}>
         {user.profileImage ? (
-          <Image src={user.profileImage} alt="profile image" width={24} height={24} />
+          <Profile src={user.profileImage} width="5rem" height="5rem" />
         ) : (
           <UserIcon />
         )}

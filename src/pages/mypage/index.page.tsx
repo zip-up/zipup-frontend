@@ -21,12 +21,11 @@ const MyPage = () => {
   const { mutate } = useLogout();
 
   const handleLogout = () => {
-    mutate({ token });
-
-    setToken('');
-    localStorage.removeItem('@token');
-    localStorage.removeItem('@user');
-    router.push('/');
+    //mutate({ token });
+    // setToken('');
+    // localStorage.removeItem('@token');
+    // localStorage.removeItem('@user');
+    // router.push('/');
   };
 
   return (

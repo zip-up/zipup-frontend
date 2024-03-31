@@ -1,7 +1,7 @@
 import { css } from 'styled-system/css';
 
 const content = css({
-  height: 'calc(100% - 4.8rem)',
+  minHeight: '100%',
   backgroundColor: 'bg.200',
   paddingTop: '2.4rem',
 });
@@ -127,8 +127,7 @@ const funding_image = css({
 
 const footer = css({
   height: '14.8rem',
-  position: 'absolute',
-  bottom: 0,
+  marginTop: '2.4rem',
 });
 
 const footer_info_box = css({
