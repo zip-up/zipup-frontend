@@ -24,9 +24,9 @@ const Card = ({ data, onClick }: CardProps) => {
         )}
       >
         <div className={style.status}>
-          <StatusTag daysLeft={Number(data.status)} />
+          <StatusTag daysLeft={Number(data.status)} isCompleted={data.status === '완료'} />
         </div>
-        {data.percent === 100 && <div className={style.blur} />}
+        {data.status === '완료' && <div className={style.blur} />}
         <p>
           {data.imageUrl === 'https:' || !data.imageUrl ? (
             <GiftIcon />
