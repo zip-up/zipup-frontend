@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useRouter } from 'next/router';
 import Header from '@components/common/Header';
 import * as style from './styles';
