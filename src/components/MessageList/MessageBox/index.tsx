@@ -1,7 +1,7 @@
 import * as style from './styles';
 import { MessageInfo } from '@typings/funding';
 import UserIcon from '@assets/icons/user_m.svg';
-import Image from 'next/image';
+import Profile from '@components/common/Profile';
 interface MessageBoxProps {
   msg: MessageInfo;
 }
@@ -11,13 +11,7 @@ export default function MessageBox({
 }: MessageBoxProps) {
   return (
     <div className={style.msgBox}>
-      <span className={style.image}>
-        {profileImage ? (
-          <Image src={profileImage} alt="프로필 이미지" width="20" height="20" />
-        ) : (
-          <UserIcon />
-        )}
-      </span>
+      {profileImage ? <Profile src={profileImage} width={5} height={5} /> : <UserIcon />}
       <div className={style.infoWrapper}>
         <div className={style.info}>
           {senderName}
