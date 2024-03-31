@@ -2,16 +2,24 @@ import { css } from 'styled-system/css';
 import Image from 'next/image';
 interface ProfileProps {
   src: string;
-  width?: string;
-  height?: string;
+  size: 'sm' | 'full';
   isFull?: boolean;
 }
 
-export default function Profile({ src, width, height, isFull = false }: ProfileProps) {
-  const size = isFull || !width ? { width: '100%', height: '100%' } : { width, height };
+export default function Profile({ src, size, isFull = false }: ProfileProps) {
+  const ProfileSize = {
+    sm: {
+      w: '5.6rem',
+      h: '5.6rem',
+    },
+    full: {
+      w: '100%',
+      h: '100%',
+    },
+  } as const;
 
   return (
-    <div className={css(size, { overflow: 'hidden' })}>
+    <div className={css({ ...ProfileSize[size], overflow: 'hidden' })}>
       <Image
         src={src}
         alt="프로필 이미지"

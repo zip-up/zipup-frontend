@@ -22,7 +22,7 @@ const HeaderWithLogo = ({ onOpen }: HeaderWithLogoProps) => {
         <LogoIcon width={72.7} height={28} />
       </button>
       <button className={box} data-d onClick={() => (token ? router.push('/mypage') : onOpen())}>
-        {user.profileImage ? <Profile src={user.profileImage} isFull /> : <UserIcon />}
+        {user.profileImage ? <Profile src={user.profileImage} size="full" /> : <UserIcon />}
       </button>
     </header>
   );
