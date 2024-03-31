@@ -13,7 +13,6 @@ interface ButtonProps {
   wFull?: boolean;
   disabled?: boolean;
   isBottomFixed?: boolean;
-  bottomOffset?: string;
 }
 
 export const BottomFixedStyle = css({
@@ -22,6 +21,7 @@ export const BottomFixedStyle = css({
   transform: 'translateX(-50%)',
   left: '50%',
   maxWidth: '32.8rem',
+  bottom: '24px',
 });
 
 export default function Button({
@@ -35,7 +35,6 @@ export default function Button({
   style,
   disabled,
   isBottomFixed = false,
-  bottomOffset = '24px',
 }: PropsWithChildren<ButtonProps>) {
   return (
     <button
@@ -46,7 +45,6 @@ export default function Button({
         css(wFull && { width: '100%' }, { height }),
         className,
         isBottomFixed && BottomFixedStyle,
-        css({ bottom: bottomOffset }),
       )}
       onClick={onClick}
       style={style}

@@ -118,7 +118,7 @@ export default function Home() {
               disabled={isLoading}
               onClick={() => (token ? router.push('/funding/create/1') : setIsOpen(true))}
               isBottomFixed
-              bottomOffset="90px"
+              className={css({ bottom: '90px' })}
             >
               {isLoading ? <Spinner size="sm" /> : '내 펀딩을 만들어볼까요?'}
             </Button>
