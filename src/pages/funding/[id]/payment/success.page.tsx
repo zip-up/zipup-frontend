@@ -60,7 +60,8 @@ export default function Success({ fundingId, orderId, amount, paymentId }: Succe
         펀딩 참여가 <span className={style.blueText}>완료</span>되었어요
       </h1>
       <div className={commonStyle.subTitle}>
-        <p>결제를 성공적으로 완료했어요.</p>김집업님의 집들이를 UP해주셔서 감사해요!
+        <p>결제를 성공적으로 완료했어요.</p>
+        {participateInfo?.name}님의 집들이를 UP해주셔서 감사해요!
       </div>
 
       <div className={style.orderInfoWrapper}>
