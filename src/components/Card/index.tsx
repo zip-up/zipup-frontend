@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { css } from 'styled-system/css';
-import GiftIcon from '@assets/icons/gift-image.svg';
+import GiftIcon from '@assets/images/gift-images.svg';
 import StatusTag from '@components/common/StatusTag';
 import ProgressBar from '@components/common/ProgressBar';
 import { FundingInfo } from '@typings/funding';
@@ -28,7 +28,7 @@ const Card = ({ data, onClick }: CardProps) => {
         </div>
         {data.percent === 100 && <div className={style.blur} />}
         <p>
-          {data.imageUrl === 'https:' ? (
+          {data.imageUrl === 'https:' || !data.imageUrl ? (
             <GiftIcon />
           ) : (
             <img src={data.imageUrl} alt="펀딩 이미지" style={{ width: '100%' }} />
