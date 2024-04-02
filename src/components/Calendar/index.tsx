@@ -32,7 +32,7 @@ export default function Calendar({ date, onSetDate, onSetIsOpen, checkIsOpen }: 
 
   const handleDateChange = (date: Date | null) => {
     if (date) {
-      const formattedDate = format(date, 'yyyy.MM.dd');
+      const formattedDate = format(date, 'yyyy-MM-dd');
       onSetDate(formattedDate);
     }
   };
@@ -56,7 +56,7 @@ export default function Calendar({ date, onSetDate, onSetIsOpen, checkIsOpen }: 
         autoComplete="off"
         minDate={new Date()}
         selected={undefined}
-        dateFormat="yyyy.MM.dd"
+        dateFormat="yyyy-MM-dd"
         onChange={handleDateChange}
         customInput={<CustomInput />}
         onSelect={date => {
