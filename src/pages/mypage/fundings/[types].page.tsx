@@ -71,7 +71,17 @@ export default function MyFundings() {
         <div className={style.card_content}>
           <div className={style.flex_container}>
             {data.map((item, index) => (
-              <Card key={index} data={item} onClick={() => router.push('/funding/' + item.id)} />
+              <Card
+                key={index}
+                data={item}
+                onClick={() => {
+                  if (String(types) === 'my') {
+                    router.push('/funding/' + item.id);
+                  } else if (String(types) === 'participated') {
+                    router.push('/funding/' + item.fundId);
+                  }
+                }}
+              />
             ))}
           </div>
         </div>
