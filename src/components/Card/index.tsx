@@ -31,7 +31,11 @@ const Card = ({ data, onClick }: CardProps) => {
           {data.imageUrl === 'https:' || !data.imageUrl ? (
             <GiftIcon />
           ) : (
-            <img src={data.imageUrl} alt="펀딩 이미지" style={{ width: '100%' }} />
+            <img
+              src={data.imageUrl}
+              alt="펀딩 이미지"
+              style={{ width: '15.6rem', height: '12rem', objectFit: 'cover' }}
+            />
           )}
         </p>
       </div>
