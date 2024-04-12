@@ -20,6 +20,7 @@ import TermsAndConditions from '@components/TermsAndConditions';
 import { createTerms } from '@constants/terms';
 import Spinner from '@components/common/Spinner';
 import { flex } from 'styled-system/patterns';
+import { shareKakao } from '@utils/share';
 
 interface FormInput {
   address: string;
@@ -31,7 +32,7 @@ export default function CreatFundStep4() {
   const router = useRouter();
   const [newFund, setNewFund] = useRecoilState(createFundState);
   const user = useRecoilValue(userState);
-  const [id, setId] = useState(0);
+  const [fundId, setFundId] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [isValid, setIsValid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -66,27 +67,27 @@ export default function CreatFundStep4() {
 
   const handleCreateFundSubmit = () => {
     if (isValid) {
+      setIsButtonClicked(true);
+
+      setNewFund({
+        ...newFund,
+        roadAddress: getValues('address'),
+        detailAddress: getValues('detailAddress'),
+        phoneNumber: !getValues('phone') ? '' : String(getValues('phone')),
+      });
+
       handleNext();
     }
   };
 
   const handleNext = () => {
-    setIsButtonClicked(true);
-
-    setNewFund({
-      ...newFund,
-      roadAddress: getValues('address'),
-      detailAddress: getValues('detailAddress'),
-      phoneNumber: !getValues('phone') ? '' : String(getValues('phone')),
-    });
-
     handleCreateFund(
       { data: newFund },
       {
         onSuccess: data => {
           if (data) {
             console.log(data);
-            setId(data.id);
+            setFundId(data.id);
             setNewFund({ ...newFund, imageUrl: data.imageUrl });
             setIsModalOpen(true);
           }
@@ -96,27 +97,7 @@ export default function CreatFundStep4() {
   };
 
   const handleShareKakao = () => {
-    window.Kakao.Share.sendDefault({
-      objectType: 'feed',
-      content: {
-        title: `${user.name}님의 집들이에 당신을 초대합니다.`,
-        description: '집업에서 선물 펀딩에 함께해주세요!',
-        imageUrl: newFund.imageUrl,
-        link: {
-          mobileWebUrl: `https://zip-up.vercel.app/funding/${id}`,
-          webUrl: `https://zip-up.vercel.app/funding/${id}`,
-        },
-      },
-      buttons: [
-        {
-          title: '자세히 보기',
-          link: {
-            mobileWebUrl: `https://zip-up.vercel.app/funding/${id}`,
-            webUrl: `https://zip-up.vercel.app/funding/${id}`,
-          },
-        },
-      ],
-    });
+    shareKakao({ username: user.name, imageUrl: newFund.imageUrl, fundId: String(fundId) });
     setIsButtonClicked(false);
   };
 
@@ -158,7 +139,11 @@ export default function CreatFundStep4() {
                 style={{ width: '10.9rem' }}
                 onClick={() => {
                   setIsModalOpen(false);
-                  router.push('/funding/' + id);
+                  if (fundId) {
+                    router.push('/funding/' + fundId);
+                  } else {
+                    // 잘못된 접근이라도 에러 띄우기
+                  }
                 }}
               >
                 내 펀딩 보기
@@ -218,17 +203,16 @@ export default function CreatFundStep4() {
         <p className={style.error_text}>{errors.phone ? errors.phone.message : ''}</p>
 
         <TermsAndConditions data={createTerms} onSetIsValid={setIsValid} />
-        {currentHeight <= 680 && (
-          <div className={classNames(flex({ justifyContent: 'center', gap: '0.8rem' }), wrapper)}>
-            <Buttons />
-          </div>
-        )}
-      </form>
-      {currentHeight > 680 && (
-        <div className={classNames(flex({ justifyContent: 'center', gap: '0.8rem' }), buttons)}>
+        <div
+          className={classNames(
+            flex({ justifyContent: 'center', gap: '0.8rem' }),
+            currentHeight <= 680 ? wrapper : buttons,
+          )}
+        >
           <Buttons />
         </div>
-      )}
+      </form>
+
       {isOpen && (
         <AddressModal
           onSetAddress={text => setValue('address', text)}
