@@ -23,4 +23,5 @@ export default function PageLayout({ children }: PropsWithChildren) {
 const container = css({
   width: '100%',
   height: '100%',
+  position: 'relative',
 });

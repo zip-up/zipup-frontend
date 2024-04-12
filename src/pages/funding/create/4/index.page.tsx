@@ -19,6 +19,8 @@ import PageLayout from '@components/Layout/pageLayout';
 import TermsAndConditions from '@components/TermsAndConditions';
 import { createTerms } from '@constants/terms';
 import Spinner from '@components/common/Spinner';
+import { flex } from 'styled-system/patterns';
+import { shareKakao } from '@utils/share';
 
 interface FormInput {
   address: string;
@@ -30,12 +32,13 @@ export default function CreatFundStep4() {
   const router = useRouter();
   const [newFund, setNewFund] = useRecoilState(createFundState);
   const user = useRecoilValue(userState);
-  const [id, setId] = useState(0);
+  const [fundId, setFundId] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [isValid, setIsValid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
   const { mutate: handleCreateFund } = useCreateFunding();
+  const [currentHeight, setCurrentHeight] = useState(window.innerHeight);
 
   const {
     register,
@@ -53,29 +56,38 @@ export default function CreatFundStep4() {
     }
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setCurrentHeight(window.innerHeight);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const handleCreateFundSubmit = () => {
     if (isValid) {
+      setIsButtonClicked(true);
+
+      setNewFund({
+        ...newFund,
+        roadAddress: getValues('address'),
+        detailAddress: getValues('detailAddress'),
+        phoneNumber: !getValues('phone') ? '' : String(getValues('phone')),
+      });
+
       handleNext();
     }
   };
 
   const handleNext = () => {
-    setIsButtonClicked(true);
-
-    setNewFund({
-      ...newFund,
-      roadAddress: getValues('address'),
-      detailAddress: getValues('detailAddress'),
-      phoneNumber: !getValues('phone') ? '' : String(getValues('phone')),
-    });
-
     handleCreateFund(
       { data: newFund },
       {
         onSuccess: data => {
           if (data) {
             console.log(data);
-            setId(data.id);
+            setFundId(data.id);
             setNewFund({ ...newFund, imageUrl: data.imageUrl });
             setIsModalOpen(true);
           }
@@ -85,28 +97,31 @@ export default function CreatFundStep4() {
   };
 
   const handleShareKakao = () => {
-    window.Kakao.Share.sendDefault({
-      objectType: 'feed',
-      content: {
-        title: `${user.name}님의 집들이에 당신을 초대합니다.`,
-        description: '집업에서 선물 펀딩에 함께해주세요!',
-        imageUrl: newFund.imageUrl,
-        link: {
-          mobileWebUrl: `https://zip-up.vercel.app/funding/${id}`,
-          webUrl: `https://zip-up.vercel.app/funding/${id}`,
-        },
-      },
-      buttons: [
-        {
-          title: '자세히 보기',
-          link: {
-            mobileWebUrl: `https://zip-up.vercel.app/funding/${id}`,
-            webUrl: `https://zip-up.vercel.app/funding/${id}`,
-          },
-        },
-      ],
-    });
+    shareKakao({ username: user.name, imageUrl: newFund.imageUrl, fundId: String(fundId) });
     setIsButtonClicked(false);
+  };
+
+  const Buttons = () => {
+    return (
+      <>
+        <Button
+          type="submit"
+          className={css({ width: '12.4rem' })}
+          color={isButtonClicked ? 'disabled' : 'primary'}
+          disabled={isButtonClicked}
+        >
+          나중에 입력
+        </Button>
+        <Button
+          type="submit"
+          className={css({ width: '19.1rem' })}
+          color={isButtonClicked ? 'disabled' : 'secondary'}
+          disabled={isButtonClicked}
+        >
+          {isButtonClicked ? <Spinner size="sm" /> : '등록 완료'}
+        </Button>
+      </>
+    );
   };
 
   return (
@@ -124,7 +139,11 @@ export default function CreatFundStep4() {
                 style={{ width: '10.9rem' }}
                 onClick={() => {
                   setIsModalOpen(false);
-                  router.push('/funding/' + id);
+                  if (fundId) {
+                    router.push('/funding/' + fundId);
+                  } else {
+                    // 잘못된 접근이라도 에러 띄우기
+                  }
                 }}
               >
                 내 펀딩 보기
@@ -184,25 +203,16 @@ export default function CreatFundStep4() {
         <p className={style.error_text}>{errors.phone ? errors.phone.message : ''}</p>
 
         <TermsAndConditions data={createTerms} onSetIsValid={setIsValid} />
-        <div className={classNames(flexbox, button)}>
-          <Button
-            type="submit"
-            className={css({ width: '12.4rem' })}
-            color={isButtonClicked ? 'disabled' : 'primary'}
-            disabled={isButtonClicked}
-          >
-            나중에 입력
-          </Button>
-          <Button
-            type="submit"
-            className={css({ width: '19.1rem' })}
-            color={isButtonClicked ? 'disabled' : 'secondary'}
-            disabled={isButtonClicked}
-          >
-            {isButtonClicked ? <Spinner size="sm" /> : '등록 완료'}
-          </Button>
+        <div
+          className={classNames(
+            flex({ justifyContent: 'center', gap: '0.8rem' }),
+            currentHeight <= 680 ? wrapper : buttons,
+          )}
+        >
+          <Buttons />
         </div>
       </form>
+
       {isOpen && (
         <AddressModal
           onSetAddress={text => setValue('address', text)}
@@ -212,12 +222,13 @@ export default function CreatFundStep4() {
     </PageLayout>
   );
 }
-const flexbox = css({
-  display: 'flex',
-  gap: '0.8rem',
+
+const wrapper = css({
+  width: '100%',
+  margin: '2.4rem 0',
 });
 
-const button = css({
+const buttons = css({
   position: 'absolute',
   bottom: '2.5rem',
   left: '2rem',
