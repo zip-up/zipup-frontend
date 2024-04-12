@@ -36,7 +36,6 @@ const wrapper = css({
   display: 'flex',
   flexDirection: 'column',
   gap: '1.6rem',
-
 });
 
 const image = css({
