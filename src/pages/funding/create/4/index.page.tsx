@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as style from '../styles';
 import { css } from 'styled-system/css';
@@ -22,7 +23,7 @@ import Spinner from '@components/common/Spinner';
 interface FormInput {
   address: string;
   detailAddress: string;
-  phone: number;
+  phone: string;
 }
 
 export default function CreatFundStep4() {
@@ -43,6 +44,14 @@ export default function CreatFundStep4() {
     getValues,
     formState: { errors },
   } = useForm<FormInput>();
+
+  useEffect(() => {
+    if (newFund) {
+      setValue('address', newFund.roadAddress);
+      setValue('detailAddress', newFund.detailAddress);
+      setValue('phone', newFund.phoneNumber);
+    }
+  }, []);
 
   const handleCreateFundSubmit = () => {
     if (isValid) {
@@ -144,7 +153,7 @@ export default function CreatFundStep4() {
               css({ color: !getValues('address') ? 'text.200' : 'text.100' }),
             )}
             readOnly
-            defaultValue={'주소 검색하기'}
+            placeholder="주소 검색하기"
             {...register('address')}
           />
           <button type="button" className={style.pointer}>
@@ -159,12 +168,17 @@ export default function CreatFundStep4() {
 
         <label>
           <span className={style.subtitle}>전화번호를 입력해주세요.</span>
+          <span className={style.required}>*</span>
         </label>
         <input
-          className={style.input}
+          className={classNames(
+            style.input,
+            css({ borderWidth: '0.1rem', borderColor: errors.phone ? 'error' : 'bg.300' }),
+          )}
           placeholder="목표 달성 시 입력한 번호로 배송을 안내해드려요."
           {...register('phone', {
             valueAsNumber: true,
+            required: '필수 항목을 입력하지 않았습니다.',
           })}
         />
         <p className={style.error_text}>{errors.phone ? errors.phone.message : ''}</p>

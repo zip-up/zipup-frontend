@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
 import { useRouter } from 'next/router';
@@ -9,6 +10,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState } from 'recoil';
 import { createFundState } from '@store/store';
+import { useEffect } from 'react';
 
 interface FormInput {
   name: string;
@@ -23,8 +25,16 @@ export default function CreatFundStep2() {
     handleSubmit,
     watch,
     setFocus,
+    setValue,
     formState: { errors },
   } = useForm<FormInput>();
+
+  useEffect(() => {
+    if (newFund) {
+      setValue('name', newFund.title);
+      setValue('textMessage', newFund.description);
+    }
+  }, []);
 
   const handleCreateFundSubmit = (data: FormInput) => {
     setNewFund({ ...newFund, title: data.name, description: data.textMessage });

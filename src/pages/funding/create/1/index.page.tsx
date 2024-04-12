@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
 import { useRouter } from 'next/router';
@@ -5,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import * as style from '../styles';
 import { css } from 'styled-system/css';
 import classNames from 'classnames';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import CancelIcon from '@assets/icons/cancel-icon.svg';
 import ProgressBar from '@components/common/ProgressBar';
@@ -16,7 +17,7 @@ import InfoIcon from '@assets/icons/info.svg';
 
 interface FormInput {
   link: string;
-  targetMoney: number;
+  targetMoney: string;
 }
 
 export default function CreatFundStep1() {
@@ -26,12 +27,20 @@ export default function CreatFundStep1() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormInput>();
   const handleCreateFundSubmit = (data: FormInput) => {
-    setNewFund({ ...newFund, productUrl: data.link, goalPrice: data.targetMoney });
+    setNewFund({ ...newFund, productUrl: data.link, goalPrice: Number(data.targetMoney) });
     router.push('/funding/create/2');
   };
+
+  useEffect(() => {
+    if (newFund) {
+      setValue('link', newFund.productUrl);
+      setValue('targetMoney', String(newFund.goalPrice));
+    }
+  }, []);
 
   const validateUrl = (url: string) =>
     /^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/.test(
@@ -93,13 +102,13 @@ export default function CreatFundStep1() {
         <input
           className={classNames(
             style.input,
-            css({ borderWidth: '1px', borderColor: errors.link ? 'error' : 'bg.300' }),
+            css({ borderWidth: '0.1rem', borderColor: errors.link ? 'error' : 'bg.300' }),
           )}
           placeholder="받고 싶은 선물의 가격을 입력해주세요."
           {...register('targetMoney', {
             required: '필수 항목을 입력하지 않았습니다.',
             valueAsNumber: true,
-            validate: value => !isNaN(value) || '숫자로만 입력해주세요.',
+            validate: value => !isNaN(Number(value)) || '숫자로만 입력해주세요.',
           })}
         />
         {errors.targetMoney && <p className={style.error_text}>{errors.targetMoney.message}</p>}

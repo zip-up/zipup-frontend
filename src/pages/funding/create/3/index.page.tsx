@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
 import { useRouter } from 'next/router';
@@ -26,6 +27,13 @@ export default function CreateFundStep3() {
     watch,
     formState: { errors },
   } = useForm<FormInput>();
+
+  useEffect(() => {
+    if (newFund) {
+      setValue('target', newFund.fundingStart);
+      setValue('due', newFund.fundingFinish);
+    }
+  }, []);
 
   useEffect(() => {
     register('target', { required: '필수 항목을 입력하지 않았습니다.' });

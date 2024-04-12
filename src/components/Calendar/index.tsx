@@ -44,7 +44,7 @@ export default function Calendar({ date, onSetDate, onSetIsOpen, checkIsOpen }: 
       onClick={() => (checkIsOpen ? null : setIsOpen(!isOpen))}
       className={fundStyle.date_box}
     >
-      {date ? date : '날짜를 선택해주세요'}
+      {date ? date.split('T')[0].replaceAll('-', '.') : '날짜를 선택해주세요'}
       {!isOpen ? <CalendarIcon /> : <OpenIcon />}
     </button>
   ));
