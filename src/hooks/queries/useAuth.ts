@@ -1,4 +1,5 @@
 import { InstanceWithToken } from '@api/index';
+import { setLocalStorage } from '@store/localStorage';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { UserWithToken } from '@typings/auth';
 
@@ -11,6 +12,12 @@ const useLogIn = ({ code }: { code: string }) => {
         const response = await InstanceWithToken.get<UserWithToken>(`/v1/auth/authentication`, {
           headers: { Authorization: code },
         });
+
+        const { accessToken } = response.data;
+
+        setLocalStorage('@token', accessToken);
+        InstanceWithToken.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+
         return response.data;
       } catch (error) {
         console.error('로그인 오류:', error);
