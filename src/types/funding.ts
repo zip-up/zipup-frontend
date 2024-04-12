@@ -14,6 +14,7 @@ export type FundingInfo = {
   status: string;
   percent: number;
   organizer: string;
+  fundingId?: string;
 };
 
 export type DetailFundingInfo = {

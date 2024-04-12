@@ -1,4 +1,4 @@
-import { Instance } from '@api/index';
+import { InstanceWithToken } from '@api/index';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { loadPaymentWidget, PaymentWidgetInstance } from '@tosspayments/payment-widget-sdk';
 import { useRouter } from 'next/router';
@@ -21,7 +21,9 @@ const useStoreOrderInfo = (successCallback: (orderId: string) => void) => {
     mutationFn: async ({ orderId, amount }: { orderId: string; amount: number }) => {
       // if (!paymentWidget) throw new Error('결제 서비스를 이용할 수 없습니다.');
 
-      const response = await Instance.post(`/v1/payment/?orderId=${orderId}&amount=${amount}`);
+      const response = await InstanceWithToken.post(
+        `/v1/payment/?orderId=${orderId}&amount=${amount}`,
+      );
 
       return orderId;
     },

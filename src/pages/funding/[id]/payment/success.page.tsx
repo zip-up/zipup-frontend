@@ -3,7 +3,7 @@ import * as commonStyle from '@pages/invite/[id]/styles';
 import * as style from './styles';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Instance } from '@api/index';
+import { InstanceWithToken } from '@api/index';
 import { css, cx } from 'styled-system/css';
 import { useEffect } from 'react';
 import { getLoacalStorage } from '@store/localStorage';
@@ -15,7 +15,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
   } = context;
 
   try {
-    const response = await Instance.get(
+    const response = await InstanceWithToken.get(
       `/v1/payment/confirm?paymentKey=${paymentKey}&orderId=${orderId}&amount=${amount}`,
     );
 

@@ -21,7 +21,7 @@ const MyPage = () => {
   const { mutate } = useLogout();
 
   const handleLogout = () => {
-    //mutate({ token });
+    //mutate({ });
     // setToken('');
     // localStorage.removeItem('@token');
     // localStorage.removeItem('@user');

@@ -12,7 +12,7 @@ import ModalWithIcon from '@components/modals/ModalWithIcon';
 import GiftIcon from '@assets/icons/gift-icon.svg';
 import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { createFundState, tokenState, userState } from '@store/store';
+import { createFundState, userState } from '@store/store';
 import { useCreateFunding } from '@hooks/queries/useCreateFunding';
 import PageLayout from '@components/Layout/pageLayout';
 import TermsAndConditions from '@components/TermsAndConditions';
@@ -28,7 +28,6 @@ interface FormInput {
 export default function CreatFundStep4() {
   const router = useRouter();
   const [newFund, setNewFund] = useRecoilState(createFundState);
-  const token = useRecoilValue(tokenState);
   const user = useRecoilValue(userState);
   const [id, setId] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
@@ -62,7 +61,7 @@ export default function CreatFundStep4() {
     });
 
     handleCreateFund(
-      { data: newFund, token },
+      { data: newFund },
       {
         onSuccess: data => {
           if (data) {

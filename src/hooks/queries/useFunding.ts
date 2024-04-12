@@ -1,9 +1,9 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { DetailFundingInfo } from '@typings/funding';
 import { useRouter } from 'next/router';
-import axios from 'axios';
 import { getLoacalStorage } from '@store/localStorage';
-import { Instance, InstanceWithToken } from '@api/index';
+import { InstanceWithToken } from '@api/index';
+import axios from 'axios';
 
 const useGetFundingDeatil = (fundingId: string) => {
   const token = getLoacalStorage('@token');
@@ -19,7 +19,7 @@ const useGetFundingDeatil = (fundingId: string) => {
         return response.data;
       }
 
-      const response = await Instance.get<DetailFundingInfo>(`/v1/fund?funding=${fundingId}`);
+      const response = await axios.get<DetailFundingInfo>(`/v1/fund?funding=${fundingId}`);
 
       return response.data;
     },
@@ -32,11 +32,7 @@ const useParticipateFunding = () => {
 
   return useMutation({
     mutationFn: async (participateInfo: any) => {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/v1/present`,
-        participateInfo,
-        { headers: { Authorization: `Bearer ${getLoacalStorage('@token')}` } },
-      );
+      await InstanceWithToken.post(`/v1/present`, participateInfo);
     },
 
     onError: error => {
