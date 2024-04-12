@@ -1,4 +1,4 @@
-import { getLoacalStorage } from '@store/localStorage';
+import { getLoacalStorage, setLocalStorage } from '@store/localStorage';
 import axios from 'axios';
 import { getNewToken } from './auth';
 
@@ -24,7 +24,7 @@ InstanceWithToken.interceptors.response.use(
         const { accessToken } = response.data;
 
         InstanceWithToken.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-        localStorage.setItem('@token', accessToken);
+        setLocalStorage('@token', accessToken);
 
         return InstanceWithToken(originalRequest);
       } catch (error) {
