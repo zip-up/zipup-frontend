@@ -1,24 +1,20 @@
-import { Instance } from '@api/index';
+import { InstanceWithToken } from '@api/index';
 import { useQuery } from '@tanstack/react-query';
 import { FundingInfo } from '@typings/funding';
 
 interface FundListProps {
   uuid: string;
-  token: string;
 }
 
-const useGetMyFundingList = ({ uuid, token }: FundListProps) => {
+const useGetMyFundingList = ({ uuid }: FundListProps) => {
   return useQuery<FundingInfo[]>({
     enabled: !!uuid,
     refetchOnWindowFocus: false,
     queryKey: ['get-my-funding-list', uuid],
     queryFn: async () => {
-      const response = await Instance.get(`/v1/fund/list`, {
+      const response = await InstanceWithToken.get(`/v1/fund/list`, {
         params: {
           user: uuid,
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
         },
       });
       return response.data;
@@ -26,19 +22,16 @@ const useGetMyFundingList = ({ uuid, token }: FundListProps) => {
   });
 };
 
-const useGetParticipatedList = ({ uuid, token }: FundListProps) => {
+const useGetParticipatedList = ({ uuid }: FundListProps) => {
   return useQuery<FundingInfo[]>({
     enabled: !!uuid,
     refetchOnWindowFocus: false,
     queryKey: ['get-participated-funding-list', uuid],
     queryFn: async () => {
       try {
-        const response = await Instance.get(`/v1/present/list`, {
+        const response = await InstanceWithToken.get(`/v1/present/list`, {
           params: {
             user: uuid,
-          },
-          headers: {
-            Authorization: `Bearer ${token}`,
           },
         });
         return response.data;

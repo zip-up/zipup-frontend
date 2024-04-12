@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import * as style from '../styles';
 import { useGetMyFundingList, useGetParticipatedList } from '@hooks/queries/useGetFundingList';
 import { useRecoilValue } from 'recoil';
-import { tokenState, userState } from '@store/store';
+import { userState } from '@store/store';
 import { FundingInfo } from '@typings/funding';
 import classNames from 'classnames';
 import { flex } from 'styled-system/patterns';
@@ -17,14 +17,12 @@ export default function MyFundings() {
   const router = useRouter();
   const { types } = router.query;
   const user = useRecoilValue(userState);
-  const token = useRecoilValue(tokenState);
   const {
     data: myFundingList,
     refetch: refetchMyFundingList,
     isLoading: isMyFundingListLoading,
   } = useGetMyFundingList({
     uuid: user.id,
-    token,
   });
   const {
     data: participatedList,
@@ -32,7 +30,6 @@ export default function MyFundings() {
     isLoading: isParticipatedListLoading,
   } = useGetParticipatedList({
     uuid: user.id,
-    token,
   });
   const [data, setData] = useState<FundingInfo[]>([]);
 

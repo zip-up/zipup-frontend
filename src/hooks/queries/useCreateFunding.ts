@@ -1,16 +1,11 @@
-import { Instance } from '@api/index';
+import { InstanceWithToken } from '@api/index';
 import { CreateFund } from '@store/types';
 import { useMutation } from '@tanstack/react-query';
 
 const useCreateFunding = () => {
   return useMutation({
-    mutationFn: async ({ data, token }: { data: CreateFund; token: string }) => {
-      const response = await Instance.post('/v1/fund', JSON.stringify(data), {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
+    mutationFn: async ({ data }: { data: CreateFund }) => {
+      const response = await InstanceWithToken.post('/v1/fund', data);
 
       return response.data;
     },

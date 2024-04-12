@@ -3,13 +3,11 @@ import axios from 'axios';
 
 const token = getLoacalStorage('@token');
 
-export const Instance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-  headers: { 'Content-Type': 'application/json' },
-});
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 export const InstanceWithToken = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-  headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+  headers: { Authorization: `Bearer ${token}` },
   withCredentials: true,
 });
+
