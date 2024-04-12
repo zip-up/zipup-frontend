@@ -1,5 +1,6 @@
 import { getLoacalStorage } from '@store/localStorage';
 import axios from 'axios';
+import { getNewToken } from './auth';
 
 const token = getLoacalStorage('@token');
 
@@ -11,3 +12,27 @@ export const InstanceWithToken = axios.create({
   withCredentials: true,
 });
 
+InstanceWithToken.interceptors.response.use(
+  response => response,
+  async error => {
+    const originalRequest = error.config;
+
+    if (error.response?.status === 401 && originalRequest.url !== '/v1/auth/refresh') {
+      try {
+        const response = await getNewToken();
+
+        const { accessToken } = response.data;
+
+        InstanceWithToken.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+        localStorage.setItem('@token', accessToken);
+
+        return InstanceWithToken(originalRequest);
+      } catch (error) {
+        //  window.location.href = '/';
+        console.log('failed refresh token', error);
+      }
+    }
+
+    return Promise.reject(error);
+  },
+);

@@ -33,43 +33,4 @@ const useLogout = () => {
   });
 };
 
-const useRefresh = async (refreshToken: string) => {
-  try {
-    const response = await InstanceWithToken.post(`/v1/auth/refresh`, null, {
-      params: {
-        'refresh-token': refreshToken,
-      },
-    });
-    const { accessToken, refreshToken: newRefreshToken } = response.data;
-    localStorage.setItem('@token', accessToken);
-    localStorage.setItem('@refresh', newRefreshToken);
-    InstanceWithToken.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-    return accessToken;
-  } catch (error) {
-    console.error('Token refresh failed:', error);
-    // 토큰 갱신 실패 시 홈 페이지로 리디렉션
-    window.location.replace('/');
-    return null;
-  }
-};
-
-InstanceWithToken.interceptors.response.use(
-  response => response,
-  async error => {
-    const originalRequest = error.config;
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      const refreshTokenValue = localStorage.getItem('@refresh');
-      if (refreshTokenValue) {
-        // const token = await useRefresh(refreshTokenValue);
-        // if (token) {
-        //   originalRequest.headers.Authorization = `Bearer ${token}`;
-        //   return axios(originalRequest);
-        // }
-      }
-    }
-    return Promise.reject(error);
-  },
-);
-
-export { useLogIn, useLogout };
+ export { useLogIn, useLogout };
