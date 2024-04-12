@@ -19,6 +19,7 @@ import PageLayout from '@components/Layout/pageLayout';
 import TermsAndConditions from '@components/TermsAndConditions';
 import { createTerms } from '@constants/terms';
 import Spinner from '@components/common/Spinner';
+import { flex } from 'styled-system/patterns';
 
 interface FormInput {
   address: string;
@@ -36,6 +37,7 @@ export default function CreatFundStep4() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
   const { mutate: handleCreateFund } = useCreateFunding();
+  const [currentHeight, setCurrentHeight] = useState(window.innerHeight);
 
   const {
     register,
@@ -51,6 +53,15 @@ export default function CreatFundStep4() {
       setValue('detailAddress', newFund.detailAddress);
       setValue('phone', newFund.phoneNumber);
     }
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setCurrentHeight(window.innerHeight);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const handleCreateFundSubmit = () => {
@@ -107,6 +118,29 @@ export default function CreatFundStep4() {
       ],
     });
     setIsButtonClicked(false);
+  };
+
+  const Buttons = () => {
+    return (
+      <>
+        <Button
+          type="submit"
+          className={css({ width: '12.4rem' })}
+          color={isButtonClicked ? 'disabled' : 'primary'}
+          disabled={isButtonClicked}
+        >
+          나중에 입력
+        </Button>
+        <Button
+          type="submit"
+          className={css({ width: '19.1rem' })}
+          color={isButtonClicked ? 'disabled' : 'secondary'}
+          disabled={isButtonClicked}
+        >
+          {isButtonClicked ? <Spinner size="sm" /> : '등록 완료'}
+        </Button>
+      </>
+    );
   };
 
   return (
@@ -184,25 +218,17 @@ export default function CreatFundStep4() {
         <p className={style.error_text}>{errors.phone ? errors.phone.message : ''}</p>
 
         <TermsAndConditions data={createTerms} onSetIsValid={setIsValid} />
-        <div className={classNames(flexbox, button)}>
-          <Button
-            type="submit"
-            className={css({ width: '12.4rem' })}
-            color={isButtonClicked ? 'disabled' : 'primary'}
-            disabled={isButtonClicked}
-          >
-            나중에 입력
-          </Button>
-          <Button
-            type="submit"
-            className={css({ width: '19.1rem' })}
-            color={isButtonClicked ? 'disabled' : 'secondary'}
-            disabled={isButtonClicked}
-          >
-            {isButtonClicked ? <Spinner size="sm" /> : '등록 완료'}
-          </Button>
-        </div>
+        {currentHeight <= 680 && (
+          <div className={classNames(flex({ justifyContent: 'center', gap: '0.8rem' }), wrapper)}>
+            <Buttons />
+          </div>
+        )}
       </form>
+      {currentHeight > 680 && (
+        <div className={classNames(flex({ justifyContent: 'center', gap: '0.8rem' }), buttons)}>
+          <Buttons />
+        </div>
+      )}
       {isOpen && (
         <AddressModal
           onSetAddress={text => setValue('address', text)}
@@ -212,12 +238,13 @@ export default function CreatFundStep4() {
     </PageLayout>
   );
 }
-const flexbox = css({
-  display: 'flex',
-  gap: '0.8rem',
+
+const wrapper = css({
+  width: '100%',
+  margin: '2.4rem 0',
 });
 
-const button = css({
+const buttons = css({
   position: 'absolute',
   bottom: '2.5rem',
   left: '2rem',
