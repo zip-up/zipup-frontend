@@ -9,7 +9,7 @@ const msgBox = hstack({
   justifyContent: 'flex-start',
   fontSize: 'body2',
   color: 'text.100',
-  gap: '3rem',
+  gap: '2rem',
   bg: 'bg.100',
   w: '100%',
 });
