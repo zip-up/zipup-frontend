@@ -31,7 +31,7 @@ export default function Term<T extends FieldValues>({
         {...register(label, { required: '약관 동의가 필요합니다.' })}
       />
 
-      <Link href={link} className={style.terms_conditions}>
+      <Link href={link} className={style.link}>
         {subTitle}
       </Link>
     </div>

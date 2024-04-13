@@ -22,7 +22,7 @@ import { shareKakao } from '@utils/share';
 import Term from '@components/Term';
 import { TermsCheckFlags } from '@typings/term';
 import { PrivacyTerm, PurchaseTerm } from '@constants/terms';
-import { termsContainer } from '@components/Term/styles';
+import { infoContainer } from '@components/Term/styles';
 
 interface FormInputs extends TermsCheckFlags {
   address: string;
@@ -213,7 +213,7 @@ export default function CreatFundStep4() {
         />
         <p className={style.error_text}>{errors.phone ? errors.phone.message : ''}</p>
 
-        <div className={termsContainer}>
+        <div className={infoContainer}>
           <Term
             label="isTermChecked"
             term={PurchaseTerm}

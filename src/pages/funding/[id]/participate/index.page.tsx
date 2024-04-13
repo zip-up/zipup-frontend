@@ -16,7 +16,7 @@ import { useGetFundingDeatil } from '@hooks/queries/useFunding';
 import { TermsCheckFlags } from '@typings/term';
 import { PrivacyTerm, PurchaseTerm } from '@constants/terms';
 import Term from '@components/Term';
-import { termsContainer } from '@components/Term/styles';
+import { infoContainer } from '@components/Term/styles';
 
 export interface FormInputs extends TermsCheckFlags {
   price: number;
@@ -226,7 +226,7 @@ export default function Participate() {
               )}
             </div>
 
-            <div className={style.inputWithLabelWrapper}>
+            <div className={cx(style.inputWithLabelWrapper, css({ marginBottom: 0 }))}>
               <label className={style.labelWithoutPadding}>
                 마음을 축하 메세지로 전해주세요. <span className={style.blueColorText}>*</span>
               </label>
@@ -241,7 +241,7 @@ export default function Participate() {
               {errors.msg && <span className={style.errorText}>{errors.msg.message}</span>}
             </div>
 
-            <div className={termsContainer}>
+            <div className={cx(infoContainer, css({ m: 0 }))}>
               <Term
                 label="isTermChecked"
                 term={PurchaseTerm}

@@ -1,7 +1,7 @@
 import { css } from 'styled-system/css';
 import { vstack } from 'styled-system/patterns';
 
-const termsContainer = vstack({
+const infoContainer = vstack({
   width: '32.8rem',
   rounded: '0.8rem',
   backgroundColor: 'blue.10',
@@ -14,7 +14,7 @@ const termsContainer = vstack({
 
 const termWrapper = vstack({ gap: 0, alignItems: 'start' });
 
-const label = css({ display: 'inline-flex', alignItems: 'flex-start', gap: '0.8rem' });
+const label = css({ display: 'inline-flex', alignItems: 'center', gap: '0.8rem' });
 
 const checkbox = css({
   position: 'absolute',
@@ -25,7 +25,7 @@ const title = css({
   fontWeight: '500',
 });
 
-const terms_conditions = css({
+const link = css({
   color: 'text.200',
   fontSize: 'caption1',
   textDecoration: 'underline',
@@ -34,4 +34,4 @@ const terms_conditions = css({
   marginLeft: '2.4rem',
 });
 
-export { termsContainer, termWrapper, label, checkbox, title, terms_conditions };
+export { infoContainer, termWrapper, label, checkbox, title, link };
