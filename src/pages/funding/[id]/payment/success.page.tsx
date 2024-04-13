@@ -62,8 +62,10 @@ export default function Success({ fundingId, orderId, amount, paymentId }: Succe
 
   return (
     <div className={commonStyle.container}>
-      <h1 className={commonStyle.headTitle}>
-        펀딩 참여가 <span className={style.blueText}>완료</span>되었어요
+      <h1>
+        펀딩 참여가
+        <span className={style.colorText({ color: 'blue', objective: 'title' })}>완료</span>
+        되었어요
       </h1>
       <div className={commonStyle.subTitle}>
         <p>결제를 성공적으로 완료했어요.</p>
@@ -71,11 +73,16 @@ export default function Success({ fundingId, orderId, amount, paymentId }: Succe
       </div>
 
       <div className={style.orderInfoWrapper}>
-        <div>
-          <span className={style.blueText}>주문 번호</span> <span>{orderId}</span>
+        <div className={style.subInfoWrapper}>
+          <span className={style.colorText({ color: 'blue', objective: 'subInfo' })}>
+            주문 번호
+          </span>
+          <span>{orderId}</span>
         </div>
-        <div>
-          <span className={style.blueText}>결제 금액</span>
+        <div className={style.subInfoWrapper}>
+          <span className={style.colorText({ color: 'blue', objective: 'subInfo' })}>
+            결제 금액
+          </span>
           <span>{Number(amount).toLocaleString()}원</span>
         </div>
       </div>

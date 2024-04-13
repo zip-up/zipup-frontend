@@ -1,4 +1,5 @@
-import { css } from 'styled-system/css';
+import { css, cva } from 'styled-system/css';
+import { hstack } from 'styled-system/patterns';
 
 const orderInfoWrapper = css({
   bg: 'bg.200',
@@ -16,7 +17,32 @@ const orderInfoWrapper = css({
   mb: '3rem',
 });
 
-const blueText = css({ color: 'main.blue', mr: '1rem' });
-const redText = css({ color: 'error', mr: '1rem' });
+const headTitle = css({
+  fontSize: 'title1',
+  fontWeight: '700',
+});
 
-export { orderInfoWrapper, blueText, redText };
+const subInfoWrapper = hstack({ gap: 0, alignItems: 'baseline' });
+
+const colorText = cva({
+  base: {},
+  variants: {
+    color: {
+      blue: {
+        color: 'main.blue',
+      },
+      red: {
+        color: 'error',
+      },
+    },
+    objective: {
+      title: {
+        fontSize: 'title1',
+        fontWeight: '700',
+      },
+      subInfo: { minWidth: '5rem' },
+    },
+  },
+});
+
+export { orderInfoWrapper, headTitle, colorText, subInfoWrapper };
