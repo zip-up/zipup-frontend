@@ -26,7 +26,7 @@ export default function Fail({ fundingId, code, message }: FailProps) {
         결제에 <span className={style.redText}>실패</span>했어요
       </h1>
       <div className={commonStyle.subTitle}>
-        <p>결제를 다시 시도해주세요.</p>계속 결제에 실패할 시 고객센터에 문의주세요.
+        <p>결제를 다시 시도해주세요.</p>계속 결제에 실패할 시 고객센터에 문의해주세요.
       </div>
 
       <div className={cx(style.orderInfoWrapper, css({ mb: '8rem' }))}>
