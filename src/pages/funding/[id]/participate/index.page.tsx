@@ -73,8 +73,8 @@ export default function Participate() {
   };
 
   const onSubmitError: SubmitErrorHandler<FormInputs> = errors => {
-    if (errors.isTermChecked || errors.isPrivacyChecked) {
-      const errorMessage = errors.isTermChecked?.message || errors.isPrivacyChecked?.message;
+    if (errors.isPurchaseChecked || errors.isPrivacyChecked) {
+      const errorMessage = errors.isPurchaseChecked?.message || errors.isPrivacyChecked?.message;
 
       console.log(errorMessage);
     }
@@ -243,10 +243,10 @@ export default function Participate() {
 
             <div className={cx(infoContainer, css({ m: 0 }))}>
               <Term
-                label="isTermChecked"
+                label="isPurchaseChecked"
                 term={PurchaseTerm}
                 register={register}
-                isChecked={watch('isTermChecked')}
+                isChecked={watch('isPurchaseChecked')}
               />
               <Term
                 label="isPrivacyChecked"

@@ -5,6 +5,6 @@ export interface Term {
 }
 
 export interface TermsCheckFlags {
-  isTermChecked: boolean;
+  isPurchaseChecked: boolean;
   isPrivacyChecked: boolean;
 }

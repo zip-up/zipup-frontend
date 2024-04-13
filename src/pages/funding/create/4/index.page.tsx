@@ -81,8 +81,8 @@ export default function CreatFundStep4() {
   };
 
   const handleSubmitError: SubmitErrorHandler<FormInputs> = errors => {
-    if (errors.isTermChecked || errors.isPrivacyChecked) {
-      const errorMessage = errors.isTermChecked?.message || errors.isPrivacyChecked?.message;
+    if (errors.isPurchaseChecked || errors.isPrivacyChecked) {
+      const errorMessage = errors.isPurchaseChecked?.message || errors.isPrivacyChecked?.message;
 
       console.log(errorMessage);
     }
@@ -215,10 +215,10 @@ export default function CreatFundStep4() {
 
         <div className={infoContainer}>
           <Term
-            label="isTermChecked"
+            label="isPurchaseChecked"
             term={PurchaseTerm}
             register={register}
-            isChecked={watch('isTermChecked')}
+            isChecked={watch('isPurchaseChecked')}
           />
           <Term
             label="isPrivacyChecked"
