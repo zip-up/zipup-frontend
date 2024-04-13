@@ -16,8 +16,6 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { createFundState, userState } from '@store/store';
 import { useCreateFunding } from '@hooks/queries/useCreateFunding';
 import PageLayout from '@components/Layout/pageLayout';
-import TermsAndConditions from '@components/TermsAndConditions';
-import { createTerms } from '@constants/terms';
 import Spinner from '@components/common/Spinner';
 import { flex } from 'styled-system/patterns';
 import { shareKakao } from '@utils/share';

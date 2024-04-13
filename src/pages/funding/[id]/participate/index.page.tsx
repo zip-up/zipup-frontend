@@ -3,7 +3,7 @@ import ProgressBar from '@components/common/ProgressBar';
 import { fundingFormState } from '@store/store';
 import { css, cx } from 'styled-system/css';
 import { Fragment, useState } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import * as style from './styles';
 import { A, B, C, D, E, A_d, B_d, C_d, D_d, E_d } from '@assets/icons/priceLabel/index';
@@ -11,12 +11,13 @@ import Button, { BottomFixedStyle } from '@components/common/Button';
 import { statusTag } from '@components/common/StatusTag/styles';
 import { button, styles } from '@components/common/Button/styles';
 import { useRouter } from 'next/router';
-import TermsAndConditions from '@components/TermsAndConditions';
-import { createTerms } from '@constants/terms';
 import { getLoacalStorage, setLocalStorage } from '@store/localStorage';
 import { useGetFundingDeatil } from '@hooks/queries/useFunding';
+import { TermsCheckFlags } from '@typings/term';
+import { PrivacyTerm, PurchaseTerm } from '@constants/terms';
+import Term from '@components/Term';
 
-interface FormInputs {
+export interface FormInputs extends TermsCheckFlags {
   price: number;
   enteredCustomPrice: boolean;
   customPrice: number;
@@ -70,10 +71,17 @@ export default function Participate() {
     router.push(`/funding/${fundingId}/payment`);
   };
 
+  const onSubmitError: SubmitErrorHandler<FormInputs> = errors => {
+    if (errors.isTermChecked || errors.isPrivacyChecked) {
+      const errorMessage = errors.isTermChecked?.message || errors.isPrivacyChecked?.message;
+
+      console.log(errorMessage);
+    }
+  };
+
   const enteredCustomPrice = watch('enteredCustomPrice');
   const selected = watch('price');
   const [step, setStep] = useState(1);
-  const [isValid, setIsValid] = useState(false);
 
   const priceLabel = [
     { label: '행복의 오천원', price: 5000, icon_active: <A />, icon_disabled: <A_d /> },
@@ -139,6 +147,7 @@ export default function Participate() {
                   },
                 })}
               />
+
               <Button
                 type="button"
                 color="secondary"
@@ -231,7 +240,18 @@ export default function Participate() {
               {errors.msg && <span className={style.errorText}>{errors.msg.message}</span>}
             </div>
 
-            <TermsAndConditions data={createTerms} onSetIsValid={setIsValid} />
+            <Term
+              label="isTermChecked"
+              term={PurchaseTerm}
+              register={register}
+              isChecked={watch('isTermChecked')}
+            />
+            <Term
+              label="isPrivacyChecked"
+              term={PrivacyTerm}
+              register={register}
+              isChecked={watch('isPrivacyChecked')}
+            />
 
             <Button
               type="submit"
@@ -252,7 +272,7 @@ export default function Participate() {
       <Header onGoBack={step == 1 ? () => router.back() : () => setStep(1)} />
       <div className={style.container}>
         <ProgressBar width={step == 1 ? '16.2rem' : '32.8rem'} />
-        <form onSubmit={handleSubmit(onSubmit)}>{renderFormStep(step)}</form>
+        <form onSubmit={handleSubmit(onSubmit, onSubmitError)}>{renderFormStep(step)}</form>
       </div>
     </div>
   );

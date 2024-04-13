@@ -12,7 +12,7 @@ import CancelIcon from '@assets/icons/cancel-icon.svg';
 import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState } from 'recoil';
 import { createFundState } from '@store/store';
-import { message, message_text } from '@components/TermsAndConditions/styles';
+import { message, message_text } from '@components/Term/styles';
 import InfoIcon from '@assets/icons/info.svg';
 
 interface FormInput {

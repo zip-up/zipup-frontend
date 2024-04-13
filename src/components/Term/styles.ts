@@ -38,7 +38,7 @@ const add_margin = css({
 
 const flexbox = css({
   display: 'flex',
-  gap: '0.8rem',
+  flexDir: 'column',
 });
 
 export { message, message_icon, message_text, terms_conditions, add_margin, flexbox };
