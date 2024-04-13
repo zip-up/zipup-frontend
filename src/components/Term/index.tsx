@@ -14,27 +14,25 @@ interface TermProps<T extends FieldValues> {
 
 export default function Term<T extends FieldValues>({
   label,
-  term,
+  term: { title, subTitle, link },
   register,
   isChecked,
 }: TermProps<T>) {
   return (
-    <div className={style.flexbox}>
-      <span>
-        <label htmlFor={label}>
-          {isChecked ? <CheckedIcon /> : <UnCheckedIcon />}
-          <span className={style.message_text}>{term.title}</span>
-        </label>
-        <input
-          id={label}
-          className={style.message_icon}
-          type="checkbox"
-          {...register(label, { required: '약관 동의가 필요합니다.' })}
-        />
-      </span>
+    <div className={style.termWrapper}>
+      <label htmlFor={label} className={style.label}>
+        {isChecked ? <CheckedIcon /> : <UnCheckedIcon />}
+        <span className={style.title}>{title}</span>
+      </label>
+      <input
+        id={label}
+        className={style.checkbox}
+        type="checkbox"
+        {...register(label, { required: '약관 동의가 필요합니다.' })}
+      />
 
-      <Link href={term.link} className={style.terms_conditions}>
-        {term.subTitle}
+      <Link href={link} className={style.terms_conditions}>
+        {subTitle}
       </Link>
     </div>
   );

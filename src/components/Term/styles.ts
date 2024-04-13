@@ -1,44 +1,37 @@
 import { css } from 'styled-system/css';
+import { vstack } from 'styled-system/patterns';
 
-const message = css({
+const termsContainer = vstack({
   width: '32.8rem',
-  height: '4rem',
-  borderRadius: '0.8rem',
+  rounded: '0.8rem',
   backgroundColor: 'blue.10',
-  margin: '1.6rem auto',
-  padding: '1.2rem',
-  display: 'flex',
+  m: '1.6rem auto',
+  p: '1.2rem',
   gap: '0.8rem',
-  fontFamily: 'pretendard-regular',
   fontSize: 'caption1',
+  alignItems: 'flex-start',
 });
 
-const message_icon = css({
-  width: '1.6rem',
-  height: '1.6rem',
-  cursor: 'pointer',
+const termWrapper = vstack({ gap: 0, alignItems: 'start' });
+
+const label = css({ display: 'inline-flex', alignItems: 'flex-start', gap: '0.8rem' });
+
+const checkbox = css({
+  position: 'absolute',
 });
 
-const message_text = css({
+const title = css({
   color: 'success',
+  fontWeight: '500',
 });
 
 const terms_conditions = css({
   color: 'text.200',
-  fontFamily: 'pretendard-regular',
   fontSize: 'caption1',
   textDecoration: 'underline',
   textUnderlineOffset: '0.2rem',
   cursor: 'pointer',
+  marginLeft: '2.4rem',
 });
 
-const add_margin = css({
-  marginTop: '-0.1rem',
-});
-
-const flexbox = css({
-  display: 'flex',
-  flexDir: 'column',
-});
-
-export { message, message_icon, message_text, terms_conditions, add_margin, flexbox };
+export { termsContainer, termWrapper, label, checkbox, title, terms_conditions };

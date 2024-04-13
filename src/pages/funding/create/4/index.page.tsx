@@ -22,6 +22,7 @@ import { shareKakao } from '@utils/share';
 import Term from '@components/Term';
 import { TermsCheckFlags } from '@typings/term';
 import { PrivacyTerm, PurchaseTerm } from '@constants/terms';
+import { termsContainer } from '@components/Term/styles';
 
 interface FormInputs extends TermsCheckFlags {
   address: string;
@@ -212,18 +213,20 @@ export default function CreatFundStep4() {
         />
         <p className={style.error_text}>{errors.phone ? errors.phone.message : ''}</p>
 
-        <Term
-          label="isTermChecked"
-          term={PurchaseTerm}
-          register={register}
-          isChecked={watch('isTermChecked')}
-        />
-        <Term
-          label="isPrivacyChecked"
-          term={PrivacyTerm}
-          register={register}
-          isChecked={watch('isPrivacyChecked')}
-        />
+        <div className={termsContainer}>
+          <Term
+            label="isTermChecked"
+            term={PurchaseTerm}
+            register={register}
+            isChecked={watch('isTermChecked')}
+          />
+          <Term
+            label="isPrivacyChecked"
+            term={PrivacyTerm}
+            register={register}
+            isChecked={watch('isPrivacyChecked')}
+          />
+        </div>
 
         <div
           className={classNames(

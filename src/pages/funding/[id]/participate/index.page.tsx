@@ -16,6 +16,7 @@ import { useGetFundingDeatil } from '@hooks/queries/useFunding';
 import { TermsCheckFlags } from '@typings/term';
 import { PrivacyTerm, PurchaseTerm } from '@constants/terms';
 import Term from '@components/Term';
+import { termsContainer } from '@components/Term/styles';
 
 export interface FormInputs extends TermsCheckFlags {
   price: number;
@@ -240,18 +241,20 @@ export default function Participate() {
               {errors.msg && <span className={style.errorText}>{errors.msg.message}</span>}
             </div>
 
-            <Term
-              label="isTermChecked"
-              term={PurchaseTerm}
-              register={register}
-              isChecked={watch('isTermChecked')}
-            />
-            <Term
-              label="isPrivacyChecked"
-              term={PrivacyTerm}
-              register={register}
-              isChecked={watch('isPrivacyChecked')}
-            />
+            <div className={termsContainer}>
+              <Term
+                label="isTermChecked"
+                term={PurchaseTerm}
+                register={register}
+                isChecked={watch('isTermChecked')}
+              />
+              <Term
+                label="isPrivacyChecked"
+                term={PrivacyTerm}
+                register={register}
+                isChecked={watch('isPrivacyChecked')}
+              />
+            </div>
 
             <Button
               type="submit"
