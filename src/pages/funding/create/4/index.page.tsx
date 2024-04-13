@@ -2,7 +2,7 @@
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitErrorHandler, useForm } from 'react-hook-form';
 import * as style from '../styles';
 import { css } from 'styled-system/css';
 import classNames from 'classnames';
@@ -19,8 +19,11 @@ import PageLayout from '@components/Layout/pageLayout';
 import Spinner from '@components/common/Spinner';
 import { flex } from 'styled-system/patterns';
 import { shareKakao } from '@utils/share';
+import Term from '@components/Term';
+import { TermsCheckFlags } from '@typings/term';
+import { PrivacyTerm, PurchaseTerm } from '@constants/terms';
 
-interface FormInput {
+interface FormInputs extends TermsCheckFlags {
   address: string;
   detailAddress: string;
   phone: string;
@@ -32,19 +35,19 @@ export default function CreatFundStep4() {
   const user = useRecoilValue(userState);
   const [fundId, setFundId] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
-  const [isValid, setIsValid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
   const { mutate: handleCreateFund } = useCreateFunding();
-  const [currentHeight, setCurrentHeight] = useState(window.innerHeight);
+  //const [currentHeight, setCurrentHeight] = useState(window.innerHeight);
 
   const {
     register,
     handleSubmit,
     setValue,
     getValues,
+    watch,
     formState: { errors },
-  } = useForm<FormInput>();
+  } = useForm<FormInputs>();
 
   useEffect(() => {
     if (newFund) {
@@ -56,7 +59,7 @@ export default function CreatFundStep4() {
 
   useEffect(() => {
     const handleResize = () => {
-      setCurrentHeight(window.innerHeight);
+      //   setCurrentHeight(window.innerHeight);
     };
 
     window.addEventListener('resize', handleResize);
@@ -64,17 +67,23 @@ export default function CreatFundStep4() {
   }, []);
 
   const handleCreateFundSubmit = () => {
-    if (isValid) {
-      setIsButtonClicked(true);
+    setIsButtonClicked(true);
 
-      setNewFund({
-        ...newFund,
-        roadAddress: getValues('address'),
-        detailAddress: getValues('detailAddress'),
-        phoneNumber: !getValues('phone') ? '' : String(getValues('phone')),
-      });
+    setNewFund({
+      ...newFund,
+      roadAddress: getValues('address'),
+      detailAddress: getValues('detailAddress'),
+      phoneNumber: !getValues('phone') ? '' : String(getValues('phone')),
+    });
 
-      handleNext();
+    handleNext();
+  };
+
+  const handleSubmitError: SubmitErrorHandler<FormInputs> = errors => {
+    if (errors.isTermChecked || errors.isPrivacyChecked) {
+      const errorMessage = errors.isTermChecked?.message || errors.isPrivacyChecked?.message;
+
+      console.log(errorMessage);
     }
   };
 
@@ -159,7 +168,10 @@ export default function CreatFundStep4() {
       <h4 className={style.step_name}>Step 4</h4>
       <h2 className={style.title}>배송 정보를 입력해주세요.</h2>
 
-      <form className={style.form} onSubmit={handleSubmit(handleCreateFundSubmit)}>
+      <form
+        className={style.form}
+        onSubmit={handleSubmit(handleCreateFundSubmit, handleSubmitError)}
+      >
         <label>
           <span className={style.subtitle}>선물을 배송받을 주소를 입력해주세요.</span>
         </label>
@@ -200,11 +212,23 @@ export default function CreatFundStep4() {
         />
         <p className={style.error_text}>{errors.phone ? errors.phone.message : ''}</p>
 
-        <TermsAndConditions data={createTerms} onSetIsValid={setIsValid} />
+        <Term
+          label="isTermChecked"
+          term={PurchaseTerm}
+          register={register}
+          isChecked={watch('isTermChecked')}
+        />
+        <Term
+          label="isPrivacyChecked"
+          term={PrivacyTerm}
+          register={register}
+          isChecked={watch('isPrivacyChecked')}
+        />
+
         <div
           className={classNames(
             flex({ justifyContent: 'center', gap: '0.8rem' }),
-            currentHeight <= 680 ? wrapper : buttons,
+            //      currentHeight <= 680 ? wrapper : buttons,
           )}
         >
           <Buttons />
@@ -221,14 +245,14 @@ export default function CreatFundStep4() {
   );
 }
 
-const wrapper = css({
-  width: '100%',
-  margin: '2.4rem 0',
-});
+// const wrapper = css({
+//   width: '100%',
+//   margin: '2.4rem 0',
+// });
 
-const buttons = css({
-  position: 'absolute',
-  bottom: '2.5rem',
-  left: '2rem',
-  width: '32.3rem',
-});
+// const buttons = css({
+//   position: 'absolute',
+//   bottom: '2.5rem',
+//   left: '2rem',
+//   width: '32.3rem',
+// });
