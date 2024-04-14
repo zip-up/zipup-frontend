@@ -8,6 +8,7 @@ import { css, cx } from 'styled-system/css';
 import { useEffect } from 'react';
 import { getLoacalStorage } from '@store/localStorage';
 import { useGetFundingDeatil, useParticipateFunding } from '@hooks/queries/useFunding';
+import Spinner from '@components/common/Spinner';
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const {
@@ -58,7 +59,12 @@ export default function Success({ fundingId, orderId, amount, paymentId }: Succe
     });
   }, [isLoading]);
 
-  if (isMutating || isLoading) return <span>로딩 중....</span>;
+  if (isMutating || isLoading)
+    return (
+      <div className={commonStyle.container}>
+        <Spinner />
+      </div>
+    );
 
   return (
     <div className={commonStyle.container}>
