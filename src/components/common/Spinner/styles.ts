@@ -3,24 +3,24 @@ import { cva } from 'styled-system/css';
 const spinner = cva({
   base: {
     borderRadius: '50%',
-    border: '1px solid',
+    border: '0.1rem solid',
     animation: 'spin 1s linear infinite',
     color: 'gray.200',
   },
   variants: {
     size: {
       sm: {
-        borderWidth: '2px',
-        w: '20px',
-        h: '20px',
-        borderTop: '2px solid',
+        borderWidth: '0.2rem',
+        w: '2rem',
+        h: '2rem',
+        borderTop: '0.2rem solid',
         borderTopColor: 'main.blue',
       },
       md: {
-        borderWidth: '4px',
-        w: '40px',
-        h: '40px',
-        borderTop: '4px solid',
+        borderWidth: '0.4rem',
+        w: '4rem',
+        h: '4rem',
+        borderTop: '0.4rem solid',
         borderTopColor: 'main.blue',
       },
     },
