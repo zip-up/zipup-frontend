@@ -20,6 +20,7 @@ InstanceWithToken.interceptors.response.use(
 
         const { accessToken } = response.data;
 
+        originalRequest.headers.Authorization = `Bearer ${accessToken}`;
         InstanceWithToken.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
         setLocalStorage('@token', accessToken);
 
