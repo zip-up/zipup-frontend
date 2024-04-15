@@ -4,7 +4,7 @@ import Header from '@components/common/Header';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import * as style from '../styles';
-import { css } from 'styled-system/css';
+import { css, cx } from 'styled-system/css';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
@@ -12,7 +12,7 @@ import CancelIcon from '@assets/icons/cancel-icon.svg';
 import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState } from 'recoil';
 import { createFundState } from '@store/store';
-import { message, message_text } from '@components/TermsAndConditions/styles';
+import { infoContainer, title } from '@components/Term/styles';
 import InfoIcon from '@assets/icons/info.svg';
 
 interface FormInput {
@@ -113,11 +113,9 @@ export default function CreatFundStep1() {
         />
         {errors.targetMoney && <p className={style.error_text}>{errors.targetMoney.message}</p>}
 
-        <div className={classNames(message, css({ alignItems: 'center' }))}>
+        <div className={cx(infoContainer, css({ flexDir: 'row', alignItems: 'center' }))}>
           <InfoIcon />
-          <span className={message_text}>
-            설정하신 목표 금액을 확인하고 최종 금액을 안내드릴게요 .
-          </span>
+          <span className={title}>설정하신 목표 금액을 확인하고 최종 금액을 안내드릴게요.</span>
         </div>
         <Button type="submit" className={style.button} color="secondary">
           다음
