@@ -191,7 +191,15 @@ export default function CreatFundStep4() {
           </button>
         </div>
         <input
-          className={classNames(style.input, css({ marginTop: '-0.8rem', marginBottom: '1.6rem' }))}
+          className={classNames(
+            style.input,
+            css({
+              marginTop: '-0.8rem',
+              marginBottom: '1.6rem',
+              borderWidth: '0.1rem',
+              borderColor: 'bg.300',
+            }),
+          )}
           placeholder="상세 주소를 입력해주세요."
           {...register('detailAddress')}
         />
@@ -203,7 +211,10 @@ export default function CreatFundStep4() {
         <input
           className={classNames(
             style.input,
-            css({ borderWidth: '0.1rem', borderColor: errors.phone ? 'error' : 'bg.300' }),
+            css({
+              borderWidth: '0.1rem',
+              borderColor: errors.phone ? 'error' : 'bg.300',
+            }),
           )}
           placeholder="목표 달성 시 입력한 번호로 배송을 안내해드려요."
           {...register('phone', {
