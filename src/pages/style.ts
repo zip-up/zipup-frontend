@@ -4,7 +4,6 @@ const text_box = css({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  mt: '3rem',
 });
 
 const title = css({

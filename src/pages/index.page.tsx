@@ -18,6 +18,7 @@ import TargetImage from '@assets/images/funding_target_image.svg';
 import classNames from 'classnames';
 import LoginModal from '@components/modals/LoginModal';
 import Spinner from '@components/common/Spinner';
+import Header from '@components/common/Header';
 
 const descData = [
   {
@@ -94,11 +95,26 @@ export default function Home() {
       </Head>
       {isOpen && <LoginModal onClose={() => setIsOpen(false)} onClick={handleLogin} />}
 
-      <HeaderWithLogo onOpen={() => setIsOpen(true)} />
-      <div className={style.text_box}>
-        <p className={style.title}>
-          조금씩 마음을 보태어 <span className={style.highlight}>집들이 선물</span>을 보내요
-        </p>
+      {isBrowsingService ? (
+        <Header onGoBack={() => setIsBrowsingService(false)} />
+      ) : (
+        <HeaderWithLogo onOpen={() => setIsOpen(true)} />
+      )}
+      <div
+        className={classNames(style.text_box, css({ mt: isBrowsingService ? '-3rem' : '3rem' }))}
+      >
+        {isBrowsingService ? (
+          <p className={classNames(style.title, css({ width: '110%', textAlign: 'center' }))}>
+            <span>
+              더 멋진 <span className={style.highlight}>집들이 경험</span>을 위한
+            </span>
+            <p>집들이 선물 펀딩 서비스</p>
+          </p>
+        ) : (
+          <p className={style.title}>
+            조금씩 마음을 보태어 <span className={style.highlight}>집들이 선물</span>을 보내요
+          </p>
+        )}
         <span className={style.subtitle}>
           더나은 집들이 경험을 위한
           <br />
