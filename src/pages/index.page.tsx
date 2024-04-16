@@ -104,7 +104,7 @@ export default function Home() {
         className={classNames(style.text_box, css({ mt: isBrowsingService ? '-3rem' : '3rem' }))}
       >
         {isBrowsingService ? (
-          <p className={classNames(style.title, css({ width: '110%', textAlign: 'center' }))}>
+          <p className={classNames(style.title, css({ width: '100.1%', textAlign: 'center' }))}>
             <span>
               더 멋진 <span className={style.highlight}>집들이 경험</span>을 위한
             </span>
@@ -115,11 +115,21 @@ export default function Home() {
             조금씩 마음을 보태어 <span className={style.highlight}>집들이 선물</span>을 보내요
           </p>
         )}
-        <span className={style.subtitle}>
-          더나은 집들이 경험을 위한
-          <br />
-          집들이 선물 펀딩 서비스
-        </span>
+        {isBrowsingService ? (
+          <span className={style.subtitle}>
+            주는 사람은 부담 없이,
+            <br />
+            받는 사람은 높은 만족도로
+            <br />
+            모두에게 즐거운 선물 경험을 제공해요
+          </span>
+        ) : (
+          <span className={style.subtitle}>
+            더나은 집들이 경험을 위한
+            <br />
+            집들이 선물 펀딩 서비스
+          </span>
+        )}
       </div>
 
       <div className={style.wrapper}>
@@ -138,7 +148,7 @@ export default function Home() {
               {isLoading ? <Spinner size="sm" /> : '내 펀딩을 만들어볼까요?'}
             </Button>
             <Button color="secondary" onClick={() => setIsBrowsingService(true)} isBottomFixed>
-              서비스 둘러볼게요
+              서비스를 둘러볼게요
             </Button>
           </>
         )}
@@ -176,7 +186,7 @@ export default function Home() {
             <div className={style.login_box}>
               <span className={style.login_text}>
                 {token
-                  ? '내 펀딩을 만들어볼까요?'
+                  ? '내가 원하는 선물을\n지금 바로 등록해보세요'
                   : '카카오로 5초만에 로그인하고\n바로 시작해볼까요?'}
               </span>
               <Button
