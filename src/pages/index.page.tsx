@@ -132,7 +132,7 @@ export default function Home() {
 
       <div className={style.wrapper}>
         <div className={style.image}>
-          <Image src="/home-image.png" alt="s" width={245} height={236} />
+          <Image src="/home-image.png" alt="home-image" width={245} height={236} />
         </div>
         {!isBrowsingService && (
           <>
