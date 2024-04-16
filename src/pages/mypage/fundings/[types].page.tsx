@@ -8,10 +8,11 @@ import { useGetMyFundingList, useGetParticipatedList } from '@hooks/queries/useG
 import { useRecoilValue } from 'recoil';
 import { userState } from '@store/store';
 import { FundingInfo } from '@typings/funding';
-import classNames from 'classnames';
+
 import { flex } from 'styled-system/patterns';
 import GiftIcon from '@assets/icons/big-gift-image.svg';
 import Button from '@components/common/Button';
+import { cx } from 'styled-system/css';
 
 export default function MyFundings() {
   const router = useRouter();
@@ -85,7 +86,7 @@ export default function MyFundings() {
       )}
       {!data.length && !isParticipatedListLoading && !isMyFundingListLoading && (
         <div
-          className={classNames(
+          className={cx(
             style.card_content,
             flex({
               justifyContent: 'center',

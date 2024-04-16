@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import * as style from '../styles';
 import { css, cx } from 'styled-system/css';
-import classNames from 'classnames';
+
 import { useEffect, useState } from 'react';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import CancelIcon from '@assets/icons/cancel-icon.svg';
@@ -103,7 +103,7 @@ export default function CreatFundStep1() {
           <span className={style.required}>*</span>
         </label>
         <input
-          className={classNames(
+          className={cx(
             style.input,
             css({ borderWidth: '1px', borderColor: errors.link ? 'error' : 'bg.300' }),
           )}
@@ -122,7 +122,7 @@ export default function CreatFundStep1() {
           <span className={style.required}>*</span>
         </label>
         <input
-          className={classNames(
+          className={cx(
             style.input,
             css({ borderWidth: '0.1rem', borderColor: errors.link ? 'error' : 'bg.300' }),
           )}

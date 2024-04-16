@@ -9,12 +9,12 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { tokenState, userState } from '@store/store';
 import { useRouter } from 'next/router';
 import { useLogIn } from '@hooks/queries/useAuth';
-import { css } from 'styled-system/css';
+import { css, cx } from 'styled-system/css';
 import CreateImage from '@assets/images/funding_create_image.svg';
 import DeliveryImage from '@assets/images/funding_delivery_image.svg';
 import ParticipateImage from '@assets/images/funding_participate_image.svg';
 import TargetImage from '@assets/images/funding_target_image.svg';
-import classNames from 'classnames';
+
 import LoginModal from '@components/modals/LoginModal';
 import Spinner from '@components/common/Spinner';
 import Header from '@components/common/Header';
@@ -100,18 +100,16 @@ export default function Home() {
       ) : (
         <HeaderWithLogo onOpen={() => setIsOpen(true)} />
       )}
-      <div
-        className={classNames(style.text_box, css({ mt: isBrowsingService ? '-3rem' : '3rem' }))}
-      >
+      <div className={cx(style.text_box, css({ mt: isBrowsingService ? '-3rem' : '3rem' }))}>
         {isBrowsingService ? (
-          <p className={classNames(style.title, css({ textAlign: 'center' }))}>
+          <p className={cx(style.title, css({ textAlign: 'center' }))}>
             <span>
               더 멋진 <span className={style.highlight}>집들이 경험</span>을 위한
             </span>
             <p>집들이 선물 펀딩 서비스</p>
           </p>
         ) : (
-          <p className={classNames(style.title, css({ width: '23.3rem' }))}>
+          <p className={cx(style.title, css({ width: '23.3rem' }))}>
             조금씩 마음을 보태어 <span className={style.highlight}>집들이 선물</span>을 보내요
           </p>
         )}
@@ -176,7 +174,7 @@ export default function Home() {
                   <div className={style.service_text_box}>
                     <p className={style.text_title}>{item.title}</p>
                     <p className={style.text_desc}>{item.desc1}</p>
-                    <p className={classNames(style.text_desc, css({ marginTop: '-0.3rem' }))}>
+                    <p className={cx(style.text_desc, css({ marginTop: '-0.3rem' }))}>
                       {item.desc2}
                     </p>
                   </div>

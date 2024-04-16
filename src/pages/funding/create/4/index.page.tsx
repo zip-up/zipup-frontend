@@ -4,8 +4,8 @@ import Header from '@components/common/Header';
 import { useEffect, useState } from 'react';
 import { SubmitErrorHandler, useForm } from 'react-hook-form';
 import * as style from '../styles';
-import { css } from 'styled-system/css';
-import classNames from 'classnames';
+import { css, cx } from 'styled-system/css';
+
 import SearchIcon from '@assets/icons/search.svg';
 import AddressModal from '@components/modals/AddressModal';
 import { useRouter } from 'next/router';
@@ -181,7 +181,7 @@ export default function CreatFundStep4() {
         </label>
         <div className={style.date_box} onClick={() => setIsOpen(true)}>
           <input
-            className={classNames(
+            className={cx(
               style.input_shape,
               css({ color: !getValues('address') ? 'text.200' : 'text.100' }),
             )}
@@ -194,7 +194,7 @@ export default function CreatFundStep4() {
           </button>
         </div>
         <input
-          className={classNames(
+          className={cx(
             style.input,
             css({
               marginTop: '-0.8rem',
@@ -212,7 +212,7 @@ export default function CreatFundStep4() {
           <span className={style.required}>*</span>
         </label>
         <input
-          className={classNames(
+          className={cx(
             style.input,
             css({
               borderWidth: '0.1rem',
@@ -243,7 +243,7 @@ export default function CreatFundStep4() {
         </div>
 
         <div
-          className={classNames(
+          className={cx(
             flex({ justifyContent: 'center', gap: '0.8rem' }),
             //      currentHeight <= 680 ? wrapper : buttons,
           )}
