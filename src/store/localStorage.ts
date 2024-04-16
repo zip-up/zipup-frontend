@@ -1,9 +1,9 @@
 export const getLoacalStorage = (key: string) => {
   if (typeof window == 'undefined') return;
 
-  const data = localStorage.getItem(key) || '';
+  const data = localStorage.getItem(key) || 'null';
 
-  return key != '@token' ? JSON.parse(data) : data;
+  return JSON.parse(data);
 };
 
 export const setLocalStorage = (key: string, data: any) => {
