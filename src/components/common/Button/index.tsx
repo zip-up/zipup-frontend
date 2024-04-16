@@ -1,6 +1,5 @@
-import classnames from 'classnames';
 import { button, styles } from './styles';
-import { css } from 'styled-system/css';
+import { css, cx } from 'styled-system/css';
 import { CSSProperties, PropsWithChildren } from 'react';
 
 interface ButtonProps {
@@ -39,7 +38,7 @@ export default function Button({
   return (
     <button
       type={type}
-      className={classnames(
+      className={cx(
         button,
         styles[color],
         css(wFull && { width: '100%' }, { height }),

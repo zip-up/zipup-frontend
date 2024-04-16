@@ -1,17 +1,3 @@
-const registerKakao = () => {
-  if (window.Kakao) {
-    const kakao = window.Kakao;
-
-    if (!kakao.isInitialized()) {
-      kakao.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY);
-    }
-
-    return kakao;
-  }
-
-  return null;
-};
-
 interface ShareKakaoProps {
   username: string;
   imageUrl: string;
@@ -19,7 +5,7 @@ interface ShareKakaoProps {
 }
 
 export const shareKakao = ({ username, imageUrl, fundId }: ShareKakaoProps) => {
-  const kakao = registerKakao();
+  const kakao = window.Kakao;
   if (!kakao) throw new Error('카카오톡을 열 수 없습니다.');
 
   const url = `https://zip-up.vercel.app/funding/${fundId}`;
@@ -34,6 +20,7 @@ export const shareKakao = ({ username, imageUrl, fundId }: ShareKakaoProps) => {
         mobileWebUrl: url,
       },
     },
+    installTalk: true,
     buttons: [
       {
         title: '자세히 보기',

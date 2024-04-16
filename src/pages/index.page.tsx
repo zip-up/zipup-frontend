@@ -4,20 +4,22 @@ import Head from 'next/head';
 import Button from '@components/common/Button';
 import * as style from './style';
 import { useEffect, useState } from 'react';
-import HomeImage from '@assets/images/home-image.svg';
 import HeaderWithLogo from '@components/HeaderWithLogo';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { tokenState, userState } from '@store/store';
+import { useSetRecoilState } from 'recoil';
+import { userState } from '@store/store';
 import { useRouter } from 'next/router';
 import { useLogIn } from '@hooks/queries/useAuth';
-import { css } from 'styled-system/css';
+import { css, cx } from 'styled-system/css';
 import CreateImage from '@assets/images/funding_create_image.svg';
 import DeliveryImage from '@assets/images/funding_delivery_image.svg';
 import ParticipateImage from '@assets/images/funding_participate_image.svg';
 import TargetImage from '@assets/images/funding_target_image.svg';
-import classNames from 'classnames';
+
 import LoginModal from '@components/modals/LoginModal';
 import Spinner from '@components/common/Spinner';
+import Header from '@components/common/Header';
+import Image from 'next/image';
+import { getLoacalStorage, setLocalStorage } from '@store/localStorage';
 
 const descData = [
   {
@@ -49,7 +51,6 @@ const descData = [
 export default function Home() {
   const router = useRouter();
   const setUser = useSetRecoilState(userState);
-  const [token, setToken] = useRecoilState(tokenState);
   const [isOpen, setIsOpen] = useState(false);
   const [code, setCode] = useState('');
   const [isBrowsingService, setIsBrowsingService] = useState(false);
@@ -66,7 +67,7 @@ export default function Home() {
       console.log(data);
       const { accessToken, ...rest } = data;
       setUser(rest);
-      setToken(accessToken);
+      setLocalStorage('@token', accessToken);
       localStorage.setItem('@user', JSON.stringify(rest));
       router.push('/');
     }
@@ -94,35 +95,60 @@ export default function Home() {
       </Head>
       {isOpen && <LoginModal onClose={() => setIsOpen(false)} onClick={handleLogin} />}
 
-      <HeaderWithLogo onOpen={() => setIsOpen(true)} />
-      <div className={style.text_box}>
-        <p className={style.title}>
-          조금씩 마음을 보태어 <span className={style.highlight}>집들이 선물</span>을 보내요
-        </p>
-        <span className={style.subtitle}>
-          더나은 집들이 경험을 위한
-          <br />
-          집들이 선물 펀딩 서비스
-        </span>
+      {isBrowsingService ? (
+        <Header onGoBack={() => setIsBrowsingService(false)} />
+      ) : (
+        <HeaderWithLogo onOpen={() => setIsOpen(true)} />
+      )}
+      <div className={cx(style.text_box, css({ mt: isBrowsingService ? '-3rem' : '3rem' }))}>
+        {isBrowsingService ? (
+          <p className={cx(style.title, css({ textAlign: 'center' }))}>
+            <span>
+              더 멋진 <span className={style.highlight}>집들이 경험</span>을 위한
+            </span>
+            <p>집들이 선물 펀딩 서비스</p>
+          </p>
+        ) : (
+          <p className={cx(style.title, css({ width: '23.3rem' }))}>
+            조금씩 마음을 보태어 <span className={style.highlight}>집들이 선물</span>을 보내요
+          </p>
+        )}
+        {isBrowsingService ? (
+          <span className={style.subtitle}>
+            주는 사람은 부담 없이,
+            <br />
+            받는 사람은 높은 만족도로
+            <br />
+            모두에게 즐거운 선물 경험을 제공해요
+          </span>
+        ) : (
+          <span className={style.subtitle}>
+            더나은 집들이 경험을 위한
+            <br />
+            집들이 선물 펀딩 서비스
+          </span>
+        )}
       </div>
 
       <div className={style.wrapper}>
         <div className={style.image}>
-          <HomeImage />
+          <Image src="/home-image.png" alt="home-image" width={245} height={236} />
         </div>
         {!isBrowsingService && (
           <>
             <Button
               color={isLoading ? 'disabled' : 'primary'}
               disabled={isLoading}
-              onClick={() => (token ? router.push('/funding/create/1') : setIsOpen(true))}
+              onClick={() =>
+                getLoacalStorage('@token') ? router.push('/funding/create/1') : setIsOpen(true)
+              }
               isBottomFixed
               className={css({ bottom: '90px' })}
             >
               {isLoading ? <Spinner size="sm" /> : '내 펀딩을 만들어볼까요?'}
             </Button>
             <Button color="secondary" onClick={() => setIsBrowsingService(true)} isBottomFixed>
-              서비스 둘러볼게요
+              서비스를 둘러볼게요
             </Button>
           </>
         )}
@@ -150,7 +176,7 @@ export default function Home() {
                   <div className={style.service_text_box}>
                     <p className={style.text_title}>{item.title}</p>
                     <p className={style.text_desc}>{item.desc1}</p>
-                    <p className={classNames(style.text_desc, css({ marginTop: '-0.3rem' }))}>
+                    <p className={cx(style.text_desc, css({ marginTop: '-0.3rem' }))}>
                       {item.desc2}
                     </p>
                   </div>
@@ -159,17 +185,19 @@ export default function Home() {
             </div>
             <div className={style.login_box}>
               <span className={style.login_text}>
-                {token
-                  ? '내 펀딩을 만들어볼까요?'
+                {getLoacalStorage('@token')
+                  ? '내가 원하는 선물을\n지금 바로 등록해보세요'
                   : '카카오로 5초만에 로그인하고\n바로 시작해볼까요?'}
               </span>
               <Button
                 type="button"
                 color="secondary"
                 className={style.login_button}
-                onClick={() => (token ? router.push('/funding/create/1') : setIsOpen(true))}
+                onClick={() =>
+                  getLoacalStorage('@token') ? router.push('/funding/create/1') : setIsOpen(true)
+                }
               >
-                {token ? '내 펀딩 만들러 가기' : '지금 시작하기'}
+                {getLoacalStorage('@token') ? '내 펀딩 만들러 가기' : '지금 시작하기'}
               </Button>
             </div>
           </div>

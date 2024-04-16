@@ -1,6 +1,5 @@
-import classNames from 'classnames';
 import * as style from './styles';
-import { css } from 'styled-system/css';
+import { css, cx } from 'styled-system/css';
 
 interface ProgressBarProps {
   isNotFull?: boolean;
@@ -17,7 +16,7 @@ const ProgressBar = ({
 }: ProgressBarProps) => {
   return (
     <div
-      className={classNames(style.progressbar, progressBarWidth)}
+      className={cx(style.progressbar, progressBarWidth)}
       style={{ margin: noMargin ? 0 : '0.8rem auto' }}
     >
       <div className={style.background_bar} />

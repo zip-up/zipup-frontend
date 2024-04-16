@@ -4,8 +4,8 @@ import Header from '@components/common/Header';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import * as style from '../styles';
-import classNames from 'classnames';
-import { css } from 'styled-system/css';
+
+import { css, cx } from 'styled-system/css';
 import TextareaAutosize from 'react-textarea-autosize';
 import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState } from 'recoil';
@@ -53,7 +53,7 @@ export default function CreatFundStep2() {
           <span className={style.required}>*</span>
         </label>
         <input
-          className={classNames(
+          className={cx(
             style.input,
             css({ borderWidth: '1px', borderColor: errors.name ? 'error' : 'bg.300' }),
           )}
@@ -81,7 +81,7 @@ export default function CreatFundStep2() {
             </p>
           )}
           <TextareaAutosize
-            className={classNames(
+            className={cx(
               style.input,
               css({ height: '9.5rem', padding: '1.5rem 2rem' }),
               css({ borderWidth: '1px', borderColor: errors.textMessage ? 'error' : 'bg.300' }),

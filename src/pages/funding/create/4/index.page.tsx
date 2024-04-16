@@ -4,8 +4,8 @@ import Header from '@components/common/Header';
 import { useEffect, useState } from 'react';
 import { SubmitErrorHandler, useForm } from 'react-hook-form';
 import * as style from '../styles';
-import { css } from 'styled-system/css';
-import classNames from 'classnames';
+import { css, cx } from 'styled-system/css';
+
 import SearchIcon from '@assets/icons/search.svg';
 import AddressModal from '@components/modals/AddressModal';
 import { useRouter } from 'next/router';
@@ -37,7 +37,6 @@ export default function CreatFundStep4() {
   const [fundId, setFundId] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isButtonClicked, setIsButtonClicked] = useState(false);
   const { mutate: handleCreateFund } = useCreateFunding();
   //const [currentHeight, setCurrentHeight] = useState(window.innerHeight);
 
@@ -47,7 +46,7 @@ export default function CreatFundStep4() {
     setValue,
     getValues,
     watch,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<FormInputs>();
 
   useEffect(() => {
@@ -68,8 +67,6 @@ export default function CreatFundStep4() {
   }, []);
 
   const handleCreateFundSubmit = () => {
-    setIsButtonClicked(true);
-
     setNewFund({
       ...newFund,
       roadAddress: getValues('address'),
@@ -89,24 +86,28 @@ export default function CreatFundStep4() {
   };
 
   const handleNext = () => {
-    handleCreateFund(
-      { data: newFund },
-      {
-        onSuccess: data => {
-          if (data) {
-            console.log(data);
-            setFundId(data.id);
-            setNewFund({ ...newFund, imageUrl: data.imageUrl });
-            setIsModalOpen(true);
-          }
+    if (isSubmitting) {
+      handleCreateFund(
+        { data: newFund },
+        {
+          onSuccess: data => {
+            if (data) {
+              console.log(data);
+              setFundId(data.id);
+              setNewFund({ ...newFund, imageUrl: data.imageUrl });
+              setIsModalOpen(true);
+            }
+          },
+          onError: error => {
+            throw error;
+          },
         },
-      },
-    );
+      );
+    }
   };
 
   const handleShareKakao = () => {
     shareKakao({ username: user.name, imageUrl: newFund.imageUrl, fundId: String(fundId) });
-    setIsButtonClicked(false);
   };
 
   const Buttons = () => {
@@ -115,18 +116,18 @@ export default function CreatFundStep4() {
         <Button
           type="submit"
           className={css({ width: '12.4rem' })}
-          color={isButtonClicked ? 'disabled' : 'primary'}
-          disabled={isButtonClicked}
+          color={isSubmitting ? 'disabled' : 'primary'}
+          disabled={isSubmitting}
         >
           나중에 입력
         </Button>
         <Button
           type="submit"
           className={css({ width: '19.1rem' })}
-          color={isButtonClicked ? 'disabled' : 'secondary'}
-          disabled={isButtonClicked}
+          color={isSubmitting ? 'disabled' : 'secondary'}
+          disabled={isSubmitting}
         >
-          {isButtonClicked ? <Spinner size="sm" /> : '등록 완료'}
+          {isSubmitting ? <Spinner size="sm" /> : '등록 완료'}
         </Button>
       </>
     );
@@ -150,7 +151,7 @@ export default function CreatFundStep4() {
                   if (fundId) {
                     router.push('/funding/' + fundId);
                   } else {
-                    // 잘못된 접근이라도 에러 띄우기
+                    alert('잘못된 접근입니다.');
                   }
                 }}
               >
@@ -178,7 +179,7 @@ export default function CreatFundStep4() {
         </label>
         <div className={style.date_box} onClick={() => setIsOpen(true)}>
           <input
-            className={classNames(
+            className={cx(
               style.input_shape,
               css({ color: !getValues('address') ? 'text.200' : 'text.100' }),
             )}
@@ -191,7 +192,15 @@ export default function CreatFundStep4() {
           </button>
         </div>
         <input
-          className={classNames(style.input, css({ marginTop: '-0.8rem', marginBottom: '1.6rem' }))}
+          className={cx(
+            style.input,
+            css({
+              marginTop: '-0.8rem',
+              marginBottom: '1.6rem',
+              borderWidth: '0.1rem',
+              borderColor: 'bg.300',
+            }),
+          )}
           placeholder="상세 주소를 입력해주세요."
           {...register('detailAddress')}
         />
@@ -201,9 +210,12 @@ export default function CreatFundStep4() {
           <span className={style.required}>*</span>
         </label>
         <input
-          className={classNames(
+          className={cx(
             style.input,
-            css({ borderWidth: '0.1rem', borderColor: errors.phone ? 'error' : 'bg.300' }),
+            css({
+              borderWidth: '0.1rem',
+              borderColor: errors.phone ? 'error' : 'bg.300',
+            }),
           )}
           placeholder="목표 달성 시 입력한 번호로 배송을 안내해드려요."
           {...register('phone', {
@@ -229,7 +241,7 @@ export default function CreatFundStep4() {
         </div>
 
         <div
-          className={classNames(
+          className={cx(
             flex({ justifyContent: 'center', gap: '0.8rem' }),
             //      currentHeight <= 680 ? wrapper : buttons,
           )}

@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import * as style from '../styles';
 import { css, cx } from 'styled-system/css';
-import classNames from 'classnames';
+
 import { useEffect, useState } from 'react';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import CancelIcon from '@assets/icons/cancel-icon.svg';
@@ -47,6 +47,21 @@ export default function CreatFundStep1() {
       url,
     );
 
+  const resetNewFund = () => {
+    setNewFund({
+      title: '',
+      roadAddress: '',
+      detailAddress: '',
+      phoneNumber: '',
+      description: '',
+      goalPrice: 0,
+      productUrl: '',
+      imageUrl: '',
+      fundingStart: '',
+      fundingFinish: '',
+    });
+  };
+
   return (
     <>
       {isOpen && (
@@ -57,7 +72,14 @@ export default function CreatFundStep1() {
           icon={<CancelIcon />}
           buttonComponent={
             <div className={style.modal_button_wrapper}>
-              <Button color="primary" style={{ width: '10.9rem' }} onClick={() => router.back()}>
+              <Button
+                color="primary"
+                style={{ width: '10.9rem' }}
+                onClick={() => {
+                  router.back();
+                  resetNewFund();
+                }}
+              >
                 취소하기
               </Button>
               <Button
@@ -81,7 +103,7 @@ export default function CreatFundStep1() {
           <span className={style.required}>*</span>
         </label>
         <input
-          className={classNames(
+          className={cx(
             style.input,
             css({ borderWidth: '1px', borderColor: errors.link ? 'error' : 'bg.300' }),
           )}
@@ -100,7 +122,7 @@ export default function CreatFundStep1() {
           <span className={style.required}>*</span>
         </label>
         <input
-          className={classNames(
+          className={cx(
             style.input,
             css({ borderWidth: '0.1rem', borderColor: errors.link ? 'error' : 'bg.300' }),
           )}

@@ -54,7 +54,7 @@ export default function CreateFundStep3() {
       <Header onGoBack={() => router.back()} />
       <ProgressBar width={'24.6rem'} />
       <h4 className={style.step_name}>Step 3</h4>
-      <h2 className={style.title}>목표 금액과 기간을 입력해주세요.</h2>
+      <h2 className={style.title}>펀딩 기간을 입력해주세요</h2>
       <form className={style.form} onSubmit={handleSubmit(handleCreateFundSubmit)}>
         <label>
           <span className={style.subtitle}>집들이 날짜가 언제인가요?</span>
