@@ -4,7 +4,6 @@ import Head from 'next/head';
 import Button from '@components/common/Button';
 import * as style from './style';
 import { useEffect, useState } from 'react';
-import HomeImage from '@assets/images/home-image.svg';
 import HeaderWithLogo from '@components/HeaderWithLogo';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { tokenState, userState } from '@store/store';
@@ -19,6 +18,7 @@ import classNames from 'classnames';
 import LoginModal from '@components/modals/LoginModal';
 import Spinner from '@components/common/Spinner';
 import Header from '@components/common/Header';
+import Image from 'next/image';
 
 const descData = [
   {
@@ -104,14 +104,14 @@ export default function Home() {
         className={classNames(style.text_box, css({ mt: isBrowsingService ? '-3rem' : '3rem' }))}
       >
         {isBrowsingService ? (
-          <p className={classNames(style.title, css({ width: '100.1%', textAlign: 'center' }))}>
+          <p className={classNames(style.title, css({ textAlign: 'center' }))}>
             <span>
               더 멋진 <span className={style.highlight}>집들이 경험</span>을 위한
             </span>
             <p>집들이 선물 펀딩 서비스</p>
           </p>
         ) : (
-          <p className={style.title}>
+          <p className={classNames(style.title, css({ width: '23.3rem' }))}>
             조금씩 마음을 보태어 <span className={style.highlight}>집들이 선물</span>을 보내요
           </p>
         )}
@@ -134,7 +134,7 @@ export default function Home() {
 
       <div className={style.wrapper}>
         <div className={style.image}>
-          <HomeImage />
+          <Image src="/home-image.png" alt="s" width={245} height={236} />
         </div>
         {!isBrowsingService && (
           <>

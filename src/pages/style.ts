@@ -10,7 +10,6 @@ const title = css({
   fontFamily: 'bold',
   fontSize: 'title1',
   fontWeight: '700',
-  width: '23.3rem',
   margin: '0 auto',
   lineHeight: '1.2',
   marginTop: '4rem',
