@@ -1,4 +1,4 @@
-import { setLocalStorage } from '@store/localStorage';
+import { getLoacalStorage, setLocalStorage } from '@store/localStorage';
 import axios from 'axios';
 import { getNewToken } from './auth';
 
@@ -7,6 +7,9 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 export const InstanceWithToken = axios.create({
   withCredentials: true,
+  headers: {
+    Authorization: `Bearer ${getLoacalStorage('@token')}`,
+  },
 });
 
 InstanceWithToken.interceptors.response.use(
