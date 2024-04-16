@@ -47,6 +47,21 @@ export default function CreatFundStep1() {
       url,
     );
 
+  const resetNewFund = () => {
+    setNewFund({
+      title: '',
+      roadAddress: '',
+      detailAddress: '',
+      phoneNumber: '',
+      description: '',
+      goalPrice: 0,
+      productUrl: '',
+      imageUrl: '',
+      fundingStart: '',
+      fundingFinish: '',
+    });
+  };
+
   return (
     <>
       {isOpen && (
@@ -57,7 +72,14 @@ export default function CreatFundStep1() {
           icon={<CancelIcon />}
           buttonComponent={
             <div className={style.modal_button_wrapper}>
-              <Button color="primary" style={{ width: '10.9rem' }} onClick={() => router.back()}>
+              <Button
+                color="primary"
+                style={{ width: '10.9rem' }}
+                onClick={() => {
+                  router.back();
+                  resetNewFund();
+                }}
+              >
                 취소하기
               </Button>
               <Button
