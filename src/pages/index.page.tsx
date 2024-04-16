@@ -5,8 +5,8 @@ import Button from '@components/common/Button';
 import * as style from './style';
 import { useEffect, useState } from 'react';
 import HeaderWithLogo from '@components/HeaderWithLogo';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { tokenState, userState } from '@store/store';
+import { useSetRecoilState } from 'recoil';
+import { userState } from '@store/store';
 import { useRouter } from 'next/router';
 import { useLogIn } from '@hooks/queries/useAuth';
 import { css, cx } from 'styled-system/css';
@@ -19,6 +19,7 @@ import LoginModal from '@components/modals/LoginModal';
 import Spinner from '@components/common/Spinner';
 import Header from '@components/common/Header';
 import Image from 'next/image';
+import { getLoacalStorage, setLocalStorage } from '@store/localStorage';
 
 const descData = [
   {
@@ -50,7 +51,6 @@ const descData = [
 export default function Home() {
   const router = useRouter();
   const setUser = useSetRecoilState(userState);
-  const [token, setToken] = useRecoilState(tokenState);
   const [isOpen, setIsOpen] = useState(false);
   const [code, setCode] = useState('');
   const [isBrowsingService, setIsBrowsingService] = useState(false);
@@ -67,7 +67,7 @@ export default function Home() {
       console.log(data);
       const { accessToken, ...rest } = data;
       setUser(rest);
-      setToken(accessToken);
+      setLocalStorage('@token', accessToken);
       localStorage.setItem('@user', JSON.stringify(rest));
       router.push('/');
     }
@@ -139,7 +139,9 @@ export default function Home() {
             <Button
               color={isLoading ? 'disabled' : 'primary'}
               disabled={isLoading}
-              onClick={() => (token ? router.push('/funding/create/1') : setIsOpen(true))}
+              onClick={() =>
+                getLoacalStorage('@token') ? router.push('/funding/create/1') : setIsOpen(true)
+              }
               isBottomFixed
               className={css({ bottom: '90px' })}
             >
@@ -183,7 +185,7 @@ export default function Home() {
             </div>
             <div className={style.login_box}>
               <span className={style.login_text}>
-                {token
+                {getLoacalStorage('@token')
                   ? '내가 원하는 선물을\n지금 바로 등록해보세요'
                   : '카카오로 5초만에 로그인하고\n바로 시작해볼까요?'}
               </span>
@@ -191,9 +193,11 @@ export default function Home() {
                 type="button"
                 color="secondary"
                 className={style.login_button}
-                onClick={() => (token ? router.push('/funding/create/1') : setIsOpen(true))}
+                onClick={() =>
+                  getLoacalStorage('@token') ? router.push('/funding/create/1') : setIsOpen(true)
+                }
               >
-                {token ? '내 펀딩 만들러 가기' : '지금 시작하기'}
+                {getLoacalStorage('@token') ? '내 펀딩 만들러 가기' : '지금 시작하기'}
               </Button>
             </div>
           </div>

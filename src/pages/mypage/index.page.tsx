@@ -9,14 +9,14 @@ import ParticipatedFundingIcon from '@assets/images/participated_funding.svg';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import * as style from './styles';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { tokenState, userState } from '@store/store';
+import { useRecoilValue } from 'recoil';
+import { userState } from '@store/store';
 import { useLogout } from '@hooks/queries/useAuth';
+import { getLoacalStorage } from '@store/localStorage';
 
 const MyPage = () => {
   const router = useRouter();
   const user = useRecoilValue(userState);
-  const [token, setToken] = useRecoilState(tokenState);
   const image = '';
   const { mutate } = useLogout();
 
@@ -52,7 +52,9 @@ const MyPage = () => {
           <Button
             color="primary"
             className={style.button}
-            onClick={() => (token ? router.push('/funding/create/1') : router.push('/'))}
+            onClick={() =>
+              getLoacalStorage('@token') ? router.push('/funding/create/1') : router.push('/')
+            }
           >
             내 펀딩 만들러 가기 <GoIcon />
           </Button>

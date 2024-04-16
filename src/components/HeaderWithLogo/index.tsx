@@ -3,8 +3,9 @@ import UserIcon from '@assets/icons/user.svg';
 import { css } from 'styled-system/css';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
-import { tokenState, userState } from '@store/store';
+import { userState } from '@store/store';
 import Profile from '@components/common/Profile';
+import { getLoacalStorage } from '@store/localStorage';
 
 interface HeaderWithLogoProps {
   onOpen: () => void;
@@ -12,7 +13,7 @@ interface HeaderWithLogoProps {
 
 const HeaderWithLogo = ({ onOpen }: HeaderWithLogoProps) => {
   const router = useRouter();
-  const token = useRecoilValue(tokenState);
+  const token = getLoacalStorage('@token');
   const user = useRecoilValue(userState);
 
   return (
