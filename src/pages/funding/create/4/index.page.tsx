@@ -68,8 +68,6 @@ export default function CreatFundStep4() {
   }, []);
 
   const handleCreateFundSubmit = () => {
-    setIsButtonClicked(true);
-
     setNewFund({
       ...newFund,
       roadAddress: getValues('address'),
@@ -89,6 +87,8 @@ export default function CreatFundStep4() {
   };
 
   const handleNext = () => {
+    setIsButtonClicked(true);
+
     handleCreateFund(
       { data: newFund },
       {
@@ -99,6 +99,9 @@ export default function CreatFundStep4() {
             setNewFund({ ...newFund, imageUrl: data.imageUrl });
             setIsModalOpen(true);
           }
+        },
+        onError: error => {
+          throw error;
         },
       },
     );
@@ -150,7 +153,7 @@ export default function CreatFundStep4() {
                   if (fundId) {
                     router.push('/funding/' + fundId);
                   } else {
-                    // 잘못된 접근이라도 에러 띄우기
+                    alert('잘못된 접근입니다.');
                   }
                 }}
               >
