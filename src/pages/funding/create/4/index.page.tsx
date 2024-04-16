@@ -37,7 +37,6 @@ export default function CreatFundStep4() {
   const [fundId, setFundId] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isButtonClicked, setIsButtonClicked] = useState(false);
   const { mutate: handleCreateFund } = useCreateFunding();
   //const [currentHeight, setCurrentHeight] = useState(window.innerHeight);
 
@@ -47,7 +46,7 @@ export default function CreatFundStep4() {
     setValue,
     getValues,
     watch,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<FormInputs>();
 
   useEffect(() => {
@@ -87,29 +86,28 @@ export default function CreatFundStep4() {
   };
 
   const handleNext = () => {
-    setIsButtonClicked(true);
-
-    handleCreateFund(
-      { data: newFund },
-      {
-        onSuccess: data => {
-          if (data) {
-            console.log(data);
-            setFundId(data.id);
-            setNewFund({ ...newFund, imageUrl: data.imageUrl });
-            setIsModalOpen(true);
-          }
+    if (isSubmitting) {
+      handleCreateFund(
+        { data: newFund },
+        {
+          onSuccess: data => {
+            if (data) {
+              console.log(data);
+              setFundId(data.id);
+              setNewFund({ ...newFund, imageUrl: data.imageUrl });
+              setIsModalOpen(true);
+            }
+          },
+          onError: error => {
+            throw error;
+          },
         },
-        onError: error => {
-          throw error;
-        },
-      },
-    );
+      );
+    }
   };
 
   const handleShareKakao = () => {
     shareKakao({ username: user.name, imageUrl: newFund.imageUrl, fundId: String(fundId) });
-    setIsButtonClicked(false);
   };
 
   const Buttons = () => {
@@ -118,18 +116,18 @@ export default function CreatFundStep4() {
         <Button
           type="submit"
           className={css({ width: '12.4rem' })}
-          color={isButtonClicked ? 'disabled' : 'primary'}
-          disabled={isButtonClicked}
+          color={isSubmitting ? 'disabled' : 'primary'}
+          disabled={isSubmitting}
         >
           나중에 입력
         </Button>
         <Button
           type="submit"
           className={css({ width: '19.1rem' })}
-          color={isButtonClicked ? 'disabled' : 'secondary'}
-          disabled={isButtonClicked}
+          color={isSubmitting ? 'disabled' : 'secondary'}
+          disabled={isSubmitting}
         >
-          {isButtonClicked ? <Spinner size="sm" /> : '등록 완료'}
+          {isSubmitting ? <Spinner size="sm" /> : '등록 완료'}
         </Button>
       </>
     );
