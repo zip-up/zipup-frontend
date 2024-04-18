@@ -40,5 +40,6 @@ next-env.d.ts
 styled-system
 styled-system-studio
 
-## ssl certificate
-/cert
+## local cert, key file
+localhost-key.pem
+localhost.pem
