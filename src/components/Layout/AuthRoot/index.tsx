@@ -3,16 +3,15 @@ import { userState } from '@store/store';
 import { css } from 'styled-system/css';
 import { PropsWithChildren, useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { setLocalStorage } from '@store/localStorage';
+import { getLoacalStorage } from '@store/localStorage';
 
 export default function AuthRoot({ children }: PropsWithChildren) {
   const setUser = useSetRecoilState(userState);
 
   useEffect(() => {
-    const token = localStorage.getItem('@token');
-    const user = JSON.parse(localStorage.getItem('@user') as string);
+    const token = getLoacalStorage('@token');
+    const user = getLoacalStorage('@user');
     if (token) {
-      setLocalStorage('@token', token);
       setUser(user);
     }
   }, []);
