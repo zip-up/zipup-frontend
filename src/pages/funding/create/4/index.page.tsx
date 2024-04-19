@@ -25,14 +25,14 @@ import { PrivacyTerm, PurchaseTerm } from '@constants/terms';
 import { infoContainer } from '@components/Term/styles';
 
 interface FormInputs extends TermsCheckFlags {
-  address: string;
+  roadAddress: string;
   detailAddress: string;
-  phone: string;
+  phoneNumber: string;
 }
 
 export default function CreatFundStep4() {
   const router = useRouter();
-  const [newFund, setNewFund] = useRecoilState(createFundState);
+  const [newFunding, setNewFunding] = useRecoilState(createFundState);
   const user = useRecoilValue(userState);
   const [fundId, setFundId] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
@@ -44,18 +44,9 @@ export default function CreatFundStep4() {
     register,
     handleSubmit,
     setValue,
-    getValues,
     watch,
     formState: { errors, isSubmitting },
   } = useForm<FormInputs>();
-
-  useEffect(() => {
-    if (newFund) {
-      setValue('address', newFund.roadAddress);
-      setValue('detailAddress', newFund.detailAddress);
-      setValue('phone', newFund.phoneNumber);
-    }
-  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -66,15 +57,24 @@ export default function CreatFundStep4() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleCreateFundSubmit = () => {
-    setNewFund({
-      ...newFund,
-      roadAddress: getValues('address'),
-      detailAddress: getValues('detailAddress'),
-      phoneNumber: !getValues('phone') ? '' : String(getValues('phone')),
-    });
+  const handleCreateFundSubmit = (step4FormData: FormInputs) => {
+    const totalFormInputData = { ...newFunding, ...step4FormData };
 
-    handleNext();
+    setNewFunding(totalFormInputData);
+
+    handleCreateFund(
+      { data: totalFormInputData },
+      {
+        onSuccess: data => {
+          setFundId(data.id);
+          setNewFunding(prevFundingData => ({ ...prevFundingData, imageUrl: data.imageUrl }));
+          setIsModalOpen(true);
+        },
+        onError: error => {
+          throw error;
+        },
+      },
+    );
   };
 
   const handleSubmitError: SubmitErrorHandler<FormInputs> = errors => {
@@ -85,29 +85,8 @@ export default function CreatFundStep4() {
     }
   };
 
-  const handleNext = () => {
-    if (isSubmitting) {
-      handleCreateFund(
-        { data: newFund },
-        {
-          onSuccess: data => {
-            if (data) {
-              console.log(data);
-              setFundId(data.id);
-              setNewFund({ ...newFund, imageUrl: data.imageUrl });
-              setIsModalOpen(true);
-            }
-          },
-          onError: error => {
-            throw error;
-          },
-        },
-      );
-    }
-  };
-
   const handleShareKakao = () => {
-    shareKakao({ username: user.name, imageUrl: newFund.imageUrl, fundId: String(fundId) });
+    shareKakao({ username: user.name, imageUrl: newFunding.imageUrl, fundId: String(fundId) });
   };
 
   const Buttons = () => {
@@ -132,7 +111,7 @@ export default function CreatFundStep4() {
       </>
     );
   };
-
+  console.log(isSubmitting);
   return (
     <PageLayout>
       {isModalOpen && (
@@ -181,11 +160,11 @@ export default function CreatFundStep4() {
           <input
             className={cx(
               style.input_shape,
-              css({ color: !getValues('address') ? 'text.200' : 'text.100' }),
+              css({ color: !watch('roadAddress') ? 'text.200' : 'text.100' }),
             )}
             readOnly
             placeholder="주소 검색하기"
-            {...register('address')}
+            {...register('roadAddress')}
           />
           <button type="button" className={style.pointer}>
             <SearchIcon />
@@ -214,16 +193,16 @@ export default function CreatFundStep4() {
             style.input,
             css({
               borderWidth: '0.1rem',
-              borderColor: errors.phone ? 'error' : 'bg.300',
+              borderColor: errors.phoneNumber ? 'error' : 'bg.300',
             }),
           )}
           placeholder="목표 달성 시 입력한 번호로 배송을 안내해드려요."
-          {...register('phone', {
+          {...register('phoneNumber', {
             valueAsNumber: true,
             required: '필수 항목을 입력하지 않았습니다.',
           })}
         />
-        <p className={style.error_text}>{errors.phone ? errors.phone.message : ''}</p>
+        <p className={style.error_text}>{errors.phoneNumber ? errors.phoneNumber.message : ''}</p>
 
         <div className={infoContainer}>
           <Term
@@ -252,7 +231,7 @@ export default function CreatFundStep4() {
 
       {isOpen && (
         <AddressModal
-          onSetAddress={text => setValue('address', text)}
+          onSetAddress={text => setValue('roadAddress', text)}
           onClose={() => setIsOpen(false)}
         />
       )}
