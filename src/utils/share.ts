@@ -1,11 +1,25 @@
 interface ShareKakaoProps {
   username: string;
   imageUrl: string;
-  fundId: string;
+  fundId: number;
 }
 
+const registerKakaoKey = () => {
+  if (window.Kakao) {
+    const kakao = window.Kakao;
+
+    if (!kakao.isInitialized()) {
+      kakao.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY);
+    }
+
+    return kakao;
+  }
+
+  return null;
+};
+
 export const shareKakao = ({ username, imageUrl, fundId }: ShareKakaoProps) => {
-  const kakao = window.Kakao;
+  const kakao = registerKakaoKey();
   if (!kakao) throw new Error('카카오톡을 열 수 없습니다.');
 
   const url = `https://zip-up.vercel.app/funding/${fundId}`;
