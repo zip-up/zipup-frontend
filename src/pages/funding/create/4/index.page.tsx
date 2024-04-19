@@ -37,7 +37,14 @@ export default function CreatFundStep4() {
   const [fundId, setFundId] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { mutate: handleCreateFund } = useCreateFunding();
+  const { mutate: createFunding } = useCreateFunding(createdFundingData => {
+    setFundId(createdFundingData.id);
+    setNewFunding(prevFundingData => ({
+      ...prevFundingData,
+      imageUrl: createdFundingData.imageUrl,
+    }));
+    setIsModalOpen(true);
+  });
   //const [currentHeight, setCurrentHeight] = useState(window.innerHeight);
 
   const {
@@ -57,24 +64,14 @@ export default function CreatFundStep4() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleCreateFundSubmit = (step4FormData: FormInputs) => {
+  const handleCreateFundSubmit = async (step4FormData: FormInputs) => {
     const totalFormInputData = { ...newFunding, ...step4FormData };
 
     setNewFunding(totalFormInputData);
 
-    handleCreateFund(
-      { data: totalFormInputData },
-      {
-        onSuccess: data => {
-          setFundId(data.id);
-          setNewFunding(prevFundingData => ({ ...prevFundingData, imageUrl: data.imageUrl }));
-          setIsModalOpen(true);
-        },
-        onError: error => {
-          throw error;
-        },
-      },
-    );
+    createFunding({
+      data: totalFormInputData,
+    });
   };
 
   const handleSubmitError: SubmitErrorHandler<FormInputs> = errors => {
