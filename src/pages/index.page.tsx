@@ -68,7 +68,7 @@ export default function Home() {
       const { accessToken, ...rest } = data;
       setUser(rest);
       setLocalStorage('@token', accessToken);
-      localStorage.setItem('@user', JSON.stringify(rest));
+      setLocalStorage('@user', JSON.stringify(rest));
       router.push('/');
     }
   }, [data]);
