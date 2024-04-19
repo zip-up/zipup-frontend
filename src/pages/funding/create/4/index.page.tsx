@@ -38,7 +38,7 @@ export default function CreatFundStep4() {
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { mutate: createFunding } = useCreateFunding(createdFundingData => {
-    setFundId(createdFundingData.id);
+    setFundId(Number(createdFundingData.id));
     setNewFunding(prevFundingData => ({
       ...prevFundingData,
       imageUrl: createdFundingData.imageUrl,
@@ -83,7 +83,7 @@ export default function CreatFundStep4() {
   };
 
   const handleShareKakao = () => {
-    shareKakao({ username: user.name, imageUrl: newFunding.imageUrl, fundId: String(fundId) });
+    shareKakao({ username: user.name, imageUrl: newFunding.imageUrl, fundId: fundId });
   };
 
   const Buttons = () => {
