@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable @next/next/no-sync-scripts */
 /* eslint-disable react-hooks/exhaustive-deps */
 import Head from 'next/head';
@@ -18,7 +19,6 @@ import TargetImage from '@assets/images/funding_target_image.svg';
 import LoginModal from '@components/modals/LoginModal';
 import Spinner from '@components/common/Spinner';
 import Header from '@components/common/Header';
-import Image from 'next/image';
 import { getLoacalStorage, setLocalStorage } from '@store/localStorage';
 
 const descData = [
@@ -132,7 +132,7 @@ export default function Home() {
 
       <div className={style.wrapper}>
         <div className={style.image}>
-          <Image src="/home-image.png" alt="home-image" width={245} height={236} />
+          <img src="/home.png" alt="home" width={245} height={236} />
         </div>
         {!isBrowsingService && (
           <>
