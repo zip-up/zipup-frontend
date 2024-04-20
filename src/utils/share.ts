@@ -7,7 +7,7 @@ interface ShareKakaoProps {
 export const shareKakao = ({ username, imageUrl, fundId }: ShareKakaoProps) => {
   if (!window.Kakao) throw new Error('카카오톡 실행에 오류가 발생했습니다.');
 
-  const url = 'https://zip-up.vercel.app/funding/';
+  const url = 'https://zip-up.vercel.appfunding/';
 
   window.Kakao.Share?.sendDefault({
     objectType: 'feed',

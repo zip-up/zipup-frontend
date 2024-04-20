@@ -37,7 +37,6 @@ export default function CreatFundStep4() {
   const [fundId, setFundId] = useState<string>('');
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSubmit, setIsSubmit] = useState(false);
 
   const { mutate: createFunding } = useCreateFunding(createdFundingData => {
     setFundId(createdFundingData.id);
@@ -45,7 +44,6 @@ export default function CreatFundStep4() {
       ...prevFundingData,
       imageUrl: createdFundingData.imageUrl,
     }));
-    setIsSubmit(false);
     setIsModalOpen(true);
   });
   //const [currentHeight, setCurrentHeight] = useState(window.innerHeight);
@@ -55,7 +53,7 @@ export default function CreatFundStep4() {
     handleSubmit,
     setValue,
     watch,
-    formState: { errors },
+    formState: { errors, isSubmitted },
   } = useForm<FormInputs>();
 
   useEffect(() => {
@@ -68,7 +66,6 @@ export default function CreatFundStep4() {
   }, []);
 
   const handleCreateFundSubmit = async (step4FormData: FormInputs) => {
-    setIsSubmit(true);
     const totalFormInputData = { ...newFunding, ...step4FormData };
 
     setNewFunding(totalFormInputData);
@@ -96,23 +93,23 @@ export default function CreatFundStep4() {
         <Button
           type="submit"
           className={css({ width: '12.4rem' })}
-          color={isSubmit ? 'disabled' : 'primary'}
-          disabled={isSubmit}
+          color={isSubmitted ? 'disabled' : 'primary'}
+          disabled={isSubmitted}
         >
           나중에 입력
         </Button>
         <Button
           type="submit"
           className={css({ width: '19.1rem' })}
-          color={isSubmit ? 'disabled' : 'secondary'}
-          disabled={isSubmit}
+          color={isSubmitted ? 'disabled' : 'secondary'}
+          disabled={isSubmitted}
         >
-          {isSubmit ? <Spinner size="sm" /> : '등록 완료'}
+          {isSubmitted ? <Spinner size="sm" /> : '등록 완료'}
         </Button>
       </>
     );
   };
-  console.log(isSubmit);
+
   return (
     <PageLayout>
       {isModalOpen && (
