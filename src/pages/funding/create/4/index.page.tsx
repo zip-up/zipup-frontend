@@ -34,15 +34,18 @@ export default function CreatFundStep4() {
   const router = useRouter();
   const [newFunding, setNewFunding] = useRecoilState(createFundState);
   const user = useRecoilValue(userState);
-  const [fundId, setFundId] = useState(0);
+  const [fundId, setFundId] = useState<string>('');
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSubmit, setIsSubmit] = useState(false);
+
   const { mutate: createFunding } = useCreateFunding(createdFundingData => {
-    setFundId(Number(createdFundingData.id));
+    setFundId(createdFundingData.id);
     setNewFunding(prevFundingData => ({
       ...prevFundingData,
       imageUrl: createdFundingData.imageUrl,
     }));
+    setIsSubmit(false);
     setIsModalOpen(true);
   });
   //const [currentHeight, setCurrentHeight] = useState(window.innerHeight);
@@ -52,7 +55,7 @@ export default function CreatFundStep4() {
     handleSubmit,
     setValue,
     watch,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<FormInputs>();
 
   useEffect(() => {
@@ -65,6 +68,7 @@ export default function CreatFundStep4() {
   }, []);
 
   const handleCreateFundSubmit = async (step4FormData: FormInputs) => {
+    setIsSubmit(true);
     const totalFormInputData = { ...newFunding, ...step4FormData };
 
     setNewFunding(totalFormInputData);
@@ -92,23 +96,23 @@ export default function CreatFundStep4() {
         <Button
           type="submit"
           className={css({ width: '12.4rem' })}
-          color={isSubmitting ? 'disabled' : 'primary'}
-          disabled={isSubmitting}
+          color={isSubmit ? 'disabled' : 'primary'}
+          disabled={isSubmit}
         >
           나중에 입력
         </Button>
         <Button
           type="submit"
           className={css({ width: '19.1rem' })}
-          color={isSubmitting ? 'disabled' : 'secondary'}
-          disabled={isSubmitting}
+          color={isSubmit ? 'disabled' : 'secondary'}
+          disabled={isSubmit}
         >
-          {isSubmitting ? <Spinner size="sm" /> : '등록 완료'}
+          {isSubmit ? <Spinner size="sm" /> : '등록 완료'}
         </Button>
       </>
     );
   };
-  console.log(isSubmitting);
+  console.log(isSubmit);
   return (
     <PageLayout>
       {isModalOpen && (

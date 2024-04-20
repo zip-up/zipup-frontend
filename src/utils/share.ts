@@ -1,13 +1,13 @@
 interface ShareKakaoProps {
   username: string;
   imageUrl: string;
-  fundId: number;
+  fundId: string;
 }
 
 export const shareKakao = ({ username, imageUrl, fundId }: ShareKakaoProps) => {
   if (!window.Kakao) throw new Error('카카오톡 실행에 오류가 발생했습니다.');
 
-  const url = `https://zip-up.vercel.app/funding/${fundId}`;
+  const url = 'https://zip-up.vercel.app/funding/';
 
   window.Kakao.Share?.sendDefault({
     objectType: 'feed',
@@ -16,7 +16,7 @@ export const shareKakao = ({ username, imageUrl, fundId }: ShareKakaoProps) => {
       description: '집업에서 선물 펀딩에 함께해주세요!',
       imageUrl,
       link: {
-        mobileWebUrl: url,
+        mobileWebUrl: url + fundId,
       },
     },
     installTalk: true,
