@@ -18,7 +18,7 @@ export default function Funding() {
   const { id: fundingId } = router.query as { id: string };
   const { data: user } = useUser();
 
-  const { data: fundingInfo } = useGetFundingDeatil(String(fundingId));
+  const { data: fundingInfo } = useGetFundingDeatil(fundingId);
   const [isModalOn, setIsModalOn] = useState(false);
 
   if (!fundingInfo || !user) return null;
