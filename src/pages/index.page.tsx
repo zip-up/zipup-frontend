@@ -6,8 +6,6 @@ import Button from '@components/common/Button';
 import * as style from './style';
 import { useEffect, useState } from 'react';
 import HeaderWithLogo from '@components/HeaderWithLogo';
-import { useSetRecoilState } from 'recoil';
-import { userState } from '@store/store';
 import { useRouter } from 'next/router';
 import { useLogIn } from '@hooks/queries/useAuth';
 import { css, cx } from 'styled-system/css';
@@ -50,7 +48,6 @@ const descData = [
 
 export default function Home() {
   const router = useRouter();
-  const setUser = useSetRecoilState(userState);
   const [isOpen, setIsOpen] = useState(false);
   const [code, setCode] = useState('');
   const [isBrowsingService, setIsBrowsingService] = useState(false);
@@ -64,19 +61,14 @@ export default function Home() {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
-      const { accessToken, ...rest } = data;
-      setUser(rest);
+      const { accessToken, ...userData } = data;
+
       setLocalStorage('@token', accessToken);
-      setLocalStorage('@user', JSON.stringify(rest));
+      setLocalStorage('@user', userData);
+
       router.push('/');
     }
   }, [data]);
-
-  const handleLogin = async () => {
-    window.location.href =
-      process.env.NEXT_PUBLIC_BASE_URL.slice(0, -4) + '/oauth2/authorization/kakao';
-  };
 
   return (
     <>
@@ -93,7 +85,7 @@ export default function Home() {
           `}
         </style>
       </Head>
-      {isOpen && <LoginModal onClose={() => setIsOpen(false)} onClick={handleLogin} />}
+      {isOpen && <LoginModal onClose={() => setIsOpen(false)} />}
 
       {isBrowsingService ? (
         <Header onGoBack={() => setIsBrowsingService(false)} />
@@ -137,17 +129,17 @@ export default function Home() {
         {!isBrowsingService && (
           <>
             <Button
-              color={isLoading ? 'disabled' : 'primary'}
+              color="primary"
               disabled={isLoading}
               onClick={() =>
                 getLoacalStorage('@token') ? router.push('/funding/create/1') : setIsOpen(true)
               }
               isBottomFixed
-              className={css({ bottom: '90px' })}
+              position="first"
             >
               {isLoading ? <Spinner size="sm" /> : '내 펀딩을 만들어볼까요?'}
             </Button>
-            <Button color="secondary" onClick={() => setIsBrowsingService(true)} isBottomFixed>
+            <Button onClick={() => setIsBrowsingService(true)} isBottomFixed>
               서비스를 둘러볼게요
             </Button>
           </>
@@ -190,8 +182,6 @@ export default function Home() {
                   : '카카오로 5초만에 로그인하고\n바로 시작해볼까요?'}
               </span>
               <Button
-                type="button"
-                color="secondary"
                 className={style.login_button}
                 onClick={() =>
                   getLoacalStorage('@token') ? router.push('/funding/create/1') : setIsOpen(true)

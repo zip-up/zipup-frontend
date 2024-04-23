@@ -9,7 +9,7 @@ const nextConfig = {
 
     return config;
   },
-  pageExtensions: ['page.tsx', 'page.ts'],
+  pageExtensions: ['page.tsx', 'page.ts', 'auth.ts'],
   eslint: {
     ignoreDuringBuilds: true,
   },

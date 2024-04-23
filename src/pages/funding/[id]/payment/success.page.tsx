@@ -68,9 +68,9 @@ export default function Success({ fundingId, orderId, amount, paymentId }: Succe
 
   return (
     <div className={commonStyle.container}>
-      <h1>
+      <h1 className={style.headTitle}>
         펀딩 참여가
-        <span className={style.colorText({ color: 'blue', objective: 'title' })}>완료</span>
+        <span className={style.colorText({ color: 'blue', objective: 'title' })}> 완료</span>
         되었어요
       </h1>
       <div className={commonStyle.subTitle}>

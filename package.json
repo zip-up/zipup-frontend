@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "prepare": "panda codegen",
-    "init-https": "sh init-https.sh",
-    "dev": "node server.js",
+    "dev": "next dev --experimental-https",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

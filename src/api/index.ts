@@ -1,6 +1,7 @@
 import { getLoacalStorage, setLocalStorage } from '@store/localStorage';
 import axios from 'axios';
 import { getNewToken } from './auth';
+import Cookies from 'js-cookie';
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -8,6 +9,12 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 export const InstanceWithToken = axios.create({
   withCredentials: true,
   headers: { Authorization: `Bearer ${getLoacalStorage('@token')}` },
+});
+
+InstanceWithToken.interceptors.request.use(config => {
+  config.headers.Authorization = `Bearer ${getLoacalStorage('@token')}`;
+
+  return config;
 });
 
 InstanceWithToken.interceptors.response.use(
@@ -28,6 +35,7 @@ InstanceWithToken.interceptors.response.use(
         originalRequest.headers.Authorization = `Bearer ${accessToken}`;
         InstanceWithToken.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
         setLocalStorage('@token', accessToken);
+        Cookies.set('token', accessToken);
 
         return InstanceWithToken(originalRequest);
       } catch (error) {

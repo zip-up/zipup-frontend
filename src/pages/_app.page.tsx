@@ -4,7 +4,6 @@ import '@styles/globals.css';
 import { RecoilRoot } from 'recoil';
 import Layout from '@components/Layout';
 import ReactQueryClient from '@contexts/ReactQueryContext';
-import AuthRoot from '@components/Layout/AuthRoot';
 import { useEffect } from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -17,10 +16,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <Layout>
       <RecoilRoot>
-        <AuthRoot>
-          <ReactQueryClient>
-            <Component {...pageProps} />
-            {/* <ToastContainer
+        <ReactQueryClient>
+          <Component {...pageProps} />
+          {/* <ToastContainer
               position="bottom-center"
               autoClose={3000}
               hideProgressBar={false}
@@ -28,8 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
               rtl={false}
               theme="light"
             /> */}
-          </ReactQueryClient>
-        </AuthRoot>
+        </ReactQueryClient>
       </RecoilRoot>
     </Layout>
   );

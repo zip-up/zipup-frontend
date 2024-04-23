@@ -129,10 +129,6 @@ const login_text = css({
 });
 
 const login_button = css({
-  height: '5.2rem',
-  width: '100%',
-  fontWeight: '600',
-  fontFamily: 'pretendard-semibold',
   marginBottom: '3.2rem',
 });
 
