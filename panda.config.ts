@@ -38,6 +38,7 @@ export default defineConfig({
             sky: { value: '#22CEFF' },
             green: { value: '#9BE180' },
             black: { value: '#1E2025' },
+            yellow: { value: '#FFE558' },
           },
           blue: {
             10: { value: '#E0F5FF' },

@@ -1,3 +1,4 @@
+import { MODAL_PADDING_VALUE_ONLY, MODAL_PADDING_WITH_UNIT } from '@components/common/Modal/styles';
 import { css } from 'styled-system/css';
 
 const top_box = css({
@@ -36,7 +37,8 @@ const subtitle = css({
 });
 
 const button_box = css({
-  width: '100%',
+  w: `calc(100% - ${MODAL_PADDING_VALUE_ONLY * 2}rem)`,
+  mt: '2.5rem',
 });
 
 export { top_box, image_box, image, title, subtitle, button_box };

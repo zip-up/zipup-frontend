@@ -5,24 +5,23 @@ import { useEffect, useState } from 'react';
 import { SubmitErrorHandler, useForm } from 'react-hook-form';
 import * as style from '../styles';
 import { css, cx } from 'styled-system/css';
-
 import SearchIcon from '@assets/icons/search.svg';
 import AddressModal from '@components/modals/AddressModal';
 import { useRouter } from 'next/router';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import GiftIcon from '@assets/icons/gift-icon.svg';
 import ProgressBar from '@components/common/ProgressBar';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { createFundState, userState } from '@store/store';
+import { useRecoilState } from 'recoil';
+import { createFundState } from '@store/store';
 import { useCreateFunding } from '@hooks/queries/useCreateFunding';
-import PageLayout from '@components/Layout/pageLayout';
 import Spinner from '@components/common/Spinner';
-import { flex } from 'styled-system/patterns';
-import { shareKakao } from '@utils/share';
 import Term from '@components/Term';
 import { TermsCheckFlags } from '@typings/term';
 import { PrivacyTerm, PurchaseTerm } from '@constants/terms';
 import { infoContainer } from '@components/Term/styles';
+import { button } from '@components/common/Button/styles';
+import { shareKakao } from '@utils/share';
+import { useUser } from '@hooks/queries/useAuth';
 
 interface FormInputs extends TermsCheckFlags {
   roadAddress: string;
@@ -33,12 +32,12 @@ interface FormInputs extends TermsCheckFlags {
 export default function CreatFundStep4() {
   const router = useRouter();
   const [newFunding, setNewFunding] = useRecoilState(createFundState);
-  const user = useRecoilValue(userState);
+  const { data: user } = useUser();
   const [fundId, setFundId] = useState<string>('');
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { mutate: createFunding } = useCreateFunding(createdFundingData => {
+  const { mutate: createFunding, isPending } = useCreateFunding(createdFundingData => {
     setFundId(createdFundingData.id);
     setNewFunding(prevFundingData => ({
       ...prevFundingData,
@@ -53,7 +52,7 @@ export default function CreatFundStep4() {
     handleSubmit,
     setValue,
     watch,
-    formState: { errors, isSubmitted },
+    formState: { errors },
   } = useForm<FormInputs>();
 
   useEffect(() => {
@@ -84,45 +83,35 @@ export default function CreatFundStep4() {
   };
 
   const handleShareKakao = () => {
-    shareKakao({ username: user.name, imageUrl: newFunding.imageUrl, fundId: fundId });
+    shareKakao({ userName: user?.name || '', imageUrl: newFunding.imageUrl, fundingId: fundId });
   };
 
   const Buttons = () => {
     return (
       <>
-        <Button
-          type="submit"
-          className={css({ width: '12.4rem' })}
-          color={isSubmitted ? 'disabled' : 'primary'}
-          disabled={isSubmitted}
-        >
+        <Button className={css({ width: '12.6rem' })} color="primary" disabled={isPending}>
           나중에 입력
         </Button>
-        <Button
-          type="submit"
-          className={css({ width: '19.1rem' })}
-          color={isSubmitted ? 'disabled' : 'secondary'}
-          disabled={isSubmitted}
-        >
-          {isSubmitted ? <Spinner size="sm" /> : '등록 완료'}
+        <Button type="submit" className={css({ width: '19.1rem' })} disabled={isPending}>
+          {isPending ? <Spinner size="sm" /> : '등록 완료'}
         </Button>
       </>
     );
   };
 
   return (
-    <PageLayout>
+    <>
       {isModalOpen && (
         <ModalWithIcon
           width="31.7rem"
           onClose={() => setIsModalOpen(false)}
-          title="펀딩 등록을 완료되었어요."
+          title="펀딩 등록이 완료되었어요."
           subtitle="내 펀딩을 친구들에게 공유해볼까요?"
           buttonComponent={
             <div className={style.modal_button_wrapper}>
               <Button
                 color="primary"
-                style={{ width: '10.9rem' }}
+                size="regular"
                 onClick={() => {
                   setIsModalOpen(false);
                   if (fundId) {
@@ -134,7 +123,7 @@ export default function CreatFundStep4() {
               >
                 내 펀딩 보기
               </Button>
-              <Button color="secondary" style={{ width: '16.8rem' }} onClick={handleShareKakao}>
+              <Button size="regular" style={{ width: '16rem' }} onClick={handleShareKakao}>
                 친구에게 공유하기
               </Button>
             </div>
@@ -219,7 +208,8 @@ export default function CreatFundStep4() {
 
         <div
           className={cx(
-            flex({ justifyContent: 'center', gap: '0.8rem' }),
+            button({ isBottomFixed: true, position: 'last' }),
+            css({ gap: '1.2rem' }),
             //      currentHeight <= 680 ? wrapper : buttons,
           )}
         >
@@ -233,7 +223,7 @@ export default function CreatFundStep4() {
           onClose={() => setIsOpen(false)}
         />
       )}
-    </PageLayout>
+    </>
   );
 }
 

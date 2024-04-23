@@ -11,6 +11,7 @@ const usePaymentWidget = (clientKey: string, customerKey: string) => {
 
       return paymentWidget;
     },
+    enabled: !!customerKey,
   });
 };
 

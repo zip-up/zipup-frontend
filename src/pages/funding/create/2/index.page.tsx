@@ -94,7 +94,7 @@ export default function CreatFundStep2() {
         </div>
         {errors.textMessage && <p className={style.error_text}>{errors.textMessage.message}</p>}
 
-        <Button type="submit" className={style.button} color="secondary">
+        <Button type="submit" isBottomFixed>
           다음
         </Button>
       </form>

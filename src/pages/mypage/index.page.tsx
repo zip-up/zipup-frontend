@@ -9,15 +9,13 @@ import ParticipatedFundingIcon from '@assets/images/participated_funding.svg';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import * as style from './styles';
-import { useRecoilValue } from 'recoil';
-import { userState } from '@store/store';
-import { useLogout } from '@hooks/queries/useAuth';
+import { useLogout, useUser } from '@hooks/queries/useAuth';
 import { getLoacalStorage } from '@store/localStorage';
 
 const MyPage = () => {
   const router = useRouter();
-  const user = useRecoilValue(userState);
-  const image = '';
+
+  const { data: user } = useUser();
   const { mutate } = useLogout();
 
   const handleLogout = () => {
@@ -35,14 +33,14 @@ const MyPage = () => {
         <div className={style.profile_box}>
           <div className={style.info_box}>
             <div className={style.avatar}>
-              {image ? (
+              {user?.profileImage ? (
                 <Image src={user.profileImage} alt="profile image" width={42} height={42} />
               ) : (
                 <UserIcon />
               )}
             </div>
             <div className={style.name_box}>
-              <span className={style.name}>{user.name}</span>
+              <span className={style.name}>{user?.name}</span>
               <span>님</span>
             </div>
             <button className={style.logout} onClick={handleLogout}>

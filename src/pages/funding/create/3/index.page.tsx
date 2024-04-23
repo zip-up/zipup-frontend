@@ -84,7 +84,7 @@ export default function CreateFundStep3() {
           {errors.due && !watch('due') && <p className={style.error_text}>{errors.due.message}</p>}
         </div>
 
-        <Button type="submit" className={style.button} color="secondary">
+        <Button type="submit" isBottomFixed>
           다음
         </Button>
       </form>

@@ -82,11 +82,7 @@ export default function CreatFundStep1() {
               >
                 취소하기
               </Button>
-              <Button
-                color="secondary"
-                style={{ width: '16.8rem' }}
-                onClick={() => setIsOpen(false)}
-              >
+              <Button style={{ width: '16.8rem' }} onClick={() => setIsOpen(false)}>
                 계속 작성하기
               </Button>
             </div>
@@ -139,7 +135,7 @@ export default function CreatFundStep1() {
           <InfoIcon />
           <span className={title}>설정하신 목표 금액을 확인하고 최종 금액을 안내드릴게요.</span>
         </div>
-        <Button type="submit" className={style.button} color="secondary">
+        <Button type="submit" isBottomFixed>
           다음
         </Button>
       </form>

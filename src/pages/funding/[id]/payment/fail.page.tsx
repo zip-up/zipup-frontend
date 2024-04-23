@@ -41,7 +41,7 @@ export default function Fail({ fundingId, code, message }: FailProps) {
         </div>
       </div>
 
-      <Image src="/payment_fail.png" alt="s" width={290} height={320} />
+      <Image src="/payment_fail.png" alt="결제 실패 이미지" width={290} height={320} />
       <Link href={`/funding/${fundingId}`} className={cx(commonStyle.buttonLink, css({ mt: 0 }))}>
         돌아가기
       </Link>

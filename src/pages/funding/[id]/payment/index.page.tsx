@@ -5,19 +5,21 @@ import { nanoid } from 'nanoid';
 import Button from '@components/common/Button';
 import { css } from 'styled-system/css';
 import { useRecoilState } from 'recoil';
-import { fundingFormState, userState } from '@store/store';
+import { fundingFormState } from '@store/store';
 import { useGetFundingDeatil } from '@hooks/queries/useFunding';
+import { useUser } from '@hooks/queries/useAuth';
 
 export default function Payment() {
   const router = useRouter();
   const [fundingForm] = useRecoilState(fundingFormState);
-  const [userInfo] = useRecoilState(userState);
+  const { data: user } = useUser();
 
   const { id: fundingId } = router.query as { id: string };
-  const { data: fundingInfo } = useGetFundingDeatil(fundingId, userInfo.id);
+
+  const { data: fundingInfo } = useGetFundingDeatil(fundingId);
 
   const widgetClientKey = process.env.NEXT_PUBLIC_CLIENT_KEY;
-  const customerKey = userInfo.id;
+  const customerKey = user?.id || '';
 
   const { data: paymentWidget } = usePaymentWidget(widgetClientKey, customerKey);
 
@@ -28,7 +30,7 @@ export default function Payment() {
       paymentWidget,
       fundingId,
       orderId,
-      customerName: userInfo.name,
+      customerName: user?.name || '',
       orderName: fundingInfo?.title || '',
     }),
   );
@@ -50,10 +52,6 @@ export default function Payment() {
       <div id="payment-widget" />
       <div id="agreement" />
       <Button
-        type="button"
-        color="secondary"
-        className={css({ mt: '5rem' })}
-        wFull
         isBottomFixed
         onClick={() => {
           storeOrderInfo({
