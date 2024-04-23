@@ -5,9 +5,10 @@ import { button } from '@components/common/Button/styles';
 const container = vstack({
   m: '0 auto',
   h: '100%',
-  justifyContent: 'center',
   alignItems: 'center',
   p: '1.6rem',
+  mt: '6rem',
+  height: 'calc(100vh - 6rem)',
 });
 
 const headTitle = css({
