@@ -11,6 +11,7 @@ import { useState } from 'react';
 import LoginModal from '@components/modals/LoginModal';
 import { useRecoilValue } from 'recoil';
 import { userState } from '@store/store';
+import { getLoacalStorage } from '@store/localStorage';
 
 export default function Funding() {
   const router = useRouter();
@@ -18,7 +19,7 @@ export default function Funding() {
   const { id: fundingId } = router.query;
   const user = useRecoilValue(userState);
 
-  const { data: fundingInfo } = useGetFundingDeatil(fundingId);
+  const { data: fundingInfo } = useGetFundingDeatil(String(fundingId));
   const [isModalOn, setIsModalOn] = useState(false);
 
   if (!fundingInfo) return null;
@@ -80,8 +81,7 @@ export default function Funding() {
         color="secondary"
         wFull
         onClick={() => {
-          if (localStorage.getItem('@user'))
-            return router.push(`/funding/${fundingId}/participate`);
+          if (getLoacalStorage('@user')) return router.push(`/funding/${fundingId}/participate`);
 
           setIsModalOn(true);
         }}
