@@ -9,8 +9,8 @@ export const shareKakao = ({ userName, imageUrl, fundingId }: ShareKakaoProps) =
 
   const url =
     process.env.NODE_ENV === 'production'
-      ? `https://zip-up.vercel.app/funding/${fundingId}`
-      : `https://localhost:3000/funding/${fundingId}`;
+      ? `https://zip-up.vercel.app/invite/${fundingId}`
+      : `https://localhost:3000/invite/${fundingId}`;
 
   window.Kakao.Share?.sendDefault({
     objectType: 'feed',
