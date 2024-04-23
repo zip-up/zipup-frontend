@@ -25,37 +25,36 @@ import { PrivacyTerm, PurchaseTerm } from '@constants/terms';
 import { infoContainer } from '@components/Term/styles';
 
 interface FormInputs extends TermsCheckFlags {
-  address: string;
+  roadAddress: string;
   detailAddress: string;
-  phone: string;
+  phoneNumber: string;
 }
 
 export default function CreatFundStep4() {
   const router = useRouter();
-  const [newFund, setNewFund] = useRecoilState(createFundState);
+  const [newFunding, setNewFunding] = useRecoilState(createFundState);
   const user = useRecoilValue(userState);
-  const [fundId, setFundId] = useState(0);
+  const [fundId, setFundId] = useState<string>('');
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { mutate: handleCreateFund } = useCreateFunding();
+
+  const { mutate: createFunding } = useCreateFunding(createdFundingData => {
+    setFundId(createdFundingData.id);
+    setNewFunding(prevFundingData => ({
+      ...prevFundingData,
+      imageUrl: createdFundingData.imageUrl,
+    }));
+    setIsModalOpen(true);
+  });
   //const [currentHeight, setCurrentHeight] = useState(window.innerHeight);
 
   const {
     register,
     handleSubmit,
     setValue,
-    getValues,
     watch,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitted },
   } = useForm<FormInputs>();
-
-  useEffect(() => {
-    if (newFund) {
-      setValue('address', newFund.roadAddress);
-      setValue('detailAddress', newFund.detailAddress);
-      setValue('phone', newFund.phoneNumber);
-    }
-  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -66,15 +65,14 @@ export default function CreatFundStep4() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleCreateFundSubmit = () => {
-    setNewFund({
-      ...newFund,
-      roadAddress: getValues('address'),
-      detailAddress: getValues('detailAddress'),
-      phoneNumber: !getValues('phone') ? '' : String(getValues('phone')),
-    });
+  const handleCreateFundSubmit = async (step4FormData: FormInputs) => {
+    const totalFormInputData = { ...newFunding, ...step4FormData };
 
-    handleNext();
+    setNewFunding(totalFormInputData);
+
+    createFunding({
+      data: totalFormInputData,
+    });
   };
 
   const handleSubmitError: SubmitErrorHandler<FormInputs> = errors => {
@@ -85,29 +83,8 @@ export default function CreatFundStep4() {
     }
   };
 
-  const handleNext = () => {
-    if (isSubmitting) {
-      handleCreateFund(
-        { data: newFund },
-        {
-          onSuccess: data => {
-            if (data) {
-              console.log(data);
-              setFundId(data.id);
-              setNewFund({ ...newFund, imageUrl: data.imageUrl });
-              setIsModalOpen(true);
-            }
-          },
-          onError: error => {
-            throw error;
-          },
-        },
-      );
-    }
-  };
-
   const handleShareKakao = () => {
-    shareKakao({ username: user.name, imageUrl: newFund.imageUrl, fundId: String(fundId) });
+    shareKakao({ username: user.name, imageUrl: newFunding.imageUrl, fundId: fundId });
   };
 
   const Buttons = () => {
@@ -116,18 +93,18 @@ export default function CreatFundStep4() {
         <Button
           type="submit"
           className={css({ width: '12.4rem' })}
-          color={isSubmitting ? 'disabled' : 'primary'}
-          disabled={isSubmitting}
+          color={isSubmitted ? 'disabled' : 'primary'}
+          disabled={isSubmitted}
         >
           나중에 입력
         </Button>
         <Button
           type="submit"
           className={css({ width: '19.1rem' })}
-          color={isSubmitting ? 'disabled' : 'secondary'}
-          disabled={isSubmitting}
+          color={isSubmitted ? 'disabled' : 'secondary'}
+          disabled={isSubmitted}
         >
-          {isSubmitting ? <Spinner size="sm" /> : '등록 완료'}
+          {isSubmitted ? <Spinner size="sm" /> : '등록 완료'}
         </Button>
       </>
     );
@@ -181,11 +158,11 @@ export default function CreatFundStep4() {
           <input
             className={cx(
               style.input_shape,
-              css({ color: !getValues('address') ? 'text.200' : 'text.100' }),
+              css({ color: !watch('roadAddress') ? 'text.200' : 'text.100' }),
             )}
             readOnly
             placeholder="주소 검색하기"
-            {...register('address')}
+            {...register('roadAddress')}
           />
           <button type="button" className={style.pointer}>
             <SearchIcon />
@@ -214,16 +191,16 @@ export default function CreatFundStep4() {
             style.input,
             css({
               borderWidth: '0.1rem',
-              borderColor: errors.phone ? 'error' : 'bg.300',
+              borderColor: errors.phoneNumber ? 'error' : 'bg.300',
             }),
           )}
           placeholder="목표 달성 시 입력한 번호로 배송을 안내해드려요."
-          {...register('phone', {
+          {...register('phoneNumber', {
             valueAsNumber: true,
             required: '필수 항목을 입력하지 않았습니다.',
           })}
         />
-        <p className={style.error_text}>{errors.phone ? errors.phone.message : ''}</p>
+        <p className={style.error_text}>{errors.phoneNumber ? errors.phoneNumber.message : ''}</p>
 
         <div className={infoContainer}>
           <Term
@@ -252,7 +229,7 @@ export default function CreatFundStep4() {
 
       {isOpen && (
         <AddressModal
-          onSetAddress={text => setValue('address', text)}
+          onSetAddress={text => setValue('roadAddress', text)}
           onClose={() => setIsOpen(false)}
         />
       )}

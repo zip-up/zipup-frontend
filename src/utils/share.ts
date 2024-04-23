@@ -5,19 +5,18 @@ interface ShareKakaoProps {
 }
 
 export const shareKakao = ({ username, imageUrl, fundId }: ShareKakaoProps) => {
-  const kakao = window.Kakao;
-  if (!kakao) throw new Error('카카오톡을 열 수 없습니다.');
+  if (!window.Kakao) throw new Error('카카오톡 실행에 오류가 발생했습니다.');
 
-  const url = `https://zip-up.vercel.app/funding/${fundId}`;
+  const url = 'https://zip-up.vercel.app/funding/';
 
-  kakao.Share.sendDefault({
+  window.Kakao.Share?.sendDefault({
     objectType: 'feed',
     content: {
       title: `${username}님의 집들이에 당신을 초대합니다.`,
       description: '집업에서 선물 펀딩에 함께해주세요!',
-      imageUrl: imageUrl,
+      imageUrl,
       link: {
-        mobileWebUrl: url,
+        mobileWebUrl: url + fundId,
       },
     },
     installTalk: true,
