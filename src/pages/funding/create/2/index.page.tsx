@@ -1,14 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import * as style from '../styles';
-import classNames from 'classnames';
-import { css } from 'styled-system/css';
+
+import { css, cx } from 'styled-system/css';
 import TextareaAutosize from 'react-textarea-autosize';
 import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState } from 'recoil';
 import { createFundState } from '@store/store';
+import { useEffect } from 'react';
 
 interface FormInput {
   name: string;
@@ -23,8 +25,16 @@ export default function CreatFundStep2() {
     handleSubmit,
     watch,
     setFocus,
+    setValue,
     formState: { errors },
   } = useForm<FormInput>();
+
+  useEffect(() => {
+    if (newFund) {
+      setValue('name', newFund.title);
+      setValue('textMessage', newFund.description);
+    }
+  }, []);
 
   const handleCreateFundSubmit = (data: FormInput) => {
     setNewFund({ ...newFund, title: data.name, description: data.textMessage });
@@ -43,7 +53,7 @@ export default function CreatFundStep2() {
           <span className={style.required}>*</span>
         </label>
         <input
-          className={classNames(
+          className={cx(
             style.input,
             css({ borderWidth: '1px', borderColor: errors.name ? 'error' : 'bg.300' }),
           )}
@@ -71,7 +81,7 @@ export default function CreatFundStep2() {
             </p>
           )}
           <TextareaAutosize
-            className={classNames(
+            className={cx(
               style.input,
               css({ height: '9.5rem', padding: '1.5rem 2rem' }),
               css({ borderWidth: '1px', borderColor: errors.textMessage ? 'error' : 'bg.300' }),
@@ -84,7 +94,7 @@ export default function CreatFundStep2() {
         </div>
         {errors.textMessage && <p className={style.error_text}>{errors.textMessage.message}</p>}
 
-        <Button type="submit" className={style.button} color="secondary">
+        <Button type="submit" isBottomFixed>
           다음
         </Button>
       </form>

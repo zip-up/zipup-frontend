@@ -7,5 +7,4 @@ export interface User {
 
 export interface UserWithToken extends User {
   accessToken: string;
-  refreshToken: string;
 }

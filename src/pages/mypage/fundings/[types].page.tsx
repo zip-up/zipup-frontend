@@ -5,31 +5,31 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import * as style from '../styles';
 import { useGetMyFundingList, useGetParticipatedList } from '@hooks/queries/useGetFundingList';
-import { useRecoilValue } from 'recoil';
-import { userState } from '@store/store';
 import { FundingInfo } from '@typings/funding';
-import classNames from 'classnames';
 import { flex } from 'styled-system/patterns';
 import GiftIcon from '@assets/icons/big-gift-image.svg';
 import Button from '@components/common/Button';
+import { cx } from 'styled-system/css';
+import { useUser } from '@hooks/queries/useAuth';
 
 export default function MyFundings() {
   const router = useRouter();
   const { types } = router.query;
-  const user = useRecoilValue(userState);
+  const { data: user } = useUser();
+
   const {
     data: myFundingList,
     refetch: refetchMyFundingList,
     isLoading: isMyFundingListLoading,
   } = useGetMyFundingList({
-    uuid: user.id,
+    uuid: user?.id,
   });
   const {
     data: participatedList,
     refetch: refetchParticipatedList,
     isLoading: isParticipatedListLoading,
   } = useGetParticipatedList({
-    uuid: user.id,
+    uuid: user?.id,
   });
   const [data, setData] = useState<FundingInfo[]>([]);
 
@@ -40,14 +40,14 @@ export default function MyFundings() {
   }, [router.query]);
 
   useEffect(() => {
-    if (user.id) {
+    if (user?.id) {
       if (String(types) === 'my') {
         refetchMyFundingList();
       } else if (String(types) === 'participated') {
         refetchParticipatedList();
       }
     }
-  }, [user.id]);
+  }, [user?.id]);
 
   useEffect(() => {
     if (String(types) === 'my' && myFundingList) {
@@ -68,14 +68,24 @@ export default function MyFundings() {
         <div className={style.card_content}>
           <div className={style.flex_container}>
             {data.map((item, index) => (
-              <Card key={index} data={item} onClick={() => router.push('/funding/' + item.id)} />
+              <Card
+                key={index}
+                data={item}
+                onClick={() => {
+                  if (String(types) === 'my') {
+                    router.push('/funding/' + item.id);
+                  } else if (String(types) === 'participated') {
+                    router.push('/funding/' + item.id);
+                  }
+                }}
+              />
             ))}
           </div>
         </div>
       )}
       {!data.length && !isParticipatedListLoading && !isMyFundingListLoading && (
         <div
-          className={classNames(
+          className={cx(
             style.card_content,
             flex({
               justifyContent: 'center',
@@ -98,7 +108,6 @@ export default function MyFundings() {
             </div>
             {String(types) === 'my' && (
               <Button
-                color="secondary"
                 className={style.no_result_button}
                 onClick={() => router.push('/funding/create/1')}
               >

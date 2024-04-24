@@ -3,20 +3,22 @@ import ProgressBar from '@components/common/ProgressBar';
 import { fundingFormState } from '@store/store';
 import { css, cx } from 'styled-system/css';
 import { Fragment, useState } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import * as style from './styles';
 import { A, B, C, D, E, A_d, B_d, C_d, D_d, E_d } from '@assets/icons/priceLabel/index';
-import Button, { BottomFixedStyle } from '@components/common/Button';
+import Button from '@components/common/Button';
 import { statusTag } from '@components/common/StatusTag/styles';
-import { button, styles } from '@components/common/Button/styles';
 import { useRouter } from 'next/router';
-import TermsAndConditions from '@components/TermsAndConditions';
-import { createTerms } from '@constants/terms';
-import { getLoacalStorage, setLocalStorage } from '@store/localStorage';
+import { setLocalStorage } from '@store/localStorage';
 import { useGetFundingDeatil } from '@hooks/queries/useFunding';
+import { TermsCheckFlags } from '@typings/term';
+import { PrivacyTerm, PurchaseTerm } from '@constants/terms';
+import Term from '@components/Term';
+import { infoContainer } from '@components/Term/styles';
+import { useUser } from '@hooks/queries/useAuth';
 
-interface FormInputs {
+export interface FormInputs extends TermsCheckFlags {
   price: number;
   enteredCustomPrice: boolean;
   customPrice: number;
@@ -26,10 +28,10 @@ interface FormInputs {
 
 export default function Participate() {
   const [fundingForm, setFundingForm] = useRecoilState(fundingFormState);
-  const userInfo = getLoacalStorage('@user');
+  const { data: user } = useUser();
 
   const router = useRouter();
-  const { id: fundingId } = router.query;
+  const { id: fundingId } = router.query as { id: string };
 
   const { data: fundingInfo } = useGetFundingDeatil(fundingId);
 
@@ -57,23 +59,30 @@ export default function Participate() {
     msg,
   }) => {
     setLocalStorage('@participateInfo', {
-      participateId: userInfo.id,
+      participateId: user?.id,
       senderName,
       congratsMessage: msg,
     });
 
     setFundingForm({
-      participateId: userInfo?.id,
+      participateId: user?.id,
       price: enteredCustomPrice ? customPrice : price,
     });
 
     router.push(`/funding/${fundingId}/payment`);
   };
 
+  const onSubmitError: SubmitErrorHandler<FormInputs> = errors => {
+    if (errors.isPurchaseChecked || errors.isPrivacyChecked) {
+      const errorMessage = errors.isPurchaseChecked?.message || errors.isPrivacyChecked?.message;
+
+      console.log(errorMessage);
+    }
+  };
+
   const enteredCustomPrice = watch('enteredCustomPrice');
   const selected = watch('price');
   const [step, setStep] = useState(1);
-  const [isValid, setIsValid] = useState(false);
 
   const priceLabel = [
     { label: '행복의 오천원', price: 5000, icon_active: <A />, icon_disabled: <A_d /> },
@@ -139,9 +148,9 @@ export default function Participate() {
                   },
                 })}
               />
+
               <Button
-                type="button"
-                color="secondary"
+                size="none"
                 onClick={() => reset({ price: 5000 })}
                 className={style.resetButton}
               >
@@ -175,17 +184,15 @@ export default function Participate() {
               </div>
             )}
 
-            <button
-              type="submit"
-              color="secondary"
+            <Button
+              isBottomFixed
               onClick={async () => {
                 enteredCustomPrice && (await trigger('customPrice'));
                 !errors.customPrice && setStep(2);
               }}
-              className={cx(button, styles['secondary'], BottomFixedStyle, css({ h: '5.2rem' }))}
             >
               다음
-            </button>
+            </Button>
           </div>
         );
 
@@ -216,7 +223,7 @@ export default function Participate() {
               )}
             </div>
 
-            <div className={style.inputWithLabelWrapper}>
+            <div className={cx(style.inputWithLabelWrapper, css({ marginBottom: 0 }))}>
               <label className={style.labelWithoutPadding}>
                 마음을 축하 메세지로 전해주세요. <span className={style.blueColorText}>*</span>
               </label>
@@ -231,15 +238,22 @@ export default function Participate() {
               {errors.msg && <span className={style.errorText}>{errors.msg.message}</span>}
             </div>
 
-            <TermsAndConditions data={createTerms} onSetIsValid={setIsValid} />
+            <div className={cx(infoContainer, css({ m: 0 }))}>
+              <Term
+                label="isPurchaseChecked"
+                term={PurchaseTerm}
+                register={register}
+                isChecked={watch('isPurchaseChecked')}
+              />
+              <Term
+                label="isPrivacyChecked"
+                term={PrivacyTerm}
+                register={register}
+                isChecked={watch('isPrivacyChecked')}
+              />
+            </div>
 
-            <Button
-              type="submit"
-              color="secondary"
-              isBottomFixed
-              wFull
-              className={style.fixedPostionButton}
-            >
+            <Button type="submit" isBottomFixed>
               결제하러 가기
             </Button>
           </div>
@@ -252,7 +266,7 @@ export default function Participate() {
       <Header onGoBack={step == 1 ? () => router.back() : () => setStep(1)} />
       <div className={style.container}>
         <ProgressBar width={step == 1 ? '16.2rem' : '32.8rem'} />
-        <form onSubmit={handleSubmit(onSubmit)}>{renderFormStep(step)}</form>
+        <form onSubmit={handleSubmit(onSubmit, onSubmitError)}>{renderFormStep(step)}</form>
       </div>
     </div>
   );

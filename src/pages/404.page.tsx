@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { css, cx } from 'styled-system/css';
-import { button, styles } from '@components/common/Button/styles';
+import { button } from '@components/common/Button/styles';
 
 export default function Custom404() {
   return (
@@ -35,10 +35,7 @@ export default function Custom404() {
           <p>입력하신 페이지의 주소가 정확한지 확인해주세요.</p>
         </div>
       </div>
-      <Link
-        href={'/'}
-        className={cx(button, styles['secondary'], css({ h: '5.2rem', w: '14.6rem' }))}
-      >
+      <Link href="/" className={cx(button({ color: 'secondary' }), css({ p: '1rem 1.6rem' }))}>
         메인으로 돌아가기
       </Link>
     </div>

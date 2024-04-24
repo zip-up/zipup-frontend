@@ -22,24 +22,26 @@ interface FailProps {
 export default function Fail({ fundingId, code, message }: FailProps) {
   return (
     <div className={commonStyle.container}>
-      <h1 className={commonStyle.headTitle}>
-        결제에 <span className={style.redText}>실패</span>했어요
+      <h1 className={style.headTitle}>
+        결제에 <span className={style.colorText({ color: 'red', objective: 'title' })}>실패</span>
+        했어요
       </h1>
       <div className={commonStyle.subTitle}>
-        <p>결제를 다시 시도해주세요.</p>계속 결제에 실패할 시 고객센터에 문의주세요.
+        <p>결제를 다시 시도해주세요.</p>계속 결제에 실패할 시 고객센터에 문의해주세요.
       </div>
 
       <div className={cx(style.orderInfoWrapper, css({ mb: '8rem' }))}>
-        <div>
-          <span className={style.redText}>실패사유</span> <span>{message}</span>
+        <div className={style.subInfoWrapper}>
+          <span className={style.colorText({ color: 'red', objective: 'subInfo' })}>실패사유</span>
+          <span>{message}</span>
         </div>
-        <div>
-          <span className={style.redText}>에러코드</span>
+        <div className={style.subInfoWrapper}>
+          <span className={style.colorText({ color: 'red', objective: 'subInfo' })}>에러코드</span>
           <span>{code}</span>
         </div>
       </div>
 
-      <Image src="/payment_fail.png" alt="s" width={290} height={320} />
+      <Image src="/payment_fail.png" alt="결제 실패 이미지" width={290} height={320} />
       <Link href={`/funding/${fundingId}`} className={cx(commonStyle.buttonLink, css({ mt: 0 }))}>
         돌아가기
       </Link>

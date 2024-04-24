@@ -9,14 +9,14 @@ import { useGetFundingDeatil } from '@hooks/queries/useFunding';
 import FundingStatusBox from '@components/FundingStatusBox';
 import { useState } from 'react';
 import LoginModal from '@components/modals/LoginModal';
-import { useRecoilValue } from 'recoil';
-import { userState } from '@store/store';
+import { useUser } from '@hooks/queries/useAuth';
+import { shareKakao } from '@utils/share';
 
 export default function Funding() {
   const router = useRouter();
 
-  const { id: fundingId } = router.query;
-  const user = useRecoilValue(userState);
+  const { id: fundingId } = router.query as { id: string };
+  const { data: user } = useUser();
 
   const { data: fundingInfo } = useGetFundingDeatil(fundingId);
   const [isModalOn, setIsModalOn] = useState(false);
@@ -35,53 +35,25 @@ export default function Funding() {
     presentList: messageList,
   } = fundingInfo;
 
-  const handleKakaoShare = () => {
-    window.Kakao.Share.sendDefault({
-      objectType: 'feed',
-      content: {
-        title: `${user.name}님의 집들이에 당신을 초대합니다.`,
-        description: '집업에서 선물 펀딩에 함께해주세요!',
-        imageUrl: fundingInfo.imageUrl,
-        link: {
-          mobileWebUrl: `https://zip-up.vercel.app/funding/${fundingId}`,
-          webUrl: `https://zip-up.vercel.app/funding/${fundingId}`,
-        },
-      },
-      buttons: [
-        {
-          title: '자세히 보기',
-          link: {
-            mobileWebUrl: `https://zip-up.vercel.app/funding/${fundingId}`,
-            webUrl: `https://zip-up.vercel.app/funding/${fundingId}`,
-          },
-        },
-      ],
-    });
-  };
-
   const RoleBasedButton = () => {
     if (isOrganizer) {
       return (
-        <Button type="button" color="secondary" wFull onClick={handleKakaoShare}>
+        <Button
+          onClick={() =>
+            shareKakao({ userName: user?.name, imageUrl: fundingInfo.imageUrl, fundingId })
+          }
+        >
           친구에게 공유하기
         </Button>
       );
     }
     if (isParticipant) {
-      return (
-        <Button type="button" color="secondary" wFull onClick={() => {}}>
-          결제 취소하기
-        </Button>
-      );
+      return <Button onClick={() => {}}>결제 취소하기</Button>;
     }
     return (
       <Button
-        type="button"
-        color="secondary"
-        wFull
         onClick={() => {
-          if (localStorage.getItem('@user'))
-            return router.push(`/funding/${fundingId}/participate`);
+          if (user) return router.push(`/funding/${fundingId}/participate`);
 
           setIsModalOn(true);
         }}
@@ -89,11 +61,6 @@ export default function Funding() {
         이 펀딩 참여하기
       </Button>
     );
-  };
-
-  const handleLogin = async () => {
-    window.location.href =
-      process.env.NEXT_PUBLIC_BASE_URL.slice(0, -4) + '/oauth2/authorization/kakao';
   };
 
   return (
@@ -117,9 +84,7 @@ export default function Funding() {
       </article>
       <MessageList messages={messageList} />
 
-      {isModalOn && (
-        <LoginModal onClick={() => handleLogin()} onClose={() => setIsModalOn(false)} />
-      )}
+      {isModalOn && <LoginModal onClose={() => setIsModalOn(false)} />}
     </div>
   );
 }

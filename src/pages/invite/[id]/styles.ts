@@ -1,14 +1,14 @@
 import { float, vstack } from 'styled-system/patterns';
 import { css, cx } from 'styled-system/css';
-import { button, styles } from '@components/common/Button/styles';
-import { BottomFixedStyle } from '@components/common/Button';
+import { button } from '@components/common/Button/styles';
 
 const container = vstack({
   m: '0 auto',
   h: '100%',
-  justifyContent: 'center',
   alignItems: 'center',
   p: '1.6rem',
+  mt: '6rem',
+  height: 'calc(100vh - 6rem)',
 });
 
 const headTitle = css({
@@ -37,10 +37,8 @@ const positionedWrapper = float({
 });
 
 const buttonLink = cx(
-  button,
-  styles['secondary'],
-  BottomFixedStyle,
-  css({ h: '5.2rem', mt: '3rem' }),
+  button({ size: 'full', color: 'secondary', isBottomFixed: true, position: 'last' }),
+  css({ mt: '3rem' }),
 );
 
 export { container, headTitle, subTitle, buttonLink, positionedParent, positionedWrapper };

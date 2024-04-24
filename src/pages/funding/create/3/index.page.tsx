@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
 import { useRouter } from 'next/router';
@@ -28,6 +29,13 @@ export default function CreateFundStep3() {
   } = useForm<FormInput>();
 
   useEffect(() => {
+    if (newFund) {
+      setValue('target', newFund.fundingStart);
+      setValue('due', newFund.fundingFinish);
+    }
+  }, []);
+
+  useEffect(() => {
     register('target', { required: '필수 항목을 입력하지 않았습니다.' });
     register('due', { required: '필수 항목을 입력하지 않았습니다.' });
   }, [register]);
@@ -46,7 +54,7 @@ export default function CreateFundStep3() {
       <Header onGoBack={() => router.back()} />
       <ProgressBar width={'24.6rem'} />
       <h4 className={style.step_name}>Step 3</h4>
-      <h2 className={style.title}>목표 금액과 기간을 입력해주세요.</h2>
+      <h2 className={style.title}>펀딩 기간을 입력해주세요</h2>
       <form className={style.form} onSubmit={handleSubmit(handleCreateFundSubmit)}>
         <label>
           <span className={style.subtitle}>집들이 날짜가 언제인가요?</span>
@@ -76,7 +84,7 @@ export default function CreateFundStep3() {
           {errors.due && !watch('due') && <p className={style.error_text}>{errors.due.message}</p>}
         </div>
 
-        <Button type="submit" className={style.button} color="secondary">
+        <Button type="submit" isBottomFixed>
           다음
         </Button>
       </form>

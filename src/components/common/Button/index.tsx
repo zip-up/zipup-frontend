@@ -1,53 +1,43 @@
-import classnames from 'classnames';
-import { button, styles } from './styles';
-import { css } from 'styled-system/css';
-import { CSSProperties, PropsWithChildren } from 'react';
+import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
+import { button } from './styles';
+import { cx } from 'styled-system/css';
 
-interface ButtonProps {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  size?: 'full' | 'regular' | 'none';
+  color?: 'primary' | 'secondary' | 'kakao';
   onClick?: () => void;
-  height?: string;
-  color: 'primary' | 'secondary' | 'disabled';
-  className?: string;
-  type?: 'button' | 'submit' | 'reset' | undefined;
-  style?: CSSProperties;
-  wFull?: boolean;
-  disabled?: boolean;
   isBottomFixed?: boolean;
+  position?: 'first' | 'last';
+  className?: string;
 }
 
-export const BottomFixedStyle = css({
-  position: 'fixed',
-  width: '100%',
-  transform: 'translateX(-50%)',
-  left: '50%',
-  maxWidth: '32.8rem',
-  bottom: '24px',
-});
-
 export default function Button({
-  wFull = false,
-  height = '5.2rem',
-  onClick,
-  color,
-  children,
-  className,
   type = 'button',
-  style,
-  disabled,
+  size = 'full',
+  color = 'secondary',
   isBottomFixed = false,
+  position = 'last',
+  onClick,
+  children,
+  disabled,
+  className,
+  ...props
 }: PropsWithChildren<ButtonProps>) {
   return (
     <button
       type={type}
-      className={classnames(
-        button,
-        styles[color],
-        css(wFull && { width: '100%' }, { height }),
+      {...props}
+      className={cx(
         className,
-        isBottomFixed && BottomFixedStyle,
+        button({
+          size,
+          color,
+          disabled,
+          isBottomFixed,
+          position,
+        }),
       )}
       onClick={onClick}
-      style={style}
       disabled={disabled}
     >
       {children}

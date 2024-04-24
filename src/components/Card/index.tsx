@@ -1,11 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import { css } from 'styled-system/css';
+import { css, cx } from 'styled-system/css';
 import GiftIcon from '@assets/images/gift-images.svg';
 import StatusTag from '@components/common/StatusTag';
 import ProgressBar from '@components/common/ProgressBar';
 import { FundingInfo } from '@typings/funding';
 import * as style from './styles';
-import classNames from 'classnames';
 
 interface CardProps {
   data: FundingInfo;
@@ -18,7 +17,7 @@ const Card = ({ data, onClick }: CardProps) => {
   return (
     <div className={style.container} onClick={onClick}>
       <div
-        className={classNames(
+        className={cx(
           style.image_box,
           css({ backgroundColor: data.imageUrl.length <= 6 ? 'blue.10' : 'white' }),
         )}
@@ -31,7 +30,11 @@ const Card = ({ data, onClick }: CardProps) => {
           {data.imageUrl === 'https:' || !data.imageUrl ? (
             <GiftIcon />
           ) : (
-            <img src={data.imageUrl} alt="펀딩 이미지" style={{ width: '100%' }} />
+            <img
+              src={data.imageUrl}
+              alt="펀딩 이미지"
+              style={{ width: '15.6rem', height: '12rem', objectFit: 'cover' }}
+            />
           )}
         </p>
       </div>

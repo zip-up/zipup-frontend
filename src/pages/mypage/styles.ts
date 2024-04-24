@@ -21,8 +21,6 @@ const profile_box = css({
 });
 
 const button = css({
-  display: 'flex',
-  alignItems: 'center',
   gap: '0.8rem',
 });
 

@@ -1,126 +1,129 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
+import { SubmitErrorHandler, useForm } from 'react-hook-form';
 import * as style from '../styles';
-import { css } from 'styled-system/css';
-import classNames from 'classnames';
+import { css, cx } from 'styled-system/css';
 import SearchIcon from '@assets/icons/search.svg';
 import AddressModal from '@components/modals/AddressModal';
 import { useRouter } from 'next/router';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import GiftIcon from '@assets/icons/gift-icon.svg';
 import ProgressBar from '@components/common/ProgressBar';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { createFundState, userState } from '@store/store';
+import { useRecoilState } from 'recoil';
+import { createFundState } from '@store/store';
 import { useCreateFunding } from '@hooks/queries/useCreateFunding';
-import PageLayout from '@components/Layout/pageLayout';
-import TermsAndConditions from '@components/TermsAndConditions';
-import { createTerms } from '@constants/terms';
 import Spinner from '@components/common/Spinner';
+import Term from '@components/Term';
+import { TermsCheckFlags } from '@typings/term';
+import { PrivacyTerm, PurchaseTerm } from '@constants/terms';
+import { infoContainer } from '@components/Term/styles';
+import { button } from '@components/common/Button/styles';
+import { shareKakao } from '@utils/share';
+import { useUser } from '@hooks/queries/useAuth';
 
-interface FormInput {
-  address: string;
+interface FormInputs extends TermsCheckFlags {
+  roadAddress: string;
   detailAddress: string;
-  phone: number;
+  phoneNumber: string;
 }
 
 export default function CreatFundStep4() {
   const router = useRouter();
-  const [newFund, setNewFund] = useRecoilState(createFundState);
-  const user = useRecoilValue(userState);
-  const [id, setId] = useState(0);
+  const [newFunding, setNewFunding] = useRecoilState(createFundState);
+  const { data: user } = useUser();
+  const [fundId, setFundId] = useState<string>('');
   const [isOpen, setIsOpen] = useState(false);
-  const [isValid, setIsValid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isButtonClicked, setIsButtonClicked] = useState(false);
-  const { mutate: handleCreateFund } = useCreateFunding();
+
+  const { mutate: createFunding, isPending } = useCreateFunding(createdFundingData => {
+    setFundId(createdFundingData.id);
+    setNewFunding(prevFundingData => ({
+      ...prevFundingData,
+      imageUrl: createdFundingData.imageUrl,
+    }));
+    setIsModalOpen(true);
+  });
+  //const [currentHeight, setCurrentHeight] = useState(window.innerHeight);
 
   const {
     register,
     handleSubmit,
     setValue,
-    getValues,
+    watch,
     formState: { errors },
-  } = useForm<FormInput>();
+  } = useForm<FormInputs>();
 
-  const handleCreateFundSubmit = () => {
-    if (isValid) {
-      handleNext();
+  useEffect(() => {
+    const handleResize = () => {
+      //   setCurrentHeight(window.innerHeight);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const handleCreateFundSubmit = async (step4FormData: FormInputs) => {
+    const totalFormInputData = { ...newFunding, ...step4FormData };
+
+    setNewFunding(totalFormInputData);
+
+    createFunding({
+      data: totalFormInputData,
+    });
+  };
+
+  const handleSubmitError: SubmitErrorHandler<FormInputs> = errors => {
+    if (errors.isPurchaseChecked || errors.isPrivacyChecked) {
+      const errorMessage = errors.isPurchaseChecked?.message || errors.isPrivacyChecked?.message;
+
+      console.log(errorMessage);
     }
   };
 
-  const handleNext = () => {
-    setIsButtonClicked(true);
+  const handleShareKakao = () => {
+    shareKakao({ userName: user?.name || '', imageUrl: newFunding.imageUrl, fundingId: fundId });
+  };
 
-    setNewFund({
-      ...newFund,
-      roadAddress: getValues('address'),
-      detailAddress: getValues('detailAddress'),
-      phoneNumber: !getValues('phone') ? '' : String(getValues('phone')),
-    });
-
-    handleCreateFund(
-      { data: newFund },
-      {
-        onSuccess: data => {
-          if (data) {
-            console.log(data);
-            setId(data.id);
-            setNewFund({ ...newFund, imageUrl: data.imageUrl });
-            setIsModalOpen(true);
-          }
-        },
-      },
+  const Buttons = () => {
+    return (
+      <>
+        <Button className={css({ width: '12.6rem' })} color="primary" disabled={isPending}>
+          나중에 입력
+        </Button>
+        <Button type="submit" className={css({ width: '19.1rem' })} disabled={isPending}>
+          {isPending ? <Spinner size="sm" /> : '등록 완료'}
+        </Button>
+      </>
     );
   };
 
-  const handleShareKakao = () => {
-    window.Kakao.Share.sendDefault({
-      objectType: 'feed',
-      content: {
-        title: `${user.name}님의 집들이에 당신을 초대합니다.`,
-        description: '집업에서 선물 펀딩에 함께해주세요!',
-        imageUrl: newFund.imageUrl,
-        link: {
-          mobileWebUrl: `https://zip-up.vercel.app/funding/${id}`,
-          webUrl: `https://zip-up.vercel.app/funding/${id}`,
-        },
-      },
-      buttons: [
-        {
-          title: '자세히 보기',
-          link: {
-            mobileWebUrl: `https://zip-up.vercel.app/funding/${id}`,
-            webUrl: `https://zip-up.vercel.app/funding/${id}`,
-          },
-        },
-      ],
-    });
-    setIsButtonClicked(false);
-  };
-
   return (
-    <PageLayout>
+    <>
       {isModalOpen && (
         <ModalWithIcon
           width="31.7rem"
           onClose={() => setIsModalOpen(false)}
-          title="펀딩 등록을 완료되었어요."
+          title="펀딩 등록이 완료되었어요."
           subtitle="내 펀딩을 친구들에게 공유해볼까요?"
           buttonComponent={
             <div className={style.modal_button_wrapper}>
               <Button
                 color="primary"
-                style={{ width: '10.9rem' }}
+                size="regular"
                 onClick={() => {
                   setIsModalOpen(false);
-                  router.push('/funding/' + id);
+                  if (fundId) {
+                    router.push('/funding/' + fundId);
+                  } else {
+                    alert('잘못된 접근입니다.');
+                  }
                 }}
               >
                 내 펀딩 보기
               </Button>
-              <Button color="secondary" style={{ width: '16.8rem' }} onClick={handleShareKakao}>
+              <Button size="regular" style={{ width: '16rem' }} onClick={handleShareKakao}>
                 친구에게 공유하기
               </Button>
             </div>
@@ -133,79 +136,105 @@ export default function CreatFundStep4() {
       <h4 className={style.step_name}>Step 4</h4>
       <h2 className={style.title}>배송 정보를 입력해주세요.</h2>
 
-      <form className={style.form} onSubmit={handleSubmit(handleCreateFundSubmit)}>
+      <form
+        className={style.form}
+        onSubmit={handleSubmit(handleCreateFundSubmit, handleSubmitError)}
+      >
         <label>
           <span className={style.subtitle}>선물을 배송받을 주소를 입력해주세요.</span>
         </label>
         <div className={style.date_box} onClick={() => setIsOpen(true)}>
           <input
-            className={classNames(
+            className={cx(
               style.input_shape,
-              css({ color: !getValues('address') ? 'text.200' : 'text.100' }),
+              css({ color: !watch('roadAddress') ? 'text.200' : 'text.100' }),
             )}
             readOnly
-            defaultValue={'주소 검색하기'}
-            {...register('address')}
+            placeholder="주소 검색하기"
+            {...register('roadAddress')}
           />
           <button type="button" className={style.pointer}>
             <SearchIcon />
           </button>
         </div>
         <input
-          className={classNames(style.input, css({ marginTop: '-0.8rem', marginBottom: '1.6rem' }))}
+          className={cx(
+            style.input,
+            css({
+              marginTop: '-0.8rem',
+              marginBottom: '1.6rem',
+              borderWidth: '0.1rem',
+              borderColor: 'bg.300',
+            }),
+          )}
           placeholder="상세 주소를 입력해주세요."
           {...register('detailAddress')}
         />
 
         <label>
           <span className={style.subtitle}>전화번호를 입력해주세요.</span>
+          <span className={style.required}>*</span>
         </label>
         <input
-          className={style.input}
+          className={cx(
+            style.input,
+            css({
+              borderWidth: '0.1rem',
+              borderColor: errors.phoneNumber ? 'error' : 'bg.300',
+            }),
+          )}
           placeholder="목표 달성 시 입력한 번호로 배송을 안내해드려요."
-          {...register('phone', {
+          {...register('phoneNumber', {
             valueAsNumber: true,
+            required: '필수 항목을 입력하지 않았습니다.',
           })}
         />
-        <p className={style.error_text}>{errors.phone ? errors.phone.message : ''}</p>
+        <p className={style.error_text}>{errors.phoneNumber ? errors.phoneNumber.message : ''}</p>
 
-        <TermsAndConditions data={createTerms} onSetIsValid={setIsValid} />
-        <div className={classNames(flexbox, button)}>
-          <Button
-            type="submit"
-            className={css({ width: '12.4rem' })}
-            color={isButtonClicked ? 'disabled' : 'primary'}
-            disabled={isButtonClicked}
-          >
-            나중에 입력
-          </Button>
-          <Button
-            type="submit"
-            className={css({ width: '19.1rem' })}
-            color={isButtonClicked ? 'disabled' : 'secondary'}
-            disabled={isButtonClicked}
-          >
-            {isButtonClicked ? <Spinner size="sm" /> : '등록 완료'}
-          </Button>
+        <div className={infoContainer}>
+          <Term
+            label="isPurchaseChecked"
+            term={PurchaseTerm}
+            register={register}
+            isChecked={watch('isPurchaseChecked')}
+          />
+          <Term
+            label="isPrivacyChecked"
+            term={PrivacyTerm}
+            register={register}
+            isChecked={watch('isPrivacyChecked')}
+          />
+        </div>
+
+        <div
+          className={cx(
+            button({ isBottomFixed: true, position: 'last' }),
+            css({ gap: '1.2rem' }),
+            //      currentHeight <= 680 ? wrapper : buttons,
+          )}
+        >
+          <Buttons />
         </div>
       </form>
+
       {isOpen && (
         <AddressModal
-          onSetAddress={text => setValue('address', text)}
+          onSetAddress={text => setValue('roadAddress', text)}
           onClose={() => setIsOpen(false)}
         />
       )}
-    </PageLayout>
+    </>
   );
 }
-const flexbox = css({
-  display: 'flex',
-  gap: '0.8rem',
-});
 
-const button = css({
-  position: 'absolute',
-  bottom: '2.5rem',
-  left: '2rem',
-  width: '32.3rem',
-});
+// const wrapper = css({
+//   width: '100%',
+//   margin: '2.4rem 0',
+// });
+
+// const buttons = css({
+//   position: 'absolute',
+//   bottom: '2.5rem',
+//   left: '2rem',
+//   width: '32.3rem',
+// });

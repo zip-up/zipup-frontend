@@ -61,8 +61,6 @@ const messageInput = cx(
 
 const errorText = cx(createFormStyle.error_text, css({ mt: 0, ml: 0 }));
 
-const fixedPostionButton = css({ position: 'fixed', bottom: '30px', w: '32.7rem' });
-
 export {
   pageLayout,
   container,
@@ -77,5 +75,4 @@ export {
   inputWithLabelWrapper,
   messageInput,
   errorText,
-  fixedPostionButton,
 };

@@ -10,9 +10,11 @@ export default function MessageList({ messages }: MessageListProps) {
   return (
     <article className={style.msgsWrapper}>
       <h2 className={style.title}>친구들의 메세지</h2>
-      {messages.map(msg => (
-        <MessageBox msg={msg} key={msg.id} />
-      ))}
+      {messages.length === 0 ? (
+        <MessageBox />
+      ) : (
+        messages.map(msg => <MessageBox msg={msg} key={msg.id} isMessageExist />)
+      )}
     </article>
   );
 }

@@ -38,6 +38,7 @@ const blur = css({
   backgroundColor: 'text.300',
   opacity: 0.8,
   mixBlendMode: 'multiply',
+  zIndex: 1,
 });
 
 const info_box = css({

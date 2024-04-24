@@ -70,13 +70,6 @@ const form = css({
   height: 'calc(100% - 19.1rem)',
 });
 
-const button = css({
-  position: 'absolute',
-  bottom: '2.5rem',
-  width: '32.7rem',
-  marginLeft: '1.6rem',
-  zIndex: 1,
-});
 
 const pointer = css({
   cursor: 'pointer',
@@ -140,7 +133,6 @@ export {
   input,
   divider,
   form,
-  button,
   pointer,
   text_placeholder,
   date_box,
