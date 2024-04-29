@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SubmitErrorHandler, useForm } from 'react-hook-form';
 import * as style from '../styles';
 import { css, cx } from 'styled-system/css';
@@ -45,7 +45,6 @@ export default function CreatFundStep4() {
     }));
     setIsModalOpen(true);
   });
-  //const [currentHeight, setCurrentHeight] = useState(window.innerHeight);
 
   const {
     register,
@@ -54,15 +53,6 @@ export default function CreatFundStep4() {
     watch,
     formState: { errors },
   } = useForm<FormInputs>();
-
-  useEffect(() => {
-    const handleResize = () => {
-      //   setCurrentHeight(window.innerHeight);
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   const handleCreateFundSubmit = async (step4FormData: FormInputs) => {
     const totalFormInputData = { ...newFunding, ...step4FormData };
@@ -89,7 +79,12 @@ export default function CreatFundStep4() {
   const Buttons = () => {
     return (
       <>
-        <Button className={css({ width: '12.6rem' })} color="primary" disabled={isPending}>
+        <Button
+          type="submit"
+          className={css({ width: '12.6rem' })}
+          color="primary"
+          disabled={isPending}
+        >
           나중에 입력
         </Button>
         <Button type="submit" className={css({ width: '19.1rem' })} disabled={isPending}>
@@ -210,7 +205,7 @@ export default function CreatFundStep4() {
           className={cx(
             button({ isBottomFixed: true, position: 'last' }),
             css({ gap: '1.2rem' }),
-            //      currentHeight <= 680 ? wrapper : buttons,
+            window.innerHeight <= 680 ? wrapper : buttons,
           )}
         >
           <Buttons />
@@ -227,14 +222,14 @@ export default function CreatFundStep4() {
   );
 }
 
-// const wrapper = css({
-//   width: '100%',
-//   margin: '2.4rem 0',
-// });
+const wrapper = css({
+  width: '100%',
+  margin: '2.4rem 0',
+});
 
-// const buttons = css({
-//   position: 'absolute',
-//   bottom: '2.5rem',
-//   left: '2rem',
-//   width: '32.3rem',
-// });
+const buttons = css({
+  position: 'absolute',
+  bottom: '2.5rem',
+  left: '2rem',
+  width: '32.3rem',
+});
