@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
 import { useRouter } from 'next/router';
@@ -24,6 +25,7 @@ export default function CreatFundStep1() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [newFund, setNewFund] = useRecoilState(createFundState);
+  const [height, setHeight] = useState(0);
   const {
     register,
     handleSubmit,
@@ -39,6 +41,12 @@ export default function CreatFundStep1() {
     if (newFund) {
       setValue('link', newFund.productUrl);
       setValue('targetMoney', String(newFund.goalPrice));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setHeight(window.innerHeight);
     }
   }, []);
 
@@ -135,9 +143,18 @@ export default function CreatFundStep1() {
           <InfoIcon />
           <span className={title}>설정하신 목표 금액을 확인하고 최종 금액을 안내드릴게요.</span>
         </div>
-        <Button type="submit" isBottomFixed>
-          다음
-        </Button>
+
+        <div
+          className={css({
+            marginTop: height <= 580 ? '1.6rem' : 0,
+            width: '32.9rem',
+            margin: '0 auto',
+          })}
+        >
+          <Button type="submit" isBottomFixed={height > 580}>
+            다음
+          </Button>
+        </div>
       </form>
     </>
   );

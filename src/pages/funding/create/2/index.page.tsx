@@ -10,7 +10,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState } from 'recoil';
 import { createFundState } from '@store/store';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 interface FormInput {
   name: string;
@@ -20,6 +20,8 @@ interface FormInput {
 export default function CreatFundStep2() {
   const router = useRouter();
   const [newFund, setNewFund] = useRecoilState(createFundState);
+  const [height, setHeight] = useState(0);
+
   const {
     register,
     handleSubmit,
@@ -33,6 +35,12 @@ export default function CreatFundStep2() {
     if (newFund) {
       setValue('name', newFund.title);
       setValue('textMessage', newFund.description);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setHeight(window.innerHeight);
     }
   }, []);
 
@@ -94,9 +102,17 @@ export default function CreatFundStep2() {
         </div>
         {errors.textMessage && <p className={style.error_text}>{errors.textMessage.message}</p>}
 
-        <Button type="submit" isBottomFixed>
-          다음
-        </Button>
+        <div
+          className={css({
+            marginTop: height <= 570 ? '1.6rem' : 0,
+            width: '32.9rem',
+            margin: '0 auto',
+          })}
+        >
+          <Button type="submit" isBottomFixed={height > 570}>
+            다음
+          </Button>
+        </div>
       </form>
     </>
   );

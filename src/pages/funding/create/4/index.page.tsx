@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SubmitErrorHandler, useForm } from 'react-hook-form';
 import * as style from '../styles';
 import { css, cx } from 'styled-system/css';
@@ -19,9 +19,9 @@ import Term from '@components/Term';
 import { TermsCheckFlags } from '@typings/term';
 import { PrivacyTerm, PurchaseTerm } from '@constants/terms';
 import { infoContainer } from '@components/Term/styles';
-import { button } from '@components/common/Button/styles';
 import { shareKakao } from '@utils/share';
 import { useUser } from '@hooks/queries/useAuth';
+import { flex } from 'styled-system/patterns';
 
 interface FormInputs extends TermsCheckFlags {
   roadAddress: string;
@@ -36,6 +36,7 @@ export default function CreatFundStep4() {
   const [fundId, setFundId] = useState<string>('');
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [height, setHeight] = useState(0);
 
   const { mutate: createFunding, isPending } = useCreateFunding(createdFundingData => {
     setFundId(createdFundingData.id);
@@ -53,6 +54,12 @@ export default function CreatFundStep4() {
     watch,
     formState: { errors },
   } = useForm<FormInputs>();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setHeight(window.innerHeight);
+    }
+  }, []);
 
   const handleCreateFundSubmit = async (step4FormData: FormInputs) => {
     const totalFormInputData = { ...newFunding, ...step4FormData };
@@ -78,19 +85,23 @@ export default function CreatFundStep4() {
 
   const Buttons = () => {
     return (
-      <>
-        <Button
-          type="submit"
-          className={css({ width: '12.6rem' })}
-          color="primary"
-          disabled={isPending}
-        >
+      <div
+        className={flex({
+          width: '32.9rem',
+          gap: '1.2rem',
+          margin: height <= 670 ? '0 auto' : 0,
+          position: height > 670 ? 'absolute' : 'inherit',
+          bottom: '2rem',
+          left: '1.5rem',
+        })}
+      >
+        <Button type="submit" style={{ width: '12.6rem' }} color="primary" disabled={isPending}>
           나중에 입력
         </Button>
-        <Button type="submit" className={css({ width: '19.1rem' })} disabled={isPending}>
+        <Button type="submit" style={{ width: '19.1rem' }} disabled={isPending}>
           {isPending ? <Spinner size="sm" /> : '등록 완료'}
         </Button>
-      </>
+      </div>
     );
   };
 
@@ -201,13 +212,7 @@ export default function CreatFundStep4() {
           />
         </div>
 
-        <div
-          className={cx(
-            button({ isBottomFixed: true, position: 'last' }),
-            css({ gap: '1.2rem' }),
-            window.innerHeight <= 680 ? wrapper : buttons,
-          )}
-        >
+        <div className={css({ marginBottom: '2rem' })}>
           <Buttons />
         </div>
       </form>
@@ -221,15 +226,3 @@ export default function CreatFundStep4() {
     </>
   );
 }
-
-const wrapper = css({
-  width: '100%',
-  margin: '2.4rem 0',
-});
-
-const buttons = css({
-  position: 'absolute',
-  bottom: '2.5rem',
-  left: '2rem',
-  width: '32.3rem',
-});
