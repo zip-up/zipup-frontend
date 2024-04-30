@@ -15,7 +15,7 @@ import { shareKakao } from '@utils/share';
 export default function Funding() {
   const router = useRouter();
 
-  const { id: fundingId } = router.query as { id: string };
+  const { id: fundingId, from } = router.query as { id: string; from?: string };
   const { data: user } = useUser();
 
   const { data: fundingInfo } = useGetFundingDeatil(fundingId);
@@ -65,7 +65,7 @@ export default function Funding() {
 
   return (
     <div className={style.pageLayout}>
-      <Header />
+      <Header fromCreate={!!from} />
       {!imageUrl ? (
         <DefaultPresentImg />
       ) : (

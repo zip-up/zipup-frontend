@@ -121,7 +121,7 @@ export default function CreatFundStep4() {
                 onClick={() => {
                   setIsModalOpen(false);
                   if (fundId) {
-                    router.push('/funding/' + fundId);
+                    router.push('/funding/' + fundId + '?from=myPage');
                   } else {
                     alert('잘못된 접근입니다.');
                   }
