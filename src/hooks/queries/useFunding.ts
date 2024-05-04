@@ -1,9 +1,9 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { DetailFundingInfo } from '@typings/funding';
 import { useRouter } from 'next/router';
-import { getLoacalStorage } from '@store/localStorage';
 import { InstanceWithToken } from '@api/index';
-import axios from 'axios';
+import { getLoacalStorage } from '@store/localStorage';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { DetailFundingInfo, ParticipantInfo } from '@typings/funding';
+import axios, { isAxiosError } from 'axios';
 
 const useGetFundingDeatil = (fundingId: string) => {
   const token = getLoacalStorage('@token');
@@ -31,16 +31,18 @@ const useParticipateFunding = () => {
   const router = useRouter();
 
   return useMutation({
-    mutationFn: async (participateInfo: any) => {
+    mutationFn: async (participateInfo: ParticipantInfo) => {
       await InstanceWithToken.post(`/v1/present`, participateInfo);
     },
 
     onError: error => {
-      console.log('참여자 정보 저장', error);
+      console.error('참여자 정보 저장', error);
 
-      const { id } = router.query;
+      if (isAxiosError(error)) {
+        const { id } = router.query;
 
-      router.push(`/funding/${id}/payment/fail?code=${error?.code}&message=${error.message}`);
+        router.push(`/funding/${id}/payment/fail?code=${error?.code}&message=${error.message}`);
+      }
     },
   });
 };

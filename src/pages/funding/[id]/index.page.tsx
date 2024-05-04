@@ -1,16 +1,17 @@
-/* eslint-disable @next/next/no-img-element */
-import { useRouter } from 'next/router';
-import Header from '@components/common/Header';
-import * as style from './styles';
-import Button from '@components/common/Button';
-import MessageList from '@components/MessageList';
-import DefaultPresentImg from '@assets/images/default_present.svg';
-import { useGetFundingDeatil } from '@hooks/queries/useFunding';
-import FundingStatusBox from '@components/FundingStatusBox';
 import { useState } from 'react';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import DefaultPresentImg from '@assets/images/default_present.svg';
+import Button from '@components/common/Button';
+import Header from '@components/common/Header';
+import FundingStatusBox from '@components/FundingStatusBox';
+import MessageList from '@components/MessageList';
 import LoginModal from '@components/modals/LoginModal';
 import { useUser } from '@hooks/queries/useAuth';
+import { useGetFundingDeatil } from '@hooks/queries/useFunding';
 import { shareKakao } from '@utils/share';
+
+import * as style from './styles';
 
 export default function Funding() {
   const router = useRouter();
@@ -35,12 +36,14 @@ export default function Funding() {
     presentList: messageList,
   } = fundingInfo;
 
-  const RoleBasedButton = () => {
+  function RoleBasedButton() {
+    if (!fundingInfo || !user) return null;
+
     if (isOrganizer) {
       return (
         <Button
           onClick={() =>
-            shareKakao({ userName: user?.name, imageUrl: fundingInfo.imageUrl, fundingId })
+            shareKakao({ userName: user.name, imageUrl: fundingInfo.imageUrl, fundingId })
           }
         >
           친구에게 공유하기
@@ -50,6 +53,7 @@ export default function Funding() {
     if (isParticipant) {
       return <Button onClick={() => {}}>결제 취소하기</Button>;
     }
+
     return (
       <Button
         onClick={() => {
@@ -61,7 +65,7 @@ export default function Funding() {
         이 펀딩 참여하기
       </Button>
     );
-  };
+  }
 
   return (
     <div className={style.pageLayout}>
@@ -70,7 +74,7 @@ export default function Funding() {
         <DefaultPresentImg />
       ) : (
         <div className={style.imageWrapper}>
-          <img src={imageUrl} alt="상품 이미지" />
+          <Image src={imageUrl} alt="상품 이미지" fill style={{ objectFit: 'contain' }} />
         </div>
       )}
       <article className={style.wrapper}>

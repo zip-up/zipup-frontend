@@ -1,19 +1,18 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import CancelIcon from '@assets/icons/cancel-icon.svg';
+import InfoIcon from '@assets/icons/info.svg';
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
-import { useRouter } from 'next/router';
+import ProgressBar from '@components/common/ProgressBar';
+import ModalWithIcon from '@components/modals/ModalWithIcon';
+import { infoContainer, title } from '@components/Term/styles';
+import { createFundState } from '@store/store';
 import { useForm } from 'react-hook-form';
-import * as style from '../styles';
+import { useRecoilState } from 'recoil';
 import { css, cx } from 'styled-system/css';
 
-import { useEffect, useState } from 'react';
-import ModalWithIcon from '@components/modals/ModalWithIcon';
-import CancelIcon from '@assets/icons/cancel-icon.svg';
-import ProgressBar from '@components/common/ProgressBar';
-import { useRecoilState } from 'recoil';
-import { createFundState } from '@store/store';
-import { infoContainer, title } from '@components/Term/styles';
-import InfoIcon from '@assets/icons/info.svg';
+import * as style from '../styles';
 
 interface FormInput {
   link: string;
@@ -71,7 +70,7 @@ export default function CreatFundStep1() {
           subtitle="작성한 내용은 저장되지 않아요."
           icon={<CancelIcon />}
           buttonComponent={
-            <div className={style.modal_button_wrapper}>
+            <div className={style.modalButtonWrapper}>
               <Button
                 color="primary"
                 style={{ width: '10.9rem' }}
@@ -91,11 +90,11 @@ export default function CreatFundStep1() {
       )}
       <Header onGoBack={() => setIsOpen(true)} />
       <ProgressBar width={'8.2rem'} />
-      <h4 className={style.step_name}>Step 1</h4>
+      <h4 className={style.stepName}>Step 1</h4>
       <h2 className={style.title}>어떤 집들이 선물을 원하시나요?</h2>
       <form className={style.form} onSubmit={handleSubmit(handleCreateFundSubmit)}>
         <label>
-          <span className={style.subtitle}>받고 싶은 선물을 입력해주세요.</span>
+          <span className={style.subTitle}>받고 싶은 선물을 입력해주세요.</span>
           <span className={style.required}>*</span>
         </label>
         <input
@@ -109,12 +108,12 @@ export default function CreatFundStep1() {
             validate: value => validateUrl(value) || '유효한 상품 링크를 입력해주세요.',
           })}
         />
-        {errors.link && <p className={style.error_text}>{errors.link.message}</p>}
+        {errors.link && <p className={style.errorText}>{errors.link.message}</p>}
 
         <div className={style.divider} />
 
         <label>
-          <span className={style.subtitle}>펀딩의 목표 금액을 입력해주세요.</span>
+          <span className={style.subTitle}>펀딩의 목표 금액을 입력해주세요.</span>
           <span className={style.required}>*</span>
         </label>
         <input
@@ -129,7 +128,7 @@ export default function CreatFundStep1() {
             validate: value => !isNaN(Number(value)) || '숫자로만 입력해주세요.',
           })}
         />
-        {errors.targetMoney && <p className={style.error_text}>{errors.targetMoney.message}</p>}
+        {errors.targetMoney && <p className={style.errorText}>{errors.targetMoney.message}</p>}
 
         <div className={cx(infoContainer, css({ flexDir: 'row', alignItems: 'center' }))}>
           <InfoIcon />

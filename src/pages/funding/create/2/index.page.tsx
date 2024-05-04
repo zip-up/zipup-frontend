@@ -1,16 +1,15 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
-import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
-import * as style from '../styles';
-
-import { css, cx } from 'styled-system/css';
-import TextareaAutosize from 'react-textarea-autosize';
 import ProgressBar from '@components/common/ProgressBar';
-import { useRecoilState } from 'recoil';
 import { createFundState } from '@store/store';
-import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import TextareaAutosize from 'react-textarea-autosize';
+import { useRecoilState } from 'recoil';
+import { css, cx } from 'styled-system/css';
+
+import * as style from '../styles';
 
 interface FormInput {
   name: string;
@@ -45,11 +44,11 @@ export default function CreatFundStep2() {
     <>
       <Header onGoBack={() => router.back()} />
       <ProgressBar width={'16.4rem'} />
-      <h4 className={style.step_name}>Step 2</h4>
+      <h4 className={style.stepName}>Step 2</h4>
       <h2 className={style.title}>내 펀딩에 대해 설명해주세요.</h2>
       <form className={style.form} onSubmit={handleSubmit(handleCreateFundSubmit)}>
         <label>
-          <span className={style.subtitle}>펀딩의 제목을 입력해주세요.</span>
+          <span className={style.subTitle}>펀딩의 제목을 입력해주세요.</span>
           <span className={style.required}>*</span>
         </label>
         <input
@@ -62,17 +61,17 @@ export default function CreatFundStep2() {
             required: '필수 항목을 입력하지 않았습니다.',
           })}
         />
-        {errors.name && <p className={style.error_text}>{errors.name.message}</p>}
+        {errors.name && <p className={style.errorText}>{errors.name.message}</p>}
 
         <div className={style.divider} />
 
         <label>
-          <span className={style.subtitle}>친구들에게 하고 싶은 말을 작성해주세요.</span>
+          <span className={style.subTitle}>친구들에게 하고 싶은 말을 작성해주세요.</span>
           <span className={style.required}>*</span>
         </label>
         <div style={{ position: 'relative' }}>
           {!watch('textMessage') && (
-            <p className={style.text_placeholder} onClick={() => setFocus('textMessage')}>
+            <p className={style.textPlaceholder} onClick={() => setFocus('textMessage')}>
               펀딩에 대한 설명을 입력해주세요.
               <br />
               집들이 선물을 받고 싶은 이유나 원하는 선물 설명,
@@ -92,7 +91,7 @@ export default function CreatFundStep2() {
             })}
           />
         </div>
-        {errors.textMessage && <p className={style.error_text}>{errors.textMessage.message}</p>}
+        {errors.textMessage && <p className={style.errorText}>{errors.textMessage.message}</p>}
 
         <Button type="submit" isBottomFixed>
           다음

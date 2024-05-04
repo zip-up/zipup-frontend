@@ -1,6 +1,6 @@
-import { css } from 'styled-system/css';
-import BackIcon from '@assets/icons/back.svg';
 import { useRouter } from 'next/router';
+import BackIcon from '@assets/icons/back.svg';
+import { css } from 'styled-system/css';
 
 interface HeaderProps {
   hasTitle?: boolean;
@@ -18,7 +18,7 @@ export default function Header({ hasTitle, title, onGoBack }: HeaderProps) {
       <button className={wrapper} onClick={onGoBack || handleGoBack}>
         <BackIcon />
       </button>
-      {hasTitle && <h2 className={styled_title}>{title}</h2>}
+      {hasTitle && <h2 className={styledTitle}>{title}</h2>}
       <div className={wrapper} />
     </header>
   );
@@ -44,7 +44,7 @@ const wrapper = css({
   cursor: 'pointer',
 });
 
-const styled_title = css({
+const styledTitle = css({
   fontFamily: 'pretendard-semibold',
   fontWeight: '600',
   color: 'text.100',

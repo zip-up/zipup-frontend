@@ -1,4 +1,5 @@
 import Modal from '@components/common/Modal';
+
 import * as style from './styles';
 
 interface ModalWithIconProps {
@@ -20,12 +21,12 @@ export default function ModalWithIcon({
 }: ModalWithIconProps) {
   return (
     <Modal onClose={onClose} height={258} width={width}>
-      <div className={style.top_box}>
-        <div className={style.image_box}>{icon}</div>
+      <div className={style.topBox}>
+        <div className={style.imageBox}>{icon}</div>
         <p className={style.title}>{title}</p>
       </div>
       <p className={style.subtitle}>{subtitle}</p>
-      <div className={style.button_box}>{buttonComponent}</div>
+      <div className={style.buttonBox}>{buttonComponent}</div>
     </Modal>
   );
 }

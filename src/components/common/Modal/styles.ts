@@ -1,6 +1,6 @@
 import { css } from 'styled-system/css';
 
-const modal_container = css({
+const modalContainer = css({
   zIndex: 1,
   position: 'fixed',
   top: 0,
@@ -16,7 +16,7 @@ const modal_container = css({
 export const MODAL_PADDING_VALUE_ONLY = 1.8;
 export const MODAL_PADDING_WITH_UNIT = `${MODAL_PADDING_VALUE_ONLY}rem`;
 
-const modal_content = css({
+const modalContent = css({
   width: '32.7rem',
   backgroundColor: 'white',
   borderRadius: '2rem',
@@ -26,4 +26,4 @@ const modal_content = css({
   position: 'relative',
 });
 
-export { modal_container, modal_content };
+export { modalContainer, modalContent };

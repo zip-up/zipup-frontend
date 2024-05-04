@@ -3,7 +3,6 @@ import B from '@assets/icons/priceLabel/active/B.svg';
 import C from '@assets/icons/priceLabel/active/C.svg';
 import D from '@assets/icons/priceLabel/active/D.svg';
 import E from '@assets/icons/priceLabel/active/E.svg';
-
 import A_d from '@assets/icons/priceLabel/disabled/A_d.svg';
 import B_d from '@assets/icons/priceLabel/disabled/B_d.svg';
 import C_d from '@assets/icons/priceLabel/disabled/C_d.svg';

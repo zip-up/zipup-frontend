@@ -1,4 +1,5 @@
 import { PropsWithChildren } from 'react';
+
 import * as style from './styles';
 
 interface ModalProps {
@@ -13,9 +14,9 @@ export default function Modal({ children, height, width, onClose }: PropsWithChi
   };
 
   return (
-    <div className={style.modal_container} onClick={onClose}>
+    <div className={style.modalContainer} onClick={onClose}>
       <div
-        className={style.modal_content}
+        className={style.modalContent}
         style={{ height: height ? `${height * 0.1}rem` : '25.5rem', width }}
         onClick={handleContentClick}
       >

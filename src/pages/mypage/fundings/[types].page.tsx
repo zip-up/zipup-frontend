@@ -1,16 +1,16 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import Card from '@components/Card';
-import Header from '@components/common/Header';
-import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import * as style from '../styles';
+import { useRouter } from 'next/router';
+import GiftIcon from '@assets/icons/big-gift-image.svg';
+import Card from '@components/Card';
+import Button from '@components/common/Button';
+import Header from '@components/common/Header';
+import { useUser } from '@hooks/queries/useAuth';
 import { useGetMyFundingList, useGetParticipatedList } from '@hooks/queries/useGetFundingList';
 import { FundingInfo } from '@typings/funding';
-import { flex } from 'styled-system/patterns';
-import GiftIcon from '@assets/icons/big-gift-image.svg';
-import Button from '@components/common/Button';
 import { cx } from 'styled-system/css';
-import { useUser } from '@hooks/queries/useAuth';
+import { flex } from 'styled-system/patterns';
+
+import * as style from '../styles';
 
 export default function MyFundings() {
   const router = useRouter();
@@ -22,14 +22,14 @@ export default function MyFundings() {
     refetch: refetchMyFundingList,
     isLoading: isMyFundingListLoading,
   } = useGetMyFundingList({
-    uuid: user?.id,
+    uuid: user?.id || '',
   });
   const {
     data: participatedList,
     refetch: refetchParticipatedList,
     isLoading: isParticipatedListLoading,
   } = useGetParticipatedList({
-    uuid: user?.id,
+    uuid: user?.id || '',
   });
   const [data, setData] = useState<FundingInfo[]>([]);
 
@@ -65,8 +65,8 @@ export default function MyFundings() {
         onGoBack={() => router.back()}
       />
       {data.length > 0 && (
-        <div className={style.card_content}>
-          <div className={style.flex_container}>
+        <div className={style.cardContent}>
+          <div className={style.flexContainer}>
             {data.map((item, index) => (
               <Card
                 key={index}
@@ -86,17 +86,17 @@ export default function MyFundings() {
       {!data.length && !isParticipatedListLoading && !isMyFundingListLoading && (
         <div
           className={cx(
-            style.card_content,
+            style.cardContent,
             flex({
               justifyContent: 'center',
             }),
           )}
         >
-          <div className={style.no_result}>
-            <div className={style.icon_box}>
+          <div className={style.noResult}>
+            <div className={style.iconBox}>
               <GiftIcon />
             </div>
-            <div className={style.text_box}>
+            <div className={style.textBox}>
               <p className={style.title}>
                 {String(types) === 'my' ? '아직 만든 펀딩이 없어요' : '아직 참여한 펀딩이 없어요'}
               </p>
@@ -108,7 +108,7 @@ export default function MyFundings() {
             </div>
             {String(types) === 'my' && (
               <Button
-                className={style.no_result_button}
+                className={style.noResultButton}
                 onClick={() => router.push('/funding/create/1')}
               >
                 내 펀딩 만들기

@@ -1,9 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
-import { css, cx } from 'styled-system/css';
 import GiftIcon from '@assets/images/gift-images.svg';
-import StatusTag from '@components/common/StatusTag';
 import ProgressBar from '@components/common/ProgressBar';
+import StatusTag from '@components/common/StatusTag';
 import { FundingInfo } from '@typings/funding';
+import { css, cx } from 'styled-system/css';
+
 import * as style from './styles';
 
 interface CardProps {
@@ -11,14 +11,14 @@ interface CardProps {
   onClick: () => void;
 }
 
-const Card = ({ data, onClick }: CardProps) => {
+function Card({ data, onClick }: CardProps) {
   const PROGRESS_BAR_BASE_WIDTH = 140;
 
   return (
     <div className={style.container} onClick={onClick}>
       <div
         className={cx(
-          style.image_box,
+          style.imageBox,
           css({ backgroundColor: data.imageUrl.length <= 6 ? 'blue.10' : 'white' }),
         )}
       >
@@ -38,7 +38,7 @@ const Card = ({ data, onClick }: CardProps) => {
           )}
         </p>
       </div>
-      <div className={style.info_box}>
+      <div className={style.infoBox}>
         <ProgressBar
           noMargin
           progressBarWidth={css({ width: PROGRESS_BAR_BASE_WIDTH * 0.1 + 'rem' })}
@@ -53,6 +53,6 @@ const Card = ({ data, onClick }: CardProps) => {
       </div>
     </div>
   );
-};
+}
 
 export default Card;
