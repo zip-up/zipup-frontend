@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import CreateImage from '@assets/images/funding_create_image.svg';
 import DeliveryImage from '@assets/images/funding_delivery_image.svg';
@@ -121,7 +122,7 @@ export default function Home() {
 
       <div className={style.wrapper}>
         <div className={style.image}>
-          <img src="/home.png" alt="home" width={245} height={236} />
+          <Image src="/home.png" alt="메인 홈 이미지" fill priority />
         </div>
         {!isBrowsingService && (
           <>

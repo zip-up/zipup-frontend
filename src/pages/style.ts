@@ -33,16 +33,14 @@ const wrapper = css({
   margin: '0 auto',
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
   gap: '1.6rem',
 });
 
 const image = css({
-  width: '32.7rem',
-  height: '23.4rem',
-  display: 'flex',
-  justifyContent: 'center',
-  marginTop: '-0.9rem',
-  marginBottom: '0.9rem',
+  width: '24.5rem',
+  height: '23.6rem',
+  pos: 'relative',
 });
 
 const serviceBox = css({
