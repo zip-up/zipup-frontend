@@ -72,7 +72,7 @@ function MyPage() {
             className={style.goFundingBtn}
             onClick={() => router.push('/mypage/fundings/participated')}
           >
-            <div className={style.footerInfoBox}>
+            <div className={style.goFundingInfoBox}>
               <h2 className={style.goFundingTitle}>참여한 펀딩</h2>
               <span className={style.goFundingSubTitle}>결제한 펀딩을 확인할 수 있어요</span>
             </div>

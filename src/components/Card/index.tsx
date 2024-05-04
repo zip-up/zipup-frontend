@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import GiftIcon from '@assets/images/gift-images.svg';
 import ProgressBar from '@components/common/ProgressBar';
 import StatusTag from '@components/common/StatusTag';
@@ -26,17 +27,21 @@ function Card({ data, onClick }: CardProps) {
           <StatusTag daysLeft={Number(data.status)} isCompleted={data.status === '완료'} />
         </div>
         {data.status === '완료' && <div className={style.blur} />}
-        <p>
+        <div>
           {data.imageUrl === 'https:' || !data.imageUrl ? (
             <GiftIcon />
           ) : (
-            <img
-              src={data.imageUrl}
-              alt="펀딩 이미지"
-              style={{ width: '15.6rem', height: '12rem', objectFit: 'cover' }}
-            />
+            <div className={css({ width: '15.6rem', height: '12rem', pos: 'relative' })}>
+              <Image
+                src={data.imageUrl}
+                alt="펀딩 이미지"
+                fill
+                style={{ objectFit: 'cover' }}
+                sizes="15.6rem"
+              />
+            </div>
           )}
-        </p>
+        </div>
       </div>
       <div className={style.infoBox}>
         <ProgressBar
