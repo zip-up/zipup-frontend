@@ -1,14 +1,14 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import DatePicker from '@components/Calendar';
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
-import { useRouter } from 'next/router';
-import * as style from '../styles';
-import { useForm } from 'react-hook-form';
-import DatePicker from '@components/Calendar';
-import { useEffect, useState } from 'react';
 import ProgressBar from '@components/common/ProgressBar';
-import { useRecoilState } from 'recoil';
 import { createFundState } from '@store/store';
+import { useForm } from 'react-hook-form';
+import { useRecoilState } from 'recoil';
+
+import * as style from '../styles';
 
 interface FormInput {
   due: string;
@@ -53,11 +53,11 @@ export default function CreateFundStep3() {
     <>
       <Header onGoBack={() => router.back()} />
       <ProgressBar width={'24.6rem'} />
-      <h4 className={style.step_name}>Step 3</h4>
+      <h4 className={style.stepName}>Step 3</h4>
       <h2 className={style.title}>펀딩 기간을 입력해주세요</h2>
       <form className={style.form} onSubmit={handleSubmit(handleCreateFundSubmit)}>
         <label>
-          <span className={style.subtitle}>집들이 날짜가 언제인가요?</span>
+          <span className={style.subTitle}>집들이 날짜가 언제인가요?</span>
           <span className={style.required}>*</span>
         </label>
         <DatePicker
@@ -67,12 +67,12 @@ export default function CreateFundStep3() {
           checkIsOpen={isDueOpen}
         />
         {errors.target && !watch('target') && (
-          <p className={style.error_text}>{errors.target.message}</p>
+          <p className={style.errorText}>{errors.target.message}</p>
         )}
 
         <div style={{ marginTop: isTargetOpen ? '31.7rem' : '1.6rem' }}>
           <label>
-            <span className={style.subtitle}>펀딩 마감일을 설정해주세요.</span>
+            <span className={style.subTitle}>펀딩 마감일을 설정해주세요.</span>
             <span className={style.required}>*</span>
           </label>
           <DatePicker
@@ -81,7 +81,7 @@ export default function CreateFundStep3() {
             onSetIsOpen={setisDueOpen}
             checkIsOpen={isTargetOpen}
           />
-          {errors.due && !watch('due') && <p className={style.error_text}>{errors.due.message}</p>}
+          {errors.due && !watch('due') && <p className={style.errorText}>{errors.due.message}</p>}
         </div>
 
         <Button type="submit" isBottomFixed>

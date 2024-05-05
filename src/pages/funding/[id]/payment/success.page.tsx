@@ -1,14 +1,16 @@
+import { useEffect } from 'react';
 import { GetServerSideProps } from 'next';
-import * as commonStyle from '@pages/invite/[id]/styles';
-import * as style from './styles';
 import Image from 'next/image';
 import Link from 'next/link';
 import { InstanceWithToken } from '@api/index';
-import { css, cx } from 'styled-system/css';
-import { useEffect } from 'react';
-import { getLoacalStorage } from '@store/localStorage';
-import { useGetFundingDeatil, useParticipateFunding } from '@hooks/queries/useFunding';
 import Spinner from '@components/common/Spinner';
+import { useGetFundingDetail, useParticipateFunding } from '@hooks/queries/useFunding';
+import * as commonStyle from '@pages/invite/[id]/styles';
+import { getLoacalStorage } from '@store/localStorage';
+import { isAxiosError } from 'axios';
+import { css, cx } from 'styled-system/css';
+
+import * as style from './styles';
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const {
@@ -23,11 +25,21 @@ export const getServerSideProps: GetServerSideProps = async context => {
     if (!response.data.id) throw new Error('결제 승인 요청 실패');
 
     return { props: { fundingId, orderId, amount, paymentId: response.data.id } };
-  } catch (e: any) {
-    console.log('결제 승인 요청 에러', e);
+  } catch (error) {
+    console.error('결제 승인 요청 에러', error);
+
+    if (isAxiosError(error)) {
+      return {
+        redirect: {
+          destination: `/funding/${fundingId}/payment/fail?code=${error.response?.data?.code}&message=${encodeURIComponent(error.response?.data?.message)}`,
+          permanent: false,
+        },
+      };
+    }
+
     return {
       redirect: {
-        destination: `/funding/${fundingId}/payment/fail?code=${e.response?.data?.code}&message=${encodeURIComponent(e.response?.data?.message)}`,
+        destination: `/funding/${fundingId}/payment/fail?code=${500}&message=${encodeURIComponent('결제 과정에서 오류가 발생했습니다.')}`,
         permanent: false,
       },
     };
@@ -39,7 +51,6 @@ interface SuccessProps {
   orderId: string;
   amount: string;
   paymentId: string;
-  organizerName: string;
 }
 
 export default function Success({ fundingId, orderId, amount, paymentId }: SuccessProps) {
@@ -47,7 +58,7 @@ export default function Success({ fundingId, orderId, amount, paymentId }: Succe
 
   const { mutate, isPending: isMutating } = useParticipateFunding();
 
-  const { data: fundingInfo, isLoading } = useGetFundingDeatil(fundingId);
+  const { data: fundingInfo, isLoading } = useGetFundingDetail(fundingId);
 
   useEffect(() => {
     if (isLoading) return;

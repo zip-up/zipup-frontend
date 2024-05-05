@@ -1,7 +1,8 @@
 import { getLoacalStorage, setLocalStorage } from '@store/localStorage';
 import axios from 'axios';
-import { getNewToken } from './auth';
 import Cookies from 'js-cookie';
+
+import { getNewToken } from './auth';
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -40,7 +41,7 @@ InstanceWithToken.interceptors.response.use(
         return InstanceWithToken(originalRequest);
       } catch (error) {
         window.location.href = '/';
-        console.log('failed refresh token', error);
+        console.error('failed refresh token', error);
       }
     }
 

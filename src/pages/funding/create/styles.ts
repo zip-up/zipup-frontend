@@ -1,6 +1,6 @@
 import { css } from 'styled-system/css';
 
-const step_name = css({
+const stepName = css({
   color: 'main.blue',
   fontFamily: 'pretendard-regular',
   fontSize: 'body1',
@@ -20,7 +20,7 @@ const title = css({
   marginBottom: '4.8rem',
 });
 
-const subtitle = css({
+const subTitle = css({
   lineHeight: 'normal',
   fontFamily: 'pretendard-semibold',
   fontWeight: '600',
@@ -70,12 +70,11 @@ const form = css({
   height: 'calc(100% - 19.1rem)',
 });
 
-
 const pointer = css({
   cursor: 'pointer',
 });
 
-const text_placeholder = css({
+const textPlaceholder = css({
   position: 'absolute',
   left: '3.7rem',
   top: '3.08rem',
@@ -84,7 +83,7 @@ const text_placeholder = css({
   color: 'text.200',
 });
 
-const date_box = css({
+const dateBox = css({
   width: '32.7rem',
   height: '5.2rem',
   borderRadius: '0.8rem',
@@ -103,7 +102,7 @@ const date_box = css({
   marginBottom: '-0.2rem',
 });
 
-const error_text = css({
+const errorText = css({
   marginTop: '0.8rem',
   fontFamily: 'pretendard-regular',
   fontSize: 'caption1',
@@ -111,13 +110,13 @@ const error_text = css({
   marginLeft: '2rem',
 });
 
-const input_shape = css({
+const inputShape = css({
   outline: 'none',
   backgroundColor: 'transparent',
   cursor: 'pointer',
 });
 
-const modal_button_wrapper = css({
+const modalButtonWrapper = css({
   display: 'flex',
   gap: '0.8rem',
   width: '100%',
@@ -126,17 +125,17 @@ const modal_button_wrapper = css({
 });
 
 export {
-  step_name,
+  stepName,
   title,
-  subtitle,
+  subTitle,
   required,
   input,
   divider,
   form,
   pointer,
-  text_placeholder,
-  date_box,
-  error_text,
-  input_shape,
-  modal_button_wrapper,
+  textPlaceholder,
+  dateBox,
+  errorText,
+  inputShape,
+  modalButtonWrapper,
 };

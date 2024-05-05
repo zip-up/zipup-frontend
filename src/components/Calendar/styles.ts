@@ -9,18 +9,18 @@ const header = css({
   marginTop: '-0.8rem',
 });
 
-const header_content = css({
+const headerContent = css({
   width: '15.9rem',
   margin: '0 auto',
   display: 'flex',
   justifyContent: 'space-between',
 });
 
-const month_text = css({
+const monthText = css({
   fontFamily: 'pretendard-semibold',
   fontWeight: '600',
   color: 'text.100',
   fontSize: 'body1',
 });
 
-export { header, header_content, month_text };
+export { header, headerContent, monthText };

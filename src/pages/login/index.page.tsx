@@ -1,9 +1,10 @@
-import * as style from './styles';
-import Button from '@components/common/Button';
 import Image from 'next/image';
-import Header from '@components/common/Header';
+import Button from '@components/common/Button';
 import KakaoButton from '@components/common/Button/KakaoButton';
+import Header from '@components/common/Header';
 import { handleLogin } from '@utils/kakaoLogin';
+
+import * as style from './styles';
 
 export default function Login() {
   // ssr로 변경 및 로그인한 유저가 접근 시 404페이지, mypage로 redirect

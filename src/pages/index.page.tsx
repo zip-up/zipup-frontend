@@ -1,23 +1,21 @@
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable @next/next/no-sync-scripts */
-/* eslint-disable react-hooks/exhaustive-deps */
-import Head from 'next/head';
-import Button from '@components/common/Button';
-import * as style from './style';
 import { useEffect, useState } from 'react';
-import HeaderWithLogo from '@components/HeaderWithLogo';
+import Head from 'next/head';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useLogIn } from '@hooks/queries/useAuth';
-import { css, cx } from 'styled-system/css';
 import CreateImage from '@assets/images/funding_create_image.svg';
 import DeliveryImage from '@assets/images/funding_delivery_image.svg';
 import ParticipateImage from '@assets/images/funding_participate_image.svg';
 import TargetImage from '@assets/images/funding_target_image.svg';
-
-import LoginModal from '@components/modals/LoginModal';
-import Spinner from '@components/common/Spinner';
+import Button from '@components/common/Button';
 import Header from '@components/common/Header';
+import Spinner from '@components/common/Spinner';
+import HeaderWithLogo from '@components/HeaderWithLogo';
+import LoginModal from '@components/modals/LoginModal';
+import { useLogIn } from '@hooks/queries/useAuth';
 import { getLoacalStorage, setLocalStorage } from '@store/localStorage';
+import { css, cx } from 'styled-system/css';
+
+import * as style from './style';
 
 const descData = [
   {
@@ -92,7 +90,7 @@ export default function Home() {
       ) : (
         <HeaderWithLogo onOpen={() => setIsOpen(true)} />
       )}
-      <div className={cx(style.text_box, css({ mt: isBrowsingService ? '-3rem' : '3rem' }))}>
+      <div className={cx(style.textBox, css({ mt: isBrowsingService ? '-3rem' : '3rem' }))}>
         {isBrowsingService ? (
           <p className={cx(style.title, css({ textAlign: 'center' }))}>
             <span>
@@ -106,7 +104,7 @@ export default function Home() {
           </p>
         )}
         {isBrowsingService ? (
-          <span className={style.subtitle}>
+          <span className={style.subTitle}>
             주는 사람은 부담 없이,
             <br />
             받는 사람은 높은 만족도로
@@ -114,7 +112,7 @@ export default function Home() {
             모두에게 즐거운 선물 경험을 제공해요
           </span>
         ) : (
-          <span className={style.subtitle}>
+          <span className={style.subTitle}>
             더나은 집들이 경험을 위한
             <br />
             집들이 선물 펀딩 서비스
@@ -124,7 +122,7 @@ export default function Home() {
 
       <div className={style.wrapper}>
         <div className={style.image}>
-          <img src="/home.png" alt="home" width={245} height={236} />
+          <Image src="/home.png" alt="메인 홈 이미지" fill priority />
         </div>
         {!isBrowsingService && (
           <>
@@ -147,13 +145,13 @@ export default function Home() {
       </div>
       {isBrowsingService && (
         <>
-          <div className={style.service_box}>
-            <div className={style.service_title_box}>
-              <span className={style.service_title}>집들이 선물, 어떻게 받을 수 있나요?</span>
+          <div className={style.serviceBox}>
+            <div className={style.serviceTitleBox}>
+              <span className={style.serviceTitle}>집들이 선물, 어떻게 받을 수 있나요?</span>
             </div>
-            <div className={style.service_desc_box}>
+            <div className={style.serviceDescBox}>
               {descData.map(item => (
-                <div key={item.title} className={style.service_desc_card}>
+                <div key={item.title} className={style.serviceDescCard}>
                   <div
                     style={{
                       height: '5.6rem',
@@ -165,24 +163,24 @@ export default function Home() {
                   >
                     {item.icon}
                   </div>
-                  <div className={style.service_text_box}>
-                    <p className={style.text_title}>{item.title}</p>
-                    <p className={style.text_desc}>{item.desc1}</p>
-                    <p className={cx(style.text_desc, css({ marginTop: '-0.3rem' }))}>
+                  <div className={style.serviceTextBox}>
+                    <p className={style.textTitle}>{item.title}</p>
+                    <p className={style.textDesc}>{item.desc1}</p>
+                    <p className={cx(style.textDesc, css({ marginTop: '-0.3rem' }))}>
                       {item.desc2}
                     </p>
                   </div>
                 </div>
               ))}
             </div>
-            <div className={style.login_box}>
-              <span className={style.login_text}>
+            <div className={style.loginBox}>
+              <span className={style.loginText}>
                 {getLoacalStorage('@token')
                   ? '내가 원하는 선물을\n지금 바로 등록해보세요'
                   : '카카오로 5초만에 로그인하고\n바로 시작해볼까요?'}
               </span>
               <Button
-                className={style.login_button}
+                className={style.loginButton}
                 onClick={() =>
                   getLoacalStorage('@token') ? router.push('/funding/create/1') : setIsOpen(true)
                 }

@@ -27,6 +27,7 @@ const desc = css(borderWithPadding, {
 });
 
 const imageWrapper = css({
+  position: 'relative',
   width: '360px',
   height: 'fit-content',
   minHeight: '225px',

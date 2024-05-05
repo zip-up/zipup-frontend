@@ -1,22 +1,23 @@
+import { Fragment, useState } from 'react';
+import { useRouter } from 'next/router';
+import { A, A_d, B, B_d, C, C_d, D, D_d, E, E_d } from '@assets/icons/priceLabel/index';
+import Button from '@components/common/Button';
 import Header from '@components/common/Header';
 import ProgressBar from '@components/common/ProgressBar';
-import { fundingFormState } from '@store/store';
-import { css, cx } from 'styled-system/css';
-import { Fragment, useState } from 'react';
-import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
-import { useRecoilState } from 'recoil';
-import * as style from './styles';
-import { A, B, C, D, E, A_d, B_d, C_d, D_d, E_d } from '@assets/icons/priceLabel/index';
-import Button from '@components/common/Button';
 import { statusTag } from '@components/common/StatusTag/styles';
-import { useRouter } from 'next/router';
-import { setLocalStorage } from '@store/localStorage';
-import { useGetFundingDeatil } from '@hooks/queries/useFunding';
-import { TermsCheckFlags } from '@typings/term';
-import { PrivacyTerm, PurchaseTerm } from '@constants/terms';
 import Term from '@components/Term';
 import { infoContainer } from '@components/Term/styles';
+import { PrivacyTerm, PurchaseTerm } from '@constants/terms';
 import { useUser } from '@hooks/queries/useAuth';
+import { useGetFundingDetail } from '@hooks/queries/useFunding';
+import { setLocalStorage } from '@store/localStorage';
+import { fundingFormState } from '@store/store';
+import { TermsCheckFlags } from '@typings/term';
+import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
+import { useRecoilState } from 'recoil';
+import { css, cx } from 'styled-system/css';
+
+import * as style from './styles';
 
 export interface FormInputs extends TermsCheckFlags {
   price: number;
@@ -27,13 +28,13 @@ export interface FormInputs extends TermsCheckFlags {
 }
 
 export default function Participate() {
-  const [fundingForm, setFundingForm] = useRecoilState(fundingFormState);
+  const [_, setFundingForm] = useRecoilState(fundingFormState);
   const { data: user } = useUser();
 
   const router = useRouter();
   const { id: fundingId } = router.query as { id: string };
 
-  const { data: fundingInfo } = useGetFundingDeatil(fundingId);
+  const { data: fundingInfo } = useGetFundingDetail(fundingId);
 
   const {
     register,
@@ -65,7 +66,7 @@ export default function Participate() {
     });
 
     setFundingForm({
-      participateId: user?.id,
+      participateId: user?.id || '',
       price: enteredCustomPrice ? customPrice : price,
     });
 
@@ -76,7 +77,7 @@ export default function Participate() {
     if (errors.isPurchaseChecked || errors.isPrivacyChecked) {
       const errorMessage = errors.isPurchaseChecked?.message || errors.isPrivacyChecked?.message;
 
-      console.log(errorMessage);
+      console.error(errorMessage);
     }
   };
 

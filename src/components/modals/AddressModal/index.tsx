@@ -6,7 +6,7 @@ interface AddressModalProps {
   onClose: () => void;
 }
 
-const AddressModal = ({ onSetAddress, onClose }: AddressModalProps) => {
+function AddressModal({ onSetAddress, onClose }: AddressModalProps) {
   const handleComplete = data => {
     onSetAddress(data.address);
     onClose();
@@ -18,6 +18,6 @@ const AddressModal = ({ onSetAddress, onClose }: AddressModalProps) => {
       <DaumPostcode style={{ height: height - 30 }} onComplete={handleComplete} />
     </Modal>
   );
-};
+}
 
 export default AddressModal;

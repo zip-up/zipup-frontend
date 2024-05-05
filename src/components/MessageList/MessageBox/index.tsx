@@ -1,7 +1,9 @@
-import * as style from './styles';
-import { MessageInfo } from '@typings/funding';
 import UserIcon from '@assets/icons/user_m.svg';
 import Profile from '@components/common/Profile';
+import { MessageInfo } from '@typings/funding';
+
+import * as style from './styles';
+
 interface MessageProps {
   isMessageExist?: boolean;
   msg?: MessageInfo;

@@ -55,11 +55,9 @@ const useLogout = () => {
     mutationFn: async () => {
       const response = await InstanceWithToken.post(`/v1/auth/sign-out`);
 
-      console.log(response);
-
       return response.data;
     },
-    onError: e => console.log(e),
+    onError: e => console.error(e),
   });
 };
 

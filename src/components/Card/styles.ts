@@ -9,7 +9,7 @@ const container = css({
   cursor: 'pointer',
 });
 
-const image_box = css({
+const imageBox = css({
   width: '100%',
   height: '12rem',
   borderRadius: '1rem 1rem 0 0',
@@ -41,7 +41,7 @@ const blur = css({
   zIndex: 1,
 });
 
-const info_box = css({
+const infoBox = css({
   height: '7.1rem',
   backgroundColor: 'white',
   padding: '0.6rem',
@@ -69,4 +69,4 @@ const percent = css({
   marginTop: '0.2rem',
 });
 
-export { container, image_box, status, title, blur, info_box, percent };
+export { container, imageBox, status, title, blur, infoBox, percent };

@@ -1,4 +1,5 @@
 import { atom } from 'recoil';
+
 import { CreateFund } from './types';
 
 export const createFundState = atom<CreateFund>({

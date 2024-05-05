@@ -1,4 +1,5 @@
 import { MessageInfo } from '@typings/funding';
+
 import MessageBox from './MessageBox';
 import * as style from './styles';
 

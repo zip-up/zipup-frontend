@@ -1,13 +1,14 @@
+import { ReactNode } from 'react';
+import { useRouter } from 'next/router';
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { CustomError } from '@typings/customError';
-import { PropsWithChildren } from '@typings/propsChildren';
-import { useRouter } from 'next/router';
+import { isAxiosError } from 'axios';
 
-export default function ReactQueryClient({ children }: PropsWithChildren) {
+export default function ReactQueryClient({ children }: { children: ReactNode }) {
   const router = useRouter();
 
-  const handleError = error => {
-    if (error.response?.data) {
+  const handleError = (error: Error) => {
+    if (isAxiosError(error) && error.response?.data) {
       const customError = error.response.data as CustomError;
 
       const code = customError.code;

@@ -1,6 +1,7 @@
 import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
-import { button } from './styles';
 import { cx } from 'styled-system/css';
+
+import { button } from './styles';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'full' | 'regular' | 'none';

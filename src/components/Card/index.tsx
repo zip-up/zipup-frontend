@@ -1,9 +1,10 @@
-/* eslint-disable @next/next/no-img-element */
-import { css, cx } from 'styled-system/css';
+import Image from 'next/image';
 import GiftIcon from '@assets/images/gift-images.svg';
-import StatusTag from '@components/common/StatusTag';
 import ProgressBar from '@components/common/ProgressBar';
+import StatusTag from '@components/common/StatusTag';
 import { FundingInfo } from '@typings/funding';
+import { css, cx } from 'styled-system/css';
+
 import * as style from './styles';
 
 interface CardProps {
@@ -11,14 +12,14 @@ interface CardProps {
   onClick: () => void;
 }
 
-const Card = ({ data, onClick }: CardProps) => {
+function Card({ data, onClick }: CardProps) {
   const PROGRESS_BAR_BASE_WIDTH = 140;
 
   return (
     <div className={style.container} onClick={onClick}>
       <div
         className={cx(
-          style.image_box,
+          style.imageBox,
           css({ backgroundColor: data.imageUrl.length <= 6 ? 'blue.10' : 'white' }),
         )}
       >
@@ -26,19 +27,23 @@ const Card = ({ data, onClick }: CardProps) => {
           <StatusTag daysLeft={Number(data.status)} isCompleted={data.status === '완료'} />
         </div>
         {data.status === '완료' && <div className={style.blur} />}
-        <p>
+        <div>
           {data.imageUrl === 'https:' || !data.imageUrl ? (
             <GiftIcon />
           ) : (
-            <img
-              src={data.imageUrl}
-              alt="펀딩 이미지"
-              style={{ width: '15.6rem', height: '12rem', objectFit: 'cover' }}
-            />
+            <div className={css({ width: '15.6rem', height: '12rem', pos: 'relative' })}>
+              <Image
+                src={data.imageUrl}
+                alt="펀딩 이미지"
+                fill
+                style={{ objectFit: 'cover' }}
+                sizes="15.6rem"
+              />
+            </div>
           )}
-        </p>
+        </div>
       </div>
-      <div className={style.info_box}>
+      <div className={style.infoBox}>
         <ProgressBar
           noMargin
           progressBarWidth={css({ width: PROGRESS_BAR_BASE_WIDTH * 0.1 + 'rem' })}
@@ -53,6 +58,6 @@ const Card = ({ data, onClick }: CardProps) => {
       </div>
     </div>
   );
-};
+}
 
 export default Card;
