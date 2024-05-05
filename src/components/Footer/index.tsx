@@ -1,5 +1,5 @@
-import React from 'react';
 import style from './styles';
+import { Argument, css, cx } from 'styled-system/css';
 
 const termsAndConditionsList = [
   {
@@ -20,9 +20,25 @@ const termsAndConditionsList = [
   },
 ];
 
-const Footer = () => {
+interface FooterProps {
+  styles?: Argument;
+}
+
+const Footer = ({ styles }: FooterProps) => {
   return (
-    <footer className={style.footer}>
+    <footer
+      className={cx(
+        style.footer,
+        styles ||
+          css({
+            '@media (min-height: 650px)': {
+              position: 'absolute',
+              bottom: 0,
+            },
+            marginTop: '3rem',
+          }),
+      )}
+    >
       <div className={style.footerInfoBox}>
         <p>상호명 : 집업</p>
         <p>고객센터 : 0504-0815-5379</p>

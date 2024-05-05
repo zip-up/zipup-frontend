@@ -1,14 +1,9 @@
 import { css } from 'styled-system/css';
 
 const footer = css({
-  '@media (min-height: 650px)': {
-    position: 'absolute',
-    bottom: 0,
-  },
   padding: '2.4rem 1.6rem 3.2rem',
   width: '36rem',
   backgroundColor: 'bg.300',
-  marginTop: '3rem',
 });
 
 const footerInfoBox = css({

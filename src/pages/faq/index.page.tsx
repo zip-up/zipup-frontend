@@ -84,7 +84,14 @@ const Faq = () => {
                 onToggle={() => handleAccordionToggle(item.question)}
               />
             ))}
-          <Footer />
+          <Footer
+            styles={css({
+              '@media (min-height: 706px)': {
+                position: 'absolute',
+                bottom: 0,
+              },
+            })}
+          />
         </div>
       </div>
     </>
