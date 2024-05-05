@@ -88,17 +88,13 @@ export default function CreatFundStep4() {
       <div
         className={flex({
           width: '32.9rem',
-          gap: '1.2rem',
           margin: height <= 670 ? '0 auto' : 0,
           position: height > 670 ? 'absolute' : 'inherit',
           bottom: '2rem',
           left: '1.5rem',
         })}
       >
-        <Button type="submit" style={{ width: '12.6rem' }} color="primary" disabled={isPending}>
-          나중에 입력
-        </Button>
-        <Button type="submit" style={{ width: '19.1rem' }} disabled={isPending}>
+        <Button type="submit" disabled={isPending}>
           {isPending ? <Spinner size="sm" /> : '등록 완료'}
         </Button>
       </div>
