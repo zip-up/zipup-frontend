@@ -17,10 +17,15 @@ const Faq = () => {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('이용문의');
   const [keyword, setKeyword] = useState('');
+  const [openQuestion, setOpenQuestion] = useState<string | null>(null);
   const { register, getValues, handleSubmit } = useForm<FormInputs>();
 
   const submitHandler = () => {
     setKeyword(getValues('text'));
+  };
+
+  const handleAccordionToggle = (question: string) => {
+    setOpenQuestion(openQuestion === question ? null : question);
   };
 
   return (
@@ -58,16 +63,29 @@ const Faq = () => {
           </div>
         )}
         <div className={style.content}>
-          {keyword
-            ? Object.values(FaqQuestions)
-                .flat()
-                .filter(el => el.answer.includes(keyword) || el.question.includes(keyword))
-                .map(item => <Accordion key={item.question} {...item} />)
-            : FaqQuestions[activeTab as keyof FaqQuestionsType].map(item => (
-                <Accordion key={item.question} {...item} />
+          {keyword &&
+            Object.values(FaqQuestions)
+              .flat()
+              .filter(el => el.answer.includes(keyword) || el.question.includes(keyword))
+              .map(item => (
+                <Accordion
+                  key={item.question}
+                  {...item}
+                  isOpen={openQuestion === item.question}
+                  onToggle={() => handleAccordionToggle(item.question)}
+                />
               ))}
+          {!keyword &&
+            FaqQuestions[activeTab as keyof FaqQuestionsType].map(item => (
+              <Accordion
+                key={item.question}
+                {...item}
+                isOpen={openQuestion === item.question}
+                onToggle={() => handleAccordionToggle(item.question)}
+              />
+            ))}
+          <Footer />
         </div>
-        <Footer />
       </div>
     </>
   );

@@ -1,15 +1,16 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import style from './styles';
 import { css, cx } from 'styled-system/css';
 
 interface AccordionProps {
   question: string;
   answer: string;
+  isOpen: boolean;
+  onToggle?: () => void;
 }
 
-const Accordion = ({ question, answer }: AccordionProps) => {
+const Accordion = ({ question, answer, isOpen, onToggle }: AccordionProps) => {
   const contentsRef = useRef<HTMLDivElement>(null);
-  const [isOpen, setIsOpen] = useState(false);
   const [isFullyClosed, setIsFullyClosed] = useState(true);
 
   const updateHeight = () => {
@@ -19,21 +20,12 @@ const Accordion = ({ question, answer }: AccordionProps) => {
     }
   };
 
-  const handleOpenClick = () => {
-    setIsOpen(!isOpen);
-    setIsFullyClosed(false);
-  };
-
   useEffect(() => {
     updateHeight();
 
     const contentsElement = contentsRef.current;
     const transitionEndHandler = () => {
-      if (!isOpen) {
-        setIsFullyClosed(true);
-      } else {
-        setIsFullyClosed(false);
-      }
+      setIsFullyClosed(!isOpen);
     };
 
     contentsElement?.addEventListener('transitionend', transitionEndHandler);
@@ -57,10 +49,11 @@ const Accordion = ({ question, answer }: AccordionProps) => {
         className={cx(
           style.accordionQuestion,
           css({
-            backgroundColor: isFullyClosed ? 'white' : 'bg.200',
+            backgroundColor: isOpen || !isFullyClosed ? 'bg.200' : 'white',
+            transition: 'background-color 0.2s ease',
           }),
         )}
-        onClick={handleOpenClick}
+        onClick={onToggle}
       >
         <span className={style.highlight}>Q.</span>
         <span>{question}</span>
