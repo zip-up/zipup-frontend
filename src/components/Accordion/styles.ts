@@ -21,14 +21,14 @@ const highlight = css({
 
 const accordionContent = css({
   overflow: 'hidden',
-  transition: '0.3s ease-in-out',
   backgroundColor: 'bg.200',
   borderBottomColor: 'gray.300',
   borderBottomWidth: '0.1rem',
+  height: 0,
+  transition: 'height 0.3s ease',
 });
 
 const innerContent = flex({
-  gap: '1.6rem',
   padding: '0 1.6rem 1.6rem',
 });
 
@@ -36,6 +36,7 @@ const content = css({
   fontSize: '1.2rem',
   color: 'text.200',
   fontWeight: '400',
+  whiteSpace: 'pre-wrap',
 });
 
 const style = {
