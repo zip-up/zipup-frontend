@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import UserIcon from '@assets/icons/big-user.svg';
-import ExitIcon from '@assets/icons/exit.svg';
 import GoIcon from '@assets/icons/go.svg';
 import MyFundingIcon from '@assets/images/my-funding.svg';
 import ParticipatedFundingIcon from '@assets/images/participated_funding.svg';
@@ -10,27 +9,9 @@ import HeaderWithLogo from '@components/HeaderWithLogo';
 import { useLogout, useUser } from '@hooks/queries/useAuth';
 import { getLoacalStorage } from '@store/localStorage';
 import * as style from './styles';
-import { css, cx } from 'styled-system/css';
+import { cx } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
-
-const termsAndConditions = [
-  {
-    text: '이용약관',
-    link: 'https://danisong.notion.site/508a845508794eab98435cecea30d561',
-  },
-  {
-    text: '개인정보처리방침',
-    link: 'https://danisong.notion.site/bdf9880b3f91458fbe1a4118de2b5eb1',
-  },
-  {
-    text: '회원탈퇴',
-    link: '',
-  },
-  {
-    text: '자주 묻는 질문',
-    link: '',
-  },
-];
+import Footer from '@components/Footer';
 
 function MyPage() {
   const router = useRouter();
@@ -120,19 +101,7 @@ function MyPage() {
             <span className={style.goFundingSubTitle}>서비스에 궁금한 점이 있나요?</span>
           </button>
         </div>
-        <footer className={style.footer}>
-          <div className={style.footerInfoBox}>
-            <p>상호명 : 집업</p>
-            <p>고객센터 : 0504-0815-5379</p>
-            <div className={style.termsAndConditions}>
-              {termsAndConditions.map(item => (
-                <a key={item.text} href={item.link} className={style.pointer}>
-                  {item.text}
-                </a>
-              ))}
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );

@@ -60,7 +60,6 @@ export default function MyFundings() {
   return (
     <>
       <Header
-        hasTitle
         title={String(types) === 'my' ? '내가 만든 펀딩' : '내가 참여한 펀딩'}
         onGoBack={() => router.back()}
       />
