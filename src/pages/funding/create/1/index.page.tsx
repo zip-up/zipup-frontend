@@ -122,13 +122,14 @@ export default function CreatFundStep1() {
         <input
           className={cx(
             style.input,
-            css({ borderWidth: '0.1rem', borderColor: errors.link ? 'error' : 'bg.300' }),
+            css({ borderWidth: '0.1rem', borderColor: errors.targetMoney ? 'error' : 'bg.300' }),
           )}
           placeholder="받고 싶은 선물의 가격을 입력해주세요."
           {...register('targetMoney', {
             required: '필수 항목을 입력하지 않았습니다.',
             valueAsNumber: true,
             validate: value => !isNaN(Number(value)) || '숫자로만 입력해주세요.',
+            min: { value: 10, message: '10원 이상 입력해주세요.' },
           })}
         />
         {errors.targetMoney && <p className={style.error_text}>{errors.targetMoney.message}</p>}
