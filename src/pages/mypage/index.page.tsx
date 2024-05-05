@@ -9,8 +9,28 @@ import Button from '@components/common/Button';
 import HeaderWithLogo from '@components/HeaderWithLogo';
 import { useLogout, useUser } from '@hooks/queries/useAuth';
 import { getLoacalStorage } from '@store/localStorage';
-
 import * as style from './styles';
+import { css, cx } from 'styled-system/css';
+import { flex } from 'styled-system/patterns';
+
+const termsAndConditions = [
+  {
+    text: '이용약관',
+    link: 'https://danisong.notion.site/508a845508794eab98435cecea30d561',
+  },
+  {
+    text: '개인정보처리방침',
+    link: 'https://danisong.notion.site/bdf9880b3f91458fbe1a4118de2b5eb1',
+  },
+  {
+    text: '회원탈퇴',
+    link: '',
+  },
+  {
+    text: '자주 묻는 질문',
+    link: '',
+  },
+];
 
 function MyPage() {
   const router = useRouter();
@@ -43,8 +63,8 @@ function MyPage() {
               <span className={style.name}>{user?.name}</span>
               <span>님</span>
             </div>
-            <button className={style.logout} onClick={handleLogout}>
-              <ExitIcon />
+            <button className={style.logoutBtn} onClick={handleLogout}>
+              로그아웃
             </button>
           </div>
           <Button
@@ -58,7 +78,7 @@ function MyPage() {
           </Button>
         </div>
         <div className={style.serviceBox}>
-          <span className={style.serviceTitle}>서비스</span>
+          <span className={style.boxTitle}>서비스</span>
           <button className={style.goFundingBtn} onClick={() => router.push('/mypage/fundings/my')}>
             <div className={style.goFundingInfoBox}>
               <h2 className={style.goFundingTitle}>내가 만든 펀딩</h2>
@@ -81,23 +101,35 @@ function MyPage() {
             </p>
           </button>
         </div>
+        <div className={style.supportBox}>
+          <span className={style.boxTitle}>고객지원</span>
+          <button
+            className={cx(
+              style.goFundingBtn,
+              flex({
+                direction: 'column',
+                marginTop: '1.6rem',
+                borderColor: 'gray.300',
+                justify: 'center',
+                gap: '0.4rem',
+              }),
+            )}
+            onClick={() => router.push('/faq')}
+          >
+            <h2 className={style.goFundingTitle}>자주 묻는 질문 / 문의하기</h2>
+            <span className={style.goFundingSubTitle}>서비스에 궁금한 점이 있나요?</span>
+          </button>
+        </div>
         <footer className={style.footer}>
           <div className={style.footerInfoBox}>
             <p>상호명 : 집업</p>
             <p>고객센터 : 0504-0815-5379</p>
             <div className={style.termsAndConditions}>
-              <a
-                href="https://www.figma.com/exit?url=https%3A%2F%2Fdanisong.notion.site%2F508a845508794eab98435cecea30d561%3Fpvs%3D4"
-                className={style.pointer}
-              >
-                이용약관
-              </a>
-              <a
-                href="https://danisong.notion.site/bdf9880b3f91458fbe1a4118de2b5eb1?pvs=4"
-                className={style.pointer}
-              >
-                개인정보처리방침
-              </a>
+              {termsAndConditions.map(item => (
+                <a key={item.text} href={item.link} className={style.pointer}>
+                  {item.text}
+                </a>
+              ))}
             </div>
           </div>
         </footer>

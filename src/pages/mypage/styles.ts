@@ -1,9 +1,9 @@
 import { css } from 'styled-system/css';
 
 const content = css({
-  minHeight: '100%',
   backgroundColor: 'bg.200',
   paddingTop: '2.4rem',
+  height: 'calc(100% - 4.8rem)',
 });
 
 const profileBox = css({
@@ -35,6 +35,7 @@ const avatar = css({
 const infoBox = css({
   display: 'flex',
   alignItems: 'center',
+  position: 'relative',
 });
 
 const nameBox = css({
@@ -65,7 +66,7 @@ const serviceBox = css({
   gap: '1.6rem',
 });
 
-const serviceTitle = css({
+const boxTitle = css({
   fontFamily: 'pretendard-semibold',
   fontWeight: '600',
   fontSize: 'body1',
@@ -124,21 +125,25 @@ const fundingImage = css({
 });
 
 const footer = css({
-  height: '14.8rem',
-  marginTop: '2.4rem',
+  '@media (min-height: 650px)': {
+    position: 'absolute',
+    bottom: 0,
+  },
+  padding: '2.4rem 1.6rem 3.2rem',
+  width: '36rem',
+  backgroundColor: 'bg.300',
+  marginTop: '3rem',
 });
 
 const footerInfoBox = css({
-  marginLeft: '0.8rem',
-  width: '16.9rem',
-  height: '10.6rem',
-  padding: '2.4rem 0.8rem',
+  height: '5.8rem',
   display: 'flex',
   flexDirection: 'column',
-  gap: '0.8rem',
+  gap: '0.6rem',
   fontFamily: 'pretendard-regular',
   fontSize: 'caption1',
   color: 'text.100',
+  fontWeight: 400,
 });
 
 const termsAndConditions = css({
@@ -147,9 +152,6 @@ const termsAndConditions = css({
   fontFamily: 'pretendard-regular',
   fontSize: 'caption1',
   color: 'text.200',
-  textDecoration: 'underline',
-  textDecorationColor: 'text.200',
-  textUnderlineOffset: '0.2rem',
 });
 
 const pointer = css({
@@ -212,6 +214,27 @@ const noResultButton = css({
   margin: '0 auto',
 });
 
+const supportBox = css({
+  width: '100%',
+  height: '16.3rem',
+  padding: '2.4rem 1.6rem',
+});
+
+const logoutBtn = css({
+  width: '8.2rem',
+  height: '3rem',
+  borderRadius: '0.6rem',
+  borderWidth: '0.1rem',
+  borderColor: 'text.300',
+  fontSize: '1.2rem',
+  fontWeight: '400',
+  color: 'text.200',
+  backgroundColor: '#fff',
+  position: 'absolute',
+  right: 0,
+  cursor: 'pointer',
+});
+
 export {
   content,
   profileBox,
@@ -222,7 +245,7 @@ export {
   name,
   logout,
   serviceBox,
-  serviceTitle,
+  boxTitle,
   goFundingBtn,
   goFundingInfoBox,
   goFundingSubTitle,
@@ -240,4 +263,6 @@ export {
   title,
   desc,
   noResultButton,
+  supportBox,
+  logoutBtn,
 };
