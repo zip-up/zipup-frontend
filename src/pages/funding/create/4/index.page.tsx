@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SubmitErrorHandler, useForm } from 'react-hook-form';
 import * as style from '../styles';
 import { css, cx } from 'styled-system/css';
@@ -36,7 +36,6 @@ export default function CreatFundStep4() {
   const [fundId, setFundId] = useState<string>('');
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [height, setHeight] = useState(0);
 
   const { mutate: createFunding, isPending } = useCreateFunding(createdFundingData => {
     setFundId(createdFundingData.id);
@@ -54,12 +53,6 @@ export default function CreatFundStep4() {
     watch,
     formState: { errors },
   } = useForm<FormInputs>();
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setHeight(window.innerHeight);
-    }
-  }, []);
 
   const handleCreateFundSubmit = async (step4FormData: FormInputs) => {
     const totalFormInputData = { ...newFunding, ...step4FormData };
@@ -88,8 +81,13 @@ export default function CreatFundStep4() {
       <div
         className={flex({
           width: '32.9rem',
-          margin: height <= 670 ? '0 auto' : 0,
-          position: height > 670 ? 'absolute' : 'inherit',
+          '@media (max-height: 670px)': {
+            margin: '0 auto',
+            position: 'inherit',
+          },
+          '@media (min-height: 671px)': {
+            position: 'absolute',
+          },
           bottom: '2rem',
           left: '1.5rem',
         })}

@@ -25,17 +25,12 @@ export default function CreatFundStep1() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [newFund, setNewFund] = useRecoilState(createFundState);
-  const [height, setHeight] = useState(0);
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
   } = useForm<FormInput>();
-  const handleCreateFundSubmit = (data: FormInput) => {
-    setNewFund({ ...newFund, productUrl: data.link, goalPrice: Number(data.targetMoney) });
-    router.push('/funding/create/2');
-  };
 
   useEffect(() => {
     if (newFund) {
@@ -44,11 +39,10 @@ export default function CreatFundStep1() {
     }
   }, []);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setHeight(window.innerHeight);
-    }
-  }, []);
+  const handleCreateFundSubmit = (data: FormInput) => {
+    setNewFund({ ...newFund, productUrl: data.link, goalPrice: Number(data.targetMoney) });
+    router.push('/funding/create/2');
+  };
 
   const validateUrl = (url: string) =>
     /^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/.test(
@@ -146,12 +140,24 @@ export default function CreatFundStep1() {
 
         <div
           className={css({
-            marginTop: height <= 580 ? '1.6rem' : 0,
+            '@media (max-height: 580px)': {
+              marginTop: '1.6rem',
+            },
             width: '32.9rem',
             margin: '0 auto',
           })}
         >
-          <Button type="submit" isBottomFixed={height > 580}>
+          <Button
+            type="submit"
+            className={css({
+              '@media (min-height: 580px)': {
+                position: 'fixed',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                maxWidth: '32.8rem',
+              },
+            })}
+          >
             다음
           </Button>
         </div>

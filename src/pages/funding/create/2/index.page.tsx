@@ -10,7 +10,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import ProgressBar from '@components/common/ProgressBar';
 import { useRecoilState } from 'recoil';
 import { createFundState } from '@store/store';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 interface FormInput {
   name: string;
@@ -20,7 +20,6 @@ interface FormInput {
 export default function CreatFundStep2() {
   const router = useRouter();
   const [newFund, setNewFund] = useRecoilState(createFundState);
-  const [height, setHeight] = useState(0);
 
   const {
     register,
@@ -35,12 +34,6 @@ export default function CreatFundStep2() {
     if (newFund) {
       setValue('name', newFund.title);
       setValue('textMessage', newFund.description);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setHeight(window.innerHeight);
     }
   }, []);
 
@@ -104,12 +97,24 @@ export default function CreatFundStep2() {
 
         <div
           className={css({
-            marginTop: height <= 570 ? '1.6rem' : 0,
+            '@media (max-height: 570px)': {
+              marginTop: '1.6rem',
+            },
             width: '32.9rem',
             margin: '0 auto',
           })}
         >
-          <Button type="submit" isBottomFixed={height > 570}>
+          <Button
+            type="submit"
+            className={css({
+              '@media (min-height: 570px)': {
+                position: 'fixed',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                maxWidth: '32.8rem',
+              },
+            })}
+          >
             다음
           </Button>
         </div>
