@@ -3,12 +3,11 @@ import BackIcon from '@assets/icons/back.svg';
 import { css } from 'styled-system/css';
 
 interface HeaderProps {
-  hasTitle?: boolean;
   title?: string;
   onGoBack?: () => void;
 }
 
-export default function Header({ hasTitle, title, onGoBack }: HeaderProps) {
+export default function Header({ title, onGoBack }: HeaderProps) {
   const router = useRouter();
 
   const handleGoBack = () => router.back();
@@ -18,7 +17,7 @@ export default function Header({ hasTitle, title, onGoBack }: HeaderProps) {
       <button className={wrapper} onClick={onGoBack || handleGoBack}>
         <BackIcon />
       </button>
-      {hasTitle && <h2 className={styledTitle}>{title}</h2>}
+      {title && <h2 className={styledTitle}>{title}</h2>}
       <div className={wrapper} />
     </header>
   );
