@@ -37,7 +37,7 @@ const percentageText = css({
 });
 
 const caption = css({
-  fontSize: 'caption1',
+  textStyle: 'caption1',
   letterSpacing: '-0.012rem',
   color: 'text.200',
 });

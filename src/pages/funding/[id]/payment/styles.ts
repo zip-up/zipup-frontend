@@ -5,8 +5,7 @@ const orderInfoWrapper = css({
   bg: 'bg.200',
   rounded: '1.2rem',
   padding: '1.2rem 2.4rem',
-  fontSize: 'caption1',
-  fontWeight: '400',
+  textStyle: 'caption1',
   color: 'text.200',
 
   display: 'flex',
@@ -18,8 +17,7 @@ const orderInfoWrapper = css({
 });
 
 const headTitle = css({
-  fontSize: 'title1',
-  fontWeight: '700',
+  textStyle: 'title1',
 });
 
 const subInfoWrapper = hstack({ gap: 0, alignItems: 'baseline' });
@@ -37,8 +35,7 @@ const colorText = cva({
     },
     objective: {
       title: {
-        fontSize: 'title1',
-        fontWeight: '700',
+        textStyle: 'title1',
       },
       subInfo: { minWidth: '5rem' },
     },

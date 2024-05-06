@@ -7,8 +7,7 @@ const wrapper = wrap({ w: '32.8rem', gap: '1.6rem', mt: '1.5rem', mb: '1.5rem' }
 
 const title = css({
   color: 'text.100',
-  fontSize: 'subtitle1',
-  fontWeight: 600,
+  textStyle: 'subtitle1',
   letterSpacing: '-0.02rem',
 });
 
@@ -20,7 +19,7 @@ const borderWithPadding = {
 };
 
 const desc = css(borderWithPadding, {
-  fontSize: 'body2',
+  textStyle: 'body2',
   lineHeight: '2.2rem',
   letterSpacing: '-0.014rem',
   w: '100%',

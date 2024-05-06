@@ -2,8 +2,7 @@ import { css } from 'styled-system/css';
 
 const stepName = css({
   color: 'main.blue',
-  fontFamily: 'pretendard-regular',
-  fontSize: 'body1',
+  textStyle: 'body1',
   lineHeight: 'normal',
   marginTop: '1.6rem',
   paddingLeft: '2.2rem',
@@ -11,9 +10,7 @@ const stepName = css({
 
 const title = css({
   marginTop: '1.7rem',
-  fontFamily: 'pretendard-semibold',
-  fontWeight: '600',
-  fontSize: 'title2',
+  textStyle: 'title2',
   color: 'text.100',
   paddingLeft: '2.2rem',
   lineHeight: '2.2rem',
@@ -22,9 +19,7 @@ const title = css({
 
 const subTitle = css({
   lineHeight: 'normal',
-  fontFamily: 'pretendard-semibold',
-  fontWeight: '600',
-  fontSize: 'subtitle2',
+  textStyle: 'subtitle2',
   color: 'text.100',
   marginRight: '0.4rem',
   paddingLeft: '2rem',
@@ -34,9 +29,7 @@ const required = css({
   color: 'main.blue',
   textAlign: 'center',
   lineHeight: 'normal',
-  fontFamily: 'pretendard-semibold',
-  fontWeight: '600',
-  fontSize: 'subtitle2',
+  textStyle: 'subtitle2',
 });
 
 const input = css({
@@ -48,8 +41,7 @@ const input = css({
   padding: '0 2rem',
   outline: 'none',
   marginTop: '1.6rem',
-  fontFamily: 'pretendard-regular',
-  fontSize: 'body2',
+  textStyle: 'body2',
   color: 'text.100',
   resize: 'none',
   overflow: 'hidden',
@@ -79,8 +71,7 @@ const textPlaceholder = css({
   position: 'absolute',
   left: '3.7rem',
   top: '3.08rem',
-  fontFamily: 'pretendard-regular',
-  fontSize: 'body2',
+  textStyle: 'body2',
   color: 'text.200',
 });
 
@@ -94,8 +85,7 @@ const dateBox = css({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  fontFamily: 'pretendard-regular',
-  fontSize: 'body2',
+  textStyle: 'body2',
   color: 'text.200',
   cursor: 'pointer',
   marginLeft: '2rem',
@@ -105,8 +95,7 @@ const dateBox = css({
 
 const errorText = css({
   marginTop: '0.8rem',
-  fontFamily: 'pretendard-regular',
-  fontSize: 'caption1',
+  textStyle: 'caption1',
   color: 'error',
   marginLeft: '2rem',
 });
