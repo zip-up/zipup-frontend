@@ -59,7 +59,7 @@ function MyPage() {
           </Button>
         </div>
         <div className={style.serviceBox}>
-          <span className={style.boxTitle}>서비스</span>
+          <span className={style.serviceTitle}>서비스</span>
           <button className={style.goFundingBtn} onClick={() => router.push('/mypage/fundings/my')}>
             <div className={style.goFundingInfoBox}>
               <h2 className={style.goFundingTitle}>내가 만든 펀딩</h2>
@@ -83,7 +83,7 @@ function MyPage() {
           </button>
         </div>
         <div className={style.supportBox}>
-          <span className={style.boxTitle}>고객지원</span>
+          <span className={style.serviceTitle}>고객지원</span>
           <button
             className={cx(
               style.goFundingBtn,
