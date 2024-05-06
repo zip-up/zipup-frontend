@@ -1,4 +1,12 @@
-import { useEffect, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import Button from '@components/common/Button';
+import Header from '@components/common/Header';
+import { useState } from 'react';
+import { SubmitErrorHandler, useForm } from 'react-hook-form';
+import * as style from '../styles';
+import { css, cx } from 'styled-system/css';
+import SearchIcon from '@assets/icons/search.svg';
+import AddressModal from '@components/modals/AddressModal';
 import { useRouter } from 'next/router';
 import GiftIcon from '@assets/icons/gift-icon.svg';
 import SearchIcon from '@assets/icons/search.svg';
@@ -45,7 +53,6 @@ export default function CreatFundStep4() {
     }));
     setIsModalOpen(true);
   });
-  //const [currentHeight, setCurrentHeight] = useState(window.innerHeight);
 
   const {
     register,
@@ -54,16 +61,6 @@ export default function CreatFundStep4() {
     watch,
     formState: { errors },
   } = useForm<FormInputs>();
-
-  useEffect(() => {
-    const handleResize = () => {
-      //   setCurrentHeight(window.innerHeight);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   const handleCreateFundSubmit = async (step4FormData: FormInputs) => {
     const totalFormInputData = { ...newFunding, ...step4FormData };
@@ -89,14 +86,24 @@ export default function CreatFundStep4() {
 
   function Buttons() {
     return (
-      <>
-        <Button className={css({ width: '12.6rem' })} color="primary" disabled={isPending}>
-          나중에 입력
-        </Button>
-        <Button type="submit" className={css({ width: '19.1rem' })} disabled={isPending}>
+      <div
+        className={flex({
+          width: '32.9rem',
+          '@media (max-height: 670px)': {
+            margin: '0 auto',
+            position: 'inherit',
+          },
+          '@media (min-height: 671px)': {
+            position: 'absolute',
+          },
+          bottom: '2rem',
+          left: '1.5rem',
+        })}
+      >
+        <Button type="submit" disabled={isPending}>
           {isPending ? <Spinner size="sm" /> : '등록 완료'}
         </Button>
-      </>
+      </div>
     );
   }
 
@@ -116,7 +123,7 @@ export default function CreatFundStep4() {
                 onClick={() => {
                   setIsModalOpen(false);
                   if (fundId) {
-                    router.push('/funding/' + fundId);
+                    router.push('/funding/' + fundId + '?from=myPage');
                   } else {
                     alert('잘못된 접근입니다.');
                   }
@@ -207,13 +214,7 @@ export default function CreatFundStep4() {
           />
         </div>
 
-        <div
-          className={cx(
-            button({ isBottomFixed: true, position: 'last' }),
-            css({ gap: '1.2rem' }),
-            //      currentHeight <= 680 ? wrapper : buttons,
-          )}
-        >
+        <div className={css({ marginBottom: '2rem' })}>
           <Buttons />
         </div>
       </form>
@@ -227,15 +228,3 @@ export default function CreatFundStep4() {
     </>
   );
 }
-
-// const wrapper = css({
-//   width: '100%',
-//   margin: '2.4rem 0',
-// });
-
-// const buttons = css({
-//   position: 'absolute',
-//   bottom: '2.5rem',
-//   left: '2rem',
-//   width: '32.3rem',
-// });

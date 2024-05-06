@@ -6,12 +6,13 @@ interface HeaderProps {
   hasTitle?: boolean;
   title?: string;
   onGoBack?: () => void;
+  fromCreate?: boolean;
 }
 
-export default function Header({ hasTitle, title, onGoBack }: HeaderProps) {
+export default function Header({ hasTitle, title, onGoBack, fromCreate }: HeaderProps) {
   const router = useRouter();
 
-  const handleGoBack = () => router.back();
+  const handleGoBack = () => (fromCreate ? router.push('/') : router.back());
 
   return (
     <header className={header}>
