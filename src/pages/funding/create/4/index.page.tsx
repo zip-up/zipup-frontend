@@ -1,17 +1,11 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import Button from '@components/common/Button';
-import Header from '@components/common/Header';
 import { useState } from 'react';
 import { SubmitErrorHandler, useForm } from 'react-hook-form';
 import * as style from '../styles';
 import { css, cx } from 'styled-system/css';
-import SearchIcon from '@assets/icons/search.svg';
-import AddressModal from '@components/modals/AddressModal';
 import { useRouter } from 'next/router';
 import GiftIcon from '@assets/icons/gift-icon.svg';
 import SearchIcon from '@assets/icons/search.svg';
 import Button from '@components/common/Button';
-import { button } from '@components/common/Button/styles';
 import Header from '@components/common/Header';
 import ProgressBar from '@components/common/ProgressBar';
 import Spinner from '@components/common/Spinner';
@@ -25,11 +19,8 @@ import { useCreateFunding } from '@hooks/queries/useFunding';
 import { createFundState } from '@store/store';
 import { TermsCheckFlags } from '@typings/term';
 import { shareKakao } from '@utils/share';
-import { SubmitErrorHandler, useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
-import { css, cx } from 'styled-system/css';
-
-import * as style from '../styles';
+import { flex } from 'styled-system/patterns';
 
 interface FormInputs extends TermsCheckFlags {
   roadAddress: string;

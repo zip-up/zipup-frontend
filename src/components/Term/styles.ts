@@ -8,7 +8,7 @@ const infoContainer = vstack({
   m: '1.6rem auto',
   p: '1.2rem',
   gap: '0.8rem',
-  fontSize: 'caption1',
+  textStyle: 'caption1',
   alignItems: 'flex-start',
 });
 
@@ -27,7 +27,7 @@ const title = css({
 
 const link = css({
   color: 'text.200',
-  fontSize: 'caption1',
+  textStyle: 'caption1',
   textDecoration: 'underline',
   textUnderlineOffset: '0.2rem',
   cursor: 'pointer',

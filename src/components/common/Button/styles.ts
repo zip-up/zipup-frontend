@@ -4,9 +4,7 @@ export const button = cva({
   base: {
     rounded: '0.8rem',
     color: 'bg.100',
-    fontFamily: 'pretendard-semibold',
-    fontSize: 'body1',
-    fontWeight: '600',
+    textStyle: 'subtitle2',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

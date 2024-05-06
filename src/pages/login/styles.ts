@@ -7,13 +7,12 @@ const layout = vstack({
 });
 
 const title = css({
-  fontWeight: '700',
-  fontSize: 'subtitle1',
+  textStyle: 'subtitle1',
   marginTop: '2rem',
 });
 
 const subTitle = css({
-  fontSize: 'body1',
+  textStyle: 'body1',
   color: 'text.200',
   marginTop: '0.8rem',
   textAlign: 'center',

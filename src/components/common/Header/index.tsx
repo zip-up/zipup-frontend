@@ -45,8 +45,6 @@ const wrapper = css({
 });
 
 const styledTitle = css({
-  fontFamily: 'pretendard-semibold',
-  fontWeight: '600',
   color: 'text.100',
-  fontSize: 'subtitle2',
+  textStyle: 'subtitle2',
 });

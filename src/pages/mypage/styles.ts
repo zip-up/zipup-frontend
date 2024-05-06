@@ -39,9 +39,7 @@ const infoBox = css({
 });
 
 const nameBox = css({
-  fontFamily: 'pretendard-semibold',
-  fontSize: 'title2',
-  fontWeight: '600',
+  textStyle: 'title2',
   color: 'text.200',
   marginRight: '0.8rem',
 });
@@ -66,10 +64,8 @@ const serviceBox = css({
   gap: '1.6rem',
 });
 
-const boxTitle = css({
-  fontFamily: 'pretendard-semibold',
-  fontWeight: '600',
-  fontSize: 'body1',
+const serviceTitle = css({
+  textStyle: 'body1',
   color: 'text.200',
 });
 
@@ -104,17 +100,14 @@ const goFundingInfoBox = css({
 });
 
 const goFundingTitle = css({
-  fontFamily: 'pretendard-semibold',
   color: 'text.100',
-  fontWeight: '600',
-  fontSize: 'subtitle2',
+  textStyle: 'subtitle2',
   textAlign: 'left',
 });
 
 const goFundingSubTitle = css({
-  fontFamily: 'pretendard-regular',
   color: 'text.300',
-  fontSize: 'body2',
+  textStyle: 'body2',
   textAlign: 'left',
 });
 
@@ -160,16 +153,14 @@ const textBox = css({
 });
 
 const title = css({
-  fontFamily: 'pretendard-semibold',
   color: 'gray.60',
-  fontSize: 'subtitle2',
+  textStyle: 'subtitle2',
   fontWeight: '600',
 });
 
 const desc = css({
-  fontFamily: 'pretendard-regular',
   color: 'gray.60',
-  fontSize: 'body2',
+  textStyle: 'body2',
   marginTop: '0.4rem',
 });
 
@@ -211,7 +202,7 @@ export {
   name,
   logout,
   serviceBox,
-  boxTitle,
+  serviceTitle,
   goFundingBtn,
   goFundingInfoBox,
   goFundingSubTitle,
