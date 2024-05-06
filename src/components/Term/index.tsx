@@ -1,13 +1,14 @@
+import Link from 'next/link';
 import CheckedIcon from '@assets/icons/checked.svg';
 import UnCheckedIcon from '@assets/icons/unchecked.svg';
+import { Term as TermType } from '@typings/term';
 import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
-import { Term } from '@typings/term';
-import Link from 'next/link';
+
 import * as style from './styles';
 
 interface TermProps<T extends FieldValues> {
   label: Path<T>;
-  term: Term;
+  term: TermType;
   register: UseFormRegister<T>;
   isChecked: boolean;
 }

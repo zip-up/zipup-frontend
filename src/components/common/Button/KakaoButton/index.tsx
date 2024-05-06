@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from 'react';
-import Button from '..';
 import Image from 'next/image';
+
+import Button from '..';
 
 interface KakaoButtonProps {
   isBottomFixed?: boolean;

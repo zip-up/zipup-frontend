@@ -1,11 +1,29 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { DetailFundingInfo } from '@typings/funding';
 import { useRouter } from 'next/router';
-import { getLoacalStorage } from '@store/localStorage';
 import { InstanceWithToken } from '@api/index';
-import axios from 'axios';
+import { getLoacalStorage } from '@store/localStorage';
+import { CreateFund } from '@store/types';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { DetailFundingInfo, ParticipantInfo } from '@typings/funding';
+import axios, { isAxiosError } from 'axios';
 
-const useGetFundingDeatil = (fundingId: string) => {
+const useCreateFunding = (
+  successCallback: ({ id, imageUrl }: { id: string; imageUrl: string }) => void,
+) => {
+  return useMutation({
+    mutationFn: async ({ data }: { data: CreateFund }) => {
+      const response = await InstanceWithToken.post('/v1/fund', data);
+
+      return response.data;
+    },
+    onSuccess: createdFundingData => successCallback(createdFundingData),
+    onError: error => {
+      console.error(error);
+      throw error;
+    },
+  });
+};
+
+const useGetFundingDetail = (fundingId: string) => {
   const token = getLoacalStorage('@token');
 
   return useQuery<DetailFundingInfo>({
@@ -31,18 +49,20 @@ const useParticipateFunding = () => {
   const router = useRouter();
 
   return useMutation({
-    mutationFn: async (participateInfo: any) => {
+    mutationFn: async (participateInfo: ParticipantInfo) => {
       await InstanceWithToken.post(`/v1/present`, participateInfo);
     },
 
     onError: error => {
-      console.log('참여자 정보 저장', error);
+      console.error('참여자 정보 저장', error);
 
-      const { id } = router.query;
+      if (isAxiosError(error)) {
+        const { id } = router.query;
 
-      router.push(`/funding/${id}/payment/fail?code=${error?.code}&message=${error.message}`);
+        router.push(`/funding/${id}/payment/fail?code=${error?.code}&message=${error.message}`);
+      }
     },
   });
 };
 
-export { useGetFundingDeatil, useParticipateFunding };
+export { useCreateFunding, useGetFundingDetail, useParticipateFunding };

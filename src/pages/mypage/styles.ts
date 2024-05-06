@@ -6,7 +6,7 @@ const content = css({
   paddingTop: '2.4rem',
 });
 
-const profile_box = css({
+const profileBox = css({
   width: '32.9rem',
   height: '14.1rem',
   margin: '0 auto',
@@ -32,12 +32,12 @@ const avatar = css({
   marginRight: '2.4rem',
 });
 
-const info_box = css({
+const infoBox = css({
   display: 'flex',
   alignItems: 'center',
 });
 
-const name_box = css({
+const nameBox = css({
   fontFamily: 'pretendard-semibold',
   fontSize: 'title2',
   fontWeight: '600',
@@ -54,7 +54,7 @@ const logout = css({
   cursor: 'pointer',
 });
 
-const service_box = css({
+const serviceBox = css({
   marginTop: '3.2rem',
   width: '36rem',
   height: '25.9rem',
@@ -65,14 +65,14 @@ const service_box = css({
   gap: '1.6rem',
 });
 
-const service_title = css({
+const serviceTitle = css({
   fontFamily: 'pretendard-semibold',
   fontWeight: '600',
   fontSize: 'body1',
   color: 'text.200',
 });
 
-const go_funding_btn = css({
+const goFundingBtn = css({
   width: '32.8rem',
   height: '8rem',
   borderRadius: '0.8rem',
@@ -94,7 +94,7 @@ const go_funding_btn = css({
   },
 });
 
-const go_funding_info_box = css({
+const goFundingInfoBox = css({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -102,7 +102,7 @@ const go_funding_info_box = css({
   paddingTop: '1.1rem',
 });
 
-const go_funding_title = css({
+const goFundingTitle = css({
   fontFamily: 'pretendard-semibold',
   color: 'text.100',
   fontWeight: '600',
@@ -110,14 +110,14 @@ const go_funding_title = css({
   textAlign: 'left',
 });
 
-const go_funding_subtitle = css({
+const goFundingSubTitle = css({
   fontFamily: 'pretendard-regular',
   color: 'text.300',
   fontSize: 'body2',
   textAlign: 'left',
 });
 
-const funding_image = css({
+const fundingImage = css({
   position: 'absolute',
   right: 0,
   bottom: '-0.08rem',
@@ -128,7 +128,7 @@ const footer = css({
   marginTop: '2.4rem',
 });
 
-const footer_info_box = css({
+const footerInfoBox = css({
   marginLeft: '0.8rem',
   width: '16.9rem',
   height: '10.6rem',
@@ -141,7 +141,7 @@ const footer_info_box = css({
   color: 'text.100',
 });
 
-const terms_and_conditions = css({
+const termsAndConditions = css({
   display: 'flex',
   gap: '0.8rem',
   fontFamily: 'pretendard-regular',
@@ -156,13 +156,13 @@ const pointer = css({
   cursor: 'pointer',
 });
 
-const card_content = css({
+const cardContent = css({
   height: 'calc(100% - 4.8rem)',
   backgroundColor: 'bg.200',
   padding: '1.6rem',
 });
 
-const flex_container = css({
+const flexContainer = css({
   width: '32.6rem',
   display: 'flex',
   justifyContent: 'space-between',
@@ -172,11 +172,11 @@ const flex_container = css({
   overflow: 'hidden',
 });
 
-const no_result = css({
+const noResult = css({
   marginTop: '19rem',
 });
 
-const icon_box = css({
+const iconBox = css({
   width: '100%',
   height: '10.4rem',
   display: 'flex',
@@ -185,7 +185,7 @@ const icon_box = css({
   marginBottom: '2.4rem',
 });
 
-const text_box = css({
+const textBox = css({
   height: '4.6rem',
   width: '100%',
   textAlign: 'center',
@@ -205,7 +205,7 @@ const desc = css({
   marginTop: '0.4rem',
 });
 
-const no_result_button = css({
+const noResultButton = css({
   width: '12.2rem',
   height: '4.9rem',
   marginTop: '2.6rem',
@@ -214,30 +214,30 @@ const no_result_button = css({
 
 export {
   content,
-  profile_box,
+  profileBox,
   button,
   avatar,
-  info_box,
-  name_box,
+  infoBox,
+  nameBox,
   name,
   logout,
-  service_box,
-  service_title,
-  go_funding_btn,
-  go_funding_info_box,
-  go_funding_subtitle,
-  go_funding_title,
-  funding_image,
+  serviceBox,
+  serviceTitle,
+  goFundingBtn,
+  goFundingInfoBox,
+  goFundingSubTitle,
+  goFundingTitle,
+  fundingImage,
   footer,
-  footer_info_box,
-  terms_and_conditions,
+  footerInfoBox,
+  termsAndConditions,
   pointer,
-  card_content,
-  flex_container,
-  icon_box,
-  text_box,
-  no_result,
+  cardContent,
+  flexContainer,
+  iconBox,
+  textBox,
+  noResult,
   title,
   desc,
-  no_result_button,
+  noResultButton,
 };

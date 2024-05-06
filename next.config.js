@@ -10,12 +10,6 @@ const nextConfig = {
     return config;
   },
   pageExtensions: ['page.tsx', 'page.ts', 'auth.ts'],
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
   images: {
     remotePatterns: [
       {

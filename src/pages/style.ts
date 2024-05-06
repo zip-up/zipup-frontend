@@ -1,6 +1,6 @@
 import { css } from 'styled-system/css';
 
-const text_box = css({
+const textBox = css({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -20,7 +20,7 @@ const highlight = css({
   color: 'main.blue',
 });
 
-const subtitle = css({
+const subTitle = css({
   fontFamily: 'pretendard-regular',
   fontSize: 'body1',
   color: 'gray.60',
@@ -33,19 +33,17 @@ const wrapper = css({
   margin: '0 auto',
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
   gap: '1.6rem',
 });
 
 const image = css({
-  width: '32.7rem',
-  height: '23.4rem',
-  display: 'flex',
-  justifyContent: 'center',
-  marginTop: '-0.9rem',
-  marginBottom: '0.9rem',
+  width: '24.5rem',
+  height: '23.6rem',
+  pos: 'relative',
 });
 
-const service_box = css({
+const serviceBox = css({
   width: '100%',
   height: '49.6rem',
   padding: '0.8rem 0 1.6rem 0',
@@ -56,20 +54,20 @@ const service_box = css({
   marginTop: '2rem',
 });
 
-const service_title_box = css({
+const serviceTitleBox = css({
   height: '4.8rem',
   paddingTop: '1.6rem',
   margin: '0 auto',
 });
 
-const service_title = css({
+const serviceTitle = css({
   fontFamily: 'pretendard-semibold',
   fontWeight: '600',
   color: 'text.100',
   fontSize: 'subtitle1',
 });
 
-const service_desc_box = css({
+const serviceDescBox = css({
   height: '41.6rem',
   padding: '0.8rem 1.6rem',
   display: 'flex',
@@ -78,7 +76,7 @@ const service_desc_box = css({
   gap: '1.6rem',
 });
 
-const service_desc_card = css({
+const serviceDescCard = css({
   width: '32.8rem',
   height: '8.8rem',
   display: 'flex',
@@ -91,26 +89,26 @@ const service_desc_card = css({
   padding: '0 2.4rem',
 });
 
-const service_text_box = css({
+const serviceTextBox = css({
   display: 'flex',
   flexDirection: 'column',
 });
 
-const text_title = css({
+const textTitle = css({
   fontSize: 'body1',
   color: 'text.100',
   fontWeight: '500',
   fontFamily: 'pretendard-regular',
 });
 
-const text_desc = css({
+const textDesc = css({
   fontSize: 'caption1',
   color: 'text.300',
   fontFamily: 'pretendard-regular',
   whiteSpace: 'pre-wrap',
 });
 
-const login_box = css({
+const loginBox = css({
   height: '19rem',
   padding: '0 1.6rem',
   display: 'flex',
@@ -120,7 +118,7 @@ const login_box = css({
   marginTop: '4.3rem',
 });
 
-const login_text = css({
+const loginText = css({
   fontFamily: 'pretendard-regular',
   color: 'text.200',
   fontSize: 'body1',
@@ -128,26 +126,26 @@ const login_text = css({
   textAlign: 'center',
 });
 
-const login_button = css({
+const loginButton = css({
   marginBottom: '3.2rem',
 });
 
 export {
-  text_box,
+  textBox,
   title,
   highlight,
-  subtitle,
+  subTitle,
   wrapper,
   image,
-  service_box,
-  service_desc_box,
-  service_desc_card,
-  service_text_box,
-  service_title,
-  service_title_box,
-  text_desc,
-  text_title,
-  login_box,
-  login_button,
-  login_text,
+  serviceBox,
+  serviceDescBox,
+  serviceDescCard,
+  serviceTextBox,
+  serviceTitle,
+  serviceTitleBox,
+  textDesc,
+  textTitle,
+  loginBox,
+  loginButton,
+  loginText,
 };

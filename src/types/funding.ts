@@ -1,13 +1,12 @@
-export type MessageInfo = {
+export interface MessageInfo {
   id: string;
   senderName: string;
   contributionPercent: number;
   profileImage: string;
   participantId: string;
   congratsMessage: string;
-};
-
-export type FundingInfo = {
+}
+export interface FundingInfo {
   id: string;
   title: string;
   imageUrl: string;
@@ -15,9 +14,8 @@ export type FundingInfo = {
   percent: number;
   organizer: string;
   fundId?: string;
-};
-
-export type DetailFundingInfo = {
+}
+export interface DetailFundingInfo {
   id: string;
   title: string;
   description: string;
@@ -31,4 +29,15 @@ export type DetailFundingInfo = {
   isParticipant: boolean;
   organizer: string;
   organizerName: string;
-};
+}
+
+export interface ParticipantInfo {
+  participateId: string;
+  senderName: string;
+  congratsMessage: string;
+}
+
+export interface ParticipateInfo extends ParticipantInfo {
+  fundingId: string;
+  paymentId: string;
+}

@@ -1,15 +1,15 @@
-import LogoIcon from '@assets/images/logo.svg';
-import UserIcon from '@assets/icons/user.svg';
 import { useRouter } from 'next/router';
-import { css, cx } from 'styled-system/css';
+import UserIcon from '@assets/icons/user.svg';
+import LogoIcon from '@assets/images/logo.svg';
 import Profile from '@components/common/Profile';
 import { useUser } from '@hooks/queries/useAuth';
+import { css, cx } from 'styled-system/css';
 
 interface HeaderWithLogoProps {
   onOpen: () => void;
 }
 
-const HeaderWithLogo = ({ onOpen }: HeaderWithLogoProps) => {
+function HeaderWithLogo({ onOpen }: HeaderWithLogoProps) {
   const router = useRouter();
   const { data: user } = useUser();
 
@@ -28,7 +28,7 @@ const HeaderWithLogo = ({ onOpen }: HeaderWithLogoProps) => {
       </button>
     </header>
   );
-};
+}
 
 export default HeaderWithLogo;
 

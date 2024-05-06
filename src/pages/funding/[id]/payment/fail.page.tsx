@@ -1,9 +1,10 @@
 import { GetServerSideProps } from 'next';
-import * as commonStyle from '@pages/invite/[id]/styles';
-import * as style from './styles';
 import Image from 'next/image';
 import Link from 'next/link';
+import * as commonStyle from '@pages/invite/[id]/styles';
 import { css, cx } from 'styled-system/css';
+
+import * as style from './styles';
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const {

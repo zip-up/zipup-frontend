@@ -1,18 +1,18 @@
 import { css } from 'styled-system/css';
 
-const progressbar = css({
+const progressBar = css({
   height: '0.8rem',
   position: 'relative',
 });
 
-const background_bar = css({
+const backgroundBar = css({
   borderRadius: '99.9rem',
   background: 'gray.20',
   width: '100%',
   height: '100%',
 });
 
-const current_progress = css({
+const currentProgress = css({
   borderRadius: '99.9rem',
   background: 'main.blue',
   height: '0.8rem',
@@ -20,4 +20,4 @@ const current_progress = css({
   top: 0,
 });
 
-export { progressbar, background_bar, current_progress };
+export { progressBar, backgroundBar, currentProgress };
