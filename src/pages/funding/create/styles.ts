@@ -68,6 +68,7 @@ const divider = css({
 const form = css({
   position: 'relative',
   height: 'calc(100% - 19.1rem)',
+  width: '100%',
 });
 
 const pointer = css({

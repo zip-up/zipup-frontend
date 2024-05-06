@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import CancelIcon from '@assets/icons/cancel-icon.svg';
 import InfoIcon from '@assets/icons/info.svg';
+
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
 import ProgressBar from '@components/common/ProgressBar';
@@ -29,10 +31,6 @@ export default function CreatFundStep1() {
     setValue,
     formState: { errors },
   } = useForm<FormInput>();
-  const handleCreateFundSubmit = (data: FormInput) => {
-    setNewFund({ ...newFund, productUrl: data.link, goalPrice: Number(data.targetMoney) });
-    router.push('/funding/create/2');
-  };
 
   useEffect(() => {
     if (newFund) {
@@ -40,6 +38,11 @@ export default function CreatFundStep1() {
       setValue('targetMoney', String(newFund.goalPrice));
     }
   }, []);
+
+  const handleCreateFundSubmit = (data: FormInput) => {
+    setNewFund({ ...newFund, productUrl: data.link, goalPrice: Number(data.targetMoney) });
+    router.push('/funding/create/2');
+  };
 
   const validateUrl = (url: string) =>
     /^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/.test(
@@ -119,13 +122,14 @@ export default function CreatFundStep1() {
         <input
           className={cx(
             style.input,
-            css({ borderWidth: '0.1rem', borderColor: errors.link ? 'error' : 'bg.300' }),
+            css({ borderWidth: '0.1rem', borderColor: errors.targetMoney ? 'error' : 'bg.300' }),
           )}
           placeholder="받고 싶은 선물의 가격을 입력해주세요."
           {...register('targetMoney', {
             required: '필수 항목을 입력하지 않았습니다.',
             valueAsNumber: true,
             validate: value => !isNaN(Number(value)) || '숫자로만 입력해주세요.',
+            min: { value: 10, message: '10원 이상 입력해주세요.' },
           })}
         />
         {errors.targetMoney && <p className={style.errorText}>{errors.targetMoney.message}</p>}
@@ -134,9 +138,30 @@ export default function CreatFundStep1() {
           <InfoIcon />
           <span className={title}>설정하신 목표 금액을 확인하고 최종 금액을 안내드릴게요.</span>
         </div>
-        <Button type="submit" isBottomFixed>
-          다음
-        </Button>
+
+        <div
+          className={css({
+            '@media (max-height: 580px)': {
+              marginTop: '1.6rem',
+            },
+            width: '32.9rem',
+            margin: '0 auto',
+          })}
+        >
+          <Button
+            type="submit"
+            className={css({
+              '@media (min-height: 580px)': {
+                position: 'fixed',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                maxWidth: '32.8rem',
+              },
+            })}
+          >
+            다음
+          </Button>
+        </div>
       </form>
     </>
   );

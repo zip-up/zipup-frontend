@@ -19,6 +19,7 @@ interface FormInput {
 export default function CreatFundStep2() {
   const router = useRouter();
   const [newFund, setNewFund] = useRecoilState(createFundState);
+
   const {
     register,
     handleSubmit,
@@ -93,9 +94,29 @@ export default function CreatFundStep2() {
         </div>
         {errors.textMessage && <p className={style.errorText}>{errors.textMessage.message}</p>}
 
-        <Button type="submit" isBottomFixed>
-          다음
-        </Button>
+        <div
+          className={css({
+            '@media (max-height: 570px)': {
+              marginTop: '1.6rem',
+            },
+            width: '32.9rem',
+            margin: '0 auto',
+          })}
+        >
+          <Button
+            type="submit"
+            className={css({
+              '@media (min-height: 570px)': {
+                position: 'fixed',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                maxWidth: '32.8rem',
+              },
+            })}
+          >
+            다음
+          </Button>
+        </div>
       </form>
     </>
   );
