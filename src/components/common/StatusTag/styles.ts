@@ -4,8 +4,7 @@ const statusTag = cva({
   base: {
     rounded: '0.8rem',
     color: 'white',
-    fontWeight: '600',
-    fontSize: 'caption1',
+    textStyle: 'caption1',
     w: 'fit-content',
     h: 'fit-content',
   },

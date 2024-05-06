@@ -12,8 +12,7 @@ const container = vstack({
 });
 
 const headTitle = css({
-  fontSize: 'title1',
-  fontWeight: '700',
+  textStyle: 'title1',
   color: 'text.100',
   textAlign: 'center',
   mb: '1rem',

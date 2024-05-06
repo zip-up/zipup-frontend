@@ -56,17 +56,14 @@ const status = css({
 });
 
 const title = css({
-  fontFamily: 'pretendard-regular',
-  fontSize: 'body2',
   marginTop: '0.8rem',
-  fontWeight: '600',
+  textStyle: 'body2',
 });
 
 const percent = css({
-  fontFamily: 'pretendard-regular',
-  fontSize: 'caption1',
   color: 'main.blue',
   marginTop: '0.2rem',
+  textStyle: 'caption1',
 });
 
 export { container, imageBox, status, title, blur, infoBox, percent };

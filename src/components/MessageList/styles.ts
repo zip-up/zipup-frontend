@@ -11,8 +11,7 @@ const msgsWrapper = vstack({
 
 const title = css({
   color: 'text.100',
-  fontSize: 'subtitle1',
-  fontWeight: 600,
+  textStyle: 'subtitle1',
   letterSpacing: '-0.02rem',
 });
 

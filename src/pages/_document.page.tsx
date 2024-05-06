@@ -1,3 +1,4 @@
+import { pretendard } from '@styles/font';
 import { Head, Html, Main, NextScript } from 'next/document';
 
 export default function Document() {
@@ -11,7 +12,7 @@ export default function Document() {
           defer
         ></script>
       </Head>
-      <body>
+      <body className={pretendard.className}>
         <Main />
         <NextScript />
       </body>

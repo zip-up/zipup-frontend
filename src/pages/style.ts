@@ -7,9 +7,7 @@ const textBox = css({
 });
 
 const title = css({
-  fontFamily: 'bold',
-  fontSize: 'title1',
-  fontWeight: '700',
+  textStyle: 'title1',
   margin: '0 auto',
   lineHeight: '1.2',
   marginTop: '4rem',
@@ -21,11 +19,10 @@ const highlight = css({
 });
 
 const subTitle = css({
-  fontFamily: 'pretendard-regular',
-  fontSize: 'body1',
   color: 'gray.60',
   textAlign: 'center',
   marginBottom: '2.4rem',
+  textStyle: 'body1',
 });
 
 const wrapper = css({
@@ -61,10 +58,8 @@ const serviceTitleBox = css({
 });
 
 const serviceTitle = css({
-  fontFamily: 'pretendard-semibold',
-  fontWeight: '600',
   color: 'text.100',
-  fontSize: 'subtitle1',
+  textStyle: 'subtitle1',
 });
 
 const serviceDescBox = css({
@@ -95,16 +90,13 @@ const serviceTextBox = css({
 });
 
 const textTitle = css({
-  fontSize: 'body1',
+  textStyle: 'body1',
   color: 'text.100',
-  fontWeight: '500',
-  fontFamily: 'pretendard-regular',
 });
 
 const textDesc = css({
-  fontSize: 'caption1',
+  textStyle: 'caption1',
   color: 'text.300',
-  fontFamily: 'pretendard-regular',
   whiteSpace: 'pre-wrap',
 });
 
@@ -119,9 +111,8 @@ const loginBox = css({
 });
 
 const loginText = css({
-  fontFamily: 'pretendard-regular',
   color: 'text.200',
-  fontSize: 'body1',
+  textStyle: 'body1',
   whiteSpace: 'pre-wrap',
   textAlign: 'center',
 });

@@ -10,9 +10,8 @@ const container = vstack({
 });
 
 const title = css({
-  fontWeight: 600,
   color: 'text.100',
-  fontSize: 'title2',
+  textStyle: 'title2',
   lineHeight: '3rem',
   mb: '3rem',
 });
@@ -25,8 +24,7 @@ const label = cx(
     alignItems: 'center',
     p: '0.7rem 1.2rem 0.7rem 1.1rem',
     gap: '0.8rem',
-    fontWeight: '400',
-    fontSize: '1.6rem',
+    textStyle: '1.6rem',
   }),
 );
 
@@ -37,7 +35,7 @@ const inputFormField = cx(
   css({ mt: '1.6rem', ml: 0, mb: '0.5rem', borderWidth: '1px' }),
 );
 
-const labelWithoutPadding = cx(createFormStyle.subtitle, css({ pl: 0 }));
+const labelWithoutPadding = cx(createFormStyle.subTitle, css({ pl: 0 }));
 
 const blueColorText = css({ color: 'main.blue' });
 
@@ -59,7 +57,7 @@ const messageInput = cx(
   }),
 );
 
-const errorText = cx(createFormStyle.error_text, css({ mt: 0, ml: 0 }));
+const errorText = cx(createFormStyle.errorText, css({ mt: 0, ml: 0 }));
 
 export {
   pageLayout,

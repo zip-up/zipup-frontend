@@ -17,10 +17,8 @@ const headerContent = css({
 });
 
 const monthText = css({
-  fontFamily: 'pretendard-semibold',
-  fontWeight: '600',
   color: 'text.100',
-  fontSize: 'body1',
+  textStyle: 'body1',
 });
 
 export { header, headerContent, monthText };
