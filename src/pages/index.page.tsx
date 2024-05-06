@@ -16,6 +16,7 @@ import { getLoacalStorage, setLocalStorage } from '@store/localStorage';
 import { css, cx } from 'styled-system/css';
 
 import * as style from './style';
+import { pretendard } from './_document.page';
 
 const descData = [
   {
@@ -73,12 +74,10 @@ export default function Home() {
       <Head>
         <title>ZIPup | 집들이 선물 펀딩 서비스</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <style>
+        <style jsx global>
           {`
             :root {
-              --font-pretendard-bold: 'Pretendard-Bold', sans-serif;
-              --font-pretendard-semibold: 'Pretendard-SemiBold', sans-serif;
-              --font-pretendard-regular: 'Pretendard-Regular', sans-serif;
+              --font-pretendard: ${pretendard.style.fontFamily};
             }
           `}
         </style>

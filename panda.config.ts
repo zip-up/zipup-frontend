@@ -1,4 +1,5 @@
 import { defineConfig } from '@pandacss/dev';
+import { textStyles } from '@styles/textStyles';
 
 export default defineConfig({
   // Whether to use css reset
@@ -13,12 +14,8 @@ export default defineConfig({
   // Useful for theme customization
   theme: {
     extend: {
+      textStyles,
       tokens: {
-        fonts: {
-          'pretendard-bold': { value: 'var(--font-pretendard-bold), Menlo, monospace' },
-          'pretendard-semibold': { value: 'var(--font-pretendard-semibold), Menlo, monospace' },
-          'pretendard-regular': { value: 'var(--font-pretendard-regular), Menlo, monospace' },
-        },
         colors: {
           gray: {
             10: { value: '#F8F9FA' },
@@ -77,14 +74,8 @@ export default defineConfig({
             300: { value: '#A7AFB7' },
           },
         },
-        fontSizes: {
-          title1: { value: '2.8rem' },
-          title2: { value: '2.4rem' },
-          subtitle1: { value: '2rem' },
-          subtitle2: { value: '1.8rem' },
-          body1: { value: '1.6rem' },
-          body2: { value: '1.4rem' },
-          caption1: { value: '1.2rem' },
+        fonts: {
+          pretendard: { value: 'var(--font-pretendard), sans-serif' },
         },
       },
       keyframes: {

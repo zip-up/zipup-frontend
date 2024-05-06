@@ -1,4 +1,12 @@
+import localFont from 'next/dist/compiled/@next/font/dist/local';
 import { Head, Html, Main, NextScript } from 'next/document';
+
+export const pretendard = localFont({
+  src: '../assets/fonts/PretendardVariable.woff2',
+  display: 'swap',
+  weight: '45 920',
+  variable: '--font-pretendard',
+});
 
 export default function Document() {
   return (
@@ -11,7 +19,7 @@ export default function Document() {
           defer
         ></script>
       </Head>
-      <body>
+      <body className={pretendard.className}>
         <Main />
         <NextScript />
       </body>
