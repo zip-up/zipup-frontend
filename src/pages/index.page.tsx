@@ -16,7 +16,7 @@ import { getLoacalStorage, setLocalStorage } from '@store/localStorage';
 import { css, cx } from 'styled-system/css';
 
 import * as style from './style';
-import { pretendard } from './_document.page';
+import { pretendard } from '@styles/font';
 
 const descData = [
   {

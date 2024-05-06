@@ -1,12 +1,5 @@
-import localFont from 'next/dist/compiled/@next/font/dist/local';
+import { pretendard } from '@styles/font';
 import { Head, Html, Main, NextScript } from 'next/document';
-
-export const pretendard = localFont({
-  src: '../assets/fonts/PretendardVariable.woff2',
-  display: 'swap',
-  weight: '45 920',
-  variable: '--font-pretendard',
-});
 
 export default function Document() {
   return (
