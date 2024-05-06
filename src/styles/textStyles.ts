@@ -2,6 +2,7 @@ import { defineTextStyles } from '@pandacss/dev';
 
 export const textStyles = defineTextStyles({
   title1: {
+    description: 'title1',
     value: {
       fontFamily: 'pretendard',
       fontWeight: '700',
@@ -11,6 +12,7 @@ export const textStyles = defineTextStyles({
     },
   },
   title2: {
+    description: 'title2',
     value: {
       fontFamily: 'pretendard',
       fontWeight: '600',
@@ -20,6 +22,7 @@ export const textStyles = defineTextStyles({
     },
   },
   subtitle1: {
+    description: 'subtitle1',
     value: {
       fontFamily: 'pretendard',
       fontWeight: '600',
@@ -29,6 +32,7 @@ export const textStyles = defineTextStyles({
     },
   },
   subtitle2: {
+    description: 'subtitle2',
     value: {
       fontFamily: 'pretendard',
       fontWeight: '600',
@@ -38,6 +42,7 @@ export const textStyles = defineTextStyles({
     },
   },
   body1: {
+    description: 'body1',
     value: {
       fontFamily: 'pretendard',
       fontWeight: '400',
@@ -47,6 +52,7 @@ export const textStyles = defineTextStyles({
     },
   },
   body2: {
+    description: 'body2',
     value: {
       fontFamily: 'pretendard',
       fontWeight: '400',
@@ -56,6 +62,7 @@ export const textStyles = defineTextStyles({
     },
   },
   caption1: {
+    description: 'caption1',
     value: {
       fontFamily: 'pretendard',
       fontWeight: '400',
