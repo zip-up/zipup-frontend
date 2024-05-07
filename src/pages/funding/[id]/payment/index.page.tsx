@@ -45,7 +45,7 @@ export default function Payment() {
     );
 
     paymentWidget.renderAgreement('#agreement', { variantKey: 'AGREEMENT' });
-  }, [paymentWidget]);
+  }, [paymentWidget, fundingForm.price]);
 
   return (
     <div className={css({ display: 'flex', flexDir: 'column', p: '1.6rem' })}>

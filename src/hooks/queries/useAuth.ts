@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation';
 import { InstanceWithToken } from '@api/index';
 import { getLoacalStorage, setLocalStorage } from '@store/localStorage';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -6,27 +7,30 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 const useLogIn = ({ code }: { code: string }) => {
+  const router = useRouter();
+
   return useQuery<UserWithToken>({
     enabled: !!code,
     queryKey: ['login', code],
     queryFn: async () => {
-      try {
-        const response = await axios.get<UserWithToken>(`/v1/auth/authentication`, {
-          headers: { Authorization: code },
-          withCredentials: true,
-        });
+      const response = await axios.get<UserWithToken>(`/v1/auth/authentication`, {
+        headers: { Authorization: code },
+        withCredentials: true,
+      });
 
-        const { accessToken } = response.data;
+      const { accessToken, ...userData } = response.data;
 
-        InstanceWithToken.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-        setLocalStorage('@token', accessToken);
-        Cookies.set('token', accessToken);
+      InstanceWithToken.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+      setLocalStorage('@token', accessToken);
+      setLocalStorage('@user', userData);
 
-        return response.data;
-      } catch (error) {
-        console.error('로그인 오류:', error);
-        throw error;
+      Cookies.set('token', accessToken);
+
+      if (response.data) {
+        router.push('/');
       }
+
+      return response.data;
     },
   });
 };

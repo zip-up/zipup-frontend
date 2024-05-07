@@ -12,7 +12,7 @@ import Spinner from '@components/common/Spinner';
 import HeaderWithLogo from '@components/HeaderWithLogo';
 import LoginModal from '@components/modals/LoginModal';
 import { useLogIn } from '@hooks/queries/useAuth';
-import { getLoacalStorage, setLocalStorage } from '@store/localStorage';
+import { getLoacalStorage } from '@store/localStorage';
 import { pretendard } from '@styles/font';
 import { css, cx } from 'styled-system/css';
 
@@ -50,24 +50,13 @@ export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const [code, setCode] = useState('');
   const [isBrowsingService, setIsBrowsingService] = useState(false);
-  const { data, isLoading } = useLogIn({ code });
+  const { isLoading } = useLogIn({ code });
 
   useEffect(() => {
     if (router.isReady && router.asPath.length > 2) {
       setCode(router.asPath.slice(2));
     }
-  }, [router.isReady, router.query, code]);
-
-  useEffect(() => {
-    if (data) {
-      const { accessToken, ...userData } = data;
-
-      setLocalStorage('@token', accessToken);
-      setLocalStorage('@user', userData);
-
-      router.push('/');
-    }
-  }, [data]);
+  }, [router.isReady, router.query, code, router.asPath]);
 
   return (
     <>

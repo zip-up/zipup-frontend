@@ -68,7 +68,7 @@ export default function Success({ fundingId, orderId, amount, paymentId }: Succe
       paymentId,
       ...participateInfo,
     });
-  }, [isLoading]);
+  }, [isLoading, fundingId, paymentId, participateInfo, mutate]);
 
   if (isMutating || isLoading)
     return (

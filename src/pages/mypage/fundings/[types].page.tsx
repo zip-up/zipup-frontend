@@ -37,7 +37,7 @@ export default function MyFundings() {
     if (String(types) !== 'my' && String(types) !== 'participated') {
       router.push('/mypage');
     }
-  }, [router.query]);
+  }, [router, types]);
 
   useEffect(() => {
     if (user?.id) {
@@ -47,7 +47,7 @@ export default function MyFundings() {
         refetchParticipatedList();
       }
     }
-  }, [user?.id]);
+  }, [user?.id, types, refetchMyFundingList, refetchParticipatedList]);
 
   useEffect(() => {
     if (String(types) === 'my' && myFundingList) {
@@ -55,7 +55,7 @@ export default function MyFundings() {
     } else if (String(types) === 'participated' && participatedList) {
       setData(participatedList || []);
     }
-  }, [myFundingList, participatedList]);
+  }, [myFundingList, participatedList, types]);
 
   return (
     <>

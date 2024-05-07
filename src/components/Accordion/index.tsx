@@ -14,14 +14,14 @@ function Accordion({ question, answer, isOpen, onToggle }: AccordionProps) {
   const contentsRef = useRef<HTMLDivElement>(null);
   const [isFullyClosed, setIsFullyClosed] = useState(true);
 
-  const updateHeight = () => {
-    const contentsElement = contentsRef.current;
-    if (contentsElement) {
-      contentsElement.style.height = isOpen ? `${contentsElement.scrollHeight}px` : '0px';
-    }
-  };
-
   useEffect(() => {
+    const updateHeight = () => {
+      const contentsElement = contentsRef.current;
+      if (contentsElement) {
+        contentsElement.style.height = isOpen ? `${contentsElement.scrollHeight}px` : '0px';
+      }
+    };
+
     updateHeight();
 
     const contentsElement = contentsRef.current;
@@ -35,14 +35,6 @@ function Accordion({ question, answer, isOpen, onToggle }: AccordionProps) {
       contentsElement?.removeEventListener('transitionend', transitionEndHandler);
     };
   }, [isOpen]);
-
-  useEffect(() => {
-    window.addEventListener('resize', updateHeight);
-
-    return () => {
-      window.removeEventListener('resize', updateHeight);
-    };
-  }, []);
 
   return (
     <div className={style.accordion}>
