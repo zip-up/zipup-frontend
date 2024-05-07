@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import CancelIcon from '@assets/icons/cancel-icon.svg';
 import InfoIcon from '@assets/icons/info.svg';
-
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
 import ProgressBar from '@components/common/ProgressBar';

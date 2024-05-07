@@ -1,7 +1,4 @@
 import { useState } from 'react';
-import { SubmitErrorHandler, useForm } from 'react-hook-form';
-import * as style from '../styles';
-import { css, cx } from 'styled-system/css';
 import { useRouter } from 'next/router';
 import GiftIcon from '@assets/icons/gift-icon.svg';
 import SearchIcon from '@assets/icons/search.svg';
@@ -19,8 +16,12 @@ import { useCreateFunding } from '@hooks/queries/useFunding';
 import { createFundState } from '@store/store';
 import { TermsCheckFlags } from '@typings/term';
 import { shareKakao } from '@utils/share';
+import { SubmitErrorHandler, useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
+import { css, cx } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
+
+import * as style from '../styles';
 
 interface FormInputs extends TermsCheckFlags {
   roadAddress: string;

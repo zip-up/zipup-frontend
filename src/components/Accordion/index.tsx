@@ -1,6 +1,7 @@
-import { useRef, useEffect, useState } from 'react';
-import style from './styles';
+import { useEffect, useRef, useState } from 'react';
 import { css, cx } from 'styled-system/css';
+
+import style from './styles';
 
 interface AccordionProps {
   question: string;
@@ -9,7 +10,7 @@ interface AccordionProps {
   onToggle?: () => void;
 }
 
-const Accordion = ({ question, answer, isOpen, onToggle }: AccordionProps) => {
+function Accordion({ question, answer, isOpen, onToggle }: AccordionProps) {
   const contentsRef = useRef<HTMLDivElement>(null);
   const [isFullyClosed, setIsFullyClosed] = useState(true);
 
@@ -74,6 +75,6 @@ const Accordion = ({ question, answer, isOpen, onToggle }: AccordionProps) => {
       </div>
     </div>
   );
-};
+}
 
 export default Accordion;

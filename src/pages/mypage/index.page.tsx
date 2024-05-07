@@ -5,13 +5,14 @@ import GoIcon from '@assets/icons/go.svg';
 import MyFundingIcon from '@assets/images/my-funding.svg';
 import ParticipatedFundingIcon from '@assets/images/participated_funding.svg';
 import Button from '@components/common/Button';
+import Footer from '@components/Footer';
 import HeaderWithLogo from '@components/HeaderWithLogo';
 import { useLogout, useUser } from '@hooks/queries/useAuth';
 import { getLoacalStorage } from '@store/localStorage';
-import * as style from './styles';
 import { cx } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
-import Footer from '@components/Footer';
+
+import * as style from './styles';
 
 function MyPage() {
   const router = useRouter();

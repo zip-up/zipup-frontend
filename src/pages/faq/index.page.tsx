@@ -1,19 +1,20 @@
-import Header from '@components/common/Header';
-import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-import { style } from './styles';
-import { useForm } from 'react-hook-form';
-import SearchIcon from '../../assets/icons/search.svg';
-import { css, cx } from 'styled-system/css';
+import { useRouter } from 'next/navigation';
 import Accordion from '@components/Accordion';
-import { FaqQuestions, FaqQuestionsType } from '@constants/faqs';
+import Header from '@components/common/Header';
 import Footer from '@components/Footer';
+import { FaqQuestions, FaqQuestionsType } from '@constants/faqs';
+import { useForm } from 'react-hook-form';
+import { css, cx } from 'styled-system/css';
+
+import SearchIcon from '../../assets/icons/search.svg';
+import { style } from './styles';
 
 type FormInputs = {
   text: string;
 };
 
-const Faq = () => {
+function Faq() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('이용문의');
   const [keyword, setKeyword] = useState('');
@@ -96,6 +97,6 @@ const Faq = () => {
       </div>
     </>
   );
-};
+}
 
 export default Faq;

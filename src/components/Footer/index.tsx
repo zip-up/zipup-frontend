@@ -1,5 +1,6 @@
-import style from './styles';
 import { Argument, css, cx } from 'styled-system/css';
+
+import style from './styles';
 
 const termsAndConditionsList = [
   {
@@ -24,7 +25,7 @@ interface FooterProps {
   styles?: Argument;
 }
 
-const Footer = ({ styles }: FooterProps) => {
+function Footer({ styles }: FooterProps) {
   return (
     <footer
       className={cx(
@@ -52,6 +53,6 @@ const Footer = ({ styles }: FooterProps) => {
       </div>
     </footer>
   );
-};
+}
 
 export default Footer;
