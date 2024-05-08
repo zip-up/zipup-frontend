@@ -4,9 +4,7 @@ import GiftIcon from '@assets/icons/big-gift-image.svg';
 import Card from '@components/Card';
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
-import { useUser } from '@hooks/queries/useAuth';
-import { useGetMyFundingList, useGetParticipatedList } from '@hooks/queries/useFundingList';
-import { FundingInfo } from '@typings/funding';
+import { useFundingList } from '@hooks/queries/useFundingList';
 import { cx } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
 
@@ -15,43 +13,27 @@ import * as style from '../styles';
 export default function MyFundings() {
   const router = useRouter();
   const { types } = router.query;
-  const { data: user } = useUser();
 
-  const { data: myFundingList } = useGetMyFundingList({
-    uuid: user?.id || '',
-  });
-  const { data: participatedList } = useGetParticipatedList({
-    uuid: user?.id || '',
-  });
-  const data: FundingInfo[] = types === 'my' ? myFundingList! : participatedList!;
+  const { data: myFundingList } = useFundingList({ types: types as string });
 
   useEffect(() => {
     if (types !== 'my' && types !== 'participated') {
       router.push('/mypage');
     }
-  }, [router, types]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [types]);
 
   return (
     <>
       <Header
-        title={String(types) === 'my' ? '내가 만든 펀딩' : '내가 참여한 펀딩'}
+        title={types === 'my' ? '내가 만든 펀딩' : '내가 참여한 펀딩'}
         onGoBack={() => router.back()}
       />
-      {data?.length ? (
+      {myFundingList?.length ? (
         <div className={style.cardContent}>
           <div className={style.flexContainer}>
-            {data.map((item, index) => (
-              <Card
-                key={index}
-                data={item}
-                onClick={() => {
-                  if (String(types) === 'my') {
-                    router.push('/funding/' + item.id);
-                  } else if (String(types) === 'participated') {
-                    router.push('/funding/' + item.id);
-                  }
-                }}
-              />
+            {myFundingList.map((item, index) => (
+              <Card key={index} data={item} onClick={() => router.push('/funding/' + item.id)} />
             ))}
           </div>
         </div>
@@ -70,15 +52,15 @@ export default function MyFundings() {
             </div>
             <div className={style.textBox}>
               <p className={style.title}>
-                {String(types) === 'my' ? '아직 만든 펀딩이 없어요' : '아직 참여한 펀딩이 없어요'}
+                {types === 'my' ? '아직 만든 펀딩이 없어요' : '아직 참여한 펀딩이 없어요'}
               </p>
               <p className={style.desc}>
-                {String(types) === 'my'
+                {types === 'my'
                   ? '지금 바로 내가 받고 싶은 선물을 등록해보세요.'
                   : '집들이를 준비하는 친구에게 집업을 알려보세요.'}
               </p>
             </div>
-            {String(types) === 'my' && (
+            {types === 'my' && (
               <Button
                 className={style.noResultButton}
                 onClick={() => router.push('/funding/create/1')}
