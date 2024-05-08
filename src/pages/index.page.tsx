@@ -56,7 +56,8 @@ export default function Home() {
     if (router.isReady && router.asPath.length > 2) {
       setCode(router.asPath.slice(2));
     }
-  }, [router.isReady, router.query, code, router.asPath]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.isReady, router.query]);
 
   return (
     <>
