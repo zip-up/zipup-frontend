@@ -17,12 +17,11 @@ type FormInputs = {
 function Faq() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('이용문의');
-  const [keyword, setKeyword] = useState('');
   const [openQuestion, setOpenQuestion] = useState<string | null>(null);
   const { register, getValues, handleSubmit } = useForm<FormInputs>();
 
   const submitHandler = () => {
-    setKeyword(getValues('text'));
+    // submit
   };
 
   const handleAccordionToggle = (question: string) => {
@@ -43,7 +42,7 @@ function Faq() {
         </button>
       </form>
       <div>
-        {!keyword && (
+        {!getValues('text') && (
           <div className={style.tabs}>
             {['이용문의', '배송', '취소/환불', '회원'].map(item => (
               <div
@@ -64,10 +63,13 @@ function Faq() {
           </div>
         )}
         <div className={style.content}>
-          {keyword &&
+          {getValues('text') &&
             Object.values(FaqQuestions)
               .flat()
-              .filter(el => el.answer.includes(keyword) || el.question.includes(keyword))
+              .filter(
+                el =>
+                  el.answer.includes(getValues('text')) || el.question.includes(getValues('text')),
+              )
               .map(item => (
                 <Accordion
                   key={item.question}
@@ -76,7 +78,7 @@ function Faq() {
                   onToggle={() => handleAccordionToggle(item.question)}
                 />
               ))}
-          {!keyword &&
+          {!getValues('text') &&
             FaqQuestions[activeTab as keyof FaqQuestionsType].map(item => (
               <Accordion
                 key={item.question}
@@ -85,14 +87,7 @@ function Faq() {
                 onToggle={() => handleAccordionToggle(item.question)}
               />
             ))}
-          <Footer
-            styles={css({
-              '@media (min-height: 706px)': {
-                position: 'absolute',
-                bottom: 0,
-              },
-            })}
-          />
+          <Footer className={footerQuery} />
         </div>
       </div>
     </>
@@ -100,3 +95,10 @@ function Faq() {
 }
 
 export default Faq;
+
+const footerQuery = css({
+  '@media (min-height: 706px)': {
+    position: 'absolute',
+    bottom: 0,
+  },
+});
