@@ -22,7 +22,7 @@ const highlight = css({
 const accordionContent = css({
   overflow: 'hidden',
   backgroundColor: 'bg.200',
-  borderBottomColor: 'gray.300',
+  borderBottomColor: 'gray.30',
   borderBottomWidth: '0.1rem',
   height: 0,
   transition: 'height 0.3s ease',

@@ -91,7 +91,7 @@ function MyPage() {
               flex({
                 direction: 'column',
                 marginTop: '1.6rem',
-                borderColor: 'gray.300',
+                borderColor: 'gray.30',
                 justify: 'center',
                 gap: '0.4rem',
               }),

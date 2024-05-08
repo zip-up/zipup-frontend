@@ -12,7 +12,7 @@ const input = css({
   width: '32.8rem',
   height: '5.2rem',
   borderRadius: '0.8rem',
-  borderColor: 'gray.300',
+  borderColor: 'gray.30',
   borderWidth: '0.1rem',
   backgroundColor: 'bg.200',
   margin: '0 auto',
