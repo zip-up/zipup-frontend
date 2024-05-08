@@ -11,17 +11,14 @@ const footerInfoBox = css({
   display: 'flex',
   flexDirection: 'column',
   gap: '0.6rem',
-  fontFamily: 'pretendard-regular',
-  fontSize: 'caption1',
+  textStyle: 'caption1',
   color: 'text.100',
-  fontWeight: 400,
 });
 
 const termsAndConditions = css({
   display: 'flex',
   gap: '0.8rem',
-  fontFamily: 'pretendard-regular',
-  fontSize: 'caption1',
+  textStyle: 'caption1',
   color: 'text.200',
 });
 
