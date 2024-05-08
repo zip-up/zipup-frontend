@@ -57,7 +57,7 @@ export default function Home() {
       setCode(router.asPath.slice(2));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.isReady, router.query]);
+  }, [router.isReady]);
 
   return (
     <>
