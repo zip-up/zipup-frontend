@@ -26,11 +26,4 @@ const pointer = css({
   cursor: 'pointer',
 });
 
-const style = {
-  footer,
-  footerInfoBox,
-  termsAndConditions,
-  pointer,
-};
-
-export default style;
+export { footer, footerInfoBox, termsAndConditions, pointer };

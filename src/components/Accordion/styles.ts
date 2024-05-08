@@ -37,13 +37,4 @@ const content = css({
   whiteSpace: 'pre-wrap',
 });
 
-const style = {
-  accordion,
-  accordionContent,
-  accordionQuestion,
-  highlight,
-  innerContent,
-  content,
-};
-
-export default style;
+export { accordion, accordionContent, accordionQuestion, highlight, innerContent, content };

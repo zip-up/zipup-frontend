@@ -47,13 +47,4 @@ const content = css({
   height: 'calc(100vh - 17.4rem)',
 });
 
-const style = {
-  searchBox,
-  input,
-  searchBtn,
-  tabs,
-  tabItem,
-  content,
-};
-
-export { style };
+export { searchBox, input, searchBtn, tabs, tabItem, content };

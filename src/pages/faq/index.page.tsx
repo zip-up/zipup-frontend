@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { css, cx } from 'styled-system/css';
 
 import SearchIcon from '../../assets/icons/search.svg';
-import { style } from './styles';
+import { content, input, searchBox, searchBtn, tabItem, tabs } from './styles';
 
 type FormInputs = {
   text: string;
@@ -31,24 +31,20 @@ function Faq() {
   return (
     <>
       <Header title="자주 묻는 질문" onGoBack={() => router.back()} />
-      <form className={style.searchBox} onSubmit={handleSubmit(submitHandler)}>
-        <input
-          className={style.input}
-          {...register('text')}
-          placeholder="궁금한 내용을 검색해보세요."
-        />
-        <button type="submit" className={style.searchBtn}>
+      <form className={searchBox} onSubmit={handleSubmit(submitHandler)}>
+        <input className={input} {...register('text')} placeholder="궁금한 내용을 검색해보세요." />
+        <button type="submit" className={searchBtn}>
           <SearchIcon />
         </button>
       </form>
       <div>
         {!getValues('text') && (
-          <div className={style.tabs}>
+          <div className={tabs}>
             {['이용문의', '배송', '취소/환불', '회원'].map(item => (
               <div
                 key={item}
                 className={cx(
-                  style.tabItem,
+                  tabItem,
                   css({
                     fontWeight: activeTab === item ? '600' : '400',
                     color: activeTab === item ? 'main.blue' : 'text.200',
@@ -62,7 +58,7 @@ function Faq() {
             ))}
           </div>
         )}
-        <div className={style.content}>
+        <div className={content}>
           {getValues('text') &&
             Object.values(FaqQuestions)
               .flat()
