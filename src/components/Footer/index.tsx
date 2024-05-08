@@ -25,7 +25,7 @@ interface FooterProps {
   className?: string;
 }
 
-function Footer({ className }: FooterProps) {
+export default function Footer({ className }: FooterProps) {
   return (
     <footer
       className={cx(
@@ -54,5 +54,3 @@ function Footer({ className }: FooterProps) {
     </footer>
   );
 }
-
-export default Footer;

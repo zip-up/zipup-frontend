@@ -14,7 +14,7 @@ type FormInputs = {
   text: string;
 };
 
-function Faq() {
+export default function Faq() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('이용문의');
   const [openQuestion, setOpenQuestion] = useState<string | null>(null);
@@ -89,8 +89,6 @@ function Faq() {
     </>
   );
 }
-
-export default Faq;
 
 const footerQuery = css({
   '@media (min-height: 706px)': {

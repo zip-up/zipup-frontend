@@ -13,7 +13,7 @@ import { cx } from 'styled-system/css';
 
 import * as style from './styles';
 
-function MyPage() {
+export default function MyPage() {
   const router = useRouter();
 
   const { data: user } = useUser();
@@ -97,5 +97,3 @@ function MyPage() {
     </>
   );
 }
-
-export default MyPage;
