@@ -10,7 +10,6 @@ import HeaderWithLogo from '@components/HeaderWithLogo';
 import { useLogout, useUser } from '@hooks/queries/useAuth';
 import { getLoacalStorage } from '@store/localStorage';
 import { cx } from 'styled-system/css';
-import { flex } from 'styled-system/patterns';
 
 import * as style from './styles';
 
@@ -86,16 +85,7 @@ function MyPage() {
         <div className={style.supportBox}>
           <span className={style.serviceTitle}>고객지원</span>
           <button
-            className={cx(
-              style.goFundingBtn,
-              flex({
-                direction: 'column',
-                marginTop: '1.6rem',
-                borderColor: 'gray.30',
-                justify: 'center',
-                gap: '0.4rem',
-              }),
-            )}
+            className={cx(style.goFundingBtn, style.faqBtn)}
             onClick={() => router.push('/faq')}
           >
             <h2 className={style.goFundingTitle}>자주 묻는 질문 / 문의하기</h2>

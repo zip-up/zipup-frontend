@@ -1,4 +1,5 @@
 import { css } from 'styled-system/css';
+import { flex } from 'styled-system/patterns';
 
 const content = css({
   backgroundColor: 'bg.200',
@@ -89,6 +90,15 @@ const goFundingBtn = css({
     transition: 'transform 0.3s ease-in-out',
     transformOrigin: 'bottom',
   },
+});
+
+const faqBtn = flex({
+  direction: 'column',
+  marginTop: '1.6rem',
+  borderWidth: '0.1rem',
+  borderColor: 'gray.300',
+  justify: 'center',
+  gap: '0.4rem',
 });
 
 const goFundingInfoBox = css({
@@ -218,4 +228,5 @@ export {
   noResultButton,
   supportBox,
   logoutBtn,
+  faqBtn,
 };
