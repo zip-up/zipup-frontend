@@ -10,7 +10,7 @@ interface AccordionProps {
   onToggle?: () => void;
 }
 
-function Accordion({ question, answer, isOpen, onToggle }: AccordionProps) {
+export default function Accordion({ question, answer, isOpen, onToggle }: AccordionProps) {
   const contentsRef = useRef<HTMLDivElement>(null);
   const [isFullyClosed, setIsFullyClosed] = useState(true);
 
@@ -68,5 +68,3 @@ function Accordion({ question, answer, isOpen, onToggle }: AccordionProps) {
     </div>
   );
 }
-
-export default Accordion;

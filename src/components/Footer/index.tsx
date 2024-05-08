@@ -1,4 +1,4 @@
-import { Argument, css, cx } from 'styled-system/css';
+import { css, cx } from 'styled-system/css';
 
 import style from './styles';
 
@@ -22,15 +22,15 @@ const termsAndConditionsList = [
 ];
 
 interface FooterProps {
-  styles?: Argument;
+  className?: string;
 }
 
-function Footer({ styles }: FooterProps) {
+function Footer({ className }: FooterProps) {
   return (
     <footer
       className={cx(
         style.footer,
-        styles ||
+        className ||
           css({
             '@media (min-height: 650px)': {
               position: 'absolute',
