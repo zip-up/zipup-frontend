@@ -22,10 +22,8 @@ const highlight = css({
 const accordionContent = css({
   overflow: 'hidden',
   backgroundColor: 'bg.200',
-  borderBottomColor: 'gray.30',
+  borderBottomColor: 'gray.300',
   borderBottomWidth: '0.1rem',
-  height: 0,
-  transition: 'height 0.3s ease',
 });
 
 const innerContent = flex({
