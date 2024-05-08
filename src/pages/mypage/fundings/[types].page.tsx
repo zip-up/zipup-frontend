@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import GiftIcon from '@assets/icons/big-gift-image.svg';
 import Card from '@components/Card';
@@ -17,45 +17,19 @@ export default function MyFundings() {
   const { types } = router.query;
   const { data: user } = useUser();
 
-  const {
-    data: myFundingList,
-    refetch: refetchMyFundingList,
-    isLoading: isMyFundingListLoading,
-  } = useGetMyFundingList({
+  const { data: myFundingList } = useGetMyFundingList({
     uuid: user?.id || '',
   });
-  const {
-    data: participatedList,
-    refetch: refetchParticipatedList,
-    isLoading: isParticipatedListLoading,
-  } = useGetParticipatedList({
+  const { data: participatedList } = useGetParticipatedList({
     uuid: user?.id || '',
   });
-  const [data, setData] = useState<FundingInfo[]>([]);
+  const data: FundingInfo[] = types === 'my' ? myFundingList! : participatedList!;
 
   useEffect(() => {
-    if (String(types) !== 'my' && String(types) !== 'participated') {
+    if (types !== 'my' && types !== 'participated') {
       router.push('/mypage');
     }
   }, [router, types]);
-
-  useEffect(() => {
-    if (user?.id) {
-      if (String(types) === 'my') {
-        refetchMyFundingList();
-      } else if (String(types) === 'participated') {
-        refetchParticipatedList();
-      }
-    }
-  }, [user?.id, types, refetchMyFundingList, refetchParticipatedList]);
-
-  useEffect(() => {
-    if (String(types) === 'my' && myFundingList) {
-      setData(myFundingList || []);
-    } else if (String(types) === 'participated' && participatedList) {
-      setData(participatedList || []);
-    }
-  }, [myFundingList, participatedList, types]);
 
   return (
     <>
@@ -63,7 +37,7 @@ export default function MyFundings() {
         title={String(types) === 'my' ? '내가 만든 펀딩' : '내가 참여한 펀딩'}
         onGoBack={() => router.back()}
       />
-      {data.length > 0 && (
+      {data?.length ? (
         <div className={style.cardContent}>
           <div className={style.flexContainer}>
             {data.map((item, index) => (
@@ -81,8 +55,7 @@ export default function MyFundings() {
             ))}
           </div>
         </div>
-      )}
-      {!data.length && !isParticipatedListLoading && !isMyFundingListLoading && (
+      ) : (
         <div
           className={cx(
             style.cardContent,
