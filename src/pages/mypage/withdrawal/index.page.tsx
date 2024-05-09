@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import { Radio_Disabled } from '@assets/icons/radio';
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
 import { css, cx } from 'styled-system/css';
@@ -61,7 +62,8 @@ export default function Withdraw() {
           <div className={styles.reasonMsgWrapper}>
             {WITHDRAWAL_REASON.map((reason, idx) => (
               <Fragment key={idx}>
-                <label htmlFor={`reason-${idx}`} key={idx} className={styles.reasonMsg}>
+                <label htmlFor={`reason-${idx}`} key={idx} className={styles.reasonMsgLabel}>
+                  <Radio_Disabled />
                   <span>{reason}</span>
                 </label>
                 <input type="radio" value={reason} id={`reason-${idx}`} />

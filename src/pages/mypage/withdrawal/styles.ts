@@ -34,14 +34,16 @@ const reasonFormSubTitle = flex({
   direction: 'column',
   color: 'text.200',
   textAlign: 'center',
-  margin: '1.6rem 0 2.4rem 0',
+  margin: '1.6rem 0 2.4rem',
 });
 
 const reasonMsgWrapper = flex({ direction: 'column', gap: '0.8rem', marginLeft: '1.6rem' });
 
-const reasonMsg = css({
+const reasonMsgLabel = flex({
   color: 'text.200',
   margin: '0.8rem 0',
+  align: 'center',
+  gap: '1.6rem',
 });
 
 export {
@@ -53,5 +55,5 @@ export {
   reasonFormWrapper,
   reasonFormSubTitle,
   reasonMsgWrapper,
-  reasonMsg,
+  reasonMsgLabel,
 };
