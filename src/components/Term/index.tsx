@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import CheckedIcon from '@assets/icons/checked.svg';
-import UnCheckedIcon from '@assets/icons/unchecked.svg';
+import { Checkbox_active, Checkbox_disabled } from '@assets/icons/checkbox';
 import { Term as TermType } from '@typings/term';
 import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
@@ -22,7 +21,7 @@ export default function Term<T extends FieldValues>({
   return (
     <div className={style.termWrapper}>
       <label htmlFor={label} className={style.label}>
-        {isChecked ? <CheckedIcon /> : <UnCheckedIcon />}
+        {isChecked ? <Checkbox_active /> : <Checkbox_disabled />}
         <span className={style.title}>{title}</span>
       </label>
       <input

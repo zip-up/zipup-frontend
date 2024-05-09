@@ -1,4 +1,4 @@
-import Radio_Active from '@assets/icons/radio/active.svg';
-import Radio_Disabled from '@assets/icons/radio/disabled.svg';
+import Radio_active from './active.svg';
+import Radio_disabled from './disabled.svg';
 
-export { Radio_Active, Radio_Disabled };
+export { Radio_active, Radio_disabled };
