@@ -2,6 +2,7 @@ import { Fragment, useEffect } from 'react';
 import { Checkbox_active, Checkbox_disabled } from '@assets/icons/checkbox';
 import { Radio_active, Radio_disabled } from '@assets/icons/radio';
 import Button from '@components/common/Button';
+import GradientBackground from '@components/common/Button/GradientBackground';
 import Header from '@components/common/Header';
 import { WITHDRAWAL_NOTICE, WITHDRAWAL_REASON } from '@constants/notice';
 import { useForm } from 'react-hook-form';
@@ -107,17 +108,14 @@ export default function Withdraw() {
             )}
           </div>
         </section>
-
-        <div className={styles.bottomFixedWrapper}>
-          <div className={css({ display: 'flex', gap: '1rem' })}>
-            <Button color="primary" style={{ width: '12.3rem' }}>
-              돌아가기
-            </Button>
-            <Button type="submit" style={{ width: '19.7rem' }} disabled={!watch('isNoticeChecked')}>
-              탈퇴할게요
-            </Button>
-          </div>
-        </div>
+        <GradientBackground color="lightgray">
+          <Button color="primary" style={{ width: '12.3rem' }}>
+            돌아가기
+          </Button>
+          <Button type="submit" style={{ width: '19.7rem' }} disabled={!watch('isNoticeChecked')}>
+            탈퇴할게요
+          </Button>
+        </GradientBackground>
       </div>
     </>
   );
