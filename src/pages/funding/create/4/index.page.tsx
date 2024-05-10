@@ -1,7 +1,4 @@
 import { useState } from 'react';
-import { SubmitErrorHandler, useForm } from 'react-hook-form';
-import * as style from '../styles';
-import { css, cx } from 'styled-system/css';
 import { useRouter } from 'next/router';
 import GiftIcon from '@assets/icons/gift-icon.svg';
 import SearchIcon from '@assets/icons/search.svg';
@@ -13,14 +10,18 @@ import AddressModal from '@components/modals/AddressModal';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import Term from '@components/Term';
 import { infoContainer } from '@components/Term/styles';
-import { PrivacyTerm, PurchaseTerm } from '@constants/terms';
+import { PRIVACY_TERM, PURCHASE_TERM } from '@constants/terms';
 import { useUser } from '@hooks/queries/useAuth';
 import { useCreateFunding } from '@hooks/queries/useFunding';
 import { createFundState } from '@store/store';
 import { TermsCheckFlags } from '@typings/term';
 import { shareKakao } from '@utils/share';
+import { SubmitErrorHandler, useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
+import { css, cx } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
+
+import * as style from '../styles';
 
 interface FormInputs extends TermsCheckFlags {
   roadAddress: string;
@@ -193,13 +194,13 @@ export default function CreatFundStep4() {
         <div className={infoContainer}>
           <Term
             label="isPurchaseChecked"
-            term={PurchaseTerm}
+            term={PURCHASE_TERM}
             register={register}
             isChecked={watch('isPurchaseChecked')}
           />
           <Term
             label="isPrivacyChecked"
-            term={PrivacyTerm}
+            term={PRIVACY_TERM}
             register={register}
             isChecked={watch('isPrivacyChecked')}
           />

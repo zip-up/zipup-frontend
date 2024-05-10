@@ -7,7 +7,7 @@ import ProgressBar from '@components/common/ProgressBar';
 import { statusTag } from '@components/common/StatusTag/styles';
 import Term from '@components/Term';
 import { infoContainer } from '@components/Term/styles';
-import { PrivacyTerm, PurchaseTerm } from '@constants/terms';
+import { PRIVACY_TERM, PURCHASE_TERM } from '@constants/terms';
 import { useUser } from '@hooks/queries/useAuth';
 import { useGetFundingDetail } from '@hooks/queries/useFunding';
 import { setLocalStorage } from '@store/localStorage';
@@ -85,7 +85,7 @@ export default function Participate() {
   const selected = watch('price');
   const [step, setStep] = useState(1);
 
-  const priceLabel = [
+  const PRICE_LABEL = [
     { label: '행복의 오천원', price: 5000, icon_active: <A />, icon_disabled: <A_d /> },
     { label: '기쁨의 만원', price: 10000, icon_active: <B />, icon_disabled: <B_d /> },
     { label: '건강의 삼만원', price: 30000, icon_active: <C />, icon_disabled: <C_d /> },
@@ -102,7 +102,7 @@ export default function Participate() {
             </div>
 
             <div className={style.buttonWrapper}>
-              {priceLabel.map(({ label, price, icon_active, icon_disabled }, idx) => {
+              {PRICE_LABEL.map(({ label, price, icon_active, icon_disabled }, idx) => {
                 return (
                   <Fragment key={idx}>
                     <label
@@ -242,13 +242,13 @@ export default function Participate() {
             <div className={cx(infoContainer, css({ m: 0 }))}>
               <Term
                 label="isPurchaseChecked"
-                term={PurchaseTerm}
+                term={PURCHASE_TERM}
                 register={register}
                 isChecked={watch('isPurchaseChecked')}
               />
               <Term
                 label="isPrivacyChecked"
-                term={PrivacyTerm}
+                term={PRIVACY_TERM}
                 register={register}
                 isChecked={watch('isPrivacyChecked')}
               />
