@@ -13,10 +13,10 @@ import HeaderWithLogo from '@components/HeaderWithLogo';
 import LoginModal from '@components/modals/LoginModal';
 import { useLogIn } from '@hooks/queries/useAuth';
 import { getLoacalStorage, setLocalStorage } from '@store/localStorage';
+import { pretendard } from '@styles/font';
 import { css, cx } from 'styled-system/css';
 
 import * as style from './style';
-import { pretendard } from '@styles/font';
 
 const descData = [
   {

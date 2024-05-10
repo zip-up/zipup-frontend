@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import { flex } from 'styled-system/patterns';
+import { cva } from 'styled-system/css';
 
 interface GradientBackgroundProps {
   direction?: 'row' | 'column';
@@ -11,25 +11,34 @@ export default function GradientBackground({
   color = 'white',
   children,
 }: PropsWithChildren<GradientBackgroundProps>) {
-  const gradientColors = {
-    white: '#FFF 66%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0)',
-    lightgray: '#F8F9FA 66%, rgba(248, 249, 250, 0.8), rgba(248, 249, 250, 0.0)',
-  };
-
-  return (
-    <div
-      className={flex({
-        direction,
-        gap: direction === 'row' ? '0.8rem' : '1.6rem',
-        w: '36rem',
-        h: 'fit-content',
-        pos: 'fixed',
-        bottom: 0,
-        p: '1.6rem 1.6rem 2.4rem 1.6rem',
-        background: `linear-gradient(0deg, ${gradientColors[color]})`,
-      })}
-    >
-      {children}
-    </div>
-  );
+  return <div className={gradientBg({ direction, gradientColor: color })}>{children}</div>;
 }
+
+const gradientBg = cva({
+  base: {
+    display: 'flex',
+    w: '36rem',
+    h: 'fit-content',
+    pos: 'fixed',
+    bottom: 0,
+    p: '1.6rem 1.6rem 2.4rem 1.6rem',
+  },
+  variants: {
+    direction: {
+      row: {
+        flexDir: 'row',
+        gap: '0.8rem',
+      },
+      column: { flexDir: 'column', gap: '1.6rem' },
+    },
+    gradientColor: {
+      white: {
+        backgroundImage: `linear-gradient(0deg,#FFF 66%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0))`,
+      },
+      lightgray: {
+        backgroundImage:
+          'linear-gradient(0deg, #F8F9FA 66%, rgba(248, 249, 250, 0.8), rgba(248, 249, 250, 0.0))',
+      },
+    },
+  },
+});

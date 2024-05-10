@@ -116,7 +116,8 @@ export default function Withdraw() {
             type="submit"
             style={{ width: '19.7rem' }}
             disabled={
-              !watch('isNoticeChecked') || !watch(isOtherReasonSelected ? 'otherReason' : 'reason')
+              !watch('isNoticeChecked') ||
+              !watch(isOtherReasonSelected ? 'otherReason' : 'reason').trim()
             }
           >
             탈퇴할게요
