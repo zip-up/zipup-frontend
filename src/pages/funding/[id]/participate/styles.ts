@@ -3,17 +3,18 @@ import * as createFormStyle from '@pages/funding/create/styles';
 import { css, cx } from 'styled-system/css';
 import { vstack } from 'styled-system/patterns';
 
-const pageLayout = vstack({});
-
 const container = vstack({
-  alignItems: 'flex-start',
+  p: '0 1.6rem',
+  height: '60rem',
+  gap: 0,
 });
 
 const title = css({
   color: 'text.100',
   textStyle: 'title2',
   lineHeight: '3rem',
-  mb: '3rem',
+  w: '100%',
+  mt: '1rem',
 });
 
 const buttonWrapper = css({ gap: '1rem 0.3rem', flexWrap: 'wrap', display: 'flex' });
@@ -30,12 +31,9 @@ const label = cx(
 
 const resetButton = cx(statusTag({ bg: 'black' }), label);
 
-const inputFormField = cx(
-  createFormStyle.input,
-  css({ mt: '1.6rem', ml: 0, mb: '0.5rem', borderWidth: '1px' }),
-);
+const inputFormField = cx(createFormStyle.input, css({ mt: '1.6rem', ml: 0, borderWidth: '1px' }));
 
-const labelWithoutPadding = cx(createFormStyle.subTitle, css({ pl: 0 }));
+const labelWithoutPadding = cx(createFormStyle.subTitle, css({ pl: 0, mt: '3.2rem' }));
 
 const blueColorText = css({ color: 'main.blue' });
 
@@ -44,7 +42,6 @@ const dropInput = css({ display: 'flex', flexDir: 'column', mt: '2.5rem' });
 const inputWithLabelWrapper = css({
   display: 'flex',
   flexDirection: 'column',
-  marginBottom: '2.2rem',
 });
 
 const messageInput = cx(
@@ -60,7 +57,6 @@ const messageInput = cx(
 const errorText = cx(createFormStyle.errorText, css({ mt: 0, ml: 0 }));
 
 export {
-  pageLayout,
   container,
   title,
   buttonWrapper,

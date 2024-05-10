@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import GiftIcon from '@assets/icons/gift-icon.svg';
 import SearchIcon from '@assets/icons/search.svg';
 import Button from '@components/common/Button';
+import GradientBackground from '@components/common/Button/GradientBackground';
 import Header from '@components/common/Header';
 import ProgressBar from '@components/common/ProgressBar';
 import Spinner from '@components/common/Spinner';
@@ -19,7 +20,6 @@ import { shareKakao } from '@utils/share';
 import { SubmitErrorHandler, useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import { css, cx } from 'styled-system/css';
-import { flex } from 'styled-system/patterns';
 
 import * as style from '../styles';
 
@@ -78,24 +78,11 @@ export default function CreatFundStep4() {
 
   function Buttons() {
     return (
-      <div
-        className={flex({
-          width: '32.9rem',
-          '@media (max-height: 670px)': {
-            margin: '0 auto',
-            position: 'inherit',
-          },
-          '@media (min-height: 671px)': {
-            position: 'absolute',
-          },
-          bottom: '2rem',
-          left: '1.5rem',
-        })}
-      >
+      <GradientBackground>
         <Button type="submit" disabled={isPending}>
           {isPending ? <Spinner size="sm" /> : '등록 완료'}
         </Button>
-      </div>
+      </GradientBackground>
     );
   }
 
@@ -206,9 +193,7 @@ export default function CreatFundStep4() {
           />
         </div>
 
-        <div className={css({ marginBottom: '2rem' })}>
-          <Buttons />
-        </div>
+        <Buttons />
       </form>
 
       {isOpen && (

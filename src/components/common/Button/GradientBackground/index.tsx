@@ -21,7 +21,7 @@ const gradientBg = cva({
     h: 'fit-content',
     pos: 'fixed',
     bottom: 0,
-    p: '1.6rem 1.6rem 2.4rem 1.6rem',
+    p: '3rem 1.6rem 2.4rem 1.6rem',
   },
   variants: {
     direction: {
@@ -33,7 +33,7 @@ const gradientBg = cva({
     },
     gradientColor: {
       white: {
-        backgroundImage: `linear-gradient(0deg,#FFF 66%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0))`,
+        backgroundImage: `linear-gradient(0deg, #FFF 66%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0))`,
       },
       lightgray: {
         backgroundImage:

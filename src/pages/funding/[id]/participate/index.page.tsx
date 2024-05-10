@@ -2,13 +2,13 @@ import { Fragment, useState } from 'react';
 import { useRouter } from 'next/router';
 import { A, A_d, B, B_d, C, C_d, D, D_d, E, E_d } from '@assets/icons/priceLabel/index';
 import Button from '@components/common/Button';
+import GradientBackground from '@components/common/Button/GradientBackground';
 import Header from '@components/common/Header';
 import ProgressBar from '@components/common/ProgressBar';
 import { statusTag } from '@components/common/StatusTag/styles';
 import Term from '@components/Term';
 import { infoContainer } from '@components/Term/styles';
 import { PRIVACY_TERM, PURCHASE_TERM } from '@constants/terms';
-import { useUser } from '@hooks/queries/useAuth';
 import { useGetFundingDetail } from '@hooks/queries/useFunding';
 import { setLocalStorage } from '@store/localStorage';
 import { fundingFormState } from '@store/store';
@@ -29,7 +29,7 @@ export interface FormInputs extends TermsCheckFlags {
 
 export default function Participate() {
   const [_, setFundingForm] = useRecoilState(fundingFormState);
-  const { data: user } = useUser();
+  // const { data: user } = useUser();
 
   const router = useRouter();
   const { id: fundingId } = router.query as { id: string };
@@ -60,13 +60,13 @@ export default function Participate() {
     msg,
   }) => {
     setLocalStorage('@participateInfo', {
-      participateId: user?.id,
+      //  participateId: user?.id,
       senderName,
       congratsMessage: msg,
     });
 
     setFundingForm({
-      participateId: user?.id || '',
+      //  participateId: user?.id || '',
       price: enteredCustomPrice ? customPrice : price,
     });
 
@@ -96,7 +96,7 @@ export default function Participate() {
     switch (step) {
       case 1:
         return (
-          <div className={css({ pl: '1.6rem', pr: '1.6rem' })}>
+          <>
             <div className={style.title}>
               <p>{fundingInfo?.organizerName}님을 위한</p>마음을 보내주세요
             </div>
@@ -194,7 +194,7 @@ export default function Participate() {
             >
               다음
             </Button>
-          </div>
+          </>
         );
 
       case 2:
@@ -239,7 +239,7 @@ export default function Participate() {
               {errors.msg && <span className={style.errorText}>{errors.msg.message}</span>}
             </div>
 
-            <div className={cx(infoContainer, css({ m: 0 }))}>
+            <div className={cx(infoContainer, css({ mt: '1.6rem' }))}>
               <Term
                 label="isPurchaseChecked"
                 term={PURCHASE_TERM}
@@ -254,21 +254,21 @@ export default function Participate() {
               />
             </div>
 
-            <Button type="submit" isBottomFixed>
-              결제하러 가기
-            </Button>
+            <GradientBackground>
+              <Button type="submit">결제하러 가기</Button>
+            </GradientBackground>
           </div>
         );
     }
   };
 
   return (
-    <div className={style.pageLayout}>
+    <>
       <Header onGoBack={step == 1 ? () => router.back() : () => setStep(1)} />
       <div className={style.container}>
         <ProgressBar width={step == 1 ? '16.2rem' : '32.8rem'} />
         <form onSubmit={handleSubmit(onSubmit, onSubmitError)}>{renderFormStep(step)}</form>
       </div>
-    </div>
+    </>
   );
 }
