@@ -3,6 +3,7 @@ import { Checkbox_active, Checkbox_disabled } from '@assets/icons/checkbox';
 import { Radio_active, Radio_disabled } from '@assets/icons/radio';
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
+import { WITHDRAWAL_NOTICE, WITHDRAWAL_REASON } from '@constants/notice';
 import { useForm } from 'react-hook-form';
 import { css, cx } from 'styled-system/css';
 
@@ -14,21 +15,6 @@ export default function Withdraw() {
   //     withdrawalReason: '단순 변심',
   //   });
   // }, []);
-
-  const WITHDRAWAL_NOTICE = [
-    '∙ 진행 중인 펀딩이 모두 완료되어야 탈퇴가 가능해요.',
-    '∙ 지금 탈퇴하면 기존에 등록한 펀딩 수정/삭제는 불가능해요.',
-    '∙ 지금 탈퇴하면 기존에 참여한 펀딩 결제 취소 및 환불은 고객 센터를 통해서만 가능해요.',
-    '∙ 탈퇴 후 개인 회원정보와 주소 등은 모두 삭제되고, 삭제된 데이터는 복구되지 않아요.',
-  ];
-
-  const WITHDRAWAL_REASON = [
-    '사용법이 복잡해요',
-    '펀딩 링크를 공유하기 불편해요',
-    '서비스에 신뢰가 가지 않아요',
-    '배송이 느려요',
-    '기타',
-  ];
 
   interface FormInputs {
     isNoticeChecked: boolean;
