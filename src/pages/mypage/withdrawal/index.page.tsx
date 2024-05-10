@@ -1,7 +1,9 @@
-import { Fragment } from 'react';
-import { Radio_disabled } from '@assets/icons/radio';
+import { Fragment, useEffect } from 'react';
+import { Checkbox_active, Checkbox_disabled } from '@assets/icons/checkbox';
+import { Radio_active, Radio_disabled } from '@assets/icons/radio';
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
+import { useForm } from 'react-hook-form';
 import { css, cx } from 'styled-system/css';
 
 import * as styles from './styles';
@@ -24,12 +26,35 @@ export default function Withdraw() {
     '사용법이 복잡해요',
     '펀딩 링크를 공유하기 불편해요',
     '서비스에 신뢰가 가지 않아요',
+    '배송이 느려요',
+    '기타',
   ];
+
+  interface FormInputs {
+    isNoticeChecked: boolean;
+    reason: string;
+    otherReason: string;
+  }
+
+  const { register, watch, resetField } = useForm<FormInputs>({
+    defaultValues: { reason: '사용법이 복잡해요' },
+  });
+
+  const isOtherReasonSelected = watch('reason') === '기타';
+
+  useEffect(() => {
+    if (isOtherReasonSelected) {
+      window.scroll({
+        top: document.body.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
+  }, [isOtherReasonSelected]);
 
   return (
     <>
       <Header />
-      <div className={cx(styles.commonStyle.container, css({ mt: 0 }))}>
+      <div className={styles.layout}>
         <h1 className={cx(styles.commonStyle.headTitle, css({ textStyle: 'title2', mb: 0 }))}>
           정말
           <span
@@ -45,7 +70,6 @@ export default function Withdraw() {
         <div className={styles.subTitle}>
           잠깐! 집업을 탈퇴하기 전에<p>아래 정보를 확인해주세요.</p>
         </div>
-
         <div className={styles.noticeWrapper}>
           {WITHDRAWAL_NOTICE.map((notice, idx) => (
             <span key={idx} className={styles.withdrawalNotice}>
@@ -53,9 +77,19 @@ export default function Withdraw() {
             </span>
           ))}
         </div>
-        <div>안내사항을 모두 확인하였으며, 이에 동의합니다.</div>
+        <div className={styles.noticeCheckboxWrapper}>
+          <label htmlFor="notice" className={styles.checkboxLabel}>
+            {watch('isNoticeChecked') ? <Checkbox_active /> : <Checkbox_disabled />}
+            <span>안내사항을 모두 확인하였으며, 이에 동의합니다.</span>
+          </label>
+          <input
+            id="notice"
+            type="checkbox"
+            {...register('isNoticeChecked', { required: '약관 동의가 필요합니다.' })}
+          />
+        </div>
 
-        <section className={styles.reasonFormWrapper}>
+        <section className={cx(styles.reasonFormWrapper, css({ minH: 'fit-content' }))}>
           <h3 className={styles.reasonFormSubTitle}>
             집업을 떠나시는 이유가 궁금해요. <span>더욱 노력하는 집업이 되겠습니다.</span>
           </h3>
@@ -63,12 +97,28 @@ export default function Withdraw() {
             {WITHDRAWAL_REASON.map((reason, idx) => (
               <Fragment key={idx}>
                 <label htmlFor={`reason-${idx}`} key={idx} className={styles.reasonMsgLabel}>
-                  <Radio_disabled />
+                  {watch('reason') === reason ? <Radio_active /> : <Radio_disabled />}
                   <span>{reason}</span>
                 </label>
-                <input type="radio" value={reason} id={`reason-${idx}`} />
+                <input
+                  type="radio"
+                  value={reason}
+                  id={`reason-${idx}`}
+                  {...register('reason', {
+                    onChange: () => isOtherReasonSelected && resetField('otherReason'),
+                  })}
+                />
               </Fragment>
             ))}
+            {isOtherReasonSelected && (
+              <input
+                type="text"
+                placeholder="탈퇴 사유를 입력해주세요."
+                className={styles.otherReasonInput}
+                {...register('otherReason', { required: '탈퇴 사유를 입력해주세요.' })}
+                autoFocus
+              />
+            )}
           </div>
         </section>
 
@@ -77,7 +127,9 @@ export default function Withdraw() {
             <Button color="primary" style={{ width: '12.3rem' }}>
               돌아가기
             </Button>
-            <Button style={{ width: '19.7rem' }}>탈퇴할게요</Button>
+            <Button type="submit" style={{ width: '19.7rem' }} disabled={!watch('isNoticeChecked')}>
+              탈퇴할게요
+            </Button>
           </div>
         </div>
       </div>
