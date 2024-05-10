@@ -112,7 +112,13 @@ export default function Withdraw() {
           <Button color="primary" style={{ width: '12.3rem' }}>
             돌아가기
           </Button>
-          <Button type="submit" style={{ width: '19.7rem' }} disabled={!watch('isNoticeChecked')}>
+          <Button
+            type="submit"
+            style={{ width: '19.7rem' }}
+            disabled={
+              !watch('isNoticeChecked') || !watch(isOtherReasonSelected ? 'otherReason' : 'reason')
+            }
+          >
             탈퇴할게요
           </Button>
         </GradientBackground>
