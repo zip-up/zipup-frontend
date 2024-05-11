@@ -120,7 +120,9 @@ export default function Home() {
         )}
       </div>
 
-      <div className={style.wrapper}>
+      <div
+        className={cx(style.wrapper, css({ height: isBrowsingService ? 'fit-content' : '40rem' }))}
+      >
         <div className={style.image}>
           <Image src="/home.png" alt="메인 홈 이미지" fill priority />
         </div>
