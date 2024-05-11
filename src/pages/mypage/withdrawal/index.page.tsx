@@ -1,4 +1,5 @@
 import { Fragment, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { Checkbox_active, Checkbox_disabled } from '@assets/icons/checkbox';
 import { Radio_active, Radio_disabled } from '@assets/icons/radio';
 import Button from '@components/common/Button';
@@ -10,6 +11,12 @@ import { css, cx } from 'styled-system/css';
 
 import * as styles from './styles';
 
+interface FormInputs {
+  isNoticeChecked: boolean;
+  reason: string;
+  otherReason: string;
+}
+
 export default function Withdraw() {
   // useEffect(() => {
   //   InstanceWithToken.put('/v1/user/withdrawal', {
@@ -17,17 +24,13 @@ export default function Withdraw() {
   //   });
   // }, []);
 
-  interface FormInputs {
-    isNoticeChecked: boolean;
-    reason: string;
-    otherReason: string;
-  }
-
   const { register, watch, resetField } = useForm<FormInputs>({
     defaultValues: { reason: '사용법이 복잡해요' },
   });
 
   const isOtherReasonSelected = watch('reason') === '기타';
+
+  const router = useRouter();
 
   useEffect(() => {
     if (isOtherReasonSelected) {
@@ -109,7 +112,7 @@ export default function Withdraw() {
           </div>
         </section>
         <GradientBackground color="lightgray">
-          <Button color="primary" style={{ width: '12.3rem' }}>
+          <Button onClick={() => router.back()} color="primary" style={{ width: '12.3rem' }}>
             돌아가기
           </Button>
           <Button
