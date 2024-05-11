@@ -3,11 +3,12 @@ import { cva } from 'styled-system/css';
 export const button = cva({
   base: {
     rounded: '0.8rem',
-    color: 'bg.100',
+    color: 'gray.0',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     cursor: 'pointer',
+    outline: 'none',
   },
   variants: {
     size: {
@@ -26,11 +27,15 @@ export const button = cva({
     color: {
       primary: {
         bgColor: 'main.blue',
-        '&:hover': { bgColor: 'blue.40' },
+        '@media (hover: hover)': {
+          '&:hover': { bgColor: 'main.sky' },
+        },
       },
       secondary: {
         bgColor: 'text.100',
-        '&:hover': { bgColor: 'text.200' },
+        '@media (hover: hover)': {
+          '&:hover': { bgColor: 'gray.60' },
+        },
       },
       kakao: {
         bgColor: 'main.yellow',
@@ -43,7 +48,6 @@ export const button = cva({
     },
     disabled: {
       true: {
-        bgColor: 'text.300',
         cursor: 'not-allowed',
       },
     },
@@ -65,6 +69,20 @@ export const button = cva({
       color: 'kakao',
       css: {
         gap: '1.75rem',
+      },
+    },
+    {
+      disabled: true,
+      color: 'primary',
+      css: {
+        bgColor: 'bg.300',
+      },
+    },
+    {
+      disabled: true,
+      color: 'secondary',
+      css: {
+        bgColor: 'text.300',
       },
     },
   ],
