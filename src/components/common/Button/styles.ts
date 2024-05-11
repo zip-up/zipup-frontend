@@ -60,7 +60,7 @@ export const button = cva({
       },
     },
     position: {
-      first: { bottom: '8.8rem' },
+      first: { bottom: '9.5rem' },
       last: { bottom: '2.4rem' },
     },
   },

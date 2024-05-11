@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Button from '@components/common/Button';
+import Link from 'next/link';
 import KakaoButton from '@components/common/Button/KakaoButton';
 import Header from '@components/common/Header';
 import { handleLogin } from '@utils/kakaoLogin';
@@ -18,10 +18,12 @@ export default function Login() {
           간편 로그인 후 이용 가능해요. <p>카카오 로그인으로 5초만에 시작해요!</p>
         </div>
 
-        <KakaoButton isBottomFixed onClick={handleLogin}>
+        <KakaoButton isBottomFixed position="first" onClick={handleLogin}>
           카카오로 시작하기
         </KakaoButton>
-        <Button isBottomFixed>홈으로 돌아가기</Button>
+        <Link href="/" className={style.linkButton}>
+          홈으로 돌아가기
+        </Link>
       </div>
     </>
   );

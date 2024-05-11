@@ -1,3 +1,4 @@
+import { button } from '@components/common/Button/styles';
 import { css } from 'styled-system/css';
 import { vstack } from 'styled-system/patterns';
 
@@ -18,4 +19,12 @@ const subTitle = css({
   textAlign: 'center',
 });
 
-export { layout, title, subTitle };
+const linkButton = button({
+  isBottomFixed: true,
+  color: 'secondary',
+  position: 'last',
+  size: 'full',
+  textStyle: 'CTAButton',
+});
+
+export { layout, title, subTitle, linkButton };
