@@ -43,7 +43,7 @@ export const button = cva({
       },
     },
     textStyle: {
-      CTAButton: { textStyle: 'subtitle2' },
+      CTAButton: { textStyle: 'body1', fontWeight: 600 },
       resetButton: { textStyle: 'body1' },
     },
     disabled: {
