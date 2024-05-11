@@ -27,13 +27,13 @@ export const button = cva({
     color: {
       primary: {
         bgColor: 'main.blue',
-        '@media (hover: hover)': {
+        '@media (hover: hover):enabled': {
           '&:hover': { bgColor: 'main.sky' },
         },
       },
       secondary: {
         bgColor: 'text.100',
-        '@media (hover: hover)': {
+        '@media (hover: hover):enabled': {
           '&:hover': { bgColor: 'gray.60' },
         },
       },
