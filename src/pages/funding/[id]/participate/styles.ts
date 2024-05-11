@@ -17,19 +17,17 @@ const title = css({
   mt: '1rem',
 });
 
-const buttonWrapper = css({ gap: '1rem 0.3rem', flexWrap: 'wrap', display: 'flex' });
+const buttonWrapper = css({ gap: '1rem 0.3rem', flexWrap: 'wrap', display: 'flex', mt: '3.2rem' });
 
-const label = cx(
-  css({
-    display: 'inline-flex',
-    alignItems: 'center',
-    p: '0.7rem 1.2rem 0.7rem 1.1rem',
-    gap: '0.8rem',
-    textStyle: '1.6rem',
-  }),
-);
+const label = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  p: '0.7rem 1.2rem 0.7rem 1.1rem',
+  gap: '0.8rem',
+  textStyle: 'body1',
+};
 
-const resetButton = cx(statusTag({ bg: 'black' }), label);
+const resetButton = css({ ...statusTag.raw({ bg: 'black' }), ...label });
 
 const inputFormField = cx(createFormStyle.input, css({ mt: '1.6rem', ml: 0, borderWidth: '1px' }));
 

@@ -9,6 +9,7 @@ import { statusTag } from '@components/common/StatusTag/styles';
 import Term from '@components/Term';
 import { infoContainer } from '@components/Term/styles';
 import { PRIVACY_TERM, PURCHASE_TERM } from '@constants/terms';
+import { useUser } from '@hooks/queries/useAuth';
 import { useGetFundingDetail } from '@hooks/queries/useFunding';
 import { setLocalStorage } from '@store/localStorage';
 import { fundingFormState } from '@store/store';
@@ -29,7 +30,7 @@ export interface FormInputs extends TermsCheckFlags {
 
 export default function Participate() {
   const [_, setFundingForm] = useRecoilState(fundingFormState);
-  // const { data: user } = useUser();
+  const { data: user } = useUser();
 
   const router = useRouter();
   const { id: fundingId } = router.query as { id: string };
@@ -60,13 +61,13 @@ export default function Participate() {
     msg,
   }) => {
     setLocalStorage('@participateInfo', {
-      //  participateId: user?.id,
+      participateId: user?.id,
       senderName,
       congratsMessage: msg,
     });
 
     setFundingForm({
-      //  participateId: user?.id || '',
+      participateId: user?.id || '',
       price: enteredCustomPrice ? customPrice : price,
     });
 
@@ -108,8 +109,8 @@ export default function Participate() {
                     <label
                       htmlFor={`price-${idx}`}
                       key={idx}
-                      className={cx(
-                        statusTag({ bg: selected == price ? 'blue' : 'disabled' }),
+                      className={css(
+                        statusTag.raw({ bg: selected == price ? 'blue' : 'disabled' }),
                         style.label,
                       )}
                     >
@@ -130,8 +131,8 @@ export default function Participate() {
 
               <label
                 htmlFor="customPrice"
-                className={cx(
-                  statusTag({ bg: watch('enteredCustomPrice') ? 'blue' : 'disabled' }),
+                className={css(
+                  statusTag.raw({ bg: watch('enteredCustomPrice') ? 'blue' : 'disabled' }),
                   style.label,
                 )}
               >
@@ -153,6 +154,7 @@ export default function Participate() {
               <Button
                 size="none"
                 onClick={() => reset({ price: 5000 })}
+                textStyle="resetButton"
                 className={style.resetButton}
               >
                 리셋
@@ -161,7 +163,7 @@ export default function Participate() {
 
             {enteredCustomPrice && (
               <div className={style.dropInput}>
-                <label className={style.labelWithoutPadding}>
+                <label className={cx(style.labelWithoutPadding, css({ mt: 0 }))}>
                   금액을 직접 입력해주세요. <span className={style.blueColorText}>*</span>
                 </label>
                 <input

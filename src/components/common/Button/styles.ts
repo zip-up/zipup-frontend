@@ -4,7 +4,6 @@ export const button = cva({
   base: {
     rounded: '0.8rem',
     color: 'bg.100',
-    textStyle: 'subtitle2',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -13,15 +12,15 @@ export const button = cva({
   variants: {
     size: {
       regular: {
-        p: '1.4rem',
+        padding: '1.4rem',
       },
       full: {
-        w: '100%',
-        p: '1.4rem 0',
+        width: '100%',
+        padding: '1.4rem 0',
       },
       none: {
-        w: 'fit-content',
-        h: 'fit-content',
+        width: 'fit-content',
+        height: 'fit-content',
       },
     },
     color: {
@@ -37,6 +36,10 @@ export const button = cva({
         bgColor: 'main.yellow',
         color: '#1E2025',
       },
+    },
+    textStyle: {
+      CTAButton: { textStyle: 'subtitle2' },
+      resetButton: { textStyle: 'body1' },
     },
     disabled: {
       true: {
