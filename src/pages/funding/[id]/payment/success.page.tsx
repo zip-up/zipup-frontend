@@ -39,7 +39,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     return {
       redirect: {
-        destination: `/funding/${fundingId}/payment/fail?code=${500}&message=${encodeURIComponent('결제 과정에서 오류가 발생했습니다.')}`,
+        destination: `/funding/${fundingId}/payment/fail?code=${500}&message=${encodeURIComponent('결제 과정에서 서버에 오류가 발생했습니다.')}`,
         permanent: false,
       },
     };

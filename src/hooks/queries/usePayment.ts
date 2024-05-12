@@ -1,22 +1,17 @@
 import { useRouter } from 'next/router';
 import { InstanceWithToken } from '@api/index';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { loadPaymentWidget, PaymentWidgetInstance } from '@tosspayments/payment-widget-sdk';
+import { loadTossPayments, TossPaymentsInstance } from '@tosspayments/payment-sdk';
 import { isAxiosError } from 'axios';
 
-const usePaymentWidget = (clientKey: string, customerKey: string) => {
-  return useQuery<PaymentWidgetInstance>({
-    queryKey: ['payment-widget', clientKey, customerKey],
-    queryFn: async () => {
-      const paymentWidget = await loadPaymentWidget(clientKey, customerKey);
-
-      return paymentWidget;
-    },
-    enabled: !!customerKey,
+const useTossPayments = (clientKey: string) => {
+  return useQuery({
+    queryKey: ['toss-payment'],
+    queryFn: () => loadTossPayments(clientKey),
   });
 };
 
-const useStoreOrderInfo = (successCallback: (orderId: string) => void) => {
+const useStoreOrderInfo = (successCallback: (orderId: string, amount: number) => void) => {
   const router = useRouter();
 
   return useMutation({
@@ -25,9 +20,9 @@ const useStoreOrderInfo = (successCallback: (orderId: string) => void) => {
 
       await InstanceWithToken.post(`/v1/payment/?orderId=${orderId}&amount=${amount}`);
 
-      return orderId;
+      return { orderId, amount };
     },
-    onSuccess: (orderId: string) => successCallback(orderId),
+    onSuccess: ({ orderId, amount }) => successCallback(orderId, amount),
     onError: error => {
       console.error('결제 정보 저장 요청 실패', error);
 
@@ -43,26 +38,26 @@ const useStoreOrderInfo = (successCallback: (orderId: string) => void) => {
 const useRequestPayment = () => {
   return useMutation({
     mutationFn: ({
-      paymentWidget,
+      tossPayments,
+      paymentMethod,
       fundingId,
-      orderId,
-      orderName,
-      customerName,
+      ...orderInfo
     }: {
-      paymentWidget?: PaymentWidgetInstance;
+      tossPayments?: TossPaymentsInstance;
+      paymentMethod: string;
       fundingId: string;
+      amount: number;
       orderId: string;
       orderName: string;
       customerName: string;
     }) => {
       const REDIRECT_URL = `${window.location.origin}/funding/${fundingId}/payment`;
 
-      if (!paymentWidget) throw new Error('결제 서비스를 이용할 수 없습니다.');
+      if (!tossPayments) throw new Error('결제 서비스를 이용할 수 없습니다.');
 
-      return paymentWidget?.requestPayment({
-        orderId,
-        orderName,
-        customerName,
+      return tossPayments?.requestPayment(paymentMethod, {
+        fundingId,
+        ...orderInfo,
         successUrl: `${REDIRECT_URL}/success`,
         failUrl: `${REDIRECT_URL}/fail`,
       });
@@ -73,4 +68,4 @@ const useRequestPayment = () => {
   });
 };
 
-export { usePaymentWidget, useStoreOrderInfo, useRequestPayment };
+export { useTossPayments, useStoreOrderInfo, useRequestPayment };
