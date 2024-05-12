@@ -61,4 +61,15 @@ const useLogout = () => {
   });
 };
 
-export { useLogIn, useUser, useLogout };
+const useWithdrawal = () => {
+  return useMutation({
+    mutationFn: ({ withdrawalReason }: { withdrawalReason: string }) => {
+      return InstanceWithToken.put('/v1/user/withdrawal', {
+        withdrawalReason,
+      });
+    },
+    onError: e => console.error(e),
+  });
+};
+
+export { useLogIn, useUser, useLogout, useWithdrawal };

@@ -6,6 +6,7 @@ import Button from '@components/common/Button';
 import GradientBackground from '@components/common/Button/GradientBackground';
 import Header from '@components/common/Header';
 import { WITHDRAWAL_NOTICE, WITHDRAWAL_REASON } from '@constants/notice';
+import { useWithdrawal } from '@hooks/queries/useAuth';
 import { useForm } from 'react-hook-form';
 import { css, cx } from 'styled-system/css';
 
@@ -18,15 +19,10 @@ interface FormInputs {
 }
 
 export default function Withdraw() {
-  // useEffect(() => {
-  //   InstanceWithToken.put('/v1/user/withdrawal', {
-  //     withdrawalReason: '단순 변심',
-  //   });
-  // }, []);
-
   const { register, watch, resetField } = useForm<FormInputs>({
     defaultValues: { reason: '사용법이 복잡해요' },
   });
+  const { mutate: handleWithdrawal } = useWithdrawal();
 
   const isOtherReasonSelected = watch('reason') === '기타';
 
@@ -121,6 +117,11 @@ export default function Withdraw() {
             disabled={
               !watch('isNoticeChecked') ||
               !watch(isOtherReasonSelected ? 'otherReason' : 'reason').trim()
+            }
+            onClick={() =>
+              handleWithdrawal({
+                withdrawalReason: isOtherReasonSelected ? watch('otherReason') : watch('reason'),
+              })
             }
           >
             탈퇴할게요
