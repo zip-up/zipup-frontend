@@ -10,6 +10,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isBottomFixed?: boolean;
   position?: 'first' | 'last';
   className?: string;
+  textStyle?: 'CTAButton' | 'resetButton';
 }
 
 export default function Button({
@@ -22,6 +23,7 @@ export default function Button({
   children,
   disabled,
   className,
+  textStyle = 'CTAButton',
   ...props
 }: PropsWithChildren<ButtonProps>) {
   return (
@@ -29,14 +31,15 @@ export default function Button({
       type={type}
       {...props}
       className={cx(
-        className,
         button({
+          textStyle,
           size,
           color,
           disabled,
           isBottomFixed,
           position,
         }),
+        className,
       )}
       onClick={onClick}
       disabled={disabled}

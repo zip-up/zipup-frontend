@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import { SubmitErrorHandler, useForm } from 'react-hook-form';
-import * as style from '../styles';
-import { css, cx } from 'styled-system/css';
 import { useRouter } from 'next/router';
 import GiftIcon from '@assets/icons/gift-icon.svg';
 import SearchIcon from '@assets/icons/search.svg';
 import Button from '@components/common/Button';
+import GradientBackground from '@components/common/Button/GradientBackground';
 import Header from '@components/common/Header';
 import ProgressBar from '@components/common/ProgressBar';
 import Spinner from '@components/common/Spinner';
@@ -13,14 +11,17 @@ import AddressModal from '@components/modals/AddressModal';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import Term from '@components/Term';
 import { infoContainer } from '@components/Term/styles';
-import { PrivacyTerm, PurchaseTerm } from '@constants/terms';
+import { PRIVACY_TERM, PURCHASE_TERM } from '@constants/terms';
 import { useUser } from '@hooks/queries/useAuth';
 import { useCreateFunding } from '@hooks/queries/useFunding';
 import { createFundState } from '@store/store';
 import { TermsCheckFlags } from '@typings/term';
 import { shareKakao } from '@utils/share';
+import { SubmitErrorHandler, useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
-import { flex } from 'styled-system/patterns';
+import { css, cx } from 'styled-system/css';
+
+import * as style from '../styles';
 
 interface FormInputs extends TermsCheckFlags {
   roadAddress: string;
@@ -77,24 +78,11 @@ export default function CreatFundStep4() {
 
   function Buttons() {
     return (
-      <div
-        className={flex({
-          width: '32.9rem',
-          '@media (max-height: 670px)': {
-            margin: '0 auto',
-            position: 'inherit',
-          },
-          '@media (min-height: 671px)': {
-            position: 'absolute',
-          },
-          bottom: '2rem',
-          left: '1.5rem',
-        })}
-      >
+      <GradientBackground>
         <Button type="submit" disabled={isPending}>
           {isPending ? <Spinner size="sm" /> : '등록 완료'}
         </Button>
-      </div>
+      </GradientBackground>
     );
   }
 
@@ -193,21 +181,19 @@ export default function CreatFundStep4() {
         <div className={infoContainer}>
           <Term
             label="isPurchaseChecked"
-            term={PurchaseTerm}
+            term={PURCHASE_TERM}
             register={register}
             isChecked={watch('isPurchaseChecked')}
           />
           <Term
             label="isPrivacyChecked"
-            term={PrivacyTerm}
+            term={PRIVACY_TERM}
             register={register}
             isChecked={watch('isPrivacyChecked')}
           />
         </div>
 
-        <div className={css({ marginBottom: '2rem' })}>
-          <Buttons />
-        </div>
+        <Buttons />
       </form>
 
       {isOpen && (

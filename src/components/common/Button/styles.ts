@@ -3,44 +3,51 @@ import { cva } from 'styled-system/css';
 export const button = cva({
   base: {
     rounded: '0.8rem',
-    color: 'bg.100',
-    textStyle: 'subtitle2',
+    color: 'gray.0',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     cursor: 'pointer',
+    outline: 'none',
   },
   variants: {
     size: {
       regular: {
-        p: '1.4rem',
+        padding: '1.4rem',
       },
       full: {
-        w: '100%',
-        p: '1.4rem 0',
+        width: '100%',
+        padding: '1.4rem 0',
       },
       none: {
-        w: 'fit-content',
-        h: 'fit-content',
+        width: 'fit-content',
+        height: 'fit-content',
       },
     },
     color: {
       primary: {
         bgColor: 'main.blue',
-        '&:hover': { bgColor: 'blue.40' },
+        '@media (hover: hover):enabled': {
+          '&:hover': { bgColor: 'main.sky' },
+        },
       },
       secondary: {
         bgColor: 'text.100',
-        '&:hover': { bgColor: 'text.200' },
+        '@media (hover: hover):enabled': {
+          '&:hover': { bgColor: 'gray.60' },
+        },
       },
       kakao: {
         bgColor: 'main.yellow',
         color: '#1E2025',
       },
     },
+    textStyle: {
+      CTAButton: { textStyle: 'body1', fontWeight: 600 },
+      resetButton: { textStyle: 'body1' },
+    },
     disabled: {
       true: {
-        bgColor: 'text.300',
         cursor: 'not-allowed',
       },
     },
@@ -53,7 +60,7 @@ export const button = cva({
       },
     },
     position: {
-      first: { bottom: '8.8rem' },
+      first: { bottom: '9.5rem' },
       last: { bottom: '2.4rem' },
     },
   },
@@ -62,6 +69,20 @@ export const button = cva({
       color: 'kakao',
       css: {
         gap: '1.75rem',
+      },
+    },
+    {
+      disabled: true,
+      color: 'primary',
+      css: {
+        bgColor: 'bg.300',
+      },
+    },
+    {
+      disabled: true,
+      color: 'secondary',
+      css: {
+        bgColor: 'text.300',
       },
     },
   ],

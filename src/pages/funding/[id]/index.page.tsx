@@ -22,7 +22,7 @@ export default function Funding() {
   const { data: fundingInfo } = useGetFundingDetail(fundingId);
   const [isModalOn, setIsModalOn] = useState(false);
 
-  if (!fundingInfo || !user) return null;
+  if (!fundingInfo) return null;
 
   const {
     title,
@@ -37,13 +37,13 @@ export default function Funding() {
   } = fundingInfo;
 
   function RoleBasedButton() {
-    if (!fundingInfo || !user) return null;
+    if (!fundingInfo) return null;
 
     if (isOrganizer) {
       return (
         <Button
           onClick={() =>
-            shareKakao({ userName: user.name, imageUrl: fundingInfo.imageUrl, fundingId })
+            shareKakao({ userName: user?.name || '', imageUrl: fundingInfo.imageUrl, fundingId })
           }
         >
           친구에게 공유하기
