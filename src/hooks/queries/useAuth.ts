@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { InstanceWithToken } from '@api/index';
 import { getLoacalStorage, setLocalStorage } from '@store/localStorage';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -62,13 +63,21 @@ const useLogout = () => {
 };
 
 const useWithdrawal = () => {
+  const router = useRouter();
+
   return useMutation({
-    mutationFn: ({ withdrawalReason }: { withdrawalReason: string }) => {
-      return InstanceWithToken.put('/v1/user/withdrawal', {
+    mutationFn: async ({ withdrawalReason }: { withdrawalReason: string }) => {
+      const response = await InstanceWithToken.put('/v1/user/withdrawal', {
         withdrawalReason,
       });
+
+      return response.data;
     },
-    onError: e => console.error(e),
+    onSuccess: () => router.push('/mypage/withdrawal/success'),
+    onError: error => {
+      console.error(error);
+      router.push('/mypage/withdrawal/fail');
+    },
   });
 };
 
