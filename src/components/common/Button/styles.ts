@@ -41,6 +41,12 @@ export const button = cva({
         bgColor: 'main.yellow',
         color: '#1E2025',
       },
+      white: {
+        bgColor: 'gray.0',
+        color: 'text.200',
+        border: '0.13rem solid',
+        borderColor: 'text.300',
+      },
     },
     textStyle: {
       CTAButton: { textStyle: 'body1', fontWeight: 600 },
@@ -83,6 +89,14 @@ export const button = cva({
       color: 'secondary',
       css: {
         bgColor: 'text.300',
+      },
+    },
+    {
+      disabled: true,
+      color: ['white'],
+      css: {
+        bgColor: 'text.300',
+        color: 'gray.0',
       },
     },
   ],
