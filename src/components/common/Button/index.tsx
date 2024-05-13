@@ -5,7 +5,7 @@ import { button } from './styles';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'full' | 'regular' | 'none';
-  color?: 'primary' | 'secondary' | 'kakao';
+  color?: 'primary' | 'secondary' | 'kakao' | 'white';
   onClick?: () => void;
   isBottomFixed?: boolean;
   position?: 'first' | 'last';
