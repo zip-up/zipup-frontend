@@ -1,36 +1,9 @@
-import { PropsWithChildren, ReactElement } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import KakaoButton from '@components/common/Button/KakaoButton';
-import Header from '@components/common/Header';
+import { button } from '@components/common/Button/styles';
+import { CommonNoticePage } from '@components/Layout/NoticePageLayout';
 import { handleLogin } from '@utils/kakaoLogin';
-
-import * as style from './styles';
-
-interface CommonNoticePageProps {
-  title: string;
-  subTitle: string;
-  imageComponent: ReactElement;
-}
-
-export function CommonNoticePage({
-  title,
-  subTitle,
-  imageComponent,
-  children,
-}: PropsWithChildren<CommonNoticePageProps>) {
-  return (
-    <>
-      <Header />
-      <div className={style.layout}>
-        <>{imageComponent}</>
-        <h2 className={style.title}>{title}</h2>
-        <div className={style.subTitle}>{subTitle}</div>
-        {children}
-      </div>
-    </>
-  );
-}
 
 export default function Login() {
   return (
@@ -45,7 +18,16 @@ export default function Login() {
       <KakaoButton isBottomFixed position="first" onClick={handleLogin}>
         카카오로 시작하기
       </KakaoButton>
-      <Link href="/" className={style.linkButton}>
+      <Link
+        href="/"
+        className={button({
+          isBottomFixed: true,
+          color: 'secondary',
+          position: 'last',
+          size: 'full',
+          textStyle: 'CTAButton',
+        })}
+      >
         홈으로 돌아가기
       </Link>
     </>

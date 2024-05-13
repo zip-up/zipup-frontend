@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { button } from '@components/common/Button/styles';
-import { CommonNoticePage } from '@pages/login/index.page';
+import { CommonNoticePage } from '@components/Layout/NoticePageLayout';
 import { css } from 'styled-system/css';
 
 export default function Success() {
