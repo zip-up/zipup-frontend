@@ -20,7 +20,7 @@ interface FormInputs {
 
 export default function Withdraw() {
   const { register, watch, resetField } = useForm<FormInputs>({
-    defaultValues: { reason: '사용법이 복잡해요' },
+    defaultValues: { reason: '사용법이 복잡해요', otherReason: '' },
   });
   const { mutate: handleWithdrawal } = useWithdrawal();
 
