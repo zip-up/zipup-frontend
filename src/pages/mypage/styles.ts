@@ -127,12 +127,6 @@ const fundingImage = css({
   bottom: '-0.08rem',
 });
 
-const cardContent = css({
-  height: 'calc(100% - 4.8rem)',
-  backgroundColor: 'bg.200',
-  padding: '1.6rem',
-});
-
 const flexContainer = css({
   width: '32.6rem',
   display: 'flex',
@@ -141,37 +135,6 @@ const flexContainer = css({
   flexWrap: 'wrap',
   rowGap: '1.6rem',
   overflow: 'hidden',
-});
-
-const noResult = css({
-  marginTop: '19rem',
-});
-
-const iconBox = css({
-  width: '100%',
-  height: '10.4rem',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  marginBottom: '2.4rem',
-});
-
-const textBox = css({
-  height: '4.6rem',
-  width: '100%',
-  textAlign: 'center',
-});
-
-const title = css({
-  color: 'gray.60',
-  textStyle: 'subtitle2',
-  fontWeight: '600',
-});
-
-const desc = css({
-  color: 'gray.60',
-  textStyle: 'body2',
-  marginTop: '0.4rem',
 });
 
 const noResultButton = css({
@@ -202,6 +165,12 @@ const logoutBtn = css({
   cursor: 'pointer',
 });
 
+const cardContent = css({
+  height: 'calc(100% - 4.8rem)',
+  backgroundColor: 'bg.200',
+  padding: '1.6rem',
+});
+
 export {
   content,
   profileBox,
@@ -218,15 +187,10 @@ export {
   goFundingSubTitle,
   goFundingTitle,
   fundingImage,
-  cardContent,
   flexContainer,
-  iconBox,
-  textBox,
-  noResult,
-  title,
-  desc,
   noResultButton,
   supportBox,
   logoutBtn,
   faqBtn,
+  cardContent,
 };

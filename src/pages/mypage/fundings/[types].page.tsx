@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import GiftIcon from '@assets/icons/big-gift-image.svg';
 import Card from '@components/Card';
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
+import NoResut from '@components/NoResult';
 import { useFundingList } from '@hooks/queries/useFundingList';
-import { cx } from 'styled-system/css';
-import { flex } from 'styled-system/patterns';
 
 import * as style from '../styles';
 
@@ -38,38 +36,26 @@ export default function MyFundings() {
           </div>
         </div>
       ) : (
-        <div
-          className={cx(
-            style.cardContent,
-            flex({
-              justifyContent: 'center',
-            }),
-          )}
-        >
-          <div className={style.noResult}>
-            <div className={style.iconBox}>
-              <GiftIcon />
-            </div>
-            <div className={style.textBox}>
-              <p className={style.title}>
-                {types === 'my' ? '아직 만든 펀딩이 없어요' : '아직 참여한 펀딩이 없어요'}
-              </p>
-              <p className={style.desc}>
-                {types === 'my'
-                  ? '지금 바로 내가 받고 싶은 선물을 등록해보세요.'
-                  : '집들이를 준비하는 친구에게 집업을 알려보세요.'}
-              </p>
-            </div>
-            {types === 'my' && (
-              <Button
-                className={style.noResultButton}
-                onClick={() => router.push('/funding/create/1')}
-              >
-                내 펀딩 만들기
-              </Button>
-            )}
-          </div>
-        </div>
+        <NoResut
+          title={types === 'my' ? '아직 만든 펀딩이 없어요' : '아직 참여한 펀딩이 없어요'}
+          desc={
+            types === 'my'
+              ? '지금 바로 내가 받고 싶은 선물을 등록해보세요.'
+              : '집들이를 준비하는 친구에게 집업을 알려보세요.'
+          }
+          renderButton={
+            <>
+              {types === 'my' && (
+                <Button
+                  className={style.noResultButton}
+                  onClick={() => router.push('/funding/create/1')}
+                >
+                  내 펀딩 만들기
+                </Button>
+              )}
+            </>
+          }
+        />
       )}
     </>
   );
