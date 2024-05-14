@@ -17,7 +17,9 @@ import HeaderWithLogo from '@components/HeaderWithLogo';
 import LoginModal from '@components/modals/LoginModal';
 import { useLogIn } from '@hooks/queries/useAuth';
 import { getLoacalStorage } from '@store/localStorage';
+import { productForFundState } from '@store/store';
 import { pretendard } from '@styles/font';
+import { useSetRecoilState } from 'recoil';
 import { css, cx } from 'styled-system/css';
 
 import * as style from './style';
@@ -58,18 +60,21 @@ const productData = [
     title: '초절전리모컨 서큘레이터 선풍기',
     imageUrl:
       'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/168189031695799079.jpg?gif=1&w=960&h=960&c=c&webp=1',
+    url: 'https://ohou.se/productions/861834/selling?affect_id=1&affect_type=StoreSearchResult',
     price: 76900,
   },
   {
     id: '1',
     title: '펀딩 이름입니다.',
     price: 0,
+    url: '',
     imageUrl: '',
   },
   {
     id: '2',
     title: '펀딩 이름입니다.',
     price: 0,
+    url: '',
     imageUrl: '',
   },
 ];
@@ -103,6 +108,7 @@ const WAY_TO_FUND = [
 
 export default function Home() {
   const router = useRouter();
+  const setProductForFundState = useSetRecoilState(productForFundState);
   const [isOpen, setIsOpen] = useState(false);
   const [code, setCode] = useState('');
   const [isBrowsingService, setIsBrowsingService] = useState(false);
@@ -209,7 +215,15 @@ export default function Home() {
                 width="14.6rem"
                 height="21rem"
                 product={item}
-                onClick={() => router.push('/funding/' + item.id)}
+                onClick={() => {
+                  setProductForFundState({
+                    imageUrl: item.imageUrl,
+                    url: item.url,
+                    price: item.price,
+                    title: item.title,
+                  });
+                  router.push('/funding/create/1');
+                }}
                 styles={{ minWidth: '14.6rem', minHeight: '21rem' }}
                 isProduct
                 hasShadow

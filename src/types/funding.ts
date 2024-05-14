@@ -21,6 +21,7 @@ export interface ProductInfo {
   id: string;
   title: string;
   imageUrl: string;
+  url: string;
   price: number;
 }
 

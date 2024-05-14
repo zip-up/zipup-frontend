@@ -8,7 +8,7 @@ import Header from '@components/common/Header';
 import ProgressBar from '@components/common/ProgressBar';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import { infoContainer, title } from '@components/Term/styles';
-import { createFundState } from '@store/store';
+import { createFundState, productForFundState } from '@store/store';
 import { useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import { css, cx } from 'styled-system/css';
@@ -22,12 +22,14 @@ interface FormInput {
 
 export default function CreatFundStep1() {
   const router = useRouter();
+  const [productForFund, setProductForFund] = useRecoilState(productForFundState);
   const [isOpen, setIsOpen] = useState(false);
   const [newFund, setNewFund] = useRecoilState(createFundState);
   const {
     register,
     handleSubmit,
     setValue,
+    setFocus,
     formState: { errors },
   } = useForm<FormInput>();
 
@@ -35,7 +37,17 @@ export default function CreatFundStep1() {
     if (newFund.productUrl && newFund.goalPrice) {
       setValue('link', newFund.productUrl);
       setValue('targetMoney', String(newFund.goalPrice));
+    } else if (productForFund.url && productForFund.price) {
+      setValue('link', productForFund.url);
+      setValue('targetMoney', String(productForFund.price));
+      setProductForFund({
+        ...productForFund,
+        url: '',
+        price: 0,
+      });
     }
+
+    setFocus('link');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -4,7 +4,7 @@ import Button from '@components/common/Button';
 import GradientBackground from '@components/common/Button/GradientBackground';
 import Header from '@components/common/Header';
 import ProgressBar from '@components/common/ProgressBar';
-import { createFundState } from '@store/store';
+import { createFundState, productForFundState } from '@store/store';
 import { useForm } from 'react-hook-form';
 import TextareaAutosize from 'react-textarea-autosize';
 import { useRecoilState } from 'recoil';
@@ -19,6 +19,7 @@ interface FormInput {
 
 export default function CreatFundStep2() {
   const router = useRouter();
+  const [productForFund, setProductForFund] = useRecoilState(productForFundState);
   const [newFund, setNewFund] = useRecoilState(createFundState);
 
   const {
@@ -31,10 +32,18 @@ export default function CreatFundStep2() {
   } = useForm<FormInput>();
 
   useEffect(() => {
-    if (newFund) {
+    if (newFund.title && newFund.description) {
       setValue('name', newFund.title);
       setValue('textMessage', newFund.description);
+    } else if (productForFund.title) {
+      setValue('name', productForFund.title);
+      setProductForFund({
+        ...productForFund,
+        title: '',
+      });
     }
+
+    setFocus('name');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
