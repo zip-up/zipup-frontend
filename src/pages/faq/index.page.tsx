@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Accordion from '@components/Accordion';
 import Header from '@components/common/Header';
+import Tabs from '@components/common/Tabs';
 import Footer from '@components/Footer';
 import { FaqQuestions, FaqQuestionsType } from '@constants/faqs';
 import { useForm } from 'react-hook-form';
-import { css, cx } from 'styled-system/css';
+import { css } from 'styled-system/css';
 
 import SearchIcon from '../../assets/icons/search.svg';
 import * as style from './styles';
@@ -41,26 +42,13 @@ export default function Faq() {
           <SearchIcon />
         </button>
       </form>
-      <div>
+      <div style={{ width: '100%' }}>
         {!getValues('text') && (
-          <div className={style.tabs}>
-            {['이용문의', '배송', '취소/환불', '회원'].map(item => (
-              <div
-                key={item}
-                className={cx(
-                  style.tabItem,
-                  css({
-                    fontWeight: activeTab === item ? '600' : '400',
-                    color: activeTab === item ? 'main.blue' : 'text.200',
-                    borderBottomColor: activeTab === item ? 'main.blue' : 'gray.30',
-                  }),
-                )}
-                onClick={() => setActiveTab(item)}
-              >
-                {item}
-              </div>
-            ))}
-          </div>
+          <Tabs
+            data={['이용문의', '배송', '취소/환불', '회원']}
+            activeTab={activeTab}
+            onSetActiveTab={setActiveTab}
+          />
         )}
         <div className={style.content}>
           {getValues('text') &&

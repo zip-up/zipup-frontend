@@ -1,5 +1,4 @@
 import { css } from 'styled-system/css';
-import { flex } from 'styled-system/patterns';
 
 const searchBox = css({
   width: '36rem',
@@ -29,22 +28,9 @@ const searchBtn = css({
   paddingLeft: '1.2rem',
 });
 
-const tabs = flex({});
-
-const tabItem = css({
-  width: '9rem',
-  height: '4.8rem',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  fontSize: 'body2',
-  borderBottomWidth: '0.2rem',
-  cursor: 'pointer',
-});
-
 const content = css({
   backgroundColor: 'bg.200',
   height: 'calc(100vh - 17.4rem)',
 });
 
-export { searchBox, input, searchBtn, tabs, tabItem, content };
+export { searchBox, input, searchBtn, content };
