@@ -15,10 +15,12 @@ interface PaymentCardProps {
     status: string;
     cancelable: boolean;
   };
+  handleClick: () => void;
 }
 
 export default function PaymentCard({
   paymentInfo: { date, time, imageUrl, title, amount, orderId, status, cancelable },
+  handleClick,
 }: PaymentCardProps) {
   return (
     <div className={style.cardWrapper}>
@@ -52,7 +54,7 @@ export default function PaymentCard({
             </span>
           </div>
         </div>
-        <Button color="white" disabled={!cancelable}>
+        <Button color="white" disabled={!cancelable} onClick={handleClick}>
           결제 취소
         </Button>
       </div>

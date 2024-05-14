@@ -1,6 +1,6 @@
 import Header from '@components/common/Header';
 import PaymentCard from '@components/PaymentCard';
-import { css } from 'styled-system/css';
+import { flex } from 'styled-system/patterns';
 
 export default function PayInfo() {
   const orderList = [
@@ -16,13 +16,23 @@ export default function PayInfo() {
     },
   ];
 
+  // const { data: paymentList } = useGetPaymentList();
+
   return (
     <>
       <Header hasTitle title="내 정보 관리" />
       {/** tab component */}
-      <div className={css({ bg: 'bg.200', padding: '0 1.6rem', h: '100%' })}>
+      <div
+        className={flex({
+          direction: 'column',
+          bg: 'bg.200',
+          padding: '1.6rem',
+          h: '100%',
+          gap: '1.6rem',
+        })}
+      >
         {orderList.map(info => (
-          <PaymentCard paymentInfo={info} key={info.orderId}></PaymentCard>
+          <PaymentCard paymentInfo={info} key={info.orderId} handleClick={() => {}}></PaymentCard>
         ))}
       </div>
     </>

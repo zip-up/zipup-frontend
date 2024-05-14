@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { InstanceWithToken } from '@api/index';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { loadTossPayments, TossPaymentsInstance } from '@tosspayments/payment-sdk';
+import { PaymentInfo } from '@typings/funding';
 import { isAxiosError } from 'axios';
 
 const useTossPayments = (clientKey: string) => {
@@ -18,7 +19,7 @@ const useStoreOrderInfo = (successCallback: (orderId: string, amount: number) =>
     mutationFn: async ({ orderId, amount }: { orderId: string; amount: number }) => {
       // if (!paymentWidget) throw new Error('결제 서비스를 이용할 수 없습니다.');
 
-      await InstanceWithToken.post(`/v1/payment/?orderId=${orderId}&amount=${amount}`);
+      await InstanceWithToken.post(`/v1/payment?orderId=${orderId}&amount=${amount}`);
 
       return { orderId, amount };
     },
@@ -68,4 +69,15 @@ const useRequestPayment = () => {
   });
 };
 
-export { useTossPayments, useStoreOrderInfo, useRequestPayment };
+const useGetPaymentList = () => {
+  return useQuery<PaymentInfo>({
+    queryKey: ['payment-list'],
+    queryFn: async () => {
+      const response = await InstanceWithToken.post(`/v1/present/payment/list`);
+
+      return response.data;
+    },
+  });
+};
+
+export { useTossPayments, useStoreOrderInfo, useRequestPayment, useGetPaymentList };
