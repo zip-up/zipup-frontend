@@ -7,6 +7,7 @@ const statusTag = cva({
     textStyle: 'caption1',
     w: 'fit-content',
     h: 'fit-content',
+    fontWeight: '600',
   },
   variants: {
     bg: {

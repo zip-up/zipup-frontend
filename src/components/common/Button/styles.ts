@@ -41,6 +41,10 @@ export const button = cva({
         bgColor: 'main.yellow',
         color: '#1E2025',
       },
+      white: {
+        bgColor: 'white',
+        color: 'text.200',
+      },
     },
     textStyle: {
       CTAButton: { textStyle: 'body1', fontWeight: 600 },

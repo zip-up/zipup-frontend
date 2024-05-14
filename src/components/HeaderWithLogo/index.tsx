@@ -5,24 +5,33 @@ import Profile from '@components/common/Profile';
 import { useUser } from '@hooks/queries/useAuth';
 import { css, cx } from 'styled-system/css';
 
-import { box, header, logo } from './styles';
+import * as style from './styles';
 
 interface HeaderWithLogoProps {
   onOpen: () => void;
+  hasNoBorder?: boolean;
 }
 
-export default function HeaderWithLogo({ onOpen }: HeaderWithLogoProps) {
+export default function HeaderWithLogo({ onOpen, hasNoBorder = false }: HeaderWithLogoProps) {
   const router = useRouter();
   const { data: user } = useUser();
 
   return (
-    <header className={header}>
-      <div className={box} />
-      <button className={logo} onClick={() => router.push('/')}>
+    <header
+      className={cx(
+        style.header,
+        css({
+          borderBottomWidth: '0.1rem',
+          borderBottomColor: hasNoBorder ? 'white' : 'gray.20',
+        }),
+      )}
+    >
+      <div className={style.box} />
+      <button className={style.logo} onClick={() => router.push('/')}>
         <LogoIcon />
       </button>
       <button
-        className={cx(box, css({ cursor: 'pointer' }))}
+        className={cx(style.box, css({ cursor: 'pointer' }))}
         data-d
         onClick={() => (user ? router.push('/mypage') : onOpen())}
       >
