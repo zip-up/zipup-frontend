@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react';
 
 import * as style from './styles';
 
-function Layout({ children }: PropsWithChildren) {
+export default function Layout({ children }: PropsWithChildren) {
   return (
     <div className={style.container}>
       <div className={style.content}>
@@ -11,5 +11,3 @@ function Layout({ children }: PropsWithChildren) {
     </div>
   );
 }
-
-export default Layout;

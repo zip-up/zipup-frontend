@@ -1,9 +1,10 @@
 import { css } from 'styled-system/css';
+import { flex } from 'styled-system/patterns';
 
 const content = css({
-  minHeight: '100%',
   backgroundColor: 'bg.200',
   paddingTop: '2.4rem',
+  height: 'calc(100% - 4.8rem)',
 });
 
 const profileBox = css({
@@ -35,6 +36,7 @@ const avatar = css({
 const infoBox = css({
   display: 'flex',
   alignItems: 'center',
+  position: 'relative',
 });
 
 const nameBox = css({
@@ -90,6 +92,15 @@ const goFundingBtn = css({
   },
 });
 
+const faqBtn = flex({
+  direction: 'column',
+  marginTop: '1.6rem',
+  borderWidth: '0.1rem',
+  borderColor: 'gray.300',
+  justify: 'center',
+  gap: '0.4rem',
+});
+
 const goFundingInfoBox = css({
   display: 'flex',
   flexDirection: 'column',
@@ -116,43 +127,6 @@ const fundingImage = css({
   bottom: '-0.08rem',
 });
 
-const footer = css({
-  height: '14.8rem',
-  marginTop: '2.4rem',
-});
-
-const footerInfoBox = css({
-  marginLeft: '0.8rem',
-  width: '16.9rem',
-  height: '10.6rem',
-  padding: '2.4rem 0.8rem',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '0.8rem',
-  textStyle: 'caption1',
-  color: 'text.100',
-});
-
-const termsAndConditions = css({
-  display: 'flex',
-  gap: '0.8rem',
-  textStyle: 'caption1',
-  color: 'text.200',
-  textDecoration: 'underline',
-  textDecorationColor: 'text.200',
-  textUnderlineOffset: '0.2rem',
-});
-
-const pointer = css({
-  cursor: 'pointer',
-});
-
-const cardContent = css({
-  height: 'calc(100% - 4.8rem)',
-  backgroundColor: 'bg.200',
-  padding: '1.6rem',
-});
-
 const flexContainer = css({
   width: '32.6rem',
   display: 'flex',
@@ -163,42 +137,38 @@ const flexContainer = css({
   overflow: 'hidden',
 });
 
-const noResult = css({
-  marginTop: '19rem',
-});
-
-const iconBox = css({
-  width: '100%',
-  height: '10.4rem',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  marginBottom: '2.4rem',
-});
-
-const textBox = css({
-  height: '4.6rem',
-  width: '100%',
-  textAlign: 'center',
-});
-
-const title = css({
-  color: 'gray.60',
-  textStyle: 'subtitle2',
-  fontWeight: '600',
-});
-
-const desc = css({
-  color: 'gray.60',
-  textStyle: 'body2',
-  marginTop: '0.4rem',
-});
-
 const noResultButton = css({
   width: '12.2rem',
   height: '4.9rem',
   marginTop: '2.6rem',
   margin: '0 auto',
+});
+
+const supportBox = css({
+  width: '100%',
+  height: '16.3rem',
+  padding: '2.4rem 1.6rem',
+});
+
+const logoutBtn = css({
+  width: '8.2rem',
+  height: '3rem',
+  borderRadius: '0.6rem',
+  borderWidth: '0.1rem',
+  borderColor: 'text.300',
+  fontSize: '1.2rem',
+  fontWeight: '400',
+  color: 'text.200',
+  backgroundColor: '#fff',
+  position: 'absolute',
+  right: 0,
+  cursor: 'pointer',
+});
+
+const cardContent = css({
+  height: 'calc(100% - 4.8rem)',
+  backgroundColor: 'bg.200',
+  padding: '1.6rem',
 });
 
 export {
@@ -217,16 +187,10 @@ export {
   goFundingSubTitle,
   goFundingTitle,
   fundingImage,
-  footer,
-  footerInfoBox,
-  termsAndConditions,
-  pointer,
-  cardContent,
   flexContainer,
-  iconBox,
-  textBox,
-  noResult,
-  title,
-  desc,
   noResultButton,
+  supportBox,
+  logoutBtn,
+  faqBtn,
+  cardContent,
 };

@@ -3,45 +3,25 @@ import { useQuery } from '@tanstack/react-query';
 import { FundingInfo } from '@typings/funding';
 
 interface FundListProps {
-  uuid: string;
+  types: string;
 }
 
-const useGetMyFundingList = ({ uuid }: FundListProps) => {
+const useFundingList = ({ types }: FundListProps) => {
   return useQuery<FundingInfo[]>({
-    enabled: !!uuid,
     refetchOnWindowFocus: false,
-    queryKey: ['get-my-funding-list', uuid],
-    queryFn: async () => {
-      const response = await InstanceWithToken.get(`/v1/fund/list`, {
-        params: {
-          user: uuid,
-        },
-      });
-
-      return response.data;
-    },
-  });
-};
-
-const useGetParticipatedList = ({ uuid }: FundListProps) => {
-  return useQuery<FundingInfo[]>({
-    enabled: !!uuid,
-    refetchOnWindowFocus: false,
-    queryKey: ['get-participated-funding-list', uuid],
+    queryKey: [types],
     queryFn: async () => {
       try {
-        const response = await InstanceWithToken.get(`/v1/present/list`, {
-          params: {
-            user: uuid,
-          },
-        });
+        const response = await InstanceWithToken.get(
+          types === 'my' ? `/v1/fund/list` : `/v1/present/list`,
+        );
 
         return response.data;
       } catch (error) {
-        throw new Error(`${error}`);
+        throw error;
       }
     },
   });
 };
 
-export { useGetMyFundingList, useGetParticipatedList };
+export { useFundingList };

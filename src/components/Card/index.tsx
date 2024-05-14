@@ -12,7 +12,7 @@ interface CardProps {
   onClick: () => void;
 }
 
-function Card({ data, onClick }: CardProps) {
+export default function Card({ data, onClick }: CardProps) {
   const PROGRESS_BAR_BASE_WIDTH = 140;
 
   return (
@@ -59,5 +59,3 @@ function Card({ data, onClick }: CardProps) {
     </div>
   );
 }
-
-export default Card;

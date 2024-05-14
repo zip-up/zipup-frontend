@@ -33,6 +33,7 @@ export default function CreateFundStep3() {
       setValue('target', newFund.fundingStart);
       setValue('due', newFund.fundingFinish);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

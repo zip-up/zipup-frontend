@@ -1,18 +1,19 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import UserIcon from '@assets/icons/big-user.svg';
-import ExitIcon from '@assets/icons/exit.svg';
 import GoIcon from '@assets/icons/go.svg';
 import MyFundingIcon from '@assets/images/my-funding.svg';
 import ParticipatedFundingIcon from '@assets/images/participated_funding.svg';
 import Button from '@components/common/Button';
+import Footer from '@components/Footer';
 import HeaderWithLogo from '@components/HeaderWithLogo';
 import { useLogout, useUser } from '@hooks/queries/useAuth';
 import { getLoacalStorage } from '@store/localStorage';
+import { cx } from 'styled-system/css';
 
 import * as style from './styles';
 
-function MyPage() {
+export default function MyPage() {
   const router = useRouter();
 
   const { data: user } = useUser();
@@ -43,8 +44,8 @@ function MyPage() {
               <span className={style.name}>{user?.name}</span>
               <span>님</span>
             </div>
-            <button className={style.logout} onClick={handleLogout}>
-              <ExitIcon />
+            <button className={style.logoutBtn} onClick={handleLogout}>
+              로그아웃
             </button>
           </div>
           <Button
@@ -81,29 +82,18 @@ function MyPage() {
             </p>
           </button>
         </div>
-        <footer className={style.footer}>
-          <div className={style.footerInfoBox}>
-            <p>상호명 : 집업</p>
-            <p>고객센터 : 0504-0815-5379</p>
-            <div className={style.termsAndConditions}>
-              <a
-                href="https://www.figma.com/exit?url=https%3A%2F%2Fdanisong.notion.site%2F508a845508794eab98435cecea30d561%3Fpvs%3D4"
-                className={style.pointer}
-              >
-                이용약관
-              </a>
-              <a
-                href="https://danisong.notion.site/bdf9880b3f91458fbe1a4118de2b5eb1?pvs=4"
-                className={style.pointer}
-              >
-                개인정보처리방침
-              </a>
-            </div>
-          </div>
-        </footer>
+        <div className={style.supportBox}>
+          <span className={style.serviceTitle}>고객지원</span>
+          <button
+            className={cx(style.goFundingBtn, style.faqBtn)}
+            onClick={() => router.push('/faq')}
+          >
+            <h2 className={style.goFundingTitle}>자주 묻는 질문 / 문의하기</h2>
+            <span className={style.goFundingSubTitle}>서비스에 궁금한 점이 있나요?</span>
+          </button>
+        </div>
+        <Footer />
       </div>
     </>
   );
 }
-
-export default MyPage;

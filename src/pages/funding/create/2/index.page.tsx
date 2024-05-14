@@ -35,6 +35,7 @@ export default function CreatFundStep2() {
       setValue('name', newFund.title);
       setValue('textMessage', newFund.description);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleCreateFundSubmit = (data: FormInput) => {
