@@ -1,5 +1,9 @@
+import CancelIcon from '@assets/icons/cancel.svg';
+import Button from '@components/common/Button';
 import Header from '@components/common/Header';
+import ModalWithIcon from '@components/modals/ModalWithIcon';
 import PaymentCard from '@components/PaymentCard';
+import { css } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
 
 export default function PayInfo() {
@@ -35,6 +39,21 @@ export default function PayInfo() {
           <PaymentCard paymentInfo={info} key={info.orderId} handleClick={() => {}}></PaymentCard>
         ))}
       </div>
+      <ModalWithIcon
+        icon={<CancelIcon />}
+        title="정말 결제를 취소하시겠어요?"
+        subtitle={'선물 받는 분께 취소 내역이 전달됩니다.\n삭제된 축하 메시지는 복구되지 않아요.'}
+        buttonComponent={
+          <div className={flex({ gap: '0.8rem' })}>
+            <Button color="primary" className={css({ width: '10.9rem' })}>
+              아니요
+            </Button>
+            <Button color="secondary" className={css({ width: '16.8rem' })}>
+              예, 취소할게요
+            </Button>
+          </div>
+        }
+      />
     </>
   );
 }

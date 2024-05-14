@@ -20,7 +20,7 @@ export default function ModalWithIcon({
   width,
 }: ModalWithIconProps) {
   return (
-    <Modal onClose={onClose} height={258} width={width}>
+    <Modal onClose={onClose} width={width}>
       <div className={style.topBox}>
         <div className={style.imageBox}>{icon}</div>
         <p className={style.title}>{title}</p>
