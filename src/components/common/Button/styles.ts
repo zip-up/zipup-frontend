@@ -46,6 +46,7 @@ export const button = cva({
         color: 'text.200',
         border: '0.13rem solid',
         borderColor: 'text.300',
+        height: '4.1rem',
       },
     },
     textStyle: {
