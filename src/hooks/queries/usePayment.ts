@@ -70,10 +70,10 @@ const useRequestPayment = () => {
 };
 
 const useGetPaymentList = () => {
-  return useQuery<PaymentInfo>({
+  return useQuery<PaymentInfo[]>({
     queryKey: ['payment-list'],
     queryFn: async () => {
-      const response = await InstanceWithToken.post(`/v1/present/payment/list`);
+      const response = await InstanceWithToken.get(`/v1/present/payment/list`);
 
       return response.data;
     },

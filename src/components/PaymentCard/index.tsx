@@ -1,27 +1,30 @@
 import Image from 'next/image';
 import Button from '@components/common/Button';
+import { PaymentInfo } from '@typings/funding';
+import { formatDateTime } from '@utils/date';
 import { css } from 'styled-system/css';
 
 import * as style from './styles';
 
 interface PaymentCardProps {
-  paymentInfo: {
-    date: string;
-    time: string;
-    imageUrl: string;
-    title: string;
-    amount: string;
-    orderId: string;
-    status: string;
-    cancelable: boolean;
-  };
+  paymentInfo: PaymentInfo;
   handleClick: () => void;
 }
 
 export default function PaymentCard({
-  paymentInfo: { date, time, imageUrl, title, amount, orderId, status, cancelable },
+  paymentInfo: {
+    fundingName,
+    fundingImage,
+    paymentDate,
+    amount,
+    paymentNumber,
+    status,
+    refundable,
+  },
   handleClick,
 }: PaymentCardProps) {
+  const [date, time] = formatDateTime(paymentDate);
+
   return (
     <div className={style.cardWrapper}>
       <div className={style.topInfo}>
@@ -36,7 +39,7 @@ export default function PaymentCard({
       <div className={style.contentWrapper}>
         <div className={style.contentLayout}>
           <Image
-            src={imageUrl ? imageUrl : '/default_image_80.png'}
+            src={fundingImage ? fundingImage : '/default_image_80.png'}
             alt="펀딩 상품 이미지"
             width={80}
             height={80}
@@ -44,17 +47,17 @@ export default function PaymentCard({
           />
 
           <div className={style.subInfoWrapper}>
-            <span className={style.title}>{title}</span>
+            <span className={style.title}>{fundingName}</span>
             <span className={css({ textStyle: 'subtitle1' })}>
               {Number(amount).toLocaleString()}원
             </span>
             <span className={css({ textStyle: 'caption1', color: 'text.200' })}>
               <span className={css({ color: 'text.300', mr: '0.8rem' })}>결제 번호</span>
-              {orderId}
+              {paymentNumber}
             </span>
           </div>
         </div>
-        <Button color="white" disabled={!cancelable} onClick={handleClick}>
+        <Button color="white" disabled={!refundable} onClick={handleClick}>
           결제 취소
         </Button>
       </div>

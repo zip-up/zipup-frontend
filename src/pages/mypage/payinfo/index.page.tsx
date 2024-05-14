@@ -1,26 +1,10 @@
-import CancelIcon from '@assets/icons/cancel.svg';
-import Button from '@components/common/Button';
 import Header from '@components/common/Header';
-import ModalWithIcon from '@components/modals/ModalWithIcon';
 import PaymentCard from '@components/PaymentCard';
-import { css } from 'styled-system/css';
+import { useGetPaymentList } from '@hooks/queries/usePayment';
 import { flex } from 'styled-system/patterns';
 
 export default function PayInfo() {
-  const orderList = [
-    {
-      date: '2024.05.08',
-      time: '12:00',
-      imageUrl: '',
-      title: '우리 집에 안락함을 더해줘, 이케아안녕안녕ㅇ안ㅇ연ㅇ',
-      amount: '50000',
-      orderId: '11100000',
-      status: '결제완료',
-      cancelable: true,
-    },
-  ];
-
-  // const { data: paymentList } = useGetPaymentList();
+  const { data: paymentList } = useGetPaymentList();
 
   return (
     <>
@@ -35,11 +19,15 @@ export default function PayInfo() {
           gap: '1.6rem',
         })}
       >
-        {orderList.map(info => (
-          <PaymentCard paymentInfo={info} key={info.orderId} handleClick={() => {}}></PaymentCard>
+        {paymentList?.map(info => (
+          <PaymentCard
+            paymentInfo={info}
+            key={info.paymentNumber}
+            handleClick={() => {}}
+          ></PaymentCard>
         ))}
       </div>
-      <ModalWithIcon
+      {/* <ModalWithIcon
         icon={<CancelIcon />}
         title="정말 결제를 취소하시겠어요?"
         subtitle={'선물 받는 분께 취소 내역이 전달됩니다.\n삭제된 축하 메시지는 복구되지 않아요.'}
@@ -53,7 +41,7 @@ export default function PayInfo() {
             </Button>
           </div>
         }
-      />
+      /> */}
     </>
   );
 }
