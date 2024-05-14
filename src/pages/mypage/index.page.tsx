@@ -55,7 +55,7 @@ export default function MyPage() {
               getLoacalStorage('@token') ? router.push('/funding/create/1') : router.push('/')
             }
           >
-            내 펀딩 만들러 가기 <GoIcon />
+            내 펀딩 만들러 가기 <GoIcon style={{ color: '#D9D9D9' }} />
           </Button>
         </div>
         <div className={style.serviceBox}>

@@ -143,7 +143,6 @@ const subtitleBox = flex({
 const moveText = css({
   color: 'main.blue',
   textStyle: 'caption1',
-  cursor: 'pointer',
 });
 
 const iconBox = css({
@@ -154,6 +153,8 @@ const iconBox = css({
   justifyContent: 'center',
 });
 
+const banner = css({ height: '45.3rem' });
+
 const bannerWrapper = css({
   height: '31rem',
   width: '100%',
@@ -161,6 +162,16 @@ const bannerWrapper = css({
   position: 'relative',
   overflowY: 'hidden',
 });
+
+const seeMore = flex({ align: 'center', cursor: 'pointer' });
+
+const category = css({ textStyle: 'subtitle1' });
+
+const homeImage1 = css({ position: 'absolute', right: '-3.393rem', top: '7rem' });
+
+const homeImage2 = css({ position: 'absolute', right: '1.6rem', bottom: 0 });
+
+const homeImage3 = css({ position: 'absolute', left: '5.3rem', bottom: 0 });
 
 export {
   textBox,
@@ -185,4 +196,10 @@ export {
   moveText,
   iconBox,
   bannerWrapper,
+  seeMore,
+  category,
+  homeImage1,
+  homeImage2,
+  homeImage3,
+  banner,
 };

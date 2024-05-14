@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import GoIcon from '@assets/icons/go.svg';
 import CreateImage from '@assets/images/funding_create_image.svg';
 import DeliveryImage from '@assets/images/funding_delivery_image.svg';
 import ParticipateImage from '@assets/images/funding_participate_image.svg';
@@ -134,7 +135,7 @@ export default function Home() {
       ) : (
         <HeaderWithLogo onOpen={() => setIsOpen(true)} hasNoBorder />
       )}
-      <div style={{ height: '45.3rem' }}>
+      <div className={style.banner}>
         <div className={style.bannerWrapper}>
           <div className={style.textBox}>
             <p className={style.title}>
@@ -146,7 +147,7 @@ export default function Home() {
               집들이 선물 펀딩 서비스
             </span>
           </div>
-          <div style={{ position: 'absolute', right: '-3.393rem', top: '7rem' }}>
+          <div className={style.homeImage1}>
             <HomeImage />
           </div>
           <Image
@@ -154,9 +155,9 @@ export default function Home() {
             alt="메인 홈 이미지"
             width={290}
             height={221}
-            style={{ position: 'absolute', right: '1.6rem', bottom: 0 }}
+            className={style.homeImage2}
           />
-          <div style={{ position: 'absolute', left: '5.3rem', bottom: 0 }}>
+          <div className={style.homeImage3}>
             <HomeImage />
           </div>
         </div>
@@ -177,9 +178,10 @@ export default function Home() {
       <div>
         <div className={css({ marginTop: '3.2rem' })}>
           <div className={style.subtitleBox}>
-            <h2 className={css({ textStyle: 'subtitle1' })}>지금 인기있는 펀딩은?</h2>
-            <a>
-              <span className={style.moveText}>더보기</span>
+            <h2 className={style.category}>지금 인기있는 펀딩은?</h2>
+            <a className={style.seeMore}>
+              <div className={style.moveText}>더보기</div>
+              <GoIcon style={{ color: '#0098E8' }} />
             </a>
           </div>
           <div className={style.sideWrapper}>
@@ -189,7 +191,7 @@ export default function Home() {
                 width="14.6rem"
                 height="21rem"
                 data={item}
-                onClick={() => null}
+                onClick={() => router.push('/funding/' + item.id)}
                 styles={{ minWidth: '14.6rem', minHeight: '21rem' }}
                 hasShadow
               />
@@ -198,7 +200,7 @@ export default function Home() {
         </div>
         <div className={css({ margin: '2rem 0' })}>
           <div className={style.subtitleBox}>
-            <h2 className={css({ textStyle: 'subtitle1' })}>요즘 핫한 집꾸템 추천!</h2>
+            <h2 className={style.category}>요즘 핫한 집꾸템 추천!</h2>
           </div>
           <div className={style.sideWrapper}>
             {productData.map(item => (
@@ -207,7 +209,7 @@ export default function Home() {
                 width="14.6rem"
                 height="21rem"
                 product={item}
-                onClick={() => null}
+                onClick={() => router.push('/funding/' + item.id)}
                 styles={{ minWidth: '14.6rem', minHeight: '21rem' }}
                 isProduct
                 hasShadow
