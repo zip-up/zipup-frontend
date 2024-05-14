@@ -59,7 +59,7 @@ const divider = css({
 
 const form = css({
   position: 'relative',
-  height: 'calc(100% - 19.1rem)',
+  height: '50rem',
   width: '100%',
 });
 

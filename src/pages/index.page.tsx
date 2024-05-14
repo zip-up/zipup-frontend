@@ -7,6 +7,7 @@ import DeliveryImage from '@assets/images/funding_delivery_image.svg';
 import ParticipateImage from '@assets/images/funding_participate_image.svg';
 import TargetImage from '@assets/images/funding_target_image.svg';
 import Button from '@components/common/Button';
+import GradientBackground from '@components/common/Button/GradientBackground';
 import Header from '@components/common/Header';
 import Spinner from '@components/common/Spinner';
 import HeaderWithLogo from '@components/HeaderWithLogo';
@@ -109,27 +110,25 @@ export default function Home() {
         )}
       </div>
 
-      <div className={style.wrapper}>
+      <div
+        className={cx(style.wrapper, css({ height: isBrowsingService ? 'fit-content' : '40rem' }))}
+      >
         <div className={style.image}>
           <Image src="/home.png" alt="메인 홈 이미지" fill priority />
         </div>
         {!isBrowsingService && (
-          <>
+          <GradientBackground direction="column">
             <Button
               color="primary"
               disabled={isLoading}
               onClick={() =>
                 getLoacalStorage('@token') ? router.push('/funding/create/1') : setIsOpen(true)
               }
-              isBottomFixed
-              position="first"
             >
               {isLoading ? <Spinner size="sm" /> : '내 펀딩을 만들어볼까요?'}
             </Button>
-            <Button onClick={() => setIsBrowsingService(true)} isBottomFixed>
-              서비스를 둘러볼게요
-            </Button>
-          </>
+            <Button onClick={() => setIsBrowsingService(true)}>서비스를 둘러볼게요</Button>
+          </GradientBackground>
         )}
       </div>
       {isBrowsingService && (

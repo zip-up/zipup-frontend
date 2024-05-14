@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import CancelIcon from '@assets/icons/cancel-icon.svg';
 import InfoIcon from '@assets/icons/info.svg';
 import Button from '@components/common/Button';
+import GradientBackground from '@components/common/Button/GradientBackground';
 import Header from '@components/common/Header';
 import ProgressBar from '@components/common/ProgressBar';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
@@ -138,29 +139,9 @@ export default function CreatFundStep1() {
           <span className={title}>설정하신 목표 금액을 확인하고 최종 금액을 안내드릴게요.</span>
         </div>
 
-        <div
-          className={css({
-            '@media (max-height: 580px)': {
-              marginTop: '1.6rem',
-            },
-            width: '32.9rem',
-            margin: '0 auto',
-          })}
-        >
-          <Button
-            type="submit"
-            className={css({
-              '@media (min-height: 580px)': {
-                position: 'fixed',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                maxWidth: '32.8rem',
-              },
-            })}
-          >
-            다음
-          </Button>
-        </div>
+        <GradientBackground>
+          <Button type="submit">다음</Button>
+        </GradientBackground>
       </form>
     </>
   );

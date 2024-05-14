@@ -8,9 +8,9 @@ dependencies:
   '@tanstack/react-query':
     specifier: ^5.28.6
     version: 5.28.9(react@18.2.0)
-  '@tosspayments/payment-widget-sdk':
-    specifier: ^0.10.2
-    version: 0.10.2(typescript@5.4.3)
+  '@tosspayments/payment-sdk':
+    specifier: ^1.7.1
+    version: 1.7.1
   axios:
     specifier: ^1.6.8
     version: 1.6.8
@@ -2314,44 +2314,10 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@tosspayments/brandpay-types@0.2.6(typescript@5.4.3):
-    resolution: {integrity: sha512-FY8aOm/2rqtXjYux9ZdNTL6GC5+VNIw8eOQ7TP01dS2uGWSzAtR6uuw9HVsgkmJtSyJgmo97tjmbio5oyeyFlg==}
-    peerDependencies:
-      typescript: ^4.1.0
-    peerDependenciesMeta:
-      typescript:
-        optional: true
+  /@tosspayments/payment-sdk@1.7.1:
+    resolution: {integrity: sha512-2uM/815kLr3zA63LljyelGU84RiUhvC46vHRd7+8rLK1Y1faserYa/MRTwsrv5Be4Avzvpvbstizb8XQNZpbQQ==}
     dependencies:
-      typescript: 5.4.3
-    dev: false
-
-  /@tosspayments/payment-widget-sdk@0.10.2(typescript@5.4.3):
-    resolution: {integrity: sha512-0dpkEbnDXmvIwpHYm+YODpMhh/gAtvJRYOU5uikFQpM/XCkyZDXAP9C6pc+GhiT6NsWIKKFILwaSgAeL/UT3ow==}
-    dependencies:
-      '@tosspayments/payment-widget__types': 1.0.1(typescript@5.4.3)
-    transitivePeerDependencies:
-      - typescript
-    dev: false
-
-  /@tosspayments/payment-widget-types@0.0.5(typescript@5.4.3):
-    resolution: {integrity: sha512-Daaui9u7aRPzJhw4omJIUAbYBSmNAFNjWWkuUnX9uHxzE3gtjcJHIpGrjlzmCFm+j3ZH4rgyrgv4pkazVYH3OQ==}
-    peerDependencies:
-      typescript: ^4.7.4
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      typescript: 5.4.3
-    dev: false
-
-  /@tosspayments/payment-widget__types@1.0.1(typescript@5.4.3):
-    resolution: {integrity: sha512-p2l6ni4ZAH0Jh7Yo4hwwDAECN0rz6Io9R19oBJ5ZkL0H1upMhGzT6xrdymIYQwcUSzIcwHwI2u03eeAX19hmug==}
-    dependencies:
-      '@tosspayments/brandpay-types': 0.2.6(typescript@5.4.3)
-      '@tosspayments/payment-widget-types': 0.0.5(typescript@5.4.3)
       '@tosspayments/payment__types': 1.67.2
-    transitivePeerDependencies:
-      - typescript
     dev: false
 
   /@tosspayments/payment__types@1.67.2:
@@ -6161,6 +6127,7 @@ packages:
     resolution: {integrity: sha512-KrPd3PKaCLr78MalgiwJnA25Nm8HAmdwN3mYUYZgG/wizIo9EainNVQI9/yDavtVFRN2h3k8uf3GLHuhDMgEHg==}
     engines: {node: '>=14.17'}
     hasBin: true
+    dev: true
 
   /ufo@1.5.3:
     resolution: {integrity: sha512-Y7HYmWaFwPUmkoQCUIAYpKqkOf+SbVj/2fJJZ4RJMCfZp0rTGwRbzQD+HghfnhKOjL9E01okqz+ncJskGYfBNw==}

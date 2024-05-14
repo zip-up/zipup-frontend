@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Button from '@components/common/Button';
+import GradientBackground from '@components/common/Button/GradientBackground';
 import Header from '@components/common/Header';
 import ProgressBar from '@components/common/ProgressBar';
 import { createFundState } from '@store/store';
@@ -95,29 +96,9 @@ export default function CreatFundStep2() {
         </div>
         {errors.textMessage && <p className={style.errorText}>{errors.textMessage.message}</p>}
 
-        <div
-          className={css({
-            '@media (max-height: 570px)': {
-              marginTop: '1.6rem',
-            },
-            width: '32.9rem',
-            margin: '0 auto',
-          })}
-        >
-          <Button
-            type="submit"
-            className={css({
-              '@media (min-height: 570px)': {
-                position: 'fixed',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                maxWidth: '32.8rem',
-              },
-            })}
-          >
-            다음
-          </Button>
-        </div>
+        <GradientBackground>
+          <Button type="submit">다음</Button>
+        </GradientBackground>
       </form>
     </>
   );

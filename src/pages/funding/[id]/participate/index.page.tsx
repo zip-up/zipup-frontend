@@ -2,12 +2,13 @@ import { Fragment, useState } from 'react';
 import { useRouter } from 'next/router';
 import { A, A_d, B, B_d, C, C_d, D, D_d, E, E_d } from '@assets/icons/priceLabel/index';
 import Button from '@components/common/Button';
+import GradientBackground from '@components/common/Button/GradientBackground';
 import Header from '@components/common/Header';
 import ProgressBar from '@components/common/ProgressBar';
 import { statusTag } from '@components/common/StatusTag/styles';
 import Term from '@components/Term';
 import { infoContainer } from '@components/Term/styles';
-import { PrivacyTerm, PurchaseTerm } from '@constants/terms';
+import { PRIVACY_TERM, PURCHASE_TERM } from '@constants/terms';
 import { useUser } from '@hooks/queries/useAuth';
 import { useGetFundingDetail } from '@hooks/queries/useFunding';
 import { setLocalStorage } from '@store/localStorage';
@@ -85,7 +86,7 @@ export default function Participate() {
   const selected = watch('price');
   const [step, setStep] = useState(1);
 
-  const priceLabel = [
+  const PRICE_LABEL = [
     { label: '행복의 오천원', price: 5000, icon_active: <A />, icon_disabled: <A_d /> },
     { label: '기쁨의 만원', price: 10000, icon_active: <B />, icon_disabled: <B_d /> },
     { label: '건강의 삼만원', price: 30000, icon_active: <C />, icon_disabled: <C_d /> },
@@ -96,20 +97,20 @@ export default function Participate() {
     switch (step) {
       case 1:
         return (
-          <div className={css({ pl: '1.6rem', pr: '1.6rem' })}>
+          <>
             <div className={style.title}>
               <p>{fundingInfo?.organizerName}님을 위한</p>마음을 보내주세요
             </div>
 
             <div className={style.buttonWrapper}>
-              {priceLabel.map(({ label, price, icon_active, icon_disabled }, idx) => {
+              {PRICE_LABEL.map(({ label, price, icon_active, icon_disabled }, idx) => {
                 return (
                   <Fragment key={idx}>
                     <label
                       htmlFor={`price-${idx}`}
                       key={idx}
-                      className={cx(
-                        statusTag({ bg: selected == price ? 'blue' : 'disabled' }),
+                      className={css(
+                        statusTag.raw({ bg: selected == price ? 'blue' : 'disabled' }),
                         style.label,
                       )}
                     >
@@ -130,8 +131,8 @@ export default function Participate() {
 
               <label
                 htmlFor="customPrice"
-                className={cx(
-                  statusTag({ bg: watch('enteredCustomPrice') ? 'blue' : 'disabled' }),
+                className={css(
+                  statusTag.raw({ bg: watch('enteredCustomPrice') ? 'blue' : 'disabled' }),
                   style.label,
                 )}
               >
@@ -153,6 +154,7 @@ export default function Participate() {
               <Button
                 size="none"
                 onClick={() => reset({ price: 5000 })}
+                textStyle="resetButton"
                 className={style.resetButton}
               >
                 리셋
@@ -161,7 +163,7 @@ export default function Participate() {
 
             {enteredCustomPrice && (
               <div className={style.dropInput}>
-                <label className={style.labelWithoutPadding}>
+                <label className={cx(style.labelWithoutPadding, css({ mt: 0 }))}>
                   금액을 직접 입력해주세요. <span className={style.blueColorText}>*</span>
                 </label>
                 <input
@@ -194,7 +196,7 @@ export default function Participate() {
             >
               다음
             </Button>
-          </div>
+          </>
         );
 
       case 2:
@@ -239,36 +241,36 @@ export default function Participate() {
               {errors.msg && <span className={style.errorText}>{errors.msg.message}</span>}
             </div>
 
-            <div className={cx(infoContainer, css({ m: 0 }))}>
+            <div className={cx(infoContainer, css({ mt: '1.6rem' }))}>
               <Term
                 label="isPurchaseChecked"
-                term={PurchaseTerm}
+                term={PURCHASE_TERM}
                 register={register}
                 isChecked={watch('isPurchaseChecked')}
               />
               <Term
                 label="isPrivacyChecked"
-                term={PrivacyTerm}
+                term={PRIVACY_TERM}
                 register={register}
                 isChecked={watch('isPrivacyChecked')}
               />
             </div>
 
-            <Button type="submit" isBottomFixed>
-              결제하러 가기
-            </Button>
+            <GradientBackground>
+              <Button type="submit">결제하러 가기</Button>
+            </GradientBackground>
           </div>
         );
     }
   };
 
   return (
-    <div className={style.pageLayout}>
+    <>
       <Header onGoBack={step == 1 ? () => router.back() : () => setStep(1)} />
       <div className={style.container}>
         <ProgressBar width={step == 1 ? '16.2rem' : '32.8rem'} />
         <form onSubmit={handleSubmit(onSubmit, onSubmitError)}>{renderFormStep(step)}</form>
       </div>
-    </div>
+    </>
   );
 }

@@ -65,4 +65,23 @@ const useLogout = () => {
   });
 };
 
-export { useLogIn, useUser, useLogout };
+const useWithdrawal = () => {
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: async ({ withdrawalReason }: { withdrawalReason: string }) => {
+      const response = await InstanceWithToken.put('/v1/user/withdrawal', {
+        withdrawalReason,
+      });
+
+      return response.data;
+    },
+    onSuccess: () => router.push('/mypage/withdrawal/success'),
+    onError: error => {
+      console.error(error);
+      router.push('/mypage/withdrawal/fail');
+    },
+  });
+};
+
+export { useLogIn, useUser, useLogout, useWithdrawal };

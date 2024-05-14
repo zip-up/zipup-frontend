@@ -36,7 +36,7 @@ export const textStyles = defineTextStyles({
     value: {
       fontFamily: 'pretendard',
       fontWeight: '600',
-      fontSize: '1.8remrem',
+      fontSize: '1.8rem',
       textDecoration: 'None',
       textTransform: 'None',
     },

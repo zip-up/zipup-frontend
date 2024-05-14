@@ -7,8 +7,10 @@ const layout = vstack({
 });
 
 const title = css({
-  textStyle: 'subtitle1',
+  textStyle: 'title2',
   marginTop: '2rem',
+  whiteSpace: 'pre-wrap',
+  textAlign: 'center',
 });
 
 const subTitle = css({
@@ -16,6 +18,7 @@ const subTitle = css({
   color: 'text.200',
   marginTop: '0.8rem',
   textAlign: 'center',
+  whiteSpace: 'pre-wrap',
 });
 
 export { layout, title, subTitle };
