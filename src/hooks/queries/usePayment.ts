@@ -80,4 +80,34 @@ const useGetPaymentList = () => {
   });
 };
 
-export { useTossPayments, useStoreOrderInfo, useRequestPayment, useGetPaymentList };
+interface CancelInfo {
+  paymentKey: string;
+  cancelReason: string;
+  amount?: number;
+  refundReceiveAccount?: {
+    bank: string;
+    accountNumber: string;
+    holderName: string;
+  };
+}
+
+const useCancelPayment = () => {
+  return useMutation({
+    mutationFn: async ({ paymentKey, cancelReason }: CancelInfo) => {
+      const response = await InstanceWithToken.post('/v1/payment/cancel', {
+        paymentKey,
+        cancelReason,
+      });
+
+      return response.data;
+    },
+  });
+};
+
+export {
+  useTossPayments,
+  useStoreOrderInfo,
+  useRequestPayment,
+  useGetPaymentList,
+  useCancelPayment,
+};

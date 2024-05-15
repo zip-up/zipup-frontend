@@ -1,3 +1,4 @@
+import { css } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
 
 const listWrapper = flex({
@@ -8,12 +9,9 @@ const listWrapper = flex({
 });
 
 const labelsWrapper = flex({
-  gap: '0.4rem',
+  gap: '0.8rem',
   direction: 'column',
   margin: '2.4rem 0',
-  '& input': {
-    display: 'none',
-  },
 });
 
 const reasonLabel = flex({
@@ -26,4 +24,19 @@ const reasonLabel = flex({
   padding: '1.2rem 1.2rem 1.2rem 1.6rem',
 });
 
-export { listWrapper, reasonLabel, labelsWrapper };
+const refundLabel = css({
+  border: '1px solid',
+  borderColor: 'gray.300',
+  rounded: '0.8rem',
+  textStyle: 'body2',
+  color: 'text.200',
+  width: '100%',
+  height: '5.2rem',
+  padding: '1.2rem 1.6rem',
+  outline: 'none',
+  _placeholder: {
+    color: 'text.200',
+  },
+});
+
+export { listWrapper, reasonLabel, labelsWrapper, refundLabel };

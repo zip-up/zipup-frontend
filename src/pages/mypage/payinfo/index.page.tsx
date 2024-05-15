@@ -1,52 +1,22 @@
-import { Dispatch, Fragment, SetStateAction, useState } from 'react';
+import { Fragment, useState } from 'react';
 import CancelIcon from '@assets/icons/cancel.svg';
 import { Radio_active, Radio_disabled } from '@assets/icons/radio';
 import UploadIcon from '@assets/icons/upload.svg';
 import Button from '@components/common/Button';
 import DropDown from '@components/common/DropDown';
 import Header from '@components/common/Header';
+import Modal from '@components/common/Modal';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import PaymentCard from '@components/PaymentCard';
-import { useGetPaymentList } from '@hooks/queries/usePayment';
+import { REFUND_BANKS } from '@constants/bank';
+import { CANCEL_REASON } from '@constants/notice';
+import { useCancelPayment, useGetPaymentList } from '@hooks/queries/usePayment';
 import { useForm } from 'react-hook-form';
 import { css } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
 
 import * as style from './styles';
 
-const CANCEL_REASON = [
-  '단순 변심',
-  '금액을 잘못 입력했어요',
-  '결제 취소 후 다시 참여할 예정이에요',
-];
-
-const REFUND_BANKS = [
-  '경남은행',
-  '광주은행',
-  '단위농협(지역농축협)',
-  '부산은행',
-  '새마을금고',
-  '산림조합',
-  '신한은행',
-  '신협',
-  '씨티은행',
-  '우리은행',
-  '우체국예금보험',
-  '저축은행중앙회',
-  '전북은행',
-  '제주은행',
-  '카카오뱅크',
-  '케이뱅크',
-  '토스뱅크',
-  '하나은행',
-  'IBK기업은행',
-  'KB국민은행',
-  'DGB대구은행',
-  'KDB산업은행',
-  'NH농협은행',
-  'SC제일은행',
-  'Sh수협은행',
-];
 interface FormInputs {
   cancelReason: string;
   bank: string;
@@ -57,24 +27,23 @@ interface FormInputs {
 export default function PayInfo() {
   const { data: paymentList } = useGetPaymentList();
   const [step, setStep] = useState(0);
+  const { mutate: _cancelPayment } = useCancelPayment();
+  const [_clickedPayInfo, setClickedPayInfo] = useState({ amount: 0 });
 
   const {
     register,
     watch,
     formState: { isValid },
   } = useForm<FormInputs>({
-    defaultValues: { cancelReason: CANCEL_REASON[0] },
+    defaultValues: { cancelReason: CANCEL_REASON[0], bank: '' },
   });
 
-  console.log(watch('bank'), watch('cancelReason'), watch('accountNumber'));
+  const goNextStep = () => setStep(step => step + 1);
 
-  // useEffect(() => {
-  //   InstanceWithToken.post('/v1/payment/cancel', {
-  //     paymentKey: 'tviva20240415142211SFdY0',
-  //     cancelReason: '단순 변심',
-  //     cancelAmount: 2000,
-  //   });
-  // }, []);
+  const handleCancelPayment = () => {
+    // cancelPayment({ cancelReason: watch('cancelReason'), amount: clickedPayInfo.amount });
+  };
+  console.log(watch('bank'), watch('cancelReason'), watch('accountNumber'));
 
   return (
     <>
@@ -85,7 +54,7 @@ export default function PayInfo() {
           <PaymentCard
             paymentInfo={info}
             key={info.paymentNumber}
-            handleClick={() => {}}
+            handleClick={() => setClickedPayInfo({ amount: info.amount })}
           ></PaymentCard>
         ))}
       </div>
@@ -100,13 +69,7 @@ export default function PayInfo() {
               <Button color="primary" className={css({ width: '10.9rem' })}>
                 아니요
               </Button>
-              <Button
-                color="secondary"
-                className={css({ width: '16.8rem' })}
-                onClick={() => setStep(step => step + 1)}
-              >
-                예, 취소할게요
-              </Button>
+              <NextStepButton text="예, 취소할게요" goNextStep={goNextStep} />
             </div>
           }
         />
@@ -116,7 +79,7 @@ export default function PayInfo() {
         <ModalWithIcon
           icon={<CancelIcon />}
           title="결제 취소 이유를 알려주세요."
-          buttonComponent={<CommonButtons setStep={setStep} isValid={isValid} />}
+          buttonComponent={<ButtonGroup step={step} goNextStep={goNextStep} />}
         >
           <div className={style.labelsWrapper}>
             {CANCEL_REASON.map((reason, idx) => (
@@ -130,6 +93,7 @@ export default function PayInfo() {
                   value={reason}
                   id={`reason-${idx}`}
                   {...register('cancelReason')}
+                  className={css({ display: 'none' })}
                 />
               </Fragment>
             ))}
@@ -141,55 +105,93 @@ export default function PayInfo() {
         <ModalWithIcon
           icon={<UploadIcon />}
           title="환불 계좌를 입력해주세요."
-          buttonComponent={<CommonButtons setStep={setStep} isValid={isValid} />}
+          buttonComponent={
+            <ButtonGroup
+              step={step}
+              goNextStep={goNextStep}
+              isValid={isValid}
+              handleCancelPayment={handleCancelPayment}
+            />
+          }
         >
-          <DropDown
-            menuButtonTitle="은행을 선택해주세요."
-            menuList={REFUND_BANKS}
-            register={register('bank', { required: true })}
-          />
-          <input
-            type="number"
-            placeholder="계좌번호의 숫자만 입력해주세요."
-            {...register('accountNumber', {
-              required: true,
-              minLength: 10,
-              maxLength: 14,
-              pattern: /^[0-9]+$/,
-            })}
-          />
-          <input
-            type="text"
-            placeholder="예금주명을 입력해주세요."
-            {...register('holderName', { required: true })}
-          />
+          <div className={style.labelsWrapper}>
+            <DropDown
+              menuButtonTitle="은행을 선택해주세요."
+              menuList={REFUND_BANKS}
+              register={register('bank', { required: true })}
+              selectedData={watch('bank')}
+            />
+            <input
+              type="number"
+              placeholder="계좌번호의 숫자만 입력해주세요."
+              {...register('accountNumber', {
+                required: true,
+                minLength: 10,
+                maxLength: 14,
+                pattern: /^[0-9]+$/,
+              })}
+              className={style.refundLabel}
+            />
+            <input
+              type="text"
+              placeholder="예금주명을 입력해주세요."
+              {...register('holderName', { required: true })}
+              className={style.refundLabel}
+            />
+          </div>
         </ModalWithIcon>
+      )}
+
+      {step === 3 && (
+        <Modal>
+          <p>
+            {
+              '결제 취소 신청이 완료되었습니다.\n결제하신 수단으로 영업일 2-3일 내에\n환불이 진행됩니다.'
+            }
+          </p>
+          <Button color="primary">닫기</Button>
+        </Modal>
       )}
     </>
   );
 }
 
-function CommonButtons({
-  setStep,
-  isValid,
+function NextStepButton({ text, goNextStep }: { text: string; goNextStep: () => void }) {
+  return (
+    <Button className={css({ width: '16.8rem' })} onClick={goNextStep}>
+      {text}
+    </Button>
+  );
+}
+
+function ButtonGroup({
+  step,
+  goNextStep,
+  isValid = true,
+  handleCancelPayment,
 }: {
-  setStep: Dispatch<SetStateAction<number>>;
-  isValid: boolean;
+  step: number;
+  goNextStep: () => void;
+  isValid?: boolean;
+  handleCancelPayment?: () => void;
 }) {
   return (
-    <div className={flex({ gap: '0.8rem' })}>
-      <Button color="primary" className={css({ width: '10.9rem' })}>
+    <div className={flex({ justifyContent: 'space-between' })}>
+      <Button color="primary" className={css({ width: '11rem' })}>
         닫기
       </Button>
-      <Button
-        color="secondary"
-        className={css({ width: '16.8rem' })}
-        // 마지막 step에서는 api call
-        onClick={() => setStep(step => step + 1)}
-        disabled={!isValid}
-      >
-        결제 취소하기
-      </Button>
+      {step !== 2 ? (
+        <NextStepButton text="결제 취소하기" goNextStep={goNextStep} />
+      ) : (
+        <Button
+          className={css({ width: '17.3rem' })}
+          type="submit"
+          onClick={handleCancelPayment}
+          disabled={!isValid}
+        >
+          결제 취소하기
+        </Button>
+      )}
     </div>
   );
 }
