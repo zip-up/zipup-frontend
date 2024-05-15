@@ -22,6 +22,7 @@ import { useRecoilState } from 'recoil';
 import { css, cx } from 'styled-system/css';
 
 import * as style from '../styles';
+import useLockBodyScroll from '@hooks/useLockScroll';
 
 interface FormInputs extends TermsCheckFlags {
   roadAddress: string;
@@ -36,6 +37,7 @@ export default function CreatFundStep4() {
   const [fundId, setFundId] = useState<string>('');
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  useLockBodyScroll(isOpen || isModalOpen);
 
   const { mutate: createFunding, isPending } = useCreateFunding(createdFundingData => {
     setFundId(createdFundingData.id);

@@ -12,6 +12,7 @@ import { useGetFundingDetail } from '@hooks/queries/useFunding';
 import { shareKakao } from '@utils/share';
 
 import * as style from './styles';
+import useLockBodyScroll from '@hooks/useLockScroll';
 
 export default function Funding() {
   const router = useRouter();
@@ -21,6 +22,7 @@ export default function Funding() {
 
   const { data: fundingInfo } = useGetFundingDetail(fundingId);
   const [isModalOn, setIsModalOn] = useState(false);
+  useLockBodyScroll(isModalOn);
 
   if (!fundingInfo) return null;
 

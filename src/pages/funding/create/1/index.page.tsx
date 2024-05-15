@@ -14,6 +14,7 @@ import { useRecoilState } from 'recoil';
 import { css, cx } from 'styled-system/css';
 
 import * as style from '../styles';
+import useLockBodyScroll from '@hooks/useLockScroll';
 
 interface FormInput {
   link: string;
@@ -24,6 +25,7 @@ export default function CreatFundStep1() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [newFund, setNewFund] = useRecoilState(createFundState);
+  useLockBodyScroll(isOpen);
   const {
     register,
     handleSubmit,
