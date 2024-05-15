@@ -51,4 +51,16 @@ export interface PaymentInfo {
   paymentNumber: string;
   status: string;
   refundable: boolean;
+  isVirtualAccountAndDepositCompleted: boolean;
+}
+
+export interface CancelInfoForm {
+  paymentKey: string;
+  cancelReason: string;
+  amount?: number;
+  refundReceiveAccount?: {
+    bank: string;
+    accountNumber: string;
+    holderName: string;
+  };
 }

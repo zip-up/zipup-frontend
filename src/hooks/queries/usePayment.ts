@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { InstanceWithToken } from '@api/index';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { loadTossPayments, TossPaymentsInstance } from '@tosspayments/payment-sdk';
-import { PaymentInfo } from '@typings/funding';
+import { CancelInfoForm, PaymentInfo } from '@typings/funding';
 import { isAxiosError } from 'axios';
 
 const useTossPayments = (clientKey: string) => {
@@ -80,20 +80,9 @@ const useGetPaymentList = () => {
   });
 };
 
-interface CancelInfo {
-  paymentKey: string;
-  cancelReason: string;
-  amount?: number;
-  refundReceiveAccount?: {
-    bank: string;
-    accountNumber: string;
-    holderName: string;
-  };
-}
-
 const useCancelPayment = () => {
   return useMutation({
-    mutationFn: async ({ paymentKey, cancelReason }: CancelInfo) => {
+    mutationFn: async ({ paymentKey, cancelReason }: CancelInfoForm) => {
       const response = await InstanceWithToken.post('/v1/payment/cancel', {
         paymentKey,
         cancelReason,

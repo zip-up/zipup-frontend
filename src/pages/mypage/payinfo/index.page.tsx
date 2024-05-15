@@ -28,7 +28,7 @@ export default function PayInfo() {
   const { data: paymentList } = useGetPaymentList();
   const [step, setStep] = useState(0);
   const { mutate: _cancelPayment } = useCancelPayment();
-  const [_clickedPayInfo, setClickedPayInfo] = useState({ amount: 0 });
+  const [_clickedPayInfo, _setClickedPayInfo] = useState({ paymentKey: '', amount: 0 });
 
   const {
     register,
@@ -41,9 +41,12 @@ export default function PayInfo() {
   const goNextStep = () => setStep(step => step + 1);
 
   const handleCancelPayment = () => {
-    // cancelPayment({ cancelReason: watch('cancelReason'), amount: clickedPayInfo.amount });
+    // cancelPayment({
+    //   paymentKey: clickedPayInfo.paymentKey,
+    //   cancelReason: watch('cancelReason'),
+    //   amount: clickedPayInfo.amount,
+    // });
   };
-  console.log(watch('bank'), watch('cancelReason'), watch('accountNumber'));
 
   return (
     <>
@@ -54,7 +57,9 @@ export default function PayInfo() {
           <PaymentCard
             paymentInfo={info}
             key={info.paymentNumber}
-            handleClick={() => setClickedPayInfo({ amount: info.amount })}
+            // handleClick={() =>
+            //   setClickedPayInfo({ paymentKey: info.paymentKey, amount: info.amount })
+            // }
           ></PaymentCard>
         ))}
       </div>
