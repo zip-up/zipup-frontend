@@ -160,7 +160,7 @@ const bannerWrapper = css({
   width: '100%',
   background: 'linear-gradient(0deg, #E0F5FF 0%, #FFF 100%)',
   position: 'relative',
-  overflowY: 'hidden',
+  overflow: 'hidden',
 });
 
 const seeMore = flex({ align: 'center', cursor: 'pointer' });
