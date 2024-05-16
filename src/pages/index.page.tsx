@@ -185,7 +185,7 @@ export default function Home() {
         <div className={css({ marginTop: '3.2rem' })}>
           <div className={style.subtitleBox}>
             <h2 className={style.category}>지금 인기있는 펀딩은?</h2>
-            <a className={style.seeMore}>
+            <a href="/trending" className={style.seeMore}>
               <div className={style.moveText}>더보기</div>
               <GoIcon style={{ color: '#0098E8' }} />
             </a>
