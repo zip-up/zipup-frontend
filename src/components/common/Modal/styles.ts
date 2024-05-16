@@ -1,7 +1,7 @@
 import { css } from 'styled-system/css';
 
 const modalContainer = css({
-  zIndex: 1,
+  zIndex: 2,
   position: 'fixed',
   top: 0,
   right: 0,
