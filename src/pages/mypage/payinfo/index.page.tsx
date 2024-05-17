@@ -6,11 +6,13 @@ import Button from '@components/common/Button';
 import DropDown from '@components/common/DropDown';
 import Header from '@components/common/Header';
 import Modal from '@components/common/Modal';
+import Tabs from '@components/common/Tabs';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import NoResut from '@components/NoResult';
 import PaymentCard from '@components/PaymentCard';
 import { BANK_CODE } from '@constants/bank';
 import { CANCEL_REASON } from '@constants/notice';
+import { MYPAGE_TABS } from '@constants/tabs';
 import { useCancelPayment, useGetPaymentList } from '@hooks/queries/usePayment';
 import { useForm } from 'react-hook-form';
 import { css } from 'styled-system/css';
@@ -94,10 +96,14 @@ export default function PayInfo() {
     );
   }
 
+  const [activeTab, setActiveTab] = useState(MYPAGE_TABS[0]);
+
   return (
     <>
       <Header title="내 정보 관리" />
-      {/** tab component */}
+
+      <Tabs data={MYPAGE_TABS} activeTab={activeTab} onSetActiveTab={setActiveTab} />
+
       {paymentList?.length === 0 && (
         <NoResut
           title="아직 참여한 펀딩이 없어요"
