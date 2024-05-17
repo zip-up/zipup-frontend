@@ -19,7 +19,7 @@ const useStoreOrderInfo = (successCallback: (orderId: string, amount: number) =>
     mutationFn: async ({ orderId, amount }: { orderId: string; amount: number }) => {
       // if (!paymentWidget) throw new Error('결제 서비스를 이용할 수 없습니다.');
 
-      await InstanceWithToken.post(`/v1/payment?orderId=${orderId}&amount=${amount}`);
+      await InstanceWithToken.post(`/v1/payment/?orderId=${orderId}&amount=${amount}`);
 
       return { orderId, amount };
     },
@@ -82,9 +82,9 @@ const useGetPaymentList = () => {
 
 const useCancelPayment = () => {
   return useMutation({
-    mutationFn: async ({ paymentKey, cancelReason }: CancelInfoForm) => {
-      const response = await InstanceWithToken.post('/v1/payment/cancel', {
-        paymentKey,
+    mutationFn: async ({ id, cancelReason }: CancelInfoForm) => {
+      const response = await InstanceWithToken.put('/v1/present/cancel', {
+        paymentId: id,
         cancelReason,
       });
 

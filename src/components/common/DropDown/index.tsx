@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 import DropDownIcon from '@assets/icons/dropdown_btn.svg';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import { css } from 'styled-system/css';

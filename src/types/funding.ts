@@ -51,11 +51,12 @@ export interface PaymentInfo {
   paymentNumber: string;
   status: string;
   refundable: boolean;
-  isVirtualAccountAndDepositCompleted: boolean;
+  isVirtualAccount: boolean;
+  isDepositCompleted: boolean;
 }
 
 export interface CancelInfoForm {
-  paymentKey: string;
+  id: string;
   cancelReason: string;
   amount?: number;
   refundReceiveAccount?: {
