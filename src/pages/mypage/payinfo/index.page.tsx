@@ -7,6 +7,7 @@ import DropDown from '@components/common/DropDown';
 import Header from '@components/common/Header';
 import Modal from '@components/common/Modal';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
+import NoResut from '@components/NoResult';
 import PaymentCard from '@components/PaymentCard';
 import { BANK_CODE } from '@constants/bank';
 import { CANCEL_REASON } from '@constants/notice';
@@ -97,6 +98,12 @@ export default function PayInfo() {
     <>
       <Header title="내 정보 관리" />
       {/** tab component */}
+      {paymentList?.length === 0 && (
+        <NoResut
+          title="아직 참여한 펀딩이 없어요"
+          desc="집들이를 준비하는 친구에게 집업을 알려보세요."
+        />
+      )}
       <div className={style.listWrapper}>
         {paymentList?.map(info => (
           <PaymentCard
