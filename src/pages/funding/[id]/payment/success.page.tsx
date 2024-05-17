@@ -68,6 +68,7 @@ export default function Success({ fundingId, orderId, amount, paymentId }: Succe
       paymentId,
       ...participateInfo,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
   if (isMutating || isLoading)

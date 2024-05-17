@@ -6,7 +6,7 @@ interface AddressModalProps {
   onClose: () => void;
 }
 
-function AddressModal({ onSetAddress, onClose }: AddressModalProps) {
+export default function AddressModal({ onSetAddress, onClose }: AddressModalProps) {
   const handleComplete = data => {
     onSetAddress(data.address);
     onClose();
@@ -19,5 +19,3 @@ function AddressModal({ onSetAddress, onClose }: AddressModalProps) {
     </Modal>
   );
 }
-
-export default AddressModal;

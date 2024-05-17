@@ -5,7 +5,7 @@ const spinner = cva({
     borderRadius: '50%',
     border: '0.1rem solid',
     animation: 'spin 1s linear infinite',
-    color: 'gray.200',
+    color: 'gray.20',
   },
   variants: {
     size: {

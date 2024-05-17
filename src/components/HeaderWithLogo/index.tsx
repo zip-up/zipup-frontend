@@ -5,11 +5,13 @@ import Profile from '@components/common/Profile';
 import { useUser } from '@hooks/queries/useAuth';
 import { css, cx } from 'styled-system/css';
 
+import { box, header, logo } from './styles';
+
 interface HeaderWithLogoProps {
   onOpen: () => void;
 }
 
-function HeaderWithLogo({ onOpen }: HeaderWithLogoProps) {
+export default function HeaderWithLogo({ onOpen }: HeaderWithLogoProps) {
   const router = useRouter();
   const { data: user } = useUser();
 
@@ -29,27 +31,3 @@ function HeaderWithLogo({ onOpen }: HeaderWithLogoProps) {
     </header>
   );
 }
-
-export default HeaderWithLogo;
-
-const header = css({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  height: '4.8rem',
-  padding: '0 1.7rem',
-  borderBottomWidth: '0.1rem',
-  borderBottomColor: 'gray.20',
-});
-
-const logo = css({
-  cursor: 'pointer',
-});
-
-const box = css({
-  width: '3rem',
-  height: '3rem',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-});

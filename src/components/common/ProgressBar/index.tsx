@@ -9,7 +9,7 @@ interface ProgressBarProps {
   noMargin?: boolean;
 }
 
-function ProgressBar({
+export default function ProgressBar({
   isNotFull,
   progressBarWidth = css({ width: isNotFull ? '100%' : '32.8rem' }),
   width,
@@ -25,5 +25,3 @@ function ProgressBar({
     </div>
   );
 }
-
-export default ProgressBar;

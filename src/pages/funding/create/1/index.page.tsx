@@ -32,10 +32,11 @@ export default function CreatFundStep1() {
   } = useForm<FormInput>();
 
   useEffect(() => {
-    if (newFund) {
+    if (newFund.productUrl && newFund.goalPrice) {
       setValue('link', newFund.productUrl);
       setValue('targetMoney', String(newFund.goalPrice));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleCreateFundSubmit = (data: FormInput) => {

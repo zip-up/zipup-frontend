@@ -1,5 +1,5 @@
-import { pretendard } from '@styles/font';
 import { Head, Html, Main, NextScript } from 'next/document';
+import { pretendard } from '@styles/font';
 
 export default function Document() {
   return (
