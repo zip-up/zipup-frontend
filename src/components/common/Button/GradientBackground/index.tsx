@@ -22,6 +22,8 @@ const gradientBg = cva({
     pos: 'fixed',
     bottom: 0,
     p: '3rem 1.6rem 2.4rem 1.6rem',
+    left: '50%',
+    transform: 'translateX(-50%)',
   },
   variants: {
     direction: {

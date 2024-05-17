@@ -27,11 +27,12 @@ const listWrapper = css(
     mt: '0.8rem',
     overflow: 'scroll',
     position: 'absolute',
-    bottom: '5.2rem',
+    top: '100%',
     backgroundColor: 'gray.0',
-    width: '29.1rem',
-    height: '15.7rem',
+    width: '100%',
+    maxHeight: '15.7rem',
     textAlign: 'start',
+    boxShadow: '0.1rem 0.3rem 1.7rem 0rem #e1e1e1',
   }),
 );
 
@@ -39,8 +40,17 @@ const menu = css({
   borderBottom: '1px solid',
   borderBottomColor: 'gray.300',
   padding: '1.2rem 1.6rem',
-  minHeight: '5.2rem',
+  height: '5.2rem',
   lineHeight: '2.6rem',
+  '&:last-child': {
+    borderBottom: 'none',
+  },
+  '& input': {
+    display: 'none',
+  },
+  '&:hover': {
+    bg: 'blue.10',
+  },
 });
 
 export { menuButton, listWrapper, menu };

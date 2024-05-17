@@ -22,7 +22,7 @@ export default function DropDown({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <>
+    <div className={css({ pos: 'relative', width: '100%' })}>
       <button
         type="button"
         onClick={() => setIsOpen(status => !status)}
@@ -55,6 +55,6 @@ export default function DropDown({
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 }
