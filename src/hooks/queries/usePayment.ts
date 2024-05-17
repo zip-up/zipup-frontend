@@ -82,10 +82,10 @@ const useGetPaymentList = () => {
 
 const useCancelPayment = () => {
   return useMutation({
-    mutationFn: async ({ id, cancelReason }: CancelInfoForm) => {
+    mutationFn: async ({ id, ...rest }: CancelInfoForm) => {
       const response = await InstanceWithToken.put('/v1/present/cancel', {
         paymentId: id,
-        cancelReason,
+        ...rest,
       });
 
       return response.data;
