@@ -12,3 +12,9 @@ export const WITHDRAWAL_REASON = [
   '배송이 느려요',
   '기타',
 ];
+
+export const CANCEL_REASON = [
+  '단순 변심',
+  '금액을 잘못 입력했어요',
+  '결제 취소 후 다시 참여할 예정이에요',
+];

@@ -8,7 +8,7 @@ import * as style from './styles';
 interface NoResultProps {
   title: string;
   desc: string;
-  renderButton: ReactNode;
+  renderButton?: ReactNode;
 }
 
 export default function NoResut({ title, desc, renderButton }: NoResultProps) {

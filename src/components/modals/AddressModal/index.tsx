@@ -14,7 +14,7 @@ export default function AddressModal({ onSetAddress, onClose }: AddressModalProp
   const height = 577;
 
   return (
-    <Modal height={577} onClose={onClose}>
+    <Modal onClose={onClose} width="33.5rem">
       <DaumPostcode style={{ height: height - 30 }} onComplete={handleComplete} />
     </Modal>
   );
