@@ -78,7 +78,7 @@ export default function Participate() {
     });
 
     router.push(
-      `/funding/${fundingId}/payment/?method=${watch('method') === '상품권' ? watch('giftCard') : watch('method')}`,
+      `/funding/${fundingId}/payment/?method=${watch('method') === PAYMENT_METHOD[4] ? watch('giftCard') : watch('method') === PAYMENT_METHOD[0] ? '카드' : watch('method')}`,
     );
   };
 
