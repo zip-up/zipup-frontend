@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import DeleteIcon from '@assets/icons/delete.svg';
@@ -10,14 +10,17 @@ import DefaultPresentImg from '@assets/images/default_present.svg';
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
 import Menu from '@components/common/Menu';
+import { RadioSelector } from '@components/common/RadioSelector';
 import FundingStatusBox from '@components/FundingStatusBox';
 import MessageList from '@components/MessageList';
 import LoginModal from '@components/modals/LoginModal';
 import ModalActionButtons from '@components/modals/ModalActionButtons';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
+import { DELETE_REASON } from '@constants/notice';
 import { useUser } from '@hooks/queries/useAuth';
 import { useGetFundingDetail } from '@hooks/queries/useFunding';
 import { shareKakao } from '@utils/share';
+import { useForm } from 'react-hook-form';
 
 import * as style from './styles';
 
@@ -30,8 +33,15 @@ export default function Funding() {
   const { data: fundingInfo } = useGetFundingDetail(fundingId);
   const [isLoginModalOn, setIsLoginModalOn] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState('');
-  const [_isModalOpen, setIsModalOn] = useState(false);
   const [step, setStep] = useState(1);
+
+  interface FormInputs {
+    reason: string;
+  }
+
+  const { register, watch, _handleSubmit } = useForm<FormInputs>({
+    defaultValues: { reason: DELETE_REASON[0] },
+  });
 
   if (!fundingInfo) return null;
 
@@ -46,6 +56,8 @@ export default function Funding() {
     isParticipant,
     presentList: messageList,
   } = fundingInfo;
+
+  const hasParticipants = messageList.length > 0;
 
   function RoleBasedButton() {
     if (!fundingInfo) return null;
@@ -122,15 +134,19 @@ export default function Funding() {
           <ModalWithIcon
             icon={<DeleteIcon />}
             title="정말 펀딩을 삭제하시겠어요?"
-            subtitle="삭제된 이후에는 복구되지 않아요."
+            subtitle={
+              hasParticipants
+                ? '펀딩 참여자에게 취소 내역이 전달됩니다.\n삭제된 이후에는 복구되지 않아요.'
+                : '삭제된 이후에는 복구되지 않아요.'
+            }
             buttonComponent={
               <ModalActionButtons
                 actionBtnText="펀딩 삭제할게요"
-                handleCloseModal={() => setIsModalOn(status => !status)}
+                handleCloseModal={() => setSelectedMenu('')}
                 handleAction={() => setStep(step => step + 1)}
               />
             }
-          ></ModalWithIcon>
+          />
         )}
 
         {selectedMenu === 'DELETE' && step === 2 && (
@@ -141,10 +157,17 @@ export default function Funding() {
               <ModalActionButtons
                 action="submit"
                 actionBtnText="펀딩 삭제할게요"
-                handleCloseModal={() => setIsModalOn(status => !status)}
+                handleCloseModal={() => setSelectedMenu('')}
               />
             }
-          ></ModalWithIcon>
+          >
+            <RadioSelector
+              reasonList={DELETE_REASON}
+              register={register}
+              label={'reason'}
+              selected={watch('reason')}
+            />
+          </ModalWithIcon>
         )}
       </>
     </>

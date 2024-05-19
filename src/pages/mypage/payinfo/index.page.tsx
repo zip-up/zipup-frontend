@@ -1,11 +1,11 @@
 import { Fragment, useState } from 'react';
 import CancelIcon from '@assets/icons/cancel.svg';
-import { Radio_active, Radio_disabled } from '@assets/icons/radio';
 import UploadIcon from '@assets/icons/upload.svg';
 import Button from '@components/common/Button';
 import DropDown from '@components/common/DropDown';
 import Header from '@components/common/Header';
 import Modal from '@components/common/Modal';
+import { RadioSelector } from '@components/common/RadioSelector';
 import Tabs from '@components/common/Tabs';
 import ModalActionButtons from '@components/modals/ModalActionButtons';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
@@ -16,7 +16,6 @@ import { CANCEL_REASON } from '@constants/notice';
 import { MYPAGE_TABS } from '@constants/tabs';
 import { useCancelPayment, useGetPaymentList } from '@hooks/queries/usePayment';
 import { useForm } from 'react-hook-form';
-import { css } from 'styled-system/css';
 
 import * as style from './styles';
 
@@ -139,23 +138,12 @@ export default function PayInfo() {
                 />
               }
             >
-              <div className={style.labelsWrapper}>
-                {CANCEL_REASON.map((reason, idx) => (
-                  <Fragment key={idx}>
-                    <label htmlFor={`reason-${idx}`} key={idx} className={style.reasonLabel}>
-                      {watch('cancelReason') === reason ? <Radio_active /> : <Radio_disabled />}
-                      <span>{reason}</span>
-                    </label>
-                    <input
-                      type="radio"
-                      value={reason}
-                      id={`reason-${idx}`}
-                      {...register('cancelReason')}
-                      className={css({ display: 'none' })}
-                    />
-                  </Fragment>
-                ))}
-              </div>
+              <RadioSelector
+                reasonList={CANCEL_REASON}
+                register={register}
+                label={'cancelReason'}
+                selected={watch('cancelReason')}
+              />
             </ModalWithIcon>
           )}
 
