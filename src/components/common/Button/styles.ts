@@ -42,7 +42,7 @@ export const button = cva({
         color: '#1E2025',
       },
       white: {
-        bgColor: 'gray.0',
+        bgColor: 'main.white',
         color: 'text.200',
         border: '0.13rem solid',
         borderColor: 'text.300',
