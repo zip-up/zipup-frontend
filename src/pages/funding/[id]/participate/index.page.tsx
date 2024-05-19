@@ -92,7 +92,7 @@ export default function Participate() {
 
   const enteredCustomPrice = watch('enteredCustomPrice');
   const selected = watch('price');
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(1);
 
   const PRICE_LABEL = [
     { label: '행복의 오천원', price: 5000, icon_active: <A />, icon_disabled: <A_d /> },

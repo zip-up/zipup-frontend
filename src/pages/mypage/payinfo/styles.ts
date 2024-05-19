@@ -14,16 +14,6 @@ const labelsWrapper = flex({
   margin: '2.4rem 0',
 });
 
-const reasonLabel = flex({
-  alignItems: 'center',
-  gap: '0.8rem',
-  textStyle: 'body2',
-  border: '0.1rem solid',
-  borderColor: 'gray.300',
-  rounded: '0.8rem',
-  padding: '1.2rem 1.2rem 1.2rem 1.6rem',
-});
-
 const refundLabel = css({
   border: '1px solid',
   borderColor: 'gray.300',
@@ -39,4 +29,8 @@ const refundLabel = css({
   },
 });
 
-export { listWrapper, reasonLabel, labelsWrapper, refundLabel };
+const buttonWrapper = flex({ justifyContent: 'center' });
+
+const button = css({ width: '10.9rem', mt: '2.4rem' });
+
+export { listWrapper, labelsWrapper, refundLabel, buttonWrapper, button };

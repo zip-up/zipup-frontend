@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 import CancelIcon from '@assets/icons/cancel.svg';
 import UploadIcon from '@assets/icons/upload.svg';
 import Button from '@components/common/Button';
@@ -27,7 +27,7 @@ interface FormInputs {
 }
 
 export default function PayInfo() {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const [clickedPayInfo, setClickedPayInfo] = useState({
     id: '',
@@ -191,12 +191,14 @@ export default function PayInfo() {
 
           {step === 3 && (
             <Modal>
-              <p>
-                {
-                  '결제 취소 신청이 완료되었습니다.\n결제하신 수단으로 영업일 2-3일 내에\n환불이 진행됩니다.'
-                }
-              </p>
-              <Button color="primary">닫기</Button>
+              {
+                '결제 취소 신청이 완료되었습니다.\n결제하신 수단으로 영업일 2-3일 내에\n환불이 진행됩니다.'
+              }
+              <div className={style.buttonWrapper}>
+                <Button color="primary" className={style.button} onClick={() => setIsOpen(false)}>
+                  닫기
+                </Button>
+              </div>
             </Modal>
           )}
         </form>
