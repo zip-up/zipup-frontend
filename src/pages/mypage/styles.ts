@@ -127,23 +127,6 @@ const fundingImage = css({
   bottom: '-0.08rem',
 });
 
-const flexContainer = css({
-  width: '32.6rem',
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  flexWrap: 'wrap',
-  rowGap: '1.6rem',
-  overflow: 'hidden',
-});
-
-const noResultButton = css({
-  width: '12.2rem',
-  height: '4.9rem',
-  marginTop: '2.6rem',
-  margin: '0 auto',
-});
-
 const supportBox = css({
   width: '100%',
   height: '16.3rem',
@@ -165,12 +148,6 @@ const logoutBtn = css({
   cursor: 'pointer',
 });
 
-const cardContent = css({
-  height: 'calc(100% - 4.8rem)',
-  backgroundColor: 'bg.200',
-  padding: '1.6rem',
-});
-
 export {
   content,
   profileBox,
@@ -187,10 +164,7 @@ export {
   goFundingSubTitle,
   goFundingTitle,
   fundingImage,
-  flexContainer,
-  noResultButton,
   supportBox,
   logoutBtn,
   faqBtn,
-  cardContent,
 };

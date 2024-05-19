@@ -1,8 +1,11 @@
 import React from 'react';
-import MyFundings from '@pages/mypage/fundings/[types].page';
+import MyFundings from '@components/MyFundings/index.page';
+import { useFundingList } from '@hooks/queries/useFundingList';
 
 function Trendings() {
-  return <MyFundings />;
+  const { data: trendingFundingList } = useFundingList({ types: 'trending' });
+
+  return <MyFundings fundingList={trendingFundingList} type="trending" />;
 }
 
 export default Trendings;
