@@ -10,6 +10,7 @@ const menuList = flex({
   rounded: '1rem',
   zIndex: 5,
   right: 0,
+  shadow: 'default',
 });
 
 const item = flex({
@@ -20,5 +21,9 @@ const item = flex({
   alignItems: 'center',
   borderBottom: '1px solid',
   borderBottomColor: 'bg.300',
+  '&:last-child': {
+    borderBottom: 'none',
+  },
 });
+
 export { menuList, item };

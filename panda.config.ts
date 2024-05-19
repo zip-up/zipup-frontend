@@ -78,6 +78,9 @@ export default defineConfig({
         fonts: {
           pretendard: { value: 'var(--font-pretendard), sans-serif' },
         },
+        shadows: {
+          default: { value: '0.1rem 0.1rem 0.7rem 0rem #e1e1e1ad' },
+        },
       },
       keyframes: {
         spin: {

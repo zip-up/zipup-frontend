@@ -32,7 +32,7 @@ const listWrapper = css(
     width: '100%',
     maxHeight: '15.7rem',
     textAlign: 'start',
-    boxShadow: '0.1rem 0.3rem 1.7rem 0rem #e1e1e1',
+    shadow: 'default',
   }),
 );
 
