@@ -49,7 +49,7 @@ export default function Card({
       <div
         className={cx(
           style.imageBox,
-          css({ backgroundColor: data?.imageUrl.length > 6 ? 'blue.10' : 'white' }),
+          css({ backgroundColor: data?.imageUrl.length ?? 0 > 6 ? 'blue.10' : 'white' }),
           css({ height: height ? ' 13rem' : '12rem' }),
         )}
       >
