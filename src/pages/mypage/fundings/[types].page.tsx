@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Card from '@components/Card';
 import Button from '@components/common/Button';
