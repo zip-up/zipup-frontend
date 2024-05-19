@@ -7,7 +7,7 @@ import CreateImage from '@assets/images/funding_create_image.svg';
 import DeliveryImage from '@assets/images/funding_delivery_image.svg';
 import ParticipateImage from '@assets/images/funding_participate_image.svg';
 import TargetImage from '@assets/images/funding_target_image.svg';
-import HomeImage from '@assets/images/home-image.svg';
+import HomeImage from '@assets/images/home-fragment-brick.svg';
 import Card from '@components/Card';
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
@@ -157,7 +157,7 @@ export default function Home() {
             <HomeImage />
           </div>
           <Image
-            src="/home-image-1.png"
+            src="/home-fragment-hand.png"
             alt="메인 홈 이미지"
             width={290}
             height={221}
