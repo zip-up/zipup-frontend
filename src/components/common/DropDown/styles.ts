@@ -30,7 +30,7 @@ const listWrapper = css(
     top: '100%',
     backgroundColor: 'gray.0',
     width: '100%',
-    maxHeight: '15.7rem',
+    maxHeight: '15.5rem',
     textAlign: 'start',
     shadow: 'default',
   }),

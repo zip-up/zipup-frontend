@@ -1,4 +1,4 @@
-import { Fragment, ReactNode, useState } from 'react';
+import { Fragment, useState } from 'react';
 import CancelIcon from '@assets/icons/cancel.svg';
 import { Radio_active, Radio_disabled } from '@assets/icons/radio';
 import UploadIcon from '@assets/icons/upload.svg';
@@ -7,6 +7,7 @@ import DropDown from '@components/common/DropDown';
 import Header from '@components/common/Header';
 import Modal from '@components/common/Modal';
 import Tabs from '@components/common/Tabs';
+import ModalActionButtons from '@components/modals/ModalActionButtons';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import NoResut from '@components/NoResult';
 import PaymentCard from '@components/PaymentCard';
@@ -16,7 +17,6 @@ import { MYPAGE_TABS } from '@constants/tabs';
 import { useCancelPayment, useGetPaymentList } from '@hooks/queries/usePayment';
 import { useForm } from 'react-hook-form';
 import { css } from 'styled-system/css';
-import { flex } from 'styled-system/patterns';
 
 import * as style from './styles';
 
@@ -75,27 +75,6 @@ export default function PayInfo() {
     cancelPayment(cancelPayInfo);
   };
 
-  function ButtonGroup({
-    closeBtnText = '닫기',
-    children,
-  }: {
-    closeBtnText?: string;
-    children: ReactNode;
-  }) {
-    return (
-      <div className={flex({ justifyContent: 'space-between' })}>
-        <Button
-          color="primary"
-          className={css({ width: '11rem' })}
-          onClick={() => setIsOpen(status => !status)}
-        >
-          {closeBtnText}
-        </Button>
-        {children}
-      </div>
-    );
-  }
-
   const [activeTab, setActiveTab] = useState(MYPAGE_TABS[0]);
 
   return (
@@ -136,9 +115,12 @@ export default function PayInfo() {
                 '선물 받는 분께 취소 내역이 전달됩니다.\n삭제된 축하 메시지는 복구되지 않아요.'
               }
               buttonComponent={
-                <ButtonGroup closeBtnText="아니요">
-                  <NextStepButton text="예, 취소할게요" goNextStep={goNextStep} />
-                </ButtonGroup>
+                <ModalActionButtons
+                  closeBtnText="아니요"
+                  actionBtnText="예, 취소할게요"
+                  handleCloseModal={() => setIsOpen(status => !status)}
+                  handleAction={goNextStep}
+                />
               }
             />
           )}
@@ -148,15 +130,13 @@ export default function PayInfo() {
               icon={<CancelIcon />}
               title="결제 취소 이유를 알려주세요."
               buttonComponent={
-                <ButtonGroup>
-                  {clickedPayInfo.isVirtualAccountAndDeposited ? (
-                    <NextStepButton text="결제 취소하기" goNextStep={goNextStep} />
-                  ) : (
-                    <Button type="submit" className={css({ width: '17.3rem' })}>
-                      결제 취소하기
-                    </Button>
-                  )}
-                </ButtonGroup>
+                <ModalActionButtons
+                  action={clickedPayInfo.isVirtualAccountAndDeposited ? 'proceed' : 'submit'}
+                  closeBtnText="아니요"
+                  actionBtnText="결제 취소하기"
+                  handleCloseModal={() => setIsOpen(status => !status)}
+                  handleAction={goNextStep}
+                />
               }
             >
               <div className={style.labelsWrapper}>
@@ -184,11 +164,13 @@ export default function PayInfo() {
               icon={<UploadIcon />}
               title="환불 계좌를 입력해주세요."
               buttonComponent={
-                <ButtonGroup>
-                  <Button type="submit" className={css({ width: '17.3rem' })} disabled={!isValid}>
-                    결제 취소하기
-                  </Button>
-                </ButtonGroup>
+                <ModalActionButtons
+                  action="submit"
+                  closeBtnText="아니요"
+                  actionBtnText="결제 취소하기"
+                  disabled={!isValid}
+                  handleCloseModal={() => setIsOpen(status => !status)}
+                />
               }
             >
               <div className={style.labelsWrapper}>
@@ -232,13 +214,5 @@ export default function PayInfo() {
         </form>
       )}
     </>
-  );
-}
-
-function NextStepButton({ text, goNextStep }: { text: string; goNextStep: () => void }) {
-  return (
-    <Button className={css({ width: '16.8rem' })} onClick={goNextStep}>
-      {text}
-    </Button>
   );
 }
