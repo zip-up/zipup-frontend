@@ -1,9 +1,11 @@
 import { css } from 'styled-system/css';
-import { vstack, wrap } from 'styled-system/patterns';
+import { flex, vstack, wrap } from 'styled-system/patterns';
 
 const pageLayout = vstack({ gap: '0' });
 
 const wrapper = wrap({ w: '32.8rem', gap: '1.6rem', mt: '1.5rem', mb: '1.5rem' });
+
+const titleBar = flex({ justifyContent: 'space-between', w: '100%' });
 
 const title = css({
   color: 'text.100',
@@ -38,4 +40,4 @@ const imageWrapper = css({
   overflow: 'hidden',
 });
 
-export { pageLayout, wrapper, title, desc, imageWrapper };
+export { pageLayout, wrapper, titleBar, title, desc, imageWrapper };

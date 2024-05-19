@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import DeleteIcon from '@assets/icons/delete.svg';
+import EditIcon from '@assets/icons/edit_note.svg';
+import MoreBtnIcon from '@assets/icons/more-btn.svg';
+import ActiveMoreBtnIcon from '@assets/icons/more-btn-clicked.svg';
 import DefaultPresentImg from '@assets/images/default_present.svg';
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
+import Menu from '@components/common/Menu';
 import FundingStatusBox from '@components/FundingStatusBox';
 import MessageList from '@components/MessageList';
 import LoginModal from '@components/modals/LoginModal';
@@ -21,6 +26,7 @@ export default function Funding() {
 
   const { data: fundingInfo } = useGetFundingDetail(fundingId);
   const [isModalOn, setIsModalOn] = useState(false);
+  const [_selectedMenu, setSelectedMenu] = useState('');
 
   if (!fundingInfo) return null;
 
@@ -78,8 +84,19 @@ export default function Funding() {
         </div>
       )}
       <article className={style.wrapper}>
-        <h2 className={style.title}>{title}</h2>
-
+        <div className={style.titleBar}>
+          <h2 className={style.title}>{title}</h2>
+          <Menu activeMenuButtonTitle={<ActiveMoreBtnIcon />} menuButtonTitle={<MoreBtnIcon />}>
+            <Menu.Item onClick={() => setSelectedMenu('EDIT')}>
+              <EditIcon />
+              수정하기
+            </Menu.Item>
+            <Menu.Item onClick={() => setSelectedMenu('DELETE')}>
+              <DeleteIcon />
+              삭제하기
+            </Menu.Item>
+          </Menu>
+        </div>
         <FundingStatusBox info={{ percent, expirationDate, goalPrice }} />
 
         <RoleBasedButton />
