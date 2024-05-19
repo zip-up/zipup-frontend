@@ -18,7 +18,7 @@ import ModalActionButtons from '@components/modals/ModalActionButtons';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import { DELETE_REASON } from '@constants/notice';
 import { useUser } from '@hooks/queries/useAuth';
-import { useGetFundingDetail } from '@hooks/queries/useFunding';
+import { useDeleteFunding, useGetFundingDetail } from '@hooks/queries/useFunding';
 import { shareKakao } from '@utils/share';
 import { useForm } from 'react-hook-form';
 
@@ -39,9 +39,11 @@ export default function Funding() {
     reason: string;
   }
 
-  const { register, watch, _handleSubmit } = useForm<FormInputs>({
+  const { register, watch, handleSubmit } = useForm<FormInputs>({
     defaultValues: { reason: DELETE_REASON[0] },
   });
+
+  const { mutate: deleteFunding } = useDeleteFunding(() => setStep(3));
 
   if (!fundingInfo) return null;
 
@@ -58,6 +60,13 @@ export default function Funding() {
   } = fundingInfo;
 
   const hasParticipants = messageList.length > 0;
+
+  const onSubmit = () => {
+    deleteFunding({
+      fundingId,
+      cancelReason: watch('reason'),
+    });
+  };
 
   function RoleBasedButton() {
     if (!fundingInfo) return null;
@@ -130,45 +139,47 @@ export default function Funding() {
       <>
         {isLoginModalOn && <LoginModal onClose={() => setIsLoginModalOn(false)} />}
 
-        {selectedMenu === 'DELETE' && step === 1 && (
-          <ModalWithIcon
-            icon={<DeleteIcon />}
-            title="정말 펀딩을 삭제하시겠어요?"
-            subtitle={
-              hasParticipants
-                ? '펀딩 참여자에게 취소 내역이 전달됩니다.\n삭제된 이후에는 복구되지 않아요.'
-                : '삭제된 이후에는 복구되지 않아요.'
-            }
-            buttonComponent={
-              <ModalActionButtons
-                actionBtnText="펀딩 삭제할게요"
-                handleCloseModal={() => setSelectedMenu('')}
-                handleAction={() => setStep(step => step + 1)}
-              />
-            }
-          />
-        )}
-
-        {selectedMenu === 'DELETE' && step === 2 && (
-          <ModalWithIcon
-            icon={<DeleteIcon />}
-            title="펀딩 삭제 이유를 알려주세요."
-            buttonComponent={
-              <ModalActionButtons
-                action="submit"
-                actionBtnText="펀딩 삭제할게요"
-                handleCloseModal={() => setSelectedMenu('')}
-              />
-            }
-          >
-            <RadioSelector
-              reasonList={DELETE_REASON}
-              register={register}
-              label={'reason'}
-              selected={watch('reason')}
+        <form onSubmit={handleSubmit(onSubmit)}>
+          {selectedMenu === 'DELETE' && step === 1 && (
+            <ModalWithIcon
+              icon={<DeleteIcon />}
+              title="정말 펀딩을 삭제하시겠어요?"
+              subtitle={
+                hasParticipants
+                  ? '펀딩 참여자에게 취소 내역이 전달됩니다.\n삭제된 이후에는 복구되지 않아요.'
+                  : '삭제된 이후에는 복구되지 않아요.'
+              }
+              buttonComponent={
+                <ModalActionButtons
+                  actionBtnText="펀딩 삭제할게요"
+                  handleCloseModal={() => setSelectedMenu('')}
+                  handleAction={() => setStep(step => step + 1)}
+                />
+              }
             />
-          </ModalWithIcon>
-        )}
+          )}
+
+          {selectedMenu === 'DELETE' && step === 2 && (
+            <ModalWithIcon
+              icon={<DeleteIcon />}
+              title="펀딩 삭제 이유를 알려주세요."
+              buttonComponent={
+                <ModalActionButtons
+                  action="submit"
+                  actionBtnText="펀딩 삭제할게요"
+                  handleCloseModal={() => setSelectedMenu('')}
+                />
+              }
+            >
+              <RadioSelector
+                reasonList={DELETE_REASON}
+                register={register}
+                label={'reason'}
+                selected={watch('reason')}
+              />
+            </ModalWithIcon>
+          )}
+        </form>
       </>
     </>
   );

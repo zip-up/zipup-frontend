@@ -65,3 +65,7 @@ export interface CancelInfoForm {
     holderName: string;
   };
 }
+export interface DeleteInfoForm {
+  fundingId: string;
+  cancelReason: string;
+}
