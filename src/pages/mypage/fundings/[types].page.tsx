@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import MyFundings, { MainTextKeys } from '@components/MyFundings/index.page';
 import { useFundingList } from '@hooks/queries/useFundingList';
 
-function MyFundingsPage() {
+export default function MyFundingsPage() {
   const router = useRouter();
   const { data: myFundingList } = useFundingList({ types: router.query.types as string });
 
@@ -14,5 +14,3 @@ function MyFundingsPage() {
 
   return <MyFundings fundingList={myFundingList!} type={type} />;
 }
-
-export default MyFundingsPage;
