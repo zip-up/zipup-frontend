@@ -3,7 +3,7 @@ import { css } from 'styled-system/css';
 
 import * as style from './styles';
 
-interface DropDownProps {
+interface MenuProps {
   activeMenuButtonTitle: React.ReactNode;
   menuButtonTitle: React.ReactNode;
 }
@@ -12,7 +12,7 @@ export default function Menu({
   activeMenuButtonTitle,
   menuButtonTitle,
   children,
-}: PropsWithChildren<DropDownProps>) {
+}: PropsWithChildren<MenuProps>) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
