@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import DeleteIcon from '@assets/icons/delete.svg';
 import DeleteMenuIcon from '@assets/icons/delete-menu.svg';
-import EditIcon from '@assets/icons/edit_note.svg';
+import EditIcon from '@assets/icons/edit-note.svg';
 import MoreBtnIcon from '@assets/icons/more-btn.svg';
 import ActiveMoreBtnIcon from '@assets/icons/more-btn-clicked.svg';
 import DefaultPresentImg from '@assets/images/default_present.svg';
