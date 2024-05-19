@@ -39,7 +39,7 @@ export default function PaymentCard({
       <div className={style.contentWrapper}>
         <div className={style.contentLayout}>
           <Image
-            src={fundingImage ? fundingImage : '/default_image_80.png'}
+            src={fundingImage ? fundingImage : '/default-funding-80.png'}
             alt="펀딩 상품 이미지"
             width={80}
             height={80}
