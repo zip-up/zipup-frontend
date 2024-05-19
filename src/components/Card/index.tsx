@@ -67,7 +67,7 @@ export default function Card({
           {!data?.imageUrl && !product?.imageUrl ? (
             <GiftIcon />
           ) : (
-            <div className={css({ width: '100%', height: '100%', pos: 'relative' })}>
+            <div className={style.imageWrapper}>
               <Image
                 src={isProduct ? product!.imageUrl : data!.imageUrl}
                 alt="펀딩 이미지"
