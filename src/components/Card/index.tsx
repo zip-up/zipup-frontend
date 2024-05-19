@@ -31,7 +31,7 @@ export default function Card({ data, onClick }: CardProps) {
           {data.imageUrl === 'https:' || !data.imageUrl ? (
             <GiftIcon />
           ) : (
-            <div className={css({ width: '15.6rem', height: '12rem', pos: 'relative' })}>
+            <div className={style.imageWrapper}>
               <Image
                 src={data.imageUrl}
                 alt="펀딩 이미지"

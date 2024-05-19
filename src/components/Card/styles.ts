@@ -66,4 +66,6 @@ const percent = css({
   textStyle: 'caption1',
 });
 
-export { container, imageBox, status, title, blur, infoBox, percent };
+const imageWrapper = css({ width: '15.6rem', height: '12rem', pos: 'relative' });
+
+export { container, imageBox, status, title, blur, infoBox, percent, imageWrapper };
