@@ -1,6 +1,6 @@
 import { css, cx } from 'styled-system/css';
 
-import { footer, footerInfoBox, pointer, termsAndConditions } from './styles';
+import * as style from './styles';
 
 const termsAndConditionsList = [
   {
@@ -29,7 +29,7 @@ export default function Footer({ className }: FooterProps) {
   return (
     <footer
       className={cx(
-        footer,
+        style.footer,
         className ||
           css({
             '@media (min-height: 650px)': {
@@ -40,12 +40,12 @@ export default function Footer({ className }: FooterProps) {
           }),
       )}
     >
-      <div className={footerInfoBox}>
+      <div className={style.footerInfoBox}>
         <p>상호명 : 집업</p>
         <p>고객센터 : 0504-0815-5379</p>
-        <div className={termsAndConditions}>
+        <div className={style.termsAndConditions}>
           {termsAndConditionsList.map(item => (
-            <a key={item.text} href={item.link} className={pointer}>
+            <a key={item.text} href={item.link} className={style.pointer}>
               {item.text}
             </a>
           ))}

@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 import { cx } from 'styled-system/css';
 
-import { button } from './styles';
+import * as style from './styles';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'full' | 'regular' | 'none';
@@ -31,7 +31,7 @@ export default function Button({
       type={type}
       {...props}
       className={cx(
-        button({
+        style.button({
           textStyle,
           size,
           color,
