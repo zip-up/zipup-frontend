@@ -1,5 +1,6 @@
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import DeleteIcon from '@assets/icons/delete.svg';
 import DeleteMenuIcon from '@assets/icons/delete-menu.svg';
@@ -10,6 +11,7 @@ import DefaultPresentImg from '@assets/images/default_present.svg';
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
 import Menu from '@components/common/Menu';
+import Modal from '@components/common/Modal';
 import { RadioSelector } from '@components/common/RadioSelector';
 import FundingStatusBox from '@components/FundingStatusBox';
 import MessageList from '@components/MessageList';
@@ -55,7 +57,6 @@ export default function Funding() {
     goalPrice,
     description,
     isOrganizer,
-    isParticipant,
     presentList: messageList,
   } = fundingInfo;
 
@@ -81,9 +82,6 @@ export default function Funding() {
           친구에게 공유하기
         </Button>
       );
-    }
-    if (isParticipant) {
-      return <Button onClick={() => {}}>결제 취소하기</Button>;
     }
 
     return (
@@ -180,6 +178,25 @@ export default function Funding() {
             </ModalWithIcon>
           )}
         </form>
+        {selectedMenu === 'DELETE' && step === 3 && (
+          <Modal>
+            {hasParticipants
+              ? '결제 취소 신청이 완료되었습니다.\n결제하신 수단으로 영업일 2-3일 내에\n환불이 진행됩니다.'
+              : '펀딩이 정상적으로 삭제되었습니다.'}
+            <div className={style.buttonWrapper}>
+              <Button
+                color="primary"
+                className={style.buttonWidth}
+                onClick={() => setSelectedMenu('')}
+              >
+                닫기
+              </Button>
+              <Link href="/funding/create/1" className={style.ButtonStyleLink}>
+                새 펀딩 등록하기
+              </Link>
+            </div>
+          </Modal>
+        )}
       </>
     </>
   );

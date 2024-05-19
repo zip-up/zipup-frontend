@@ -1,3 +1,4 @@
+import { button } from '@components/common/Button/styles';
 import { css } from 'styled-system/css';
 import { flex, vstack, wrap } from 'styled-system/patterns';
 
@@ -40,4 +41,23 @@ const imageWrapper = css({
   overflow: 'hidden',
 });
 
-export { pageLayout, wrapper, titleBar, title, desc, imageWrapper };
+const buttonWrapper = flex({ gap: '0.8rem', mt: '2.4rem' });
+
+const buttonWidth = css({ width: '10.9rem' });
+
+const ButtonStyleLink = css(button.raw({ color: 'secondary', textStyle: 'CTAButton' }), {
+  width: '16.8rem',
+  h: '5.2rem',
+});
+
+export {
+  pageLayout,
+  wrapper,
+  titleBar,
+  title,
+  desc,
+  imageWrapper,
+  buttonWrapper,
+  buttonWidth,
+  ButtonStyleLink,
+};
