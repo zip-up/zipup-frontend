@@ -84,7 +84,7 @@ export default function Card({
           <div className={cx(style.percent, css({ marginBottom: '0.6rem' }))}>
             {product?.price?.toLocaleString()}원
           </div>
-          <Button size="full" color="white" className={style.fundProductBtn} textStyle="CTAButton">
+          <Button color="white" className={style.fundProductBtn} textStyle="CTAButton">
             이 상품 등록하기
           </Button>
         </div>
