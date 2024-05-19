@@ -24,15 +24,14 @@ export default function ModalActionButtons({
       <Button color="primary" className={css({ width: '11rem' })} onClick={handleCloseModal}>
         {closeBtnText}
       </Button>
-      {action === 'proceed' ? (
-        <Button onClick={handleAction} className={css({ width: '16.8rem' })}>
-          {actionBtnText}
-        </Button>
-      ) : (
-        <Button type="submit" className={css({ width: '16.8rem' })} disabled={disabled}>
-          {actionBtnText}
-        </Button>
-      )}
+      <Button
+        onClick={action === 'proceed' ? handleAction : undefined}
+        type={action === 'proceed' ? 'button' : 'submit'}
+        className={css({ width: '16.8rem' })}
+        disabled={action !== 'proceed' && disabled}
+      >
+        {actionBtnText}
+      </Button>
     </div>
   );
 }
