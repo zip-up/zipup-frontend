@@ -1,11 +1,11 @@
-import React, { PropsWithChildren, useState } from 'react';
+import { Children, cloneElement, PropsWithChildren, ReactNode, useState } from 'react';
 import { css } from 'styled-system/css';
 
 import * as style from './styles';
 
 interface MenuProps {
-  activeMenuButtonTitle: React.ReactNode;
-  menuButtonTitle: React.ReactNode;
+  activeMenuButtonTitle: ReactNode;
+  menuButtonTitle: ReactNode;
 }
 
 export default function Menu({
@@ -25,7 +25,7 @@ export default function Menu({
 
       {isOpen && (
         <div className={style.menuList}>
-          {React.Children.map(children, child => React.cloneElement(child, { setIsOpen }))}
+          {Children.map(children, child => cloneElement(child, { setIsOpen }))}
         </div>
       )}
     </div>
