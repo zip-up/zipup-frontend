@@ -2,7 +2,7 @@ import { css, cx } from 'styled-system/css';
 
 import { footer, footerInfoBox, pointer, termsAndConditions } from './styles';
 
-const termsAndConditionsList = [
+const TERMS_AND_CONDITIONS_LIST = [
   {
     text: '이용약관',
     link: 'https://danisong.notion.site/508a845508794eab98435cecea30d561',
@@ -44,7 +44,7 @@ export default function Footer({ className }: FooterProps) {
         <p>상호명 : 집업</p>
         <p>고객센터 : 0504-0815-5379</p>
         <div className={termsAndConditions}>
-          {termsAndConditionsList.map(item => (
+          {TERMS_AND_CONDITIONS_LIST.map(item => (
             <a key={item.text} href={item.link} className={pointer}>
               {item.text}
             </a>

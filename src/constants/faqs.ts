@@ -10,7 +10,7 @@ export type FaqQuestionsType = {
   회원: QuestionsAndAnswers[];
 };
 
-export const FaqQuestions: FaqQuestionsType = {
+export const FAQ_QUESTIONS: FaqQuestionsType = {
   이용문의: [
     {
       question: '펀딩 등록 방법이 궁금해요.',

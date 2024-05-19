@@ -4,7 +4,7 @@ import Accordion from '@components/Accordion';
 import Header from '@components/common/Header';
 import Tabs from '@components/common/Tabs';
 import Footer from '@components/Footer';
-import { FaqQuestions, FaqQuestionsType } from '@constants/faqs';
+import { FAQ_QUESTIONS, FaqQuestionsType } from '@constants/faqs';
 import { useForm } from 'react-hook-form';
 import { css } from 'styled-system/css';
 
@@ -52,7 +52,7 @@ export default function Faq() {
         )}
         <div className={style.content}>
           {getValues('text') &&
-            Object.values(FaqQuestions)
+            Object.values(FAQ_QUESTIONS)
               .flat()
               .filter(
                 el =>
@@ -67,7 +67,7 @@ export default function Faq() {
                 />
               ))}
           {!getValues('text') &&
-            FaqQuestions[activeTab as keyof FaqQuestionsType].map(item => (
+            FAQ_QUESTIONS[activeTab as keyof FaqQuestionsType].map(item => (
               <Accordion
                 key={item.question}
                 {...item}
