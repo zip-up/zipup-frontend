@@ -3,7 +3,7 @@ import { InstanceWithToken } from '@api/index';
 import { getLoacalStorage } from '@store/localStorage';
 import { CreateFund } from '@store/types';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { DetailFundingInfo, ParticipantInfo } from '@typings/funding';
+import { DeleteInfoForm, DetailFundingInfo, ParticipantInfo } from '@typings/funding';
 import axios, { isAxiosError } from 'axios';
 
 const useCreateFunding = (
@@ -65,4 +65,16 @@ const useParticipateFunding = () => {
   });
 };
 
-export { useCreateFunding, useGetFundingDetail, useParticipateFunding };
+const useDeleteFunding = (successCallback: () => void) => {
+  return useMutation({
+    mutationFn: (deleteInfo: DeleteInfoForm) => {
+      return InstanceWithToken.put(`/v1/fund/cancel`, deleteInfo);
+    },
+    onSuccess: () => successCallback(),
+    onError: error => {
+      console.error(error);
+    },
+  });
+};
+
+export { useCreateFunding, useGetFundingDetail, useParticipateFunding, useDeleteFunding };

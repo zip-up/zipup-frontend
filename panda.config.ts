@@ -37,6 +37,7 @@ export default defineConfig({
             green: { value: '#9BE180' },
             black: { value: '#1E2025' },
             yellow: { value: '#FFE558' },
+            white: { value: '#FFF' },
           },
           blue: {
             10: { value: '#E0F5FF' },
@@ -77,6 +78,9 @@ export default defineConfig({
         },
         fonts: {
           pretendard: { value: 'var(--font-pretendard), sans-serif' },
+        },
+        shadows: {
+          default: { value: '0.1rem 0.1rem 0.7rem 0rem #e1e1e1ad' },
         },
       },
       keyframes: {

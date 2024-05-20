@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import GiftIcon from '@assets/icons/big-gift-image.svg';
 import { cx } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
@@ -8,7 +8,7 @@ import * as style from './styles';
 interface NoResultProps {
   title: string;
   desc: string;
-  renderButton: ReactNode;
+  renderButton?: ReactNode;
 }
 
 export default function NoResut({ title, desc, renderButton }: NoResultProps) {
