@@ -1,4 +1,3 @@
-import { statusTag } from '@components/common/StatusTag/styles';
 import { css } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
 
@@ -21,11 +20,6 @@ const topInfo = flex({
 
 const divider = css({ color: 'bg.300', m: '0 0.8rem' });
 
-const status = css(statusTag.raw({ size: 'static', bg: 'blue' }), {
-  fontWeight: '500',
-  padding: '0.8rem',
-});
-
 const contentWrapper = css({ padding: '1.6rem' });
 
 const contentLayout = flex({ gap: '1.6rem', mb: '1.6rem' });
@@ -41,13 +35,4 @@ const title = css({
   width: '20rem',
 });
 
-export {
-  cardWrapper,
-  topInfo,
-  divider,
-  status,
-  contentWrapper,
-  contentLayout,
-  subInfoWrapper,
-  title,
-};
+export { cardWrapper, topInfo, divider, contentWrapper, contentLayout, subInfoWrapper, title };

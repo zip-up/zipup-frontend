@@ -15,6 +15,7 @@ import { BANK_CODE } from '@constants/bank';
 import { CANCEL_REASON } from '@constants/notice';
 import { MYPAGE_TABS } from '@constants/tabs';
 import { useCancelPayment, useGetPaymentList } from '@hooks/queries/usePayment';
+import { PaymentInfo } from '@typings/funding';
 import { useForm } from 'react-hook-form';
 
 import * as style from './styles';
@@ -29,6 +30,8 @@ interface FormInputs {
 export default function PayInfo() {
   const [step, setStep] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState(MYPAGE_TABS[0]);
+
   const [clickedPayInfo, setClickedPayInfo] = useState({
     id: '',
     amount: 0,
@@ -49,7 +52,7 @@ export default function PayInfo() {
 
   const goNextStep = () => setStep(step => step + 1);
 
-  const onCancelPayment = () => {
+  const handleCancelPayment = () => {
     const { id, amount, isVirtualAccountAndDeposited } = clickedPayInfo;
 
     const commonForm = {
@@ -74,7 +77,16 @@ export default function PayInfo() {
     cancelPayment(cancelPayInfo);
   };
 
-  const [activeTab, setActiveTab] = useState(MYPAGE_TABS[0]);
+  const handleClickPaymentCard = (payInfo: PaymentInfo) => {
+    const { id, amount, isVirtualAccount, isDepositCompleted } = payInfo;
+
+    setIsOpen(true);
+    setClickedPayInfo({
+      id,
+      amount,
+      isVirtualAccountAndDeposited: isVirtualAccount && isDepositCompleted,
+    });
+  };
 
   return (
     <>
@@ -93,19 +105,12 @@ export default function PayInfo() {
           <PaymentCard
             paymentInfo={info}
             key={info.paymentNumber}
-            handleClick={() => {
-              setIsOpen(true);
-              setClickedPayInfo({
-                id: info.id,
-                amount: info.amount,
-                isVirtualAccountAndDeposited: info.isVirtualAccount && info.isDepositCompleted,
-              });
-            }}
-          ></PaymentCard>
+            handleClick={() => handleClickPaymentCard(info)}
+          />
         ))}
       </div>
       {isOpen && (
-        <form onSubmit={handleSubmit(onCancelPayment)}>
+        <form onSubmit={handleSubmit(handleCancelPayment)}>
           {step === 0 && (
             <ModalWithIcon
               icon={<CancelIcon />}
