@@ -14,7 +14,7 @@ interface ModalWithIconProps {
 }
 
 export default function ModalWithIcon({
-  onClose,
+  onClose = () => {},
   title,
   subtitle,
   icon,
@@ -23,7 +23,7 @@ export default function ModalWithIcon({
   children,
 }: PropsWithChildren<ModalWithIconProps>) {
   return (
-    <Modal onClose={onClose!} width={width}>
+    <Modal onClose={onClose} width={width}>
       <div className={style.topBox}>
         <div className={style.imageBox}>{icon}</div>
         <p className={style.title}>{title}</p>

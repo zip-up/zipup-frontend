@@ -13,7 +13,9 @@ export const getServerSideProps: GetServerSideProps = async context => {
   } = context;
 
   try {
-    const response = await InstanceWithToken.get<DetailFundingInfo>(`/v1/fund?funding=${id}`);
+    const response = await InstanceWithToken.get<DetailFundingInfo>(`/v1/fund?funding=${id}`, {
+      headers: { Authorization: `Bearer ${context.req.cookies.token}` },
+    });
 
     return { props: { id, organizerName: response.data.organizerName } };
   } catch (error) {
