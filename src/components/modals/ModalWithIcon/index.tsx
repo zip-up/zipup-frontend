@@ -1,4 +1,6 @@
+import { PropsWithChildren } from 'react';
 import Modal from '@components/common/Modal';
+import { subTitle } from '@pages/style';
 
 import * as style from './styles';
 
@@ -6,7 +8,7 @@ interface ModalWithIconProps {
   onClose: () => void;
   icon: React.ReactNode;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   buttonComponent: React.ReactNode;
   width?: string;
 }
@@ -18,14 +20,16 @@ export default function ModalWithIcon({
   icon,
   buttonComponent,
   width,
-}: ModalWithIconProps) {
+  children,
+}: PropsWithChildren<ModalWithIconProps>) {
   return (
-    <Modal onClose={onClose} height={258} width={width}>
+    <Modal onClose={onClose} width={width}>
       <div className={style.topBox}>
         <div className={style.imageBox}>{icon}</div>
         <p className={style.title}>{title}</p>
       </div>
-      <p className={style.subtitle}>{subtitle}</p>
+      {subTitle && <p className={style.subtitle}>{subtitle}</p>}
+      {children}
       <div className={style.buttonBox}>{buttonComponent}</div>
     </Modal>
   );

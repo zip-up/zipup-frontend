@@ -13,6 +13,10 @@
     appearance: none; 
   }
 
+  input {
+    outline: none;
+  }
+
   body {
     font-size: 1.6rem;
 

@@ -11,11 +11,11 @@ export default function AddressModal({ onSetAddress, onClose }: AddressModalProp
     onSetAddress(data.address);
     onClose();
   };
-  const DEFAULT_HEIGHT = 577;
+  const height = 577;
 
   return (
-    <Modal height={DEFAULT_HEIGHT} onClose={onClose}>
-      <DaumPostcode style={{ height: DEFAULT_HEIGHT - 30 }} onComplete={handleComplete} />
+    <Modal onClose={onClose} width="33.5rem">
+      <DaumPostcode style={{ height: height - 30 }} onComplete={handleComplete} />
     </Modal>
   );
 }
