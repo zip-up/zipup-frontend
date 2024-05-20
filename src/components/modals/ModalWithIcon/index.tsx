@@ -5,7 +5,7 @@ import { subTitle } from '@pages/style';
 import * as style from './styles';
 
 interface ModalWithIconProps {
-  onClose: () => void;
+  onClose?: () => void;
   icon: React.ReactNode;
   title: string;
   subtitle?: string;
@@ -23,7 +23,7 @@ export default function ModalWithIcon({
   children,
 }: PropsWithChildren<ModalWithIconProps>) {
   return (
-    <Modal onClose={onClose} width={width}>
+    <Modal onClose={onClose!} width={width}>
       <div className={style.topBox}>
         <div className={style.imageBox}>{icon}</div>
         <p className={style.title}>{title}</p>
