@@ -25,3 +25,13 @@ export const fundingFormState = atom({
     price: 0,
   },
 });
+
+export const productForFundState = atom({
+  key: 'productForFund',
+  default: {
+    imageUrl: '',
+    url: '',
+    price: 0,
+    title: '',
+  },
+});

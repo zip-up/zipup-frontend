@@ -6,6 +6,7 @@ export interface MessageInfo {
   participantId: string;
   congratsMessage: string;
 }
+
 export interface FundingInfo {
   id: string;
   title: string;
@@ -15,6 +16,15 @@ export interface FundingInfo {
   organizer: string;
   fundId?: string;
 }
+
+export interface ProductInfo {
+  id: string;
+  title: string;
+  imageUrl: string;
+  url: string;
+  price: number;
+}
+
 export interface DetailFundingInfo {
   id: string;
   title: string;

@@ -1,17 +1,15 @@
 import { css } from 'styled-system/css';
 
 const container = css({
-  width: '15.6rem',
-  height: '19.1rem',
   borderRadius: '1rem',
   borderWidth: '0.1rem',
-  borderColor: 'gray.20',
+  borderColor: 'bg.300',
   cursor: 'pointer',
+  overflow: 'hidden',
 });
 
 const imageBox = css({
   width: '100%',
-  height: '12rem',
   borderRadius: '1rem 1rem 0 0',
   display: 'flex',
   justifyContent: 'center',
@@ -42,10 +40,11 @@ const blur = css({
 });
 
 const infoBox = css({
-  height: '7.1rem',
   backgroundColor: 'white',
   padding: '0.6rem',
-  borderRadius: '0 0 1rem 1rem',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
 });
 
 const status = css({
@@ -58,6 +57,12 @@ const status = css({
 const title = css({
   marginTop: '0.8rem',
   textStyle: 'body2',
+  fontWeight: '600',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+  wordBreak: 'break-all',
+  marginBottom: '0.1rem',
 });
 
 const percent = css({
@@ -66,4 +71,18 @@ const percent = css({
   textStyle: 'caption1',
 });
 
-export { container, imageBox, status, title, blur, infoBox, percent };
+const fundProductBtn = css({
+  textStyle: 'caption1',
+  borderColor: 'text.300',
+  borderWidth: '0.1rem',
+  height: '3rem',
+  borderRadius: '0.6rem',
+  '&:hover': {
+    backgroundColor: 'text.300',
+    color: 'white',
+  },
+});
+
+const imageWrapper = css({ width: '15.6rem', height: '12rem', pos: 'relative' });
+
+export { container, imageBox, status, title, blur, infoBox, percent, imageWrapper, fundProductBtn };

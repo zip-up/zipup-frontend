@@ -8,7 +8,7 @@ interface TabsProps {
   onSetActiveTab: (value: string) => void;
 }
 
-function Tabs({ data, activeTab, onSetActiveTab }: TabsProps) {
+export default function Tabs({ data, activeTab, onSetActiveTab }: TabsProps) {
   return (
     <div className={style.tabs}>
       {data.map(item => (
@@ -30,5 +30,3 @@ function Tabs({ data, activeTab, onSetActiveTab }: TabsProps) {
     </div>
   );
 }
-
-export default Tabs;

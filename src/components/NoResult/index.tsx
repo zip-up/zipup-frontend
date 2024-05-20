@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import GiftIcon from '@assets/icons/big-gift-image.svg';
 import { cx } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
