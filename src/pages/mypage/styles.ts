@@ -1,12 +1,13 @@
 import { css } from 'styled-system/css';
+import { flex } from 'styled-system/patterns';
 
 const content = css({
-  minHeight: '100%',
   backgroundColor: 'bg.200',
   paddingTop: '2.4rem',
+  height: 'calc(100% - 4.8rem)',
 });
 
-const profile_box = css({
+const profileBox = css({
   width: '32.9rem',
   height: '14.1rem',
   margin: '0 auto',
@@ -32,15 +33,14 @@ const avatar = css({
   marginRight: '2.4rem',
 });
 
-const info_box = css({
+const infoBox = css({
   display: 'flex',
   alignItems: 'center',
+  position: 'relative',
 });
 
-const name_box = css({
-  fontFamily: 'pretendard-semibold',
-  fontSize: 'title2',
-  fontWeight: '600',
+const nameBox = css({
+  textStyle: 'title2',
   color: 'text.200',
   marginRight: '0.8rem',
 });
@@ -54,190 +54,48 @@ const logout = css({
   cursor: 'pointer',
 });
 
-const service_box = css({
+const cardSection = flex.raw({
   marginTop: '3.2rem',
-  width: '36rem',
-  height: '25.9rem',
   padding: '2.4rem 1.6rem',
-  backgroundColor: 'blue.10',
-  display: 'flex',
-  flexDirection: 'column',
+  bgColor: 'blue.10',
+  direction: 'column',
   gap: '1.6rem',
 });
 
-const service_title = css({
-  fontFamily: 'pretendard-semibold',
-  fontWeight: '600',
-  fontSize: 'body1',
+const serviceTitle = css({
+  textStyle: 'body1',
   color: 'text.200',
-});
-
-const go_funding_btn = css({
-  width: '32.8rem',
-  height: '8rem',
-  borderRadius: '0.8rem',
-  paddingLeft: '2.4rem',
-  backgroundColor: 'white',
-  borderWidth: '0.1rem',
-  borderColor: 'blue.20',
-  display: 'flex',
-  position: 'relative',
-  cursor: 'pointer',
-  '& p': {
-    transition: 'transform 0.3s ease-in-out',
-    transformOrigin: 'bottom',
-  },
-  '&:hover p': {
-    transform: 'scale(1.1)',
-    transition: 'transform 0.3s ease-in-out',
-    transformOrigin: 'bottom',
-  },
-});
-
-const go_funding_info_box = css({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  gap: '0.4rem',
-  paddingTop: '1.1rem',
-});
-
-const go_funding_title = css({
-  fontFamily: 'pretendard-semibold',
-  color: 'text.100',
   fontWeight: '600',
-  fontSize: 'subtitle2',
-  textAlign: 'left',
 });
 
-const go_funding_subtitle = css({
-  fontFamily: 'pretendard-regular',
-  color: 'text.300',
-  fontSize: 'body2',
-  textAlign: 'left',
-});
+const supportCardSection = css(cardSection, { bgColor: 'bg.200', mt: 0 });
 
-const funding_image = css({
+const logoutBtn = css({
+  width: '8.2rem',
+  height: '3rem',
+  borderRadius: '0.6rem',
+  borderWidth: '0.1rem',
+  borderColor: 'text.300',
+  fontSize: '1.2rem',
+  fontWeight: '400',
+  color: 'text.200',
+  backgroundColor: '#fff',
   position: 'absolute',
   right: 0,
-  bottom: '-0.08rem',
-});
-
-const footer = css({
-  height: '14.8rem',
-  marginTop: '2.4rem',
-});
-
-const footer_info_box = css({
-  marginLeft: '0.8rem',
-  width: '16.9rem',
-  height: '10.6rem',
-  padding: '2.4rem 0.8rem',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '0.8rem',
-  fontFamily: 'pretendard-regular',
-  fontSize: 'caption1',
-  color: 'text.100',
-});
-
-const terms_and_conditions = css({
-  display: 'flex',
-  gap: '0.8rem',
-  fontFamily: 'pretendard-regular',
-  fontSize: 'caption1',
-  color: 'text.200',
-  textDecoration: 'underline',
-  textDecorationColor: 'text.200',
-  textUnderlineOffset: '0.2rem',
-});
-
-const pointer = css({
   cursor: 'pointer',
-});
-
-const card_content = css({
-  height: 'calc(100% - 4.8rem)',
-  backgroundColor: 'bg.200',
-  padding: '1.6rem',
-});
-
-const flex_container = css({
-  width: '32.6rem',
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  flexWrap: 'wrap',
-  rowGap: '1.6rem',
-  overflow: 'hidden',
-});
-
-const no_result = css({
-  marginTop: '19rem',
-});
-
-const icon_box = css({
-  width: '100%',
-  height: '10.4rem',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  marginBottom: '2.4rem',
-});
-
-const text_box = css({
-  height: '4.6rem',
-  width: '100%',
-  textAlign: 'center',
-});
-
-const title = css({
-  fontFamily: 'pretendard-semibold',
-  color: 'gray.60',
-  fontSize: 'subtitle2',
-  fontWeight: '600',
-});
-
-const desc = css({
-  fontFamily: 'pretendard-regular',
-  color: 'gray.60',
-  fontSize: 'body2',
-  marginTop: '0.4rem',
-});
-
-const no_result_button = css({
-  width: '12.2rem',
-  height: '4.9rem',
-  marginTop: '2.6rem',
-  margin: '0 auto',
 });
 
 export {
   content,
-  profile_box,
+  profileBox,
   button,
   avatar,
-  info_box,
-  name_box,
+  infoBox,
+  nameBox,
   name,
   logout,
-  service_box,
-  service_title,
-  go_funding_btn,
-  go_funding_info_box,
-  go_funding_subtitle,
-  go_funding_title,
-  funding_image,
-  footer,
-  footer_info_box,
-  terms_and_conditions,
-  pointer,
-  card_content,
-  flex_container,
-  icon_box,
-  text_box,
-  no_result,
-  title,
-  desc,
-  no_result_button,
+  cardSection,
+  serviceTitle,
+  supportCardSection,
+  logoutBtn,
 };

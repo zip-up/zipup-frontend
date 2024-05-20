@@ -1,67 +1,63 @@
 import { useEffect } from 'react';
-import { usePaymentWidget, useRequestPayment, useStoreOrderInfo } from '@hooks/queries/usePayment';
 import { useRouter } from 'next/router';
-import { nanoid } from 'nanoid';
-import Button from '@components/common/Button';
-import { css } from 'styled-system/css';
-import { useRecoilState } from 'recoil';
-import { fundingFormState } from '@store/store';
-import { useGetFundingDeatil } from '@hooks/queries/useFunding';
+import Spinner from '@components/common/Spinner';
 import { useUser } from '@hooks/queries/useAuth';
+import { useGetFundingDetail } from '@hooks/queries/useFunding';
+import { useRequestPayment, useStoreOrderInfo, useTossPayments } from '@hooks/queries/usePayment';
+import { fundingFormState } from '@store/store';
+import { nanoid } from 'nanoid';
+import { useRecoilState } from 'recoil';
+import { flex } from 'styled-system/patterns';
 
 export default function Payment() {
   const router = useRouter();
   const [fundingForm] = useRecoilState(fundingFormState);
   const { data: user } = useUser();
 
-  const { id: fundingId } = router.query as { id: string };
+  const { id: fundingId, method } = router.query as { id: string; method: string };
 
-  const { data: fundingInfo } = useGetFundingDeatil(fundingId);
+  const { data: fundingInfo } = useGetFundingDetail(fundingId);
 
-  const widgetClientKey = process.env.NEXT_PUBLIC_CLIENT_KEY;
-  const customerKey = user?.id || '';
+  const clientKey = process.env.NEXT_PUBLIC_CLIENT_KEY;
 
-  const { data: paymentWidget } = usePaymentWidget(widgetClientKey, customerKey);
+  const { data: tossPayments } = useTossPayments(clientKey);
 
   const { mutate: handlePaymentRequest } = useRequestPayment();
 
-  const { mutate: storeOrderInfo } = useStoreOrderInfo((orderId: string) =>
+  const { mutate: storeOrderInfo } = useStoreOrderInfo((orderId, amount) => {
     handlePaymentRequest({
-      paymentWidget,
+      tossPayments,
+      paymentMethod: method,
       fundingId,
+      amount,
       orderId,
       customerName: user?.name || '',
       orderName: fundingInfo?.title || '',
-    }),
-  );
+    });
+  });
 
   useEffect(() => {
-    if (!paymentWidget) return;
+    if (!fundingInfo) return;
 
-    paymentWidget.renderPaymentMethods(
-      '#payment-widget',
-      { value: fundingForm.price },
-      { variantKey: 'DEFAULT' },
-    );
-
-    paymentWidget.renderAgreement('#agreement', { variantKey: 'AGREEMENT' });
-  }, [paymentWidget]);
+    storeOrderInfo({
+      orderId: nanoid(),
+      amount: fundingForm.price,
+    });
+  }, [fundingInfo, fundingForm.price]);
 
   return (
-    <div className={css({ display: 'flex', flexDir: 'column', p: '1.6rem' })}>
-      <div id="payment-widget" />
-      <div id="agreement" />
-      <Button
-        isBottomFixed
-        onClick={() => {
-          storeOrderInfo({
-            orderId: nanoid(),
-            amount: fundingForm.price,
-          });
-        }}
-      >
-        결제하기
-      </Button>
+    <div
+      className={flex({
+        m: '0 auto',
+        h: '100%',
+        alignItems: 'center',
+        p: '1.6rem',
+        mt: '6rem',
+        height: 'calc(100vh - 6rem)',
+        justifyContent: 'center',
+      })}
+    >
+      <Spinner size="md" />
     </div>
   );
 }

@@ -1,14 +1,16 @@
 import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
-import { button } from './styles';
 import { cx } from 'styled-system/css';
+
+import * as style from './styles';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'full' | 'regular' | 'none';
-  color?: 'primary' | 'secondary' | 'kakao';
+  color?: 'primary' | 'secondary' | 'kakao' | 'white';
   onClick?: () => void;
   isBottomFixed?: boolean;
   position?: 'first' | 'last';
   className?: string;
+  textStyle?: 'CTAButton' | 'resetButton';
 }
 
 export default function Button({
@@ -21,6 +23,7 @@ export default function Button({
   children,
   disabled,
   className,
+  textStyle = 'CTAButton',
   ...props
 }: PropsWithChildren<ButtonProps>) {
   return (
@@ -28,14 +31,15 @@ export default function Button({
       type={type}
       {...props}
       className={cx(
-        className,
-        button({
+        style.button({
+          textStyle,
           size,
           color,
           disabled,
           isBottomFixed,
           position,
         }),
+        className,
       )}
       onClick={onClick}
       disabled={disabled}

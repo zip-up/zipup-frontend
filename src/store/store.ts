@@ -1,4 +1,5 @@
 import { atom } from 'recoil';
+
 import { CreateFund } from './types';
 
 export const createFundState = atom<CreateFund>({
@@ -22,5 +23,15 @@ export const fundingFormState = atom({
   default: {
     participateId: '',
     price: 0,
+  },
+});
+
+export const productForFundState = atom({
+  key: 'productForFund',
+  default: {
+    imageUrl: '',
+    url: '',
+    price: 0,
+    title: '',
   },
 });

@@ -1,26 +1,37 @@
-import LogoIcon from '@assets/images/logo.svg';
-import UserIcon from '@assets/icons/user.svg';
 import { useRouter } from 'next/router';
-import { css, cx } from 'styled-system/css';
+import UserIcon from '@assets/icons/user.svg';
+import LogoIcon from '@assets/images/logo.svg';
 import Profile from '@components/common/Profile';
 import { useUser } from '@hooks/queries/useAuth';
+import { css, cx } from 'styled-system/css';
+
+import * as style from './styles';
 
 interface HeaderWithLogoProps {
   onOpen: () => void;
+  hasNoBorder?: boolean;
 }
 
-const HeaderWithLogo = ({ onOpen }: HeaderWithLogoProps) => {
+export default function HeaderWithLogo({ onOpen, hasNoBorder = false }: HeaderWithLogoProps) {
   const router = useRouter();
   const { data: user } = useUser();
 
   return (
-    <header className={header}>
-      <div className={box} />
-      <button className={logo} onClick={() => router.push('/')}>
+    <header
+      className={cx(
+        style.header,
+        css({
+          borderBottomWidth: '0.1rem',
+          borderBottomColor: hasNoBorder ? 'white' : 'gray.20',
+        }),
+      )}
+    >
+      <div className={style.box} />
+      <button className={style.logo} onClick={() => router.push('/')}>
         <LogoIcon />
       </button>
       <button
-        className={cx(box, css({ cursor: 'pointer' }))}
+        className={cx(style.box, css({ cursor: 'pointer' }))}
         data-d
         onClick={() => (user ? router.push('/mypage') : onOpen())}
       >
@@ -28,28 +39,4 @@ const HeaderWithLogo = ({ onOpen }: HeaderWithLogoProps) => {
       </button>
     </header>
   );
-};
-
-export default HeaderWithLogo;
-
-const header = css({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  height: '4.8rem',
-  padding: '0 1.7rem',
-  borderBottomWidth: '0.1rem',
-  borderBottomColor: 'gray.20',
-});
-
-const logo = css({
-  cursor: 'pointer',
-});
-
-const box = css({
-  width: '3rem',
-  height: '3rem',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-});
+}

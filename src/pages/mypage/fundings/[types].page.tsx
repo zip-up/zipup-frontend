@@ -1,122 +1,15 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import Card from '@components/Card';
-import Header from '@components/common/Header';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
-import * as style from '../styles';
-import { useGetMyFundingList, useGetParticipatedList } from '@hooks/queries/useGetFundingList';
-import { FundingInfo } from '@typings/funding';
-import { flex } from 'styled-system/patterns';
-import GiftIcon from '@assets/icons/big-gift-image.svg';
-import Button from '@components/common/Button';
-import { cx } from 'styled-system/css';
-import { useUser } from '@hooks/queries/useAuth';
+import MyFundings, { MainTextKeys } from '@components/MyFundings/index.page';
+import { useFundingList } from '@hooks/queries/useFundingList';
 
-export default function MyFundings() {
+export default function MyFundingsPage() {
   const router = useRouter();
-  const { types } = router.query;
-  const { data: user } = useUser();
+  const { data: myFundingList } = useFundingList({ types: router.query.types as string });
 
-  const {
-    data: myFundingList,
-    refetch: refetchMyFundingList,
-    isLoading: isMyFundingListLoading,
-  } = useGetMyFundingList({
-    uuid: user?.id,
-  });
-  const {
-    data: participatedList,
-    refetch: refetchParticipatedList,
-    isLoading: isParticipatedListLoading,
-  } = useGetParticipatedList({
-    uuid: user?.id,
-  });
-  const [data, setData] = useState<FundingInfo[]>([]);
+  let type: MainTextKeys = 'my';
+  if (router.query.types === 'participated') {
+    type = 'participated';
+  }
 
-  useEffect(() => {
-    if (String(types) !== 'my' && String(types) !== 'participated') {
-      router.push('/mypage');
-    }
-  }, [router.query]);
-
-  useEffect(() => {
-    if (user?.id) {
-      if (String(types) === 'my') {
-        refetchMyFundingList();
-      } else if (String(types) === 'participated') {
-        refetchParticipatedList();
-      }
-    }
-  }, [user?.id]);
-
-  useEffect(() => {
-    if (String(types) === 'my' && myFundingList) {
-      setData(myFundingList || []);
-    } else if (String(types) === 'participated' && participatedList) {
-      setData(participatedList || []);
-    }
-  }, [myFundingList, participatedList]);
-
-  return (
-    <>
-      <Header
-        hasTitle
-        title={String(types) === 'my' ? '내가 만든 펀딩' : '내가 참여한 펀딩'}
-        onGoBack={() => router.back()}
-      />
-      {data.length > 0 && (
-        <div className={style.card_content}>
-          <div className={style.flex_container}>
-            {data.map((item, index) => (
-              <Card
-                key={index}
-                data={item}
-                onClick={() => {
-                  if (String(types) === 'my') {
-                    router.push('/funding/' + item.id);
-                  } else if (String(types) === 'participated') {
-                    router.push('/funding/' + item.id);
-                  }
-                }}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-      {!data.length && !isParticipatedListLoading && !isMyFundingListLoading && (
-        <div
-          className={cx(
-            style.card_content,
-            flex({
-              justifyContent: 'center',
-            }),
-          )}
-        >
-          <div className={style.no_result}>
-            <div className={style.icon_box}>
-              <GiftIcon />
-            </div>
-            <div className={style.text_box}>
-              <p className={style.title}>
-                {String(types) === 'my' ? '아직 만든 펀딩이 없어요' : '아직 참여한 펀딩이 없어요'}
-              </p>
-              <p className={style.desc}>
-                {String(types) === 'my'
-                  ? '지금 바로 내가 받고 싶은 선물을 등록해보세요.'
-                  : '집들이를 준비하는 친구에게 집업을 알려보세요.'}
-              </p>
-            </div>
-            {String(types) === 'my' && (
-              <Button
-                className={style.no_result_button}
-                onClick={() => router.push('/funding/create/1')}
-              >
-                내 펀딩 만들기
-              </Button>
-            )}
-          </div>
-        </div>
-      )}
-    </>
-  );
+  return <MyFundings fundingList={myFundingList!} type={type} />;
 }

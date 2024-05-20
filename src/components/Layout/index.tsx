@@ -1,7 +1,8 @@
 import { PropsWithChildren } from 'react';
+
 import * as style from './styles';
 
-const Layout = ({ children }: PropsWithChildren) => {
+export default function Layout({ children }: PropsWithChildren) {
   return (
     <div className={style.container}>
       <div className={style.content}>
@@ -9,6 +10,4 @@ const Layout = ({ children }: PropsWithChildren) => {
       </div>
     </div>
   );
-};
-
-export default Layout;
+}

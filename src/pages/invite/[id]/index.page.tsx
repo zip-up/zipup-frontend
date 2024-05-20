@@ -1,10 +1,11 @@
-import FundingStatusBox from '@components/FundingStatusBox';
 import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import * as style from './styles';
-import { DetailFundingInfo } from '@typings/funding';
 import { InstanceWithToken } from '@api/index';
+import FundingStatusBox from '@components/FundingStatusBox';
+import { DetailFundingInfo } from '@typings/funding';
+
+import * as style from './styles';
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const {
@@ -12,10 +13,12 @@ export const getServerSideProps: GetServerSideProps = async context => {
   } = context;
 
   try {
-    const response = await InstanceWithToken.get<DetailFundingInfo>(`/v1/fund?funding=${id}`);
+    const response = await InstanceWithToken.get<DetailFundingInfo>(`/v1/fund?funding=${id}`, {
+      headers: { Authorization: `Bearer ${context.req.cookies.token}` },
+    });
 
     return { props: { id, organizerName: response.data.organizerName } };
-  } catch (e: any) {
+  } catch (error) {
     return {
       redirect: {
         destination: `/404`,

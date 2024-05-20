@@ -1,22 +1,26 @@
+import { Fragment, useState } from 'react';
+import { useRouter } from 'next/router';
+import { A, A_d, B, B_d, C, C_d, D, D_d, E, E_d } from '@assets/icons/priceLabel/index';
+import { Radio_active, Radio_disabled } from '@assets/icons/radio';
+import Button from '@components/common/Button';
+import GradientBackground from '@components/common/Button/GradientBackground';
+import DropDown from '@components/common/DropDown';
 import Header from '@components/common/Header';
 import ProgressBar from '@components/common/ProgressBar';
-import { fundingFormState } from '@store/store';
-import { css, cx } from 'styled-system/css';
-import { Fragment, useState } from 'react';
-import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
-import { useRecoilState } from 'recoil';
-import * as style from './styles';
-import { A, B, C, D, E, A_d, B_d, C_d, D_d, E_d } from '@assets/icons/priceLabel/index';
-import Button from '@components/common/Button';
 import { statusTag } from '@components/common/StatusTag/styles';
-import { useRouter } from 'next/router';
-import { setLocalStorage } from '@store/localStorage';
-import { useGetFundingDeatil } from '@hooks/queries/useFunding';
-import { TermsCheckFlags } from '@typings/term';
-import { PrivacyTerm, PurchaseTerm } from '@constants/terms';
 import Term from '@components/Term';
 import { infoContainer } from '@components/Term/styles';
+import { PRIVACY_TERM, PURCHASE_TERM } from '@constants/terms';
 import { useUser } from '@hooks/queries/useAuth';
+import { useGetFundingDetail } from '@hooks/queries/useFunding';
+import { setLocalStorage } from '@store/localStorage';
+import { fundingFormState } from '@store/store';
+import { TermsCheckFlags } from '@typings/term';
+import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
+import { useRecoilState } from 'recoil';
+import { css, cx } from 'styled-system/css';
+
+import * as style from './styles';
 
 export interface FormInputs extends TermsCheckFlags {
   price: number;
@@ -24,16 +28,19 @@ export interface FormInputs extends TermsCheckFlags {
   customPrice: number;
   senderName: string;
   msg: string;
+  method: string;
+  giftCard: string;
 }
 
 export default function Participate() {
-  const [fundingForm, setFundingForm] = useRecoilState(fundingFormState);
+  const [_, setFundingForm] = useRecoilState(fundingFormState);
   const { data: user } = useUser();
 
   const router = useRouter();
   const { id: fundingId } = router.query as { id: string };
 
-  const { data: fundingInfo } = useGetFundingDeatil(fundingId);
+  const { data: fundingInfo } = useGetFundingDetail(fundingId);
+  const PAYMENT_METHOD = ['신용・체크카드', '가상계좌', '계좌이체', '휴대폰', '상품권'];
 
   const {
     register,
@@ -48,6 +55,7 @@ export default function Participate() {
     defaultValues: {
       price: 5000,
       enteredCustomPrice: false,
+      method: PAYMENT_METHOD[0],
     },
     mode: 'onSubmit',
   });
@@ -65,18 +73,20 @@ export default function Participate() {
     });
 
     setFundingForm({
-      participateId: user?.id,
+      participateId: user?.id || '',
       price: enteredCustomPrice ? customPrice : price,
     });
 
-    router.push(`/funding/${fundingId}/payment`);
+    router.push(
+      `/funding/${fundingId}/payment/?method=${watch('method') === PAYMENT_METHOD[4] ? watch('giftCard') : watch('method') === PAYMENT_METHOD[0] ? '카드' : watch('method')}`,
+    );
   };
 
   const onSubmitError: SubmitErrorHandler<FormInputs> = errors => {
     if (errors.isPurchaseChecked || errors.isPrivacyChecked) {
       const errorMessage = errors.isPurchaseChecked?.message || errors.isPrivacyChecked?.message;
 
-      console.log(errorMessage);
+      console.error(errorMessage);
     }
   };
 
@@ -84,7 +94,7 @@ export default function Participate() {
   const selected = watch('price');
   const [step, setStep] = useState(1);
 
-  const priceLabel = [
+  const PRICE_LABEL = [
     { label: '행복의 오천원', price: 5000, icon_active: <A />, icon_disabled: <A_d /> },
     { label: '기쁨의 만원', price: 10000, icon_active: <B />, icon_disabled: <B_d /> },
     { label: '건강의 삼만원', price: 30000, icon_active: <C />, icon_disabled: <C_d /> },
@@ -95,20 +105,20 @@ export default function Participate() {
     switch (step) {
       case 1:
         return (
-          <div className={css({ pl: '1.6rem', pr: '1.6rem' })}>
+          <>
             <div className={style.title}>
               <p>{fundingInfo?.organizerName}님을 위한</p>마음을 보내주세요
             </div>
 
             <div className={style.buttonWrapper}>
-              {priceLabel.map(({ label, price, icon_active, icon_disabled }, idx) => {
+              {PRICE_LABEL.map(({ label, price, icon_active, icon_disabled }, idx) => {
                 return (
                   <Fragment key={idx}>
                     <label
                       htmlFor={`price-${idx}`}
                       key={idx}
-                      className={cx(
-                        statusTag({ bg: selected == price ? 'blue' : 'disabled' }),
+                      className={css(
+                        statusTag.raw({ bg: selected == price ? 'blue' : 'disabled' }),
                         style.label,
                       )}
                     >
@@ -129,8 +139,8 @@ export default function Participate() {
 
               <label
                 htmlFor="customPrice"
-                className={cx(
-                  statusTag({ bg: watch('enteredCustomPrice') ? 'blue' : 'disabled' }),
+                className={css(
+                  statusTag.raw({ bg: watch('enteredCustomPrice') ? 'blue' : 'disabled' }),
                   style.label,
                 )}
               >
@@ -152,6 +162,7 @@ export default function Participate() {
               <Button
                 size="none"
                 onClick={() => reset({ price: 5000 })}
+                textStyle="resetButton"
                 className={style.resetButton}
               >
                 리셋
@@ -160,7 +171,7 @@ export default function Participate() {
 
             {enteredCustomPrice && (
               <div className={style.dropInput}>
-                <label className={style.labelWithoutPadding}>
+                <label className={cx(style.labelWithoutPadding, css({ mt: 0 }))}>
                   금액을 직접 입력해주세요. <span className={style.blueColorText}>*</span>
                 </label>
                 <input
@@ -188,21 +199,20 @@ export default function Participate() {
               isBottomFixed
               onClick={async () => {
                 enteredCustomPrice && (await trigger('customPrice'));
-                !errors.customPrice && setStep(2);
+                !errors.customPrice && setStep(step => step + 1);
               }}
             >
               다음
             </Button>
-          </div>
+          </>
         );
 
       case 2:
         return (
-          <div className={style.container}>
+          <>
             <div className={style.title}>
               <p>{fundingInfo?.organizerName}님에게</p>하고 싶은 말을 적어주세요
             </div>
-
             <div className={style.inputWithLabelWrapper}>
               <label className={style.labelWithoutPadding}>
                 From. <span className={style.blueColorText}>*</span>
@@ -222,7 +232,6 @@ export default function Participate() {
                 <span className={style.errorText}>{errors.senderName.message}</span>
               )}
             </div>
-
             <div className={cx(style.inputWithLabelWrapper, css({ marginBottom: 0 }))}>
               <label className={style.labelWithoutPadding}>
                 마음을 축하 메세지로 전해주세요. <span className={style.blueColorText}>*</span>
@@ -237,37 +246,93 @@ export default function Participate() {
               />
               {errors.msg && <span className={style.errorText}>{errors.msg.message}</span>}
             </div>
+            <Button
+              isBottomFixed
+              onClick={async () => {
+                await trigger('senderName');
+                await trigger('msg');
 
-            <div className={cx(infoContainer, css({ m: 0 }))}>
+                if (errors.senderName?.message || errors.msg?.message) return;
+
+                setStep(step => step + 1);
+              }}
+            >
+              다음
+            </Button>
+          </>
+        );
+
+      case 3:
+        const GIFT_CARD_LIST = ['문화상품권', '도서문화상품권', '게임문화상품권'];
+
+        return (
+          <>
+            <p className={style.title}>{'결제 방법을 선택 후\n참여를 완료해주세요'}</p>
+            <div className={style.inputWithLabelWrapper}>
+              <label className={style.labelWithoutPadding}>
+                결제 방법을 선택해주세요. <span className={style.blueColorText}>*</span>
+              </label>
+              <div className={style.methodInputs}>
+                {PAYMENT_METHOD.map((method, idx) => (
+                  <Fragment key={idx}>
+                    <label htmlFor={method} key={idx} className={style.methodLabel}>
+                      {watch('method') === method ? <Radio_active /> : <Radio_disabled />}
+                      <span>{method}</span>
+                    </label>
+                    <input
+                      type="radio"
+                      value={method}
+                      id={method}
+                      {...register('method', {
+                        required: true,
+                        onChange: () => resetField('giftCard'),
+                      })}
+                      className={css({ display: 'none' })}
+                    />
+                  </Fragment>
+                ))}
+                {watch('method') === '상품권' && (
+                  <div className={style.dropdownWrapper}>
+                    <DropDown
+                      menuButtonTitle="상품권 선택"
+                      menuList={GIFT_CARD_LIST}
+                      register={register('giftCard', { required: true })}
+                      selectedData={watch('giftCard')}
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className={cx(infoContainer, css({ mt: '1.6rem' }))}>
               <Term
                 label="isPurchaseChecked"
-                term={PurchaseTerm}
+                term={PURCHASE_TERM}
                 register={register}
                 isChecked={watch('isPurchaseChecked')}
               />
               <Term
                 label="isPrivacyChecked"
-                term={PrivacyTerm}
+                term={PRIVACY_TERM}
                 register={register}
                 isChecked={watch('isPrivacyChecked')}
               />
             </div>
-
-            <Button type="submit" isBottomFixed>
-              결제하러 가기
-            </Button>
-          </div>
+            <GradientBackground>
+              <Button type="submit">결제하러 가기</Button>
+            </GradientBackground>
+          </>
         );
     }
   };
 
   return (
-    <div className={style.pageLayout}>
-      <Header onGoBack={step == 1 ? () => router.back() : () => setStep(1)} />
+    <>
+      <Header onGoBack={step == 1 ? () => router.back() : () => setStep(step => step - 1)} />
       <div className={style.container}>
-        <ProgressBar width={step == 1 ? '16.2rem' : '32.8rem'} />
+        <ProgressBar width={`${10.9 * step}rem`} />
         <form onSubmit={handleSubmit(onSubmit, onSubmitError)}>{renderFormStep(step)}</form>
       </div>
-    </div>
+    </>
   );
 }

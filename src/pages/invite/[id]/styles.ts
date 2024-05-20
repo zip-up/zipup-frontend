@@ -1,6 +1,6 @@
-import { float, vstack } from 'styled-system/patterns';
-import { css, cx } from 'styled-system/css';
 import { button } from '@components/common/Button/styles';
+import { css, cx } from 'styled-system/css';
+import { float, vstack } from 'styled-system/patterns';
 
 const container = vstack({
   m: '0 auto',
@@ -12,8 +12,7 @@ const container = vstack({
 });
 
 const headTitle = css({
-  fontSize: 'title1',
-  fontWeight: '700',
+  textStyle: 'title1',
   color: 'text.100',
   textAlign: 'center',
   mb: '1rem',

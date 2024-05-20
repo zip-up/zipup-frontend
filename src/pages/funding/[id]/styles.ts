@@ -1,14 +1,16 @@
+import { button } from '@components/common/Button/styles';
 import { css } from 'styled-system/css';
-import { vstack, wrap } from 'styled-system/patterns';
+import { flex, vstack, wrap } from 'styled-system/patterns';
 
 const pageLayout = vstack({ gap: '0' });
 
 const wrapper = wrap({ w: '32.8rem', gap: '1.6rem', mt: '1.5rem', mb: '1.5rem' });
 
+const titleBar = flex({ justifyContent: 'space-between', w: '100%' });
+
 const title = css({
   color: 'text.100',
-  fontSize: 'subtitle1',
-  fontWeight: 600,
+  textStyle: 'subtitle1',
   letterSpacing: '-0.02rem',
 });
 
@@ -20,13 +22,14 @@ const borderWithPadding = {
 };
 
 const desc = css(borderWithPadding, {
-  fontSize: 'body2',
+  textStyle: 'body2',
   lineHeight: '2.2rem',
   letterSpacing: '-0.014rem',
   w: '100%',
 });
 
 const imageWrapper = css({
+  position: 'relative',
   width: '360px',
   height: 'fit-content',
   minHeight: '225px',
@@ -38,4 +41,23 @@ const imageWrapper = css({
   overflow: 'hidden',
 });
 
-export { pageLayout, wrapper, title, desc, imageWrapper };
+const buttonWrapper = flex({ gap: '0.8rem', mt: '2.4rem' });
+
+const buttonWidth = css({ width: '10.9rem' });
+
+const ButtonStyleLink = css(button.raw({ color: 'secondary', textStyle: 'CTAButton' }), {
+  width: '16.8rem',
+  h: '5.2rem',
+});
+
+export {
+  pageLayout,
+  wrapper,
+  titleBar,
+  title,
+  desc,
+  imageWrapper,
+  buttonWrapper,
+  buttonWidth,
+  ButtonStyleLink,
+};

@@ -7,7 +7,7 @@ const msgBox = hstack({
   border: '1px solid',
   borderColor: 'gray.30',
   justifyContent: 'flex-start',
-  fontSize: 'body2',
+  textStyle: 'body2',
   color: 'text.100',
   gap: '2rem',
   bg: 'bg.100',
@@ -22,7 +22,7 @@ const info = wrap({
   gap: '1rem',
   lineHeight: '1.2rem',
   '& span': {
-    fontSize: 'caption1',
+    textStyle: 'caption1',
   },
 });
 

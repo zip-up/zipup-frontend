@@ -1,4 +1,5 @@
 import { defineConfig } from '@pandacss/dev';
+import { textStyles } from '@styles/textStyles';
 
 export default defineConfig({
   // Whether to use css reset
@@ -13,14 +14,11 @@ export default defineConfig({
   // Useful for theme customization
   theme: {
     extend: {
+      textStyles,
       tokens: {
-        fonts: {
-          'pretendard-bold': { value: 'var(--font-pretendard-bold), Menlo, monospace' },
-          'pretendard-semibold': { value: 'var(--font-pretendard-semibold), Menlo, monospace' },
-          'pretendard-regular': { value: 'var(--font-pretendard-regular), Menlo, monospace' },
-        },
         colors: {
           gray: {
+            0: { value: '#FFF' },
             10: { value: '#F8F9FA' },
             20: { value: '#EDF0F2' },
             30: { value: '#D7DCE0' },
@@ -39,6 +37,7 @@ export default defineConfig({
             green: { value: '#9BE180' },
             black: { value: '#1E2025' },
             yellow: { value: '#FFE558' },
+            white: { value: '#FFF' },
           },
           blue: {
             10: { value: '#E0F5FF' },
@@ -77,14 +76,11 @@ export default defineConfig({
             300: { value: '#A7AFB7' },
           },
         },
-        fontSizes: {
-          title1: { value: '2.8rem' },
-          title2: { value: '2.4rem' },
-          subtitle1: { value: '2rem' },
-          subtitle2: { value: '1.8rem' },
-          body1: { value: '1.6rem' },
-          body2: { value: '1.4rem' },
-          caption1: { value: '1.2rem' },
+        fonts: {
+          pretendard: { value: 'var(--font-pretendard), sans-serif' },
+        },
+        shadows: {
+          default: { value: '0.1rem 0.1rem 0.7rem 0rem #e1e1e1ad' },
         },
       },
       keyframes: {

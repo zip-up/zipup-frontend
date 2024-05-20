@@ -1,5 +1,6 @@
-import * as style from './styles';
 import { css, cx } from 'styled-system/css';
+
+import * as style from './styles';
 
 interface ProgressBarProps {
   isNotFull?: boolean;
@@ -8,21 +9,19 @@ interface ProgressBarProps {
   noMargin?: boolean;
 }
 
-const ProgressBar = ({
+export default function ProgressBar({
   isNotFull,
   progressBarWidth = css({ width: isNotFull ? '100%' : '32.8rem' }),
   width,
   noMargin = false,
-}: ProgressBarProps) => {
+}: ProgressBarProps) {
   return (
     <div
-      className={cx(style.progressbar, progressBarWidth)}
+      className={cx(style.progressBar, progressBarWidth)}
       style={{ margin: noMargin ? 0 : '0.8rem auto' }}
     >
-      <div className={style.background_bar} />
-      <div className={style.current_progress} style={{ width, maxWidth: '100%' }} />
+      <div className={style.backgroundBar} />
+      <div className={style.currentProgress} style={{ width, maxWidth: '100%' }} />
     </div>
   );
-};
-
-export default ProgressBar;
+}

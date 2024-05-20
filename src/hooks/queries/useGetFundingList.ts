@@ -17,6 +17,7 @@ const useGetMyFundingList = ({ uuid }: FundListProps) => {
           user: uuid,
         },
       });
+
       return response.data;
     },
   });
@@ -34,6 +35,7 @@ const useGetParticipatedList = ({ uuid }: FundListProps) => {
             user: uuid,
           },
         });
+
         return response.data;
       } catch (error) {
         throw new Error(`${error}`);

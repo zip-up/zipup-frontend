@@ -4,15 +4,16 @@ const statusTag = cva({
   base: {
     rounded: '0.8rem',
     color: 'white',
-    fontWeight: '600',
-    fontSize: 'caption1',
+    textStyle: 'caption1',
     w: 'fit-content',
     h: 'fit-content',
+    fontWeight: '600',
   },
   variants: {
     bg: {
       black: { bg: 'main.black' },
       blue: { bg: 'success' },
+      gray50: { bg: 'gray.50' },
       disabled: { bg: 'bg.300', color: 'text.200' },
     },
     size: {

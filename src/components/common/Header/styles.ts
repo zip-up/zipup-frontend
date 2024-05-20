@@ -17,13 +17,12 @@ const wrapper = css({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  cursor: 'pointer',
 });
 
-const title = css({
-  fontFamily: 'pretendard-semibold',
-  fontWeight: '600',
+const styledTitle = css({
   color: 'text.100',
-  fontSize: 'subtitle2',
+  textStyle: 'subtitle2',
 });
 
-export { header, wrapper, title };
+export { header, wrapper, styledTitle };

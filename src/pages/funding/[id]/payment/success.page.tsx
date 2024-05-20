@@ -1,14 +1,16 @@
+import { useEffect } from 'react';
 import { GetServerSideProps } from 'next';
-import * as commonStyle from '@pages/invite/[id]/styles';
-import * as style from './styles';
 import Image from 'next/image';
 import Link from 'next/link';
 import { InstanceWithToken } from '@api/index';
-import { css, cx } from 'styled-system/css';
-import { useEffect } from 'react';
-import { getLoacalStorage } from '@store/localStorage';
-import { useGetFundingDeatil, useParticipateFunding } from '@hooks/queries/useFunding';
+import GradientBackground from '@components/common/Button/GradientBackground';
 import Spinner from '@components/common/Spinner';
+import { useGetFundingDetail, useParticipateFunding } from '@hooks/queries/useFunding';
+import * as commonStyle from '@pages/invite/[id]/styles';
+import { getLoacalStorage } from '@store/localStorage';
+import { isAxiosError } from 'axios';
+
+import * as style from './styles';
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const {
@@ -18,16 +20,27 @@ export const getServerSideProps: GetServerSideProps = async context => {
   try {
     const response = await InstanceWithToken.get(
       `/v1/payment/confirm?paymentKey=${paymentKey}&orderId=${orderId}&amount=${amount}`,
+      { headers: { Authorization: `Bearer ${context.req.cookies.token}` } },
     );
 
     if (!response.data.id) throw new Error('결제 승인 요청 실패');
 
     return { props: { fundingId, orderId, amount, paymentId: response.data.id } };
-  } catch (e: any) {
-    console.log('결제 승인 요청 에러', e);
+  } catch (error) {
+    console.error('결제 승인 요청 에러', error);
+
+    if (isAxiosError(error)) {
+      return {
+        redirect: {
+          destination: `/funding/${fundingId}/payment/fail?code=${error.response?.data?.code}&message=${encodeURIComponent(error.response?.data?.message)}`,
+          permanent: false,
+        },
+      };
+    }
+
     return {
       redirect: {
-        destination: `/funding/${fundingId}/payment/fail?code=${e.response?.data?.code}&message=${encodeURIComponent(e.response?.data?.message)}`,
+        destination: `/funding/${fundingId}/payment/fail?code=${500}&message=${encodeURIComponent('결제 과정에서 서버에 오류가 발생했습니다.')}`,
         permanent: false,
       },
     };
@@ -39,7 +52,6 @@ interface SuccessProps {
   orderId: string;
   amount: string;
   paymentId: string;
-  organizerName: string;
 }
 
 export default function Success({ fundingId, orderId, amount, paymentId }: SuccessProps) {
@@ -47,7 +59,7 @@ export default function Success({ fundingId, orderId, amount, paymentId }: Succe
 
   const { mutate, isPending: isMutating } = useParticipateFunding();
 
-  const { data: fundingInfo, isLoading } = useGetFundingDeatil(fundingId);
+  const { data: fundingInfo, isLoading } = useGetFundingDetail(fundingId);
 
   useEffect(() => {
     if (isLoading) return;
@@ -57,6 +69,7 @@ export default function Success({ fundingId, orderId, amount, paymentId }: Succe
       paymentId,
       ...participateInfo,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
   if (isMutating || isLoading)
@@ -94,9 +107,14 @@ export default function Success({ fundingId, orderId, amount, paymentId }: Succe
       </div>
 
       <Image src="/payment_success.png" alt="결제 성공 이미지" width={280} height={300} />
-      <Link href={`/funding/${fundingId}`} className={cx(commonStyle.buttonLink, css({ mt: 0 }))}>
-        돌아가기
-      </Link>
+      <GradientBackground>
+        <Link href={`/funding/${fundingId}`} className={style.backBtn}>
+          돌아가기
+        </Link>
+        <Link href={`/mypage/payinfo`} className={style.actionBtn}>
+          펀딩 내역 보기
+        </Link>
+      </GradientBackground>
     </div>
   );
 }

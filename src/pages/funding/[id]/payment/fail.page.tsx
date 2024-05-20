@@ -1,9 +1,11 @@
 import { GetServerSideProps } from 'next';
-import * as commonStyle from '@pages/invite/[id]/styles';
-import * as style from './styles';
 import Image from 'next/image';
 import Link from 'next/link';
+import GradientBackground from '@components/common/Button/GradientBackground';
+import * as commonStyle from '@pages/invite/[id]/styles';
 import { css, cx } from 'styled-system/css';
+
+import * as style from './styles';
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const {
@@ -42,9 +44,14 @@ export default function Fail({ fundingId, code, message }: FailProps) {
       </div>
 
       <Image src="/payment_fail.png" alt="결제 실패 이미지" width={290} height={320} />
-      <Link href={`/funding/${fundingId}`} className={cx(commonStyle.buttonLink, css({ mt: 0 }))}>
-        돌아가기
-      </Link>
+      <GradientBackground>
+        <Link href={`/funding/${fundingId}`} className={style.backBtn}>
+          돌아가기
+        </Link>
+        <Link href={`/funding/${fundingId}/participate`} className={style.actionBtn}>
+          다시 시도하기
+        </Link>
+      </GradientBackground>
     </div>
   );
 }

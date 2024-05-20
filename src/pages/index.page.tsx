@@ -1,25 +1,85 @@
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable @next/next/no-sync-scripts */
-/* eslint-disable react-hooks/exhaustive-deps */
-import Head from 'next/head';
-import Button from '@components/common/Button';
-import * as style from './style';
 import { useEffect, useState } from 'react';
-import HeaderWithLogo from '@components/HeaderWithLogo';
+import Head from 'next/head';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useLogIn } from '@hooks/queries/useAuth';
-import { css, cx } from 'styled-system/css';
+import GoIcon from '@assets/icons/go.svg';
 import CreateImage from '@assets/images/funding_create_image.svg';
 import DeliveryImage from '@assets/images/funding_delivery_image.svg';
 import ParticipateImage from '@assets/images/funding_participate_image.svg';
 import TargetImage from '@assets/images/funding_target_image.svg';
-
-import LoginModal from '@components/modals/LoginModal';
-import Spinner from '@components/common/Spinner';
+import HomeImage from '@assets/images/home-fragment-brick.svg';
+import Card from '@components/Card';
+import Button from '@components/common/Button';
 import Header from '@components/common/Header';
-import { getLoacalStorage, setLocalStorage } from '@store/localStorage';
+import Spinner from '@components/common/Spinner';
+import Footer from '@components/Footer';
+import HeaderWithLogo from '@components/HeaderWithLogo';
+import LoginModal from '@components/modals/LoginModal';
+import { useLogIn } from '@hooks/queries/useAuth';
+import { getLoacalStorage } from '@store/localStorage';
+import { productForFundState } from '@store/store';
+import { pretendard } from '@styles/font';
+import { useSetRecoilState } from 'recoil';
+import { css, cx } from 'styled-system/css';
 
-const descData = [
+import * as style from './style';
+
+const dummydata = [
+  {
+    id: '0',
+    title: '우리 집에 안락함을 더하기',
+    imageUrl:
+      'https://plus.unsplash.com/premium_photo-1683121158319-acc40c6ef3b2?q=80&w=2264&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    status: '1',
+    percent: 75,
+    organizer: 'dp',
+  },
+  {
+    id: '1',
+    title: '펀딩 이름입니다.',
+    imageUrl:
+      'https://plus.unsplash.com/premium_photo-1683121158319-acc40c6ef3b2?q=80&w=2264&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    status: '1',
+    percent: 0,
+    organizer: '',
+  },
+  {
+    id: '2',
+    title: '펀딩 이름입니다.',
+    imageUrl:
+      'https://plus.unsplash.com/premium_photo-1683121158319-acc40c6ef3b2?q=80&w=2264&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    status: '1',
+    percent: 0,
+    organizer: '',
+  },
+];
+
+const productData = [
+  {
+    id: '0',
+    title: '초절전리모컨 서큘레이터 선풍기',
+    imageUrl:
+      'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/168189031695799079.jpg?gif=1&w=960&h=960&c=c&webp=1',
+    url: 'https://ohou.se/productions/861834/selling?affect_id=1&affect_type=StoreSearchResult',
+    price: 76900,
+  },
+  {
+    id: '1',
+    title: '펀딩 이름입니다.',
+    price: 0,
+    url: '',
+    imageUrl: '',
+  },
+  {
+    id: '2',
+    title: '펀딩 이름입니다.',
+    price: 0,
+    url: '',
+    imageUrl: '',
+  },
+];
+
+const WAY_TO_FUND = [
   {
     title: '펀딩 개설 후 공유',
     desc1: '원하는 선물을 등록하고 링크를 공유해요',
@@ -48,39 +108,28 @@ const descData = [
 
 export default function Home() {
   const router = useRouter();
+  const setProductForFundState = useSetRecoilState(productForFundState);
   const [isOpen, setIsOpen] = useState(false);
   const [code, setCode] = useState('');
   const [isBrowsingService, setIsBrowsingService] = useState(false);
-  const { data, isLoading } = useLogIn({ code });
+  const { isLoading } = useLogIn({ code });
 
   useEffect(() => {
     if (router.isReady && router.asPath.length > 2) {
       setCode(router.asPath.slice(2));
     }
-  }, [router.isReady, router.query, code]);
-
-  useEffect(() => {
-    if (data) {
-      const { accessToken, ...userData } = data;
-
-      setLocalStorage('@token', accessToken);
-      setLocalStorage('@user', userData);
-
-      router.push('/');
-    }
-  }, [data]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.isReady]);
 
   return (
     <>
       <Head>
         <title>ZIPup | 집들이 선물 펀딩 서비스</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <style>
+        <style jsx global>
           {`
             :root {
-              --font-pretendard-bold: 'Pretendard-Bold', sans-serif;
-              --font-pretendard-semibold: 'Pretendard-SemiBold', sans-serif;
-              --font-pretendard-regular: 'Pretendard-Regular', sans-serif;
+              --font-pretendard: ${pretendard.style.fontFamily};
             }
           `}
         </style>
@@ -90,109 +139,117 @@ export default function Home() {
       {isBrowsingService ? (
         <Header onGoBack={() => setIsBrowsingService(false)} />
       ) : (
-        <HeaderWithLogo onOpen={() => setIsOpen(true)} />
+        <HeaderWithLogo onOpen={() => setIsOpen(true)} hasNoBorder />
       )}
-      <div className={cx(style.text_box, css({ mt: isBrowsingService ? '-3rem' : '3rem' }))}>
-        {isBrowsingService ? (
-          <p className={cx(style.title, css({ textAlign: 'center' }))}>
-            <span>
-              더 멋진 <span className={style.highlight}>집들이 경험</span>을 위한
+      <div className={style.banner}>
+        <div className={style.bannerWrapper}>
+          <div className={style.textBox}>
+            <p className={style.title}>
+              조금씩 마음을 보태어 <span className={style.highlight}>집들이 선물</span>을 보내요
+            </p>
+            <span className={style.subTitle}>
+              더 멋진 집들이 경험을 위한
+              <br />
+              집들이 선물 펀딩 서비스
             </span>
-            <p>집들이 선물 펀딩 서비스</p>
-          </p>
-        ) : (
-          <p className={cx(style.title, css({ width: '23.3rem' }))}>
-            조금씩 마음을 보태어 <span className={style.highlight}>집들이 선물</span>을 보내요
-          </p>
-        )}
-        {isBrowsingService ? (
-          <span className={style.subtitle}>
-            주는 사람은 부담 없이,
-            <br />
-            받는 사람은 높은 만족도로
-            <br />
-            모두에게 즐거운 선물 경험을 제공해요
-          </span>
-        ) : (
-          <span className={style.subtitle}>
-            더나은 집들이 경험을 위한
-            <br />
-            집들이 선물 펀딩 서비스
-          </span>
-        )}
-      </div>
-
-      <div className={style.wrapper}>
-        <div className={style.image}>
-          <img src="/home.png" alt="home" width={245} height={236} />
-        </div>
-        {!isBrowsingService && (
-          <>
-            <Button
-              color="primary"
-              disabled={isLoading}
-              onClick={() =>
-                getLoacalStorage('@token') ? router.push('/funding/create/1') : setIsOpen(true)
-              }
-              isBottomFixed
-              position="first"
-            >
-              {isLoading ? <Spinner size="sm" /> : '내 펀딩을 만들어볼까요?'}
-            </Button>
-            <Button onClick={() => setIsBrowsingService(true)} isBottomFixed>
-              서비스를 둘러볼게요
-            </Button>
-          </>
-        )}
-      </div>
-      {isBrowsingService && (
-        <>
-          <div className={style.service_box}>
-            <div className={style.service_title_box}>
-              <span className={style.service_title}>집들이 선물, 어떻게 받을 수 있나요?</span>
-            </div>
-            <div className={style.service_desc_box}>
-              {descData.map(item => (
-                <div key={item.title} className={style.service_desc_card}>
-                  <div
-                    style={{
-                      height: '5.6rem',
-                      width: '5.6rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    {item.icon}
-                  </div>
-                  <div className={style.service_text_box}>
-                    <p className={style.text_title}>{item.title}</p>
-                    <p className={style.text_desc}>{item.desc1}</p>
-                    <p className={cx(style.text_desc, css({ marginTop: '-0.3rem' }))}>
-                      {item.desc2}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className={style.login_box}>
-              <span className={style.login_text}>
-                {getLoacalStorage('@token')
-                  ? '내가 원하는 선물을\n지금 바로 등록해보세요'
-                  : '카카오로 5초만에 로그인하고\n바로 시작해볼까요?'}
-              </span>
-              <Button
-                className={style.login_button}
-                onClick={() =>
-                  getLoacalStorage('@token') ? router.push('/funding/create/1') : setIsOpen(true)
-                }
-              >
-                {getLoacalStorage('@token') ? '내 펀딩 만들러 가기' : '지금 시작하기'}
-              </Button>
-            </div>
           </div>
-        </>
-      )}
+          <div className={style.homeImage1}>
+            <HomeImage />
+          </div>
+          <Image
+            src="/home-fragment-hand.png"
+            alt="메인 홈 이미지"
+            width={290}
+            height={221}
+            className={style.homeImage2}
+          />
+          <div className={style.homeImage3}>
+            <HomeImage />
+          </div>
+        </div>
+        <div className={style.loginBox}>
+          <span className={style.loginText}>원하는 선물을 지금 바로 등록해보세요!</span>
+          <Button
+            size="full"
+            style={{ marginTop: '1.9rem' }}
+            onClick={() =>
+              getLoacalStorage('@token') ? router.push('/funding/create/1') : setIsOpen(true)
+            }
+          >
+            {isLoading ? <Spinner size="sm" /> : '내 펀딩 만들러 가기'}
+          </Button>
+        </div>
+      </div>
+      <div className={style.divider} />
+      <div>
+        <div className={css({ marginTop: '3.2rem' })}>
+          <div className={style.subtitleBox}>
+            <h2 className={style.category}>지금 인기있는 펀딩은?</h2>
+            <a href="/trending" className={style.seeMore}>
+              <div className={style.moveText}>더보기</div>
+              <GoIcon style={{ color: '#0098E8' }} />
+            </a>
+          </div>
+          <div className={style.sideWrapper}>
+            {dummydata.map(item => (
+              <Card
+                key={item.id}
+                width="14.6rem"
+                height="21rem"
+                data={item}
+                onClick={() => router.push('/funding/' + item.id)}
+                styles={{ minWidth: '14.6rem', minHeight: '21rem' }}
+                hasShadow
+              />
+            ))}
+          </div>
+        </div>
+        <div className={css({ margin: '2rem 0' })}>
+          <div className={style.subtitleBox}>
+            <h2 className={style.category}>요즘 핫한 집꾸템 추천!</h2>
+          </div>
+          <div className={style.sideWrapper}>
+            {productData.map(item => (
+              <Card
+                key={item.id}
+                width="14.6rem"
+                height="21rem"
+                product={item}
+                onClick={() => {
+                  setProductForFundState({
+                    imageUrl: item.imageUrl,
+                    url: item.url,
+                    price: item.price,
+                    title: item.title,
+                  });
+                  router.push('/funding/create/1');
+                }}
+                styles={{ minWidth: '14.6rem', minHeight: '21rem' }}
+                isProduct
+                hasShadow
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+      <div className={style.serviceBox}>
+        <div className={style.serviceTitleBox}>
+          <span className={style.serviceTitle}>집들이 선물, 어떻게 받을 수 있나요?</span>
+        </div>
+        <div className={style.serviceDescBox}>
+          {WAY_TO_FUND.map(item => (
+            <div key={item.title} className={style.serviceDescCard}>
+              <div className={style.iconBox}>{item.icon}</div>
+              <div className={style.serviceTextBox}>
+                <p className={style.textTitle}>{item.title}</p>
+                <p className={style.textDesc}>{item.desc1}</p>
+                <p className={cx(style.textDesc, css({ marginTop: '-0.3rem' }))}>{item.desc2}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <Footer className={css({ height: '10.8rem' })} />
     </>
   );
 }

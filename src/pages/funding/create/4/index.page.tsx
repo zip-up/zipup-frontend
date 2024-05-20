@@ -1,27 +1,27 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import Button from '@components/common/Button';
-import Header from '@components/common/Header';
-import { useEffect, useState } from 'react';
-import { SubmitErrorHandler, useForm } from 'react-hook-form';
-import * as style from '../styles';
-import { css, cx } from 'styled-system/css';
-import SearchIcon from '@assets/icons/search.svg';
-import AddressModal from '@components/modals/AddressModal';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
-import ModalWithIcon from '@components/modals/ModalWithIcon';
 import GiftIcon from '@assets/icons/gift-icon.svg';
+import SearchIcon from '@assets/icons/search.svg';
+import Button from '@components/common/Button';
+import GradientBackground from '@components/common/Button/GradientBackground';
+import Header from '@components/common/Header';
 import ProgressBar from '@components/common/ProgressBar';
-import { useRecoilState } from 'recoil';
-import { createFundState } from '@store/store';
-import { useCreateFunding } from '@hooks/queries/useCreateFunding';
 import Spinner from '@components/common/Spinner';
+import AddressModal from '@components/modals/AddressModal';
+import ModalWithIcon from '@components/modals/ModalWithIcon';
 import Term from '@components/Term';
-import { TermsCheckFlags } from '@typings/term';
-import { PrivacyTerm, PurchaseTerm } from '@constants/terms';
 import { infoContainer } from '@components/Term/styles';
-import { button } from '@components/common/Button/styles';
-import { shareKakao } from '@utils/share';
+import { PRIVACY_TERM, PURCHASE_TERM } from '@constants/terms';
 import { useUser } from '@hooks/queries/useAuth';
+import { useCreateFunding } from '@hooks/queries/useFunding';
+import { createFundState } from '@store/store';
+import { TermsCheckFlags } from '@typings/term';
+import { shareKakao } from '@utils/share';
+import { SubmitErrorHandler, useForm } from 'react-hook-form';
+import { useRecoilState } from 'recoil';
+import { css, cx } from 'styled-system/css';
+
+import * as style from '../styles';
 
 interface FormInputs extends TermsCheckFlags {
   roadAddress: string;
@@ -45,7 +45,6 @@ export default function CreatFundStep4() {
     }));
     setIsModalOpen(true);
   });
-  //const [currentHeight, setCurrentHeight] = useState(window.innerHeight);
 
   const {
     register,
@@ -54,15 +53,6 @@ export default function CreatFundStep4() {
     watch,
     formState: { errors },
   } = useForm<FormInputs>();
-
-  useEffect(() => {
-    const handleResize = () => {
-      //   setCurrentHeight(window.innerHeight);
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   const handleCreateFundSubmit = async (step4FormData: FormInputs) => {
     const totalFormInputData = { ...newFunding, ...step4FormData };
@@ -78,7 +68,7 @@ export default function CreatFundStep4() {
     if (errors.isPurchaseChecked || errors.isPrivacyChecked) {
       const errorMessage = errors.isPurchaseChecked?.message || errors.isPrivacyChecked?.message;
 
-      console.log(errorMessage);
+      console.error(errorMessage);
     }
   };
 
@@ -86,18 +76,15 @@ export default function CreatFundStep4() {
     shareKakao({ userName: user?.name || '', imageUrl: newFunding.imageUrl, fundingId: fundId });
   };
 
-  const Buttons = () => {
+  function Buttons() {
     return (
-      <>
-        <Button className={css({ width: '12.6rem' })} color="primary" disabled={isPending}>
-          나중에 입력
-        </Button>
-        <Button type="submit" className={css({ width: '19.1rem' })} disabled={isPending}>
+      <GradientBackground>
+        <Button type="submit" disabled={isPending}>
           {isPending ? <Spinner size="sm" /> : '등록 완료'}
         </Button>
-      </>
+      </GradientBackground>
     );
-  };
+  }
 
   return (
     <>
@@ -108,14 +95,14 @@ export default function CreatFundStep4() {
           title="펀딩 등록이 완료되었어요."
           subtitle="내 펀딩을 친구들에게 공유해볼까요?"
           buttonComponent={
-            <div className={style.modal_button_wrapper}>
+            <div className={style.modalButtonWrapper}>
               <Button
                 color="primary"
                 size="regular"
                 onClick={() => {
                   setIsModalOpen(false);
                   if (fundId) {
-                    router.push('/funding/' + fundId);
+                    router.push('/funding/' + fundId + '?from=myPage');
                   } else {
                     alert('잘못된 접근입니다.');
                   }
@@ -133,7 +120,7 @@ export default function CreatFundStep4() {
       )}
       <Header onGoBack={() => router.back()} />
       <ProgressBar width={'100%'} />
-      <h4 className={style.step_name}>Step 4</h4>
+      <h4 className={style.stepName}>Step 4</h4>
       <h2 className={style.title}>배송 정보를 입력해주세요.</h2>
 
       <form
@@ -141,12 +128,12 @@ export default function CreatFundStep4() {
         onSubmit={handleSubmit(handleCreateFundSubmit, handleSubmitError)}
       >
         <label>
-          <span className={style.subtitle}>선물을 배송받을 주소를 입력해주세요.</span>
+          <span className={style.subTitle}>선물을 배송받을 주소를 입력해주세요.</span>
         </label>
-        <div className={style.date_box} onClick={() => setIsOpen(true)}>
+        <div className={style.dateBox} onClick={() => setIsOpen(true)}>
           <input
             className={cx(
-              style.input_shape,
+              style.inputShape,
               css({ color: !watch('roadAddress') ? 'text.200' : 'text.100' }),
             )}
             readOnly
@@ -172,7 +159,7 @@ export default function CreatFundStep4() {
         />
 
         <label>
-          <span className={style.subtitle}>전화번호를 입력해주세요.</span>
+          <span className={style.subTitle}>전화번호를 입력해주세요.</span>
           <span className={style.required}>*</span>
         </label>
         <input
@@ -189,32 +176,24 @@ export default function CreatFundStep4() {
             required: '필수 항목을 입력하지 않았습니다.',
           })}
         />
-        <p className={style.error_text}>{errors.phoneNumber ? errors.phoneNumber.message : ''}</p>
+        <p className={style.errorText}>{errors.phoneNumber ? errors.phoneNumber.message : ''}</p>
 
         <div className={infoContainer}>
           <Term
             label="isPurchaseChecked"
-            term={PurchaseTerm}
+            term={PURCHASE_TERM}
             register={register}
             isChecked={watch('isPurchaseChecked')}
           />
           <Term
             label="isPrivacyChecked"
-            term={PrivacyTerm}
+            term={PRIVACY_TERM}
             register={register}
             isChecked={watch('isPrivacyChecked')}
           />
         </div>
 
-        <div
-          className={cx(
-            button({ isBottomFixed: true, position: 'last' }),
-            css({ gap: '1.2rem' }),
-            //      currentHeight <= 680 ? wrapper : buttons,
-          )}
-        >
-          <Buttons />
-        </div>
+        <Buttons />
       </form>
 
       {isOpen && (
@@ -226,15 +205,3 @@ export default function CreatFundStep4() {
     </>
   );
 }
-
-// const wrapper = css({
-//   width: '100%',
-//   margin: '2.4rem 0',
-// });
-
-// const buttons = css({
-//   position: 'absolute',
-//   bottom: '2.5rem',
-//   left: '2rem',
-//   width: '32.3rem',
-// });

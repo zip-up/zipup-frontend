@@ -3,46 +3,58 @@ import { cva } from 'styled-system/css';
 export const button = cva({
   base: {
     rounded: '0.8rem',
-    color: 'bg.100',
-    fontFamily: 'pretendard-semibold',
-    fontSize: 'body1',
-    fontWeight: '600',
+    color: 'gray.0',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     cursor: 'pointer',
+    outline: 'none',
   },
   variants: {
     size: {
       regular: {
-        p: '1.4rem',
+        padding: '1.4rem',
       },
       full: {
-        w: '100%',
-        p: '1.4rem 0',
+        width: '100%',
+        padding: '1.4rem 0',
       },
       none: {
-        w: 'fit-content',
-        h: 'fit-content',
+        width: 'fit-content',
+        height: 'fit-content',
       },
     },
     color: {
       primary: {
         bgColor: 'main.blue',
-        '&:hover': { bgColor: 'blue.40' },
+        '@media (hover: hover):enabled': {
+          '&:hover': { bgColor: 'main.sky' },
+        },
       },
       secondary: {
         bgColor: 'text.100',
-        '&:hover': { bgColor: 'text.200' },
+        '@media (hover: hover):enabled': {
+          '&:hover': { bgColor: 'gray.60' },
+        },
       },
       kakao: {
         bgColor: 'main.yellow',
         color: '#1E2025',
       },
+      white: {
+        bgColor: 'main.white',
+        color: 'text.200',
+        border: '0.13rem solid',
+        borderColor: 'text.300',
+        height: '4.1rem',
+      },
+    },
+    textStyle: {
+      CTAButton: { textStyle: 'body1', fontWeight: 600 },
+      resetButton: { textStyle: 'body1' },
     },
     disabled: {
       true: {
-        bgColor: 'text.300',
         cursor: 'not-allowed',
       },
     },
@@ -55,7 +67,7 @@ export const button = cva({
       },
     },
     position: {
-      first: { bottom: '8.8rem' },
+      first: { bottom: '9.5rem' },
       last: { bottom: '2.4rem' },
     },
   },
@@ -64,6 +76,28 @@ export const button = cva({
       color: 'kakao',
       css: {
         gap: '1.75rem',
+      },
+    },
+    {
+      disabled: true,
+      color: 'primary',
+      css: {
+        bgColor: 'bg.300',
+      },
+    },
+    {
+      disabled: true,
+      color: 'secondary',
+      css: {
+        bgColor: 'text.300',
+      },
+    },
+    {
+      disabled: true,
+      color: ['white'],
+      css: {
+        bgColor: 'text.300',
+        color: 'gray.0',
       },
     },
   ],

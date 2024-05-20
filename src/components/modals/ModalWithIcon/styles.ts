@@ -1,7 +1,7 @@
-import { MODAL_PADDING_VALUE_ONLY, MODAL_PADDING_WITH_UNIT } from '@components/common/Modal/styles';
+import { MODAL_PADDING_VALUE_ONLY } from '@components/common/Modal/styles';
 import { css } from 'styled-system/css';
 
-const top_box = css({
+const topBox = css({
   width: '100%',
   height: '10.4rem',
   display: 'flex',
@@ -9,7 +9,7 @@ const top_box = css({
   gap: '2.4rem',
 });
 
-const image_box = css({
+const imageBox = css({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -23,22 +23,18 @@ const image = css({
 });
 
 const title = css({
-  fontFamily: 'pretendard-semibold',
-  fontWeight: '700',
-  fontSize: 'subtitle1',
+  textStyle: 'subtitle1',
 });
 
 const subtitle = css({
-  fontFamily: 'pretendard-regular',
-  fontSize: 'body1',
   color: 'text.200',
-  fontWeight: '400',
   marginTop: '1.6rem',
+  textStyle: 'body1',
 });
 
-const button_box = css({
+const buttonBox = css({
   w: `calc(100% - ${MODAL_PADDING_VALUE_ONLY * 2}rem)`,
   mt: '2.5rem',
 });
 
-export { top_box, image_box, image, title, subtitle, button_box };
+export { topBox, imageBox, image, title, subtitle, buttonBox };

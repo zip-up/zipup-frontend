@@ -1,27 +1,35 @@
-import * as style from './styles';
-import Button from '@components/common/Button';
 import Image from 'next/image';
-import Header from '@components/common/Header';
+import Link from 'next/link';
 import KakaoButton from '@components/common/Button/KakaoButton';
+import { button } from '@components/common/Button/styles';
+import { CommonNoticePage } from '@components/Layout/NoticePageLayout';
 import { handleLogin } from '@utils/kakaoLogin';
 
 export default function Login() {
-  // ssr로 변경 및 로그인한 유저가 접근 시 404페이지, mypage로 redirect
   return (
     <>
-      <Header />
-      <div className={style.layout}>
-        <Image src="/default_symbol.svg" alt="서비스 기본 아이콘" width={55} height={55} />
-        <h2 className={style.title}>로그인이 필요한 서비스입니다.</h2>
-        <div className={style.subTitle}>
-          간편 로그인 후 이용 가능해요. <p>카카오 로그인으로 5초만에 시작해요!</p>
-        </div>
-
-        <KakaoButton isBottomFixed onClick={handleLogin}>
-          카카오로 시작하기
-        </KakaoButton>
-        <Button isBottomFixed>홈으로 돌아가기</Button>
-      </div>
+      <CommonNoticePage
+        title={'로그인이 필요한\n서비스입니다.'}
+        subTitle={'간편 로그인 후 이용 가능해요.\n카카오 로그인으로 5초만에 시작해요!'}
+        imageComponent={
+          <Image src="/default_symbol.svg" alt="서비스 기본 아이콘" width={55} height={55} />
+        }
+      />
+      <KakaoButton isBottomFixed position="first" onClick={handleLogin}>
+        카카오로 시작하기
+      </KakaoButton>
+      <Link
+        href="/"
+        className={button({
+          isBottomFixed: true,
+          color: 'secondary',
+          position: 'last',
+          size: 'full',
+          textStyle: 'CTAButton',
+        })}
+      >
+        홈으로 돌아가기
+      </Link>
     </>
   );
 }

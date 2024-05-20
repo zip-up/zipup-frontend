@@ -1,14 +1,15 @@
-/* eslint-disable react/display-name */
-import * as fundStyle from '@pages/funding/create/styles';
-import CalendarIcon from '@assets/icons/calendar_month.svg';
-import { ko } from 'date-fns/locale';
-import { format } from 'date-fns';
-import ReactDatePicker, { registerLocale } from 'react-datepicker';
 import { forwardRef, useEffect, useState } from 'react';
-import 'react-datepicker/dist/react-datepicker.css';
 import AfterIcon from '@assets/icons/after.svg';
 import BeforeIcon from '@assets/icons/before.svg';
+import CalendarIcon from '@assets/icons/calendar_month.svg';
 import OpenIcon from '@assets/icons/open.svg';
+import * as fundStyle from '@pages/funding/create/styles';
+import { format } from 'date-fns';
+import { ko } from 'date-fns/locale';
+import ReactDatePicker, { registerLocale } from 'react-datepicker';
+
+import 'react-datepicker/dist/react-datepicker.css';
+
 import * as style from './styles';
 
 interface CalendarProps {
@@ -37,17 +38,19 @@ export default function Calendar({ date, onSetDate, onSetIsOpen, checkIsOpen }: 
     }
   };
 
-  const CustomInput = forwardRef<HTMLButtonElement>(({}, ref) => (
-    <button
-      ref={ref}
-      type="button"
-      onClick={() => (checkIsOpen ? null : setIsOpen(!isOpen))}
-      className={fundStyle.date_box}
-    >
-      {date ? date.split('T')[0].replaceAll('-', '.') : '날짜를 선택해주세요'}
-      {!isOpen ? <CalendarIcon /> : <OpenIcon />}
-    </button>
-  ));
+  const CustomInput = forwardRef<HTMLButtonElement>(function CustomImput({}, ref) {
+    return (
+      <button
+        ref={ref}
+        type="button"
+        onClick={() => (checkIsOpen ? null : setIsOpen(!isOpen))}
+        className={fundStyle.dateBox}
+      >
+        {date ? date.split('T')[0].replaceAll('-', '.') : '날짜를 선택해주세요'}
+        {!isOpen ? <CalendarIcon /> : <OpenIcon />}
+      </button>
+    );
+  });
 
   return (
     <div>
@@ -67,11 +70,11 @@ export default function Calendar({ date, onSetDate, onSetIsOpen, checkIsOpen }: 
         locale={'ko'}
         renderCustomHeader={({ date, decreaseMonth, increaseMonth }) => (
           <div className={style.header}>
-            <div className={style.header_content}>
+            <div className={style.headerContent}>
               <button type="button" className={fundStyle.pointer} onClick={decreaseMonth}>
                 <BeforeIcon />
               </button>
-              <span className={style.month_text}>{convertDate(date).slice(0, 7)}</span>
+              <span className={style.monthText}>{convertDate(date).slice(0, 7)}</span>
               <button type="button" className={fundStyle.pointer} onClick={increaseMonth}>
                 <AfterIcon />
               </button>

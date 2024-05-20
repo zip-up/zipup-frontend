@@ -13,7 +13,7 @@ const useCreateFunding = (
     },
     onSuccess: createdFundingData => successCallback(createdFundingData),
     onError: error => {
-      console.log(error);
+      console.error(error);
       throw error;
     },
   });
