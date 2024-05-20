@@ -6,8 +6,6 @@ const header = css({
   alignItems: 'center',
   height: '4.8rem',
   padding: '0 1.7rem',
-  borderBottomWidth: '0.1rem',
-  borderBottomColor: 'gray.20',
 });
 
 const logo = css({

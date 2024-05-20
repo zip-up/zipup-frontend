@@ -11,10 +11,15 @@ const useFundingList = ({ types }: FundListProps) => {
     refetchOnWindowFocus: false,
     queryKey: [types],
     queryFn: async () => {
+      let url;
+      if (types === 'my') {
+        url = '/v1/fund/list';
+      } else if (types === 'participated') {
+        url = '/v1/present/list';
+      }
+
       try {
-        const response = await InstanceWithToken.get(
-          types === 'my' ? `/v1/fund/list` : `/v1/present/list`,
-        );
+        const response = await InstanceWithToken.get(url as string);
 
         return response.data;
       } catch (error) {
