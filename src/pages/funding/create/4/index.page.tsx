@@ -91,6 +91,7 @@ export default function CreatFundStep4() {
       {isModalOpen && (
         <ModalWithIcon
           width="31.7rem"
+          isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           title="펀딩 등록이 완료되었어요."
           subtitle="내 펀딩을 친구들에게 공유해볼까요?"

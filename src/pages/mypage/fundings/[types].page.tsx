@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import MyFundings, { MainTextKeys } from '@components/MyFundings/index.page';
 import { useFundingList } from '@hooks/queries/useFundingList';
