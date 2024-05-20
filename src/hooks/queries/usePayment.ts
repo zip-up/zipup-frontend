@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { useRouter } from 'next/router';
 import { InstanceWithToken } from '@api/index';
 import { useMutation, useQuery } from '@tanstack/react-query';

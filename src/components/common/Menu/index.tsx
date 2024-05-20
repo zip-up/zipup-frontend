@@ -1,4 +1,11 @@
-import { Children, cloneElement, PropsWithChildren, ReactNode, useState } from 'react';
+import {
+  Children,
+  cloneElement,
+  PropsWithChildren,
+  ReactElement,
+  ReactNode,
+  useState,
+} from 'react';
 import { css } from 'styled-system/css';
 
 import * as style from './styles';
@@ -25,7 +32,7 @@ export default function Menu({
 
       {isOpen && (
         <div className={style.menuList}>
-          {Children.map(children, child => cloneElement(child, { setIsOpen }))}
+          {Children.map(children, child => cloneElement(child as ReactElement, { setIsOpen }))}
         </div>
       )}
     </div>
