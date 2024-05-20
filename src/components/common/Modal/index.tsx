@@ -4,7 +4,7 @@ import * as style from './styles';
 
 interface ModalProps {
   width?: string;
-  onClose: () => void;
+  onClose?: () => void;
 }
 
 export default function Modal({ children, width, onClose }: PropsWithChildren<ModalProps>) {

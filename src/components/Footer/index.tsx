@@ -43,9 +43,9 @@ export default function Footer({ className }: FooterProps) {
       <div className={style.footerInfoBox}>
         <p>상호명 : 집업</p>
         <p>고객센터 : 0504-0815-5379</p>
-        <div className={termsAndConditions}>
+        <div className={style.termsAndConditions}>
           {TERMS_AND_CONDITIONS_LIST.map(item => (
-            <a key={item.text} href={item.link} className={pointer}>
+            <a key={item.text} href={item.link} className={style.pointer}>
               {item.text}
             </a>
           ))}
