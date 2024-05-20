@@ -4,12 +4,14 @@ import ModalWithIcon from '@components/modals/ModalWithIcon';
 import { handleLogin } from '@utils/kakaoLogin';
 
 interface LoginModalProps {
+  isOpen: boolean;
   onClose: () => void;
 }
 
-export default function LoginModal({ onClose }: LoginModalProps) {
+export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
   return (
     <ModalWithIcon
+      isOpen={isOpen}
       title="로그인이 필요한 서비스입니다."
       subtitle="카카오 로그인으로 5초만에 시작해요!"
       onClose={onClose}

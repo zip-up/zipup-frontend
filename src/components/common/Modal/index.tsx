@@ -1,14 +1,24 @@
 import { PropsWithChildren } from 'react';
+import useLockBodyScroll from '@hooks/useLockScroll';
 
 import * as style from './styles';
 
 interface ModalProps {
+  isOpen: boolean;
   width?: string;
   height?: number;
   onClose: () => void;
 }
 
-export default function Modal({ children, height, width, onClose }: PropsWithChildren<ModalProps>) {
+export default function Modal({
+  children,
+  isOpen,
+  height,
+  width,
+  onClose,
+}: PropsWithChildren<ModalProps>) {
+  useLockBodyScroll(isOpen);
+
   const handleContentClick = (e: React.MouseEvent) => {
     e.stopPropagation();
   };

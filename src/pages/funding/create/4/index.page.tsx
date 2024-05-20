@@ -22,7 +22,6 @@ import { useRecoilState } from 'recoil';
 import { css, cx } from 'styled-system/css';
 
 import * as style from '../styles';
-import useLockBodyScroll from '@hooks/useLockScroll';
 
 interface FormInputs extends TermsCheckFlags {
   roadAddress: string;
@@ -37,7 +36,6 @@ export default function CreatFundStep4() {
   const [fundId, setFundId] = useState<string>('');
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  useLockBodyScroll(isOpen || isModalOpen);
 
   const { mutate: createFunding, isPending } = useCreateFunding(createdFundingData => {
     setFundId(createdFundingData.id);
@@ -93,6 +91,7 @@ export default function CreatFundStep4() {
       {isModalOpen && (
         <ModalWithIcon
           width="31.7rem"
+          isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           title="펀딩 등록이 완료되었어요."
           subtitle="내 펀딩을 친구들에게 공유해볼까요?"

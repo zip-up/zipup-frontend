@@ -3,6 +3,7 @@ import Modal from '@components/common/Modal';
 import * as style from './styles';
 
 interface ModalWithIconProps {
+  isOpen: boolean;
   onClose: () => void;
   icon: React.ReactNode;
   title: string;
@@ -12,6 +13,7 @@ interface ModalWithIconProps {
 }
 
 export default function ModalWithIcon({
+  isOpen,
   onClose,
   title,
   subtitle,
@@ -20,7 +22,7 @@ export default function ModalWithIcon({
   width,
 }: ModalWithIconProps) {
   return (
-    <Modal onClose={onClose} height={258} width={width}>
+    <Modal isOpen={isOpen} onClose={onClose} height={258} width={width}>
       <div className={style.topBox}>
         <div className={style.imageBox}>{icon}</div>
         <p className={style.title}>{title}</p>

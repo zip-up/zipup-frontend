@@ -18,7 +18,6 @@ import { pretendard } from '@styles/font';
 import { css, cx } from 'styled-system/css';
 
 import * as style from './style';
-import useLockBodyScroll from '@hooks/useLockScroll';
 
 const descData = [
   {
@@ -53,7 +52,6 @@ export default function Home() {
   const [code, setCode] = useState('');
   const [isBrowsingService, setIsBrowsingService] = useState(false);
   const { isLoading } = useLogIn({ code });
-  useLockBodyScroll(isOpen);
 
   useEffect(() => {
     if (router.isReady && router.asPath.length > 2) {
@@ -75,7 +73,7 @@ export default function Home() {
           `}
         </style>
       </Head>
-      {isOpen && <LoginModal onClose={() => setIsOpen(false)} />}
+      {isOpen && <LoginModal isOpen={isOpen} onClose={() => setIsOpen(false)} />}
 
       {isBrowsingService ? (
         <Header onGoBack={() => setIsBrowsingService(false)} />
