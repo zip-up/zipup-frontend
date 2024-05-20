@@ -5,7 +5,8 @@ const listWrapper = flex({
   direction: 'column',
   bg: 'bg.200',
   padding: '1.6rem',
-  h: '100%',
+  gap: '1.4rem',
+  h: 'calc(100% - 9.6rem)',
 });
 
 const labelsWrapper = flex({
