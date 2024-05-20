@@ -20,6 +20,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
   try {
     const response = await InstanceWithToken.get(
       `/v1/payment/confirm?paymentKey=${paymentKey}&orderId=${orderId}&amount=${amount}`,
+      { headers: { Authorization: `Bearer ${context.req.cookies.token}` } },
     );
 
     if (!response.data.id) throw new Error('결제 승인 요청 실패');

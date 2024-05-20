@@ -13,7 +13,15 @@ export const InstanceWithToken = axios.create({
 });
 
 InstanceWithToken.interceptors.request.use(config => {
-  config.headers.Authorization = `Bearer ${getLoacalStorage('@token')}`;
+  if (typeof window === 'undefined') {
+    return config;
+  }
+
+  const accessToken = getLoacalStorage('@token');
+
+  if (!config.headers || !accessToken) return config;
+
+  config.headers.Authorization = `Bearer ${accessToken}`;
 
   return config;
 });
