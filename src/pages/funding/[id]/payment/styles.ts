@@ -1,3 +1,4 @@
+import { button } from '@components/common/Button/styles';
 import { css, cva } from 'styled-system/css';
 import { hstack } from 'styled-system/patterns';
 
@@ -42,4 +43,16 @@ const colorText = cva({
   },
 });
 
-export { orderInfoWrapper, headTitle, colorText, subInfoWrapper };
+const backBtn = css(button.raw({ color: 'primary', textStyle: 'CTAButton' }), {
+  mt: 0,
+  width: '12.3rem',
+  h: '5.2rem',
+});
+
+const actionBtn = css(button.raw({ color: 'secondary', textStyle: 'CTAButton' }), {
+  mt: 0,
+  width: '19.7rem',
+  h: '5.2rem',
+});
+
+export { orderInfoWrapper, headTitle, colorText, subInfoWrapper, backBtn, actionBtn };

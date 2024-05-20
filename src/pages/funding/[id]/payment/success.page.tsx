@@ -3,12 +3,12 @@ import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { InstanceWithToken } from '@api/index';
+import GradientBackground from '@components/common/Button/GradientBackground';
 import Spinner from '@components/common/Spinner';
 import { useGetFundingDetail, useParticipateFunding } from '@hooks/queries/useFunding';
 import * as commonStyle from '@pages/invite/[id]/styles';
 import { getLoacalStorage } from '@store/localStorage';
 import { isAxiosError } from 'axios';
-import { css, cx } from 'styled-system/css';
 
 import * as style from './styles';
 
@@ -106,9 +106,14 @@ export default function Success({ fundingId, orderId, amount, paymentId }: Succe
       </div>
 
       <Image src="/payment_success.png" alt="결제 성공 이미지" width={280} height={300} />
-      <Link href={`/funding/${fundingId}`} className={cx(commonStyle.buttonLink, css({ mt: 0 }))}>
-        돌아가기
-      </Link>
+      <GradientBackground>
+        <Link href={`/funding/${fundingId}`} className={style.backBtn}>
+          돌아가기
+        </Link>
+        <Link href={`/mypage/payinfo`} className={style.actionBtn}>
+          펀딩 내역 보기
+        </Link>
+      </GradientBackground>
     </div>
   );
 }
