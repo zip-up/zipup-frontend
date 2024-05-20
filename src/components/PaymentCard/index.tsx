@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import Button from '@components/common/Button';
+import { statusTag } from '@components/common/StatusTag/styles';
 import { PaymentInfo } from '@typings/funding';
 import { formatDateTime } from '@utils/date';
-import { css } from 'styled-system/css';
+import { css, RecipeVariantProps } from 'styled-system/css';
 
 import * as style from './styles';
 
@@ -10,6 +11,15 @@ interface PaymentCardProps {
   paymentInfo: PaymentInfo;
   handleClick: () => void;
 }
+
+type StatusTagVarients = RecipeVariantProps<typeof statusTag>;
+type StatusTagBg = NonNullable<StatusTagVarients>['bg'];
+
+const CANCEL_STATUS_COLOR_MAP: { [key: string]: StatusTagBg } = {
+  결제완료: 'blue',
+  취소요청: 'black',
+  취소완료: 'gray50',
+} as const;
 
 export default function PaymentCard({
   paymentInfo: {
@@ -33,7 +43,14 @@ export default function PaymentCard({
           <span className={style.divider}>|</span>
           <span>{time}</span>
         </span>
-        <span className={style.status}>{status}</span>
+        <span
+          className={css(statusTag.raw({ size: 'static', bg: CANCEL_STATUS_COLOR_MAP[status] }), {
+            fontWeight: '500',
+            padding: '0.8rem',
+          })}
+        >
+          {status}
+        </span>
       </div>
 
       <div className={style.contentWrapper}>

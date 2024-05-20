@@ -7,9 +7,10 @@ import ParticipatedFundingIcon from '@assets/images/participated_funding.svg';
 import Button from '@components/common/Button';
 import Footer from '@components/Footer';
 import HeaderWithLogo from '@components/HeaderWithLogo';
+import ServiceCard from '@components/ServiceCard';
 import { useLogout, useUser } from '@hooks/queries/useAuth';
 import { getLoacalStorage } from '@store/localStorage';
-import { css, cx } from 'styled-system/css';
+import { css } from 'styled-system/css';
 
 import * as style from './styles';
 
@@ -58,47 +59,45 @@ export default function MyPage() {
             내 펀딩 만들러 가기 <GoIcon style={{ color: '#D9D9D9' }} />
           </Button>
         </div>
-        <div className={style.serviceBox}>
-          <span className={style.serviceTitle}>서비스</span>
-          <button className={style.goFundingBtn} onClick={() => router.push('/mypage/fundings/my')}>
-            <div className={style.goFundingInfoBox}>
-              <h2 className={style.goFundingTitle}>내가 만든 펀딩</h2>
-              <span className={style.goFundingSubTitle}>작성한 펀딩을 확인할 수 있어요</span>
-            </div>
-            <p className={style.fundingImage}>
-              <MyFundingIcon />
-            </p>
-          </button>
-          <button
-            className={style.goFundingBtn}
-            onClick={() => router.push('/mypage/fundings/participated')}
-          >
-            <div className={style.goFundingInfoBox}>
-              <h2 className={style.goFundingTitle}>참여한 펀딩</h2>
-              <span className={style.goFundingSubTitle}>결제한 펀딩을 확인할 수 있어요</span>
-            </div>
-            <p className={style.fundingImage}>
-              <ParticipatedFundingIcon />
-            </p>
-          </button>
+
+        <div className={css(style.cardSection)}>
+          <h3 className={style.serviceTitle}>서비스</h3>
+          <ServiceCard
+            href="/mypage/fundings/my"
+            title="내가 만든 펀딩"
+            subTitle="작성한 펀딩을 확인할 수 있어요"
+            img={<MyFundingIcon />}
+          />
+          <ServiceCard
+            href="/mypage/fundings/participated"
+            title="참여한 펀딩"
+            subTitle="결제한 펀딩을 확인할 수 있어요"
+            img={<ParticipatedFundingIcon />}
+          />
         </div>
-        <div className={style.supportBox}>
-          <span className={style.serviceTitle}>고객지원</span>
-          <button
-            className={cx(style.goFundingBtn, style.faqBtn)}
-            onClick={() => router.push('/faq')}
-          >
-            <h2 className={style.goFundingTitle}>자주 묻는 질문 / 문의하기</h2>
-            <span className={style.goFundingSubTitle}>서비스에 궁금한 점이 있나요?</span>
-          </button>
+
+        <div className={style.supportCardSection}>
+          <h3 className={style.serviceTitle}>고객지원</h3>
+          <ServiceCard
+            type="support"
+            href="/faq"
+            title="자주 묻는 질문 / 문의하기"
+            subTitle="서비스에 궁금한 점이 있나요?"
+          />
+          <ServiceCard
+            type="support"
+            href="/mypage/payinfo"
+            title="내 정보 관리"
+            subTitle="결제 내역 및 배송지 정보 관리"
+          />
         </div>
+
         <Footer
           className={css({
             '@media (min-height: 800px)': {
               position: 'absolute',
               bottom: 0,
             },
-            marginTop: '3rem',
           })}
         />
       </div>

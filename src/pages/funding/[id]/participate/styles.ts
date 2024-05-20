@@ -26,6 +26,7 @@ const label = {
   p: '0.7rem 1.2rem 0.7rem 1.1rem',
   gap: '0.8rem',
   textStyle: 'body1',
+  fontWeight: 400,
 };
 
 const resetButton = css({ ...statusTag.raw({ bg: 'black' }), ...label });

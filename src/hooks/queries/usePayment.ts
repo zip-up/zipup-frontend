@@ -80,7 +80,7 @@ const useGetPaymentList = () => {
   });
 };
 
-const useCancelPayment = () => {
+const useCancelPayment = (successCallback: () => void) => {
   return useMutation({
     mutationFn: async ({ id, ...rest }: CancelInfoForm) => {
       const response = await InstanceWithToken.put('/v1/present/cancel', {
@@ -90,6 +90,7 @@ const useCancelPayment = () => {
 
       return response.data;
     },
+    onSuccess: successCallback,
   });
 };
 
