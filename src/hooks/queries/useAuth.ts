@@ -14,7 +14,12 @@ const useLogIn = ({ code }: { code: string }) => {
     queryKey: ['login', code],
     queryFn: async () => {
       const response = await axios.get<UserWithToken>(`/v1/auth/authentication`, {
-        headers: { Authorization: code },
+        params: {
+          redirect_url: 'https://localhost:3000',
+        },
+        headers: {
+          Authorization: `Bearer ${code}`,
+        },
         withCredentials: true,
       });
 

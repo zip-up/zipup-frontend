@@ -9,7 +9,7 @@ import Footer from '@components/Footer';
 import HeaderWithLogo from '@components/HeaderWithLogo';
 import { useLogout, useUser } from '@hooks/queries/useAuth';
 import { getLoacalStorage } from '@store/localStorage';
-import { cx } from 'styled-system/css';
+import { css, cx } from 'styled-system/css';
 
 import * as style from './styles';
 
@@ -55,7 +55,7 @@ export default function MyPage() {
               getLoacalStorage('@token') ? router.push('/funding/create/1') : router.push('/')
             }
           >
-            내 펀딩 만들러 가기 <GoIcon />
+            내 펀딩 만들러 가기 <GoIcon style={{ color: '#D9D9D9' }} />
           </Button>
         </div>
         <div className={style.serviceBox}>
@@ -92,7 +92,15 @@ export default function MyPage() {
             <span className={style.goFundingSubTitle}>서비스에 궁금한 점이 있나요?</span>
           </button>
         </div>
-        <Footer />
+        <Footer
+          className={css({
+            '@media (min-height: 800px)': {
+              position: 'absolute',
+              bottom: 0,
+            },
+            marginTop: '3rem',
+          })}
+        />
       </div>
     </>
   );
