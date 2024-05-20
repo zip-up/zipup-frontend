@@ -39,7 +39,7 @@ export default function PayInfo() {
   });
 
   const { data: paymentList } = useGetPaymentList();
-  const { mutate: cancelPayment } = useCancelPayment();
+  const { mutate: cancelPayment } = useCancelPayment(() => setStep(3));
 
   const {
     register,
