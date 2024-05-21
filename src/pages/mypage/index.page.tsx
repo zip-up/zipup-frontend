@@ -94,7 +94,7 @@ export default function MyPage() {
 
         <Footer
           className={css({
-            '@media (min-height: 800px)': {
+            '@media (min-height: 92.5rem)': {
               position: 'absolute',
               bottom: 0,
             },
