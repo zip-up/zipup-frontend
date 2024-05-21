@@ -16,6 +16,7 @@ import Footer from '@components/Footer';
 import HeaderWithLogo from '@components/HeaderWithLogo';
 import LoginModal from '@components/modals/LoginModal';
 import { useLogIn } from '@hooks/queries/useAuth';
+import { useFundingList } from '@hooks/queries/useFundingList';
 import { getLoacalStorage } from '@store/localStorage';
 import { productForFundState } from '@store/store';
 import { pretendard } from '@styles/font';
@@ -23,36 +24,6 @@ import { useSetRecoilState } from 'recoil';
 import { css, cx } from 'styled-system/css';
 
 import * as style from './style';
-
-const dummydata = [
-  {
-    id: '0',
-    title: '우리 집에 안락함을 더하기',
-    imageUrl:
-      'https://plus.unsplash.com/premium_photo-1683121158319-acc40c6ef3b2?q=80&w=2264&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    status: '1',
-    percent: 75,
-    organizer: 'dp',
-  },
-  {
-    id: '1',
-    title: '펀딩 이름입니다.',
-    imageUrl:
-      'https://plus.unsplash.com/premium_photo-1683121158319-acc40c6ef3b2?q=80&w=2264&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    status: '1',
-    percent: 0,
-    organizer: '',
-  },
-  {
-    id: '2',
-    title: '펀딩 이름입니다.',
-    imageUrl:
-      'https://plus.unsplash.com/premium_photo-1683121158319-acc40c6ef3b2?q=80&w=2264&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    status: '1',
-    percent: 0,
-    organizer: '',
-  },
-];
 
 const productData = [
   {
@@ -113,6 +84,7 @@ export default function Home() {
   const [code, setCode] = useState('');
   const [isBrowsingService, setIsBrowsingService] = useState(false);
   const { isLoading } = useLogIn({ code });
+  const { data } = useFundingList({ types: 'trending' });
 
   useEffect(() => {
     if (router.isReady && router.asPath.length > 2) {
@@ -191,7 +163,7 @@ export default function Home() {
             </a>
           </div>
           <div className={style.sideWrapper}>
-            {dummydata.map(item => (
+            {data?.map(item => (
               <Card
                 key={item.id}
                 width="14.6rem"
