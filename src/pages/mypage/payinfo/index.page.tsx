@@ -39,7 +39,7 @@ export default function PayInfo() {
   });
 
   const { data: paymentList } = useGetPaymentList();
-  const { mutate: cancelPayment } = useCancelPayment(() => setStep(3));
+  const { mutate: cancelPayment, isPending } = useCancelPayment(() => setStep(3));
 
   const {
     register,
@@ -140,6 +140,7 @@ export default function PayInfo() {
                   actionBtnText="결제 취소하기"
                   handleCloseModal={() => setIsOpen(status => !status)}
                   handleAction={goNextStep}
+                  isLoading={isPending}
                 />
               }
             >
@@ -163,6 +164,7 @@ export default function PayInfo() {
                   actionBtnText="결제 취소하기"
                   disabled={!isValid}
                   handleCloseModal={() => setIsOpen(status => !status)}
+                  isLoading={isPending}
                 />
               }
             >

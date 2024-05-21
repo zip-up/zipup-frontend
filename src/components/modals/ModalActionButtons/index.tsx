@@ -1,4 +1,5 @@
 import Button from '@components/common/Button';
+import Spinner from '@components/common/Spinner';
 import { css } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
 
@@ -9,6 +10,7 @@ interface ModalActionButtonsProps {
   disabled?: boolean;
   handleCloseModal: () => void;
   handleAction?: () => void;
+  isLoading?: boolean;
 }
 
 export default function ModalActionButtons({
@@ -18,6 +20,7 @@ export default function ModalActionButtons({
   disabled = false,
   handleCloseModal,
   handleAction,
+  isLoading = false,
 }: ModalActionButtonsProps) {
   return (
     <div className={flex({ justifyContent: 'space-between' })}>
@@ -30,7 +33,7 @@ export default function ModalActionButtons({
         className={css({ width: '16.8rem' })}
         disabled={action !== 'proceed' && disabled}
       >
-        {actionBtnText}
+        {isLoading ? <Spinner size="sm" /> : actionBtnText}
       </Button>
     </div>
   );

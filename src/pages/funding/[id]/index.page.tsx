@@ -45,7 +45,7 @@ export default function Funding() {
     defaultValues: { reason: DELETE_REASON[0] },
   });
 
-  const { mutate: deleteFunding } = useDeleteFunding(() => setStep(3));
+  const { mutate: deleteFunding, isPending } = useDeleteFunding(() => setStep(3));
 
   if (!fundingInfo) return null;
 
@@ -166,6 +166,7 @@ export default function Funding() {
                   action="submit"
                   actionBtnText="펀딩 삭제할게요"
                   handleCloseModal={() => setSelectedMenu('')}
+                  isLoading={isPending}
                 />
               }
             >
