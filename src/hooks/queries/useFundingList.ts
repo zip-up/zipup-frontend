@@ -8,6 +8,7 @@ interface FundListProps {
 
 const useFundingList = ({ types }: FundListProps) => {
   return useQuery<FundingInfo[]>({
+    enabled: !!types,
     refetchOnWindowFocus: false,
     queryKey: [types],
     queryFn: async () => {
