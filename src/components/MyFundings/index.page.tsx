@@ -40,13 +40,11 @@ type MyFundingsProps = {
 
 export default function MyFundings({ fundingList }: MyFundingsProps) {
   const router = useRouter();
-  const type = router.pathname === '/trending' ? 'trending' : (router.query.types as MainTextKeys);
-
-  const validType: MainTextKeys = MAIN_TEXT[type] ? type : 'my';
+  const type = router.query.types || 'trending';
 
   return (
     <>
-      <Header title={MAIN_TEXT[validType].title} onGoBack={() => router.back()} />
+      <Header title={MAIN_TEXT[type as MainTextKeys].title} onGoBack={() => router.back()} />
       {fundingList?.length ? (
         <div className={style.cardContent}>
           <div className={style.flexContainer}>
@@ -57,11 +55,11 @@ export default function MyFundings({ fundingList }: MyFundingsProps) {
         </div>
       ) : (
         <NoResult
-          title={MAIN_TEXT[validType].noResultTitle}
-          desc={MAIN_TEXT[validType].noResultDesc}
+          title={MAIN_TEXT[type as MainTextKeys].noResultTitle}
+          desc={MAIN_TEXT[type as MainTextKeys].noResultDesc}
           renderButton={
             <>
-              {validType === 'my' && (
+              {type === 'my' && (
                 <Button
                   className={style.noResultButton}
                   onClick={() => router.push('/funding/create/1')}
