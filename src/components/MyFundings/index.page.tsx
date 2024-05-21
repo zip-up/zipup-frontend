@@ -40,7 +40,7 @@ export default function MyFundings({ fundingList }: MyFundingsProps) {
 
   return (
     <>
-      <Header title={getText()?.title} onGoBack={() => router.back()} />
+      <Header title={getText().title} onGoBack={() => router.back()} />
       {fundingList?.length ? (
         <div className={style.cardContent}>
           <div className={style.flexContainer}>
@@ -51,8 +51,8 @@ export default function MyFundings({ fundingList }: MyFundingsProps) {
         </div>
       ) : (
         <NoResult
-          title={getText()?.noResultTitle}
-          desc={getText()?.noResultDesc}
+          title={getText().noResultTitle}
+          desc={getText().noResultDesc}
           renderButton={
             <>
               {type === 'my' && (
