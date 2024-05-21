@@ -80,7 +80,6 @@ export default function CreatFundStep1() {
     <>
       {isOpen && (
         <ModalWithIcon
-          isOpen={isOpen}
           onClose={() => setIsOpen(false)}
           title="펀딩 등록을 취소할까요?"
           subtitle="작성한 내용은 저장되지 않아요."
