@@ -141,7 +141,7 @@ export default function CreatFundStep1() {
             required: '필수 항목을 입력하지 않았습니다.',
             valueAsNumber: true,
             validate: value => !isNaN(Number(value)) || '숫자로만 입력해주세요.',
-            min: { value: 10, message: '10원 이상 입력해주세요.' },
+            min: { value: 1000, message: '1000원 이상 입력해주세요.' },
           })}
         />
         {errors.targetMoney && <p className={style.errorText}>{errors.targetMoney.message}</p>}
