@@ -134,7 +134,7 @@ export default function Home() {
           `}
         </style>
       </Head>
-      {isOpen && <LoginModal isOpen={isOpen} onClose={() => setIsOpen(false)} />}
+      {isOpen && <LoginModal onClose={() => setIsOpen(false)} />}
 
       {isBrowsingService ? (
         <Header onGoBack={() => setIsBrowsingService(false)} />

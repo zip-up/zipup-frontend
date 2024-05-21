@@ -45,7 +45,7 @@ export default function Funding() {
     defaultValues: { reason: DELETE_REASON[0] },
   });
 
-  const { mutate: deleteFunding } = useDeleteFunding(() => setStep(3));
+  const { mutate: deleteFunding, isPending } = useDeleteFunding(() => setStep(3));
 
   if (!fundingInfo) return null;
 
@@ -166,6 +166,7 @@ export default function Funding() {
                   action="submit"
                   actionBtnText="펀딩 삭제할게요"
                   handleCloseModal={() => setSelectedMenu('')}
+                  isLoading={isPending}
                 />
               }
             >
@@ -184,11 +185,7 @@ export default function Funding() {
               ? '결제 취소 신청이 완료되었습니다.\n결제하신 수단으로 영업일 2-3일 내에\n환불이 진행됩니다.'
               : '펀딩이 정상적으로 삭제되었습니다.'}
             <div className={style.buttonWrapper}>
-              <Button
-                color="primary"
-                className={style.buttonWidth}
-                onClick={() => setSelectedMenu('')}
-              >
+              <Button color="primary" className={style.buttonWidth} onClick={() => router.back()}>
                 닫기
               </Button>
               <Link href="/funding/create/1" className={style.ButtonStyleLink}>
