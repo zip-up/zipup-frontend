@@ -4,6 +4,8 @@ import { flex } from 'styled-system/patterns';
 const tabs = flex({
   position: 'relative',
   width: '100%',
+  borderBottomColor: 'gray.300',
+  borderBottomWidth: '0.2rem',
 });
 
 const tabItem = css({
@@ -25,6 +27,7 @@ const indicator = css({
   height: '0.2rem',
   backgroundColor: 'main.blue',
   transition: 'transform 0.4s ease',
+  marginBottom: '-0.2rem',
 });
 
 export { tabs, tabItem, indicator };
