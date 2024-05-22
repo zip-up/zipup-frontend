@@ -101,6 +101,7 @@ export default function Participate() {
     { label: '사랑의 오만원 ', price: 50000, icon_active: <D />, icon_disabled: <D_d /> },
   ];
 
+  console.log(watch('customPrice'), errors);
   const renderFormStep = (step: number) => {
     switch (step) {
       case 1:
@@ -181,6 +182,10 @@ export default function Participate() {
                     pattern: {
                       value: /^[0-9]+$/,
                       message: '숫자로만 입력해주세요.',
+                    },
+                    min: {
+                      value: 1000,
+                      message: '최소금액은 1000원입니다.',
                     },
                   })}
                   placeholder="보낼 금액의 숫자만 입력해주세요."
