@@ -10,7 +10,7 @@ export default function ReactQueryClient({ children }: { children: ReactNode }) 
   const router = useRouter();
 
   const clearToken = () => {
-    localStorage.removeItem('@token');
+    localStorage.clear();
     Cookies.remove('token');
   };
 
