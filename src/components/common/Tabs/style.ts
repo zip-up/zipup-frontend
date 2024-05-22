@@ -1,8 +1,8 @@
 import { css } from 'styled-system/css';
+import { flex } from 'styled-system/patterns';
 
-const tabs = css({
+const tabs = flex({
   position: 'relative',
-  display: 'flex',
   width: '100%',
 });
 
