@@ -11,6 +11,7 @@ const accordionQuestion = flex({
   padding: '2.4rem 1.6rem',
   fontSize: '1.4rem',
   whiteSpace: 'pre-wrap',
+  gap: '1.4rem',
 });
 
 const highlight = css({
@@ -28,6 +29,7 @@ const accordionContent = css({
 
 const innerContent = flex({
   padding: '0 1.6rem 1.6rem',
+  gap: '1.4rem',
 });
 
 const content = css({

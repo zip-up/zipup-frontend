@@ -8,13 +8,21 @@ interface FundListProps {
 
 const useFundingList = ({ types }: FundListProps) => {
   return useQuery<FundingInfo[]>({
+    enabled: !!types,
     refetchOnWindowFocus: false,
     queryKey: [types],
     queryFn: async () => {
+      let url = '';
+      if (types === 'my') {
+        url = '/v1/fund/list';
+      } else if (types === 'participated') {
+        url = '/v1/present/list';
+      } else if (types === 'trending') {
+        url = '/v1/fund/popular';
+      }
+
       try {
-        const response = await InstanceWithToken.get(
-          types === 'my' ? `/v1/fund/list` : `/v1/present/list`,
-        );
+        const response = await InstanceWithToken.get(url);
 
         return response.data;
       } catch (error) {

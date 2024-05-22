@@ -1,7 +1,7 @@
 import { statusTag } from '@components/common/StatusTag/styles';
 import * as createFormStyle from '@pages/funding/create/styles';
 import { css, cx } from 'styled-system/css';
-import { vstack } from 'styled-system/patterns';
+import { flex, vstack } from 'styled-system/patterns';
 
 const container = vstack({
   p: '0 1.6rem',
@@ -15,6 +15,7 @@ const title = css({
   lineHeight: '3rem',
   w: '100%',
   mt: '1rem',
+  whiteSpace: 'pre-wrap',
 });
 
 const buttonWrapper = css({ gap: '1rem 0.3rem', flexWrap: 'wrap', display: 'flex', mt: '3.2rem' });
@@ -25,6 +26,7 @@ const label = {
   p: '0.7rem 1.2rem 0.7rem 1.1rem',
   gap: '0.8rem',
   textStyle: 'body1',
+  fontWeight: 400,
 };
 
 const resetButton = css({ ...statusTag.raw({ bg: 'black' }), ...label });
@@ -54,6 +56,30 @@ const messageInput = cx(
 
 const errorText = cx(createFormStyle.errorText, css({ mt: 0, ml: 0 }));
 
+const methodInputs = flex({ flexWrap: 'wrap', textStyle: 'body2', gap: '0.8rem' });
+
+const methodLabel = css({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.8rem',
+  rounded: '0.8rem',
+  border: '1px solid',
+  borderColor: 'bg.300',
+  bg: 'bg.200',
+  w: '16rem',
+  h: '5.2rem',
+  pl: '1.6rem',
+  justifyContent: 'flex-start',
+  color: 'text.200',
+  mt: '0.8rem',
+});
+
+const dropdownWrapper = flex({
+  w: '16rem',
+  alignItems: 'center',
+  mt: '0.8rem',
+});
+
 export {
   container,
   title,
@@ -67,4 +93,7 @@ export {
   inputWithLabelWrapper,
   messageInput,
   errorText,
+  methodInputs,
+  methodLabel,
+  dropdownWrapper,
 };

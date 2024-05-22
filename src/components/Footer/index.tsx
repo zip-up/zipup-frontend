@@ -1,6 +1,7 @@
+import Link from 'next/link';
 import { css, cx } from 'styled-system/css';
 
-import { footer, footerInfoBox, pointer, termsAndConditions } from './styles';
+import * as style from './styles';
 
 const TERMS_AND_CONDITIONS_LIST = [
   {
@@ -13,7 +14,7 @@ const TERMS_AND_CONDITIONS_LIST = [
   },
   {
     text: '회원탈퇴',
-    link: '',
+    link: '/mypage/withdrawal',
   },
   {
     text: '자주 묻는 질문',
@@ -29,7 +30,7 @@ export default function Footer({ className }: FooterProps) {
   return (
     <footer
       className={cx(
-        footer,
+        style.footer,
         className ||
           css({
             '@media (min-height: 650px)': {
@@ -40,14 +41,14 @@ export default function Footer({ className }: FooterProps) {
           }),
       )}
     >
-      <div className={footerInfoBox}>
+      <div className={style.footerInfoBox}>
         <p>상호명 : 집업</p>
         <p>고객센터 : 0504-0815-5379</p>
-        <div className={termsAndConditions}>
+        <div className={style.termsAndConditions}>
           {TERMS_AND_CONDITIONS_LIST.map(item => (
-            <a key={item.text} href={item.link} className={pointer}>
+            <Link key={item.text} href={item.link} className={style.pointer}>
               {item.text}
-            </a>
+            </Link>
           ))}
         </div>
       </div>

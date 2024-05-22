@@ -1,7 +1,7 @@
 import { css } from 'styled-system/css';
 
 const modalContainer = css({
-  zIndex: 1,
+  zIndex: 2,
   position: 'fixed',
   top: 0,
   right: 0,
@@ -11,6 +11,8 @@ const modalContainer = css({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  minHeight: '10rem',
+  whiteSpace: 'pre-wrap',
 });
 
 export const MODAL_PADDING_VALUE_ONLY = 1.8;

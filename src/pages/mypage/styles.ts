@@ -54,101 +54,21 @@ const logout = css({
   cursor: 'pointer',
 });
 
-const serviceBox = css({
+const cardSection = flex.raw({
   marginTop: '3.2rem',
-  width: '36rem',
-  height: '25.9rem',
   padding: '2.4rem 1.6rem',
-  backgroundColor: 'blue.10',
-  display: 'flex',
-  flexDirection: 'column',
+  bgColor: 'blue.10',
+  direction: 'column',
   gap: '1.6rem',
 });
 
 const serviceTitle = css({
   textStyle: 'body1',
   color: 'text.200',
+  fontWeight: '600',
 });
 
-const goFundingBtn = css({
-  width: '32.8rem',
-  height: '8rem',
-  borderRadius: '0.8rem',
-  paddingLeft: '2.4rem',
-  backgroundColor: 'white',
-  borderWidth: '0.1rem',
-  borderColor: 'blue.20',
-  display: 'flex',
-  position: 'relative',
-  cursor: 'pointer',
-  '& p': {
-    transition: 'transform 0.3s ease-in-out',
-    transformOrigin: 'bottom',
-  },
-  '&:hover p': {
-    transform: 'scale(1.1)',
-    transition: 'transform 0.3s ease-in-out',
-    transformOrigin: 'bottom',
-  },
-});
-
-const faqBtn = flex({
-  direction: 'column',
-  marginTop: '1.6rem',
-  borderWidth: '0.1rem',
-  borderColor: 'gray.300',
-  justify: 'center',
-  gap: '0.4rem',
-});
-
-const goFundingInfoBox = css({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  gap: '0.4rem',
-  paddingTop: '1.1rem',
-});
-
-const goFundingTitle = css({
-  color: 'text.100',
-  textStyle: 'subtitle2',
-  textAlign: 'left',
-});
-
-const goFundingSubTitle = css({
-  color: 'text.300',
-  textStyle: 'body2',
-  textAlign: 'left',
-});
-
-const fundingImage = css({
-  position: 'absolute',
-  right: 0,
-  bottom: '-0.08rem',
-});
-
-const flexContainer = css({
-  width: '32.6rem',
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  flexWrap: 'wrap',
-  rowGap: '1.6rem',
-  overflow: 'hidden',
-});
-
-const noResultButton = css({
-  width: '12.2rem',
-  height: '4.9rem',
-  marginTop: '2.6rem',
-  margin: '0 auto',
-});
-
-const supportBox = css({
-  width: '100%',
-  height: '16.3rem',
-  padding: '2.4rem 1.6rem',
-});
+const supportCardSection = css(cardSection, { bgColor: 'bg.200', mt: 0 });
 
 const logoutBtn = css({
   width: '8.2rem',
@@ -165,12 +85,6 @@ const logoutBtn = css({
   cursor: 'pointer',
 });
 
-const cardContent = css({
-  height: 'calc(100% - 4.8rem)',
-  backgroundColor: 'bg.200',
-  padding: '1.6rem',
-});
-
 export {
   content,
   profileBox,
@@ -180,17 +94,8 @@ export {
   nameBox,
   name,
   logout,
-  serviceBox,
+  cardSection,
   serviceTitle,
-  goFundingBtn,
-  goFundingInfoBox,
-  goFundingSubTitle,
-  goFundingTitle,
-  fundingImage,
-  flexContainer,
-  noResultButton,
-  supportBox,
+  supportCardSection,
   logoutBtn,
-  faqBtn,
-  cardContent,
 };

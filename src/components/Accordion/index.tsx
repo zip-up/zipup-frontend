@@ -1,7 +1,7 @@
 import { highlight } from '@pages/style';
 import { css, cx } from 'styled-system/css';
 
-import { accordion, accordionContent, accordionQuestion, content, innerContent } from './styles';
+import * as style from './styles';
 
 interface AccordionProps {
   question: string;
@@ -12,10 +12,10 @@ interface AccordionProps {
 
 export default function Accordion({ question, answer, isOpen, onToggle }: AccordionProps) {
   return (
-    <div className={accordion}>
+    <div className={style.accordion}>
       <div
         className={cx(
-          accordionQuestion,
+          style.accordionQuestion,
           css({
             backgroundColor: isOpen ? 'bg.200' : 'white',
             transition: 'background-color 0.2s ease',
@@ -24,11 +24,11 @@ export default function Accordion({ question, answer, isOpen, onToggle }: Accord
         onClick={onToggle}
       >
         <span className={highlight}>Q.</span>
-        <span>{question}</span>
+        <span className={css({ fontWeight: isOpen ? '500' : '400' })}>{question}</span>
       </div>
       <div
         className={cx(
-          accordionContent,
+          style.accordionContent,
           css({
             backgroundColor: isOpen ? 'bg.200' : 'white',
             height: isOpen ? 'fit-content' : 0,
@@ -36,9 +36,9 @@ export default function Accordion({ question, answer, isOpen, onToggle }: Accord
           }),
         )}
       >
-        <div className={innerContent}>
+        <div className={style.innerContent}>
           <span className={highlight}>A.</span>
-          <span className={content}>{answer}</span>
+          <span className={style.content}>{answer}</span>
         </div>
       </div>
     </div>

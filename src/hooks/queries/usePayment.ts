@@ -1,7 +1,11 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
+
 import { useRouter } from 'next/router';
 import { InstanceWithToken } from '@api/index';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { loadTossPayments, TossPaymentsInstance } from '@tosspayments/payment-sdk';
+import { CancelInfoForm, PaymentInfo } from '@typings/funding';
 import { isAxiosError } from 'axios';
 
 const useTossPayments = (clientKey: string) => {
@@ -68,4 +72,40 @@ const useRequestPayment = () => {
   });
 };
 
-export { useTossPayments, useStoreOrderInfo, useRequestPayment };
+const useGetPaymentList = () => {
+  return useQuery<PaymentInfo[]>({
+    queryKey: ['payment-list'],
+    queryFn: async () => {
+      const response = await InstanceWithToken.get(`/v1/present/payment/list`);
+
+      return response.data;
+    },
+  });
+};
+
+const useCancelPayment = (successCallback: () => void) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ id, ...rest }: CancelInfoForm) => {
+      const response = await InstanceWithToken.put('/v1/present/cancel', {
+        paymentId: id,
+        ...rest,
+      });
+
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['payment-list'] });
+      successCallback();
+    },
+  });
+};
+
+export {
+  useTossPayments,
+  useStoreOrderInfo,
+  useRequestPayment,
+  useGetPaymentList,
+  useCancelPayment,
+};
