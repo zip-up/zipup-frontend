@@ -5,6 +5,7 @@ const searchBox = css({
   height: '7.6rem',
   padding: '1.8rem 1.6rem 0.8rem 1.6rem',
   position: 'relative',
+  margin: '0 auto',
 });
 
 const input = css({
@@ -30,13 +31,15 @@ const searchBtn = css({
 
 const content = css({
   backgroundColor: 'bg.200',
-  minHeight: 'calc(100vh - var(--footer-height) - 17.2rem)',
+  minHeight: 'calc(100vh - var(--footer-height) - 20.8rem)',
   flex: 1,
+  width: '100%',
 });
 
 const footer = css({
   position: 'relative',
   bottom: 0,
+  width: '100%',
 });
 
 export { searchBox, input, searchBtn, content, footer };

@@ -36,7 +36,7 @@ export default function Faq() {
   const keyword = watch('text');
 
   return (
-    <>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Header title="자주 묻는 질문" onGoBack={() => router.back()} />
       <form className={style.searchBox} onSubmit={handleSubmit(submitHandler)}>
         <input
@@ -48,7 +48,7 @@ export default function Faq() {
           <SearchIcon />
         </button>
       </form>
-      <div style={{ width: '100%' }}>
+      <div style={{ width: '100%', flex: 1, display: 'flex', flexDirection: 'column' }}>
         {!keyword && (
           <Tabs
             data={['이용문의', '배송', '취소/환불', '회원']}
@@ -75,9 +75,9 @@ export default function Faq() {
                 />
               ))}
         </div>
+        <Footer className={style.footer} />
       </div>
-      <Footer className={style.footer} />
-    </>
+    </div>
   );
 }
 
