@@ -6,7 +6,7 @@ const content = css({
   paddingTop: '2.4rem',
   display: 'flex',
   flexDirection: 'column',
-  minHeight: '100vh',
+  height: 'calc(100% - 16.2rem)',
 });
 
 const profileBox = css({
