@@ -12,7 +12,7 @@ const tabItem = css({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  fontSize: 'body2',
+  textStyle: 'body2',
   cursor: 'pointer',
   position: 'relative',
 });
