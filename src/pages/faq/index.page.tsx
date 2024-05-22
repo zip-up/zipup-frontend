@@ -4,7 +4,7 @@ import Accordion from '@components/Accordion';
 import Header from '@components/common/Header';
 import Tabs from '@components/common/Tabs';
 import Footer from '@components/Footer';
-import { FAQ_QUESTIONS, FaqQuestionsType } from '@constants/faqs';
+import { FAQ_QUESTIONS, FaqQuestionsType, QuestionsAndAnswers } from '@constants/faqs';
 import { useForm } from 'react-hook-form';
 import { css } from 'styled-system/css';
 
@@ -19,11 +19,8 @@ export default function Faq() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('이용문의');
   const [openQuestion, setOpenQuestion] = useState<string | null>(null);
-  const { register, getValues, handleSubmit } = useForm<FormInputs>();
-
-  const submitHandler = () => {
-    // submit
-  };
+  const { register, watch, getValues, handleSubmit } = useForm<FormInputs>();
+  const [keywordResult, setKeywordResult] = useState<QuestionsAndAnswers[]>([]);
 
   const handleAccordionToggle = (question: string) => {
     setOpenQuestion(openQuestion === question ? null : question);
@@ -44,6 +41,14 @@ export default function Faq() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  const submitHandler = (data: { text: string }) => {
+    setKeywordResult(
+      Object.values(FAQ_QUESTIONS)
+        .flat()
+        .filter(el => el.answer.includes(data['text']) || el.question.includes(data['text'])),
+    );
+  };
 
   return (
     <>
@@ -67,14 +72,16 @@ export default function Faq() {
           />
         )}
         <div className={style.content}>
-          {getValues('text') &&
-            Object.values(FAQ_QUESTIONS)
-              .flat()
-              .filter(
-                el =>
-                  el.answer.includes(getValues('text')) || el.question.includes(getValues('text')),
-              )
-              .map(item => (
+          {getValues('text') && !watch('text')
+            ? keywordResult.map(item => (
+                <Accordion
+                  key={item.question}
+                  {...item}
+                  isOpen={openQuestion === item.question}
+                  onToggle={() => handleAccordionToggle(item.question)}
+                />
+              ))
+            : FAQ_QUESTIONS[activeTab as keyof FaqQuestionsType].map(item => (
                 <Accordion
                   key={item.question}
                   {...item}
@@ -82,15 +89,6 @@ export default function Faq() {
                   onToggle={() => handleAccordionToggle(item.question)}
                 />
               ))}
-          {!getValues('text') &&
-            FAQ_QUESTIONS[activeTab as keyof FaqQuestionsType].map(item => (
-              <Accordion
-                key={item.question}
-                {...item}
-                isOpen={openQuestion === item.question}
-                onToggle={() => handleAccordionToggle(item.question)}
-              />
-            ))}
         </div>
       </div>
       <Footer className={footerQuery} />
