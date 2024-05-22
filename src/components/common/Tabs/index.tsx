@@ -19,7 +19,6 @@ function Tabs({ data, activeTab, onSetActiveTab }: TabsProps) {
             css({
               fontWeight: activeTab === item ? '600' : '400',
               color: activeTab === item ? 'main.blue' : 'text.200',
-              borderBottomColor: activeTab === item ? 'main.blue' : 'gray.30',
             }),
           )}
           onClick={() => onSetActiveTab(item)}
@@ -27,6 +26,10 @@ function Tabs({ data, activeTab, onSetActiveTab }: TabsProps) {
           {item}
         </div>
       ))}
+      <div
+        className={style.indicator}
+        style={{ transform: `translateX(${data.indexOf(activeTab) * 100}%)` }}
+      />
     </div>
   );
 }
