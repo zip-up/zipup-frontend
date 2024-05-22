@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Accordion from '@components/Accordion';
 import Header from '@components/common/Header';
@@ -28,6 +28,22 @@ export default function Faq() {
   const handleAccordionToggle = (question: string) => {
     setOpenQuestion(openQuestion === question ? null : question);
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      document.documentElement.style.setProperty(
+        '--footer-height',
+        `${document.querySelector('footer')?.offsetHeight || 0}px`,
+      );
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <>
@@ -75,16 +91,13 @@ export default function Faq() {
                 onToggle={() => handleAccordionToggle(item.question)}
               />
             ))}
-          <Footer className={footerQuery} />
         </div>
       </div>
+      <Footer className={footerQuery} />
     </>
   );
 }
 
 const footerQuery = css({
-  '@media (min-height: 706px)': {
-    position: 'absolute',
-    bottom: 0,
-  },
+  position: 'relative',
 });

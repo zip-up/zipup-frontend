@@ -30,7 +30,13 @@ const searchBtn = css({
 
 const content = css({
   backgroundColor: 'bg.200',
-  height: 'calc(100vh - 17.4rem)',
+  minHeight: 'calc(100vh - var(--footer-height) - 17.2rem)',
+  flex: 1,
 });
 
-export { searchBox, input, searchBtn, content };
+const footer = css({
+  position: 'relative',
+  bottom: 0,
+});
+
+export { searchBox, input, searchBtn, content, footer };
