@@ -1,25 +1,37 @@
 import { ReactNode } from 'react';
 import { useRouter } from 'next/router';
+import { API_ERROR_MESSAGE } from '@constants/apiError';
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { CustomError } from '@typings/customError';
 import { isAxiosError } from 'axios';
 
 export default function ReactQueryClient({ children }: { children: ReactNode }) {
-  const _router = useRouter();
+  const router = useRouter();
+
+  const handleDefaultError = (status: number) => {
+    if (status === 404 || status === 500) return router.push(`/${status}`);
+
+    alert(API_ERROR_MESSAGE.DEFAULT);
+    router.push('/');
+  };
+
+  const handleCustomError = (customError: CustomError) => {
+    const code = customError.code as keyof typeof API_ERROR_MESSAGE;
+
+    if (code === 3001 || code === 3002) return router.push('/404');
+    if (code === 5002) return router.push('/500');
+
+    alert(API_ERROR_MESSAGE[code] || API_ERROR_MESSAGE.DEFAULT);
+    router.push('/');
+  };
 
   const handleError = (error: Error) => {
     if (isAxiosError(error) && error.response?.data) {
-      const customError = error.response.data as CustomError;
+      const errorResponse = error.response.data;
 
-      const _code = customError.code;
+      if (!errorResponse.code) return handleDefaultError(errorResponse.status);
 
-      // if (!code) alert(customError);
-
-      // if (code && (code === 2102 || code === 2101)) return router.push('/404');
-
-      // alert(customError.message);
-
-      // router.push('/');
+      handleCustomError(errorResponse);
     }
   };
 

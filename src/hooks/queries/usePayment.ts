@@ -1,8 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-nocheck
+
 import { useRouter } from 'next/router';
 import { InstanceWithToken } from '@api/index';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { loadTossPayments, TossPaymentsInstance } from '@tosspayments/payment-sdk';
 import { CancelInfoForm, PaymentInfo } from '@typings/funding';
 import { isAxiosError } from 'axios';
@@ -83,6 +84,8 @@ const useGetPaymentList = () => {
 };
 
 const useCancelPayment = (successCallback: () => void) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: async ({ id, ...rest }: CancelInfoForm) => {
       const response = await InstanceWithToken.put('/v1/present/cancel', {
@@ -92,7 +95,10 @@ const useCancelPayment = (successCallback: () => void) => {
 
       return response.data;
     },
-    onSuccess: successCallback,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['payment-list'] });
+      successCallback();
+    },
   });
 };
 

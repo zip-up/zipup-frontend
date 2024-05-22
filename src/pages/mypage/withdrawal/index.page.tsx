@@ -5,6 +5,7 @@ import { Radio_active, Radio_disabled } from '@assets/icons/radio';
 import Button from '@components/common/Button';
 import GradientBackground from '@components/common/Button/GradientBackground';
 import Header from '@components/common/Header';
+import Spinner from '@components/common/Spinner';
 import { WITHDRAWAL_NOTICE, WITHDRAWAL_REASON } from '@constants/notice';
 import { useWithdrawal } from '@hooks/queries/useAuth';
 import { useForm } from 'react-hook-form';
@@ -22,7 +23,7 @@ export default function Withdraw() {
   const { register, watch, resetField } = useForm<FormInputs>({
     defaultValues: { reason: '사용법이 복잡해요', otherReason: '' },
   });
-  const { mutate: handleWithdrawal } = useWithdrawal();
+  const { mutate: handleWithdrawal, isPending } = useWithdrawal();
 
   const isOtherReasonSelected = watch('reason') === '기타';
 
@@ -124,7 +125,7 @@ export default function Withdraw() {
               })
             }
           >
-            탈퇴할게요
+            {isPending ? <Spinner size="sm" /> : '탈퇴할게요'}
           </Button>
         </GradientBackground>
       </div>
