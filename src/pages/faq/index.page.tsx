@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Accordion from '@components/Accordion';
 import Header from '@components/common/Header';
@@ -6,7 +6,6 @@ import Tabs from '@components/common/Tabs';
 import Footer from '@components/Footer';
 import { FAQ_QUESTIONS, FaqQuestionsType, QuestionsAndAnswers } from '@constants/faqs';
 import { useForm } from 'react-hook-form';
-import { css } from 'styled-system/css';
 
 import SearchIcon from '../../assets/icons/search.svg';
 import * as style from './styles';
@@ -19,28 +18,12 @@ export default function Faq() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('이용문의');
   const [openQuestion, setOpenQuestion] = useState<string | null>(null);
-  const { register, watch, getValues, handleSubmit } = useForm<FormInputs>();
+  const { register, watch, handleSubmit } = useForm<FormInputs>();
   const [keywordResult, setKeywordResult] = useState<QuestionsAndAnswers[]>([]);
 
   const handleAccordionToggle = (question: string) => {
     setOpenQuestion(openQuestion === question ? null : question);
   };
-
-  useEffect(() => {
-    const handleResize = () => {
-      document.documentElement.style.setProperty(
-        '--footer-height',
-        `${document.querySelector('footer')?.offsetHeight || 0}px`,
-      );
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   const submitHandler = (data: { text: string }) => {
     setKeywordResult(
@@ -49,6 +32,8 @@ export default function Faq() {
         .filter(el => el.answer.includes(data['text']) || el.question.includes(data['text'])),
     );
   };
+
+  const keyword = watch('text');
 
   return (
     <>
@@ -64,7 +49,7 @@ export default function Faq() {
         </button>
       </form>
       <div style={{ width: '100%' }}>
-        {!getValues('text') && (
+        {!keyword && (
           <Tabs
             data={['이용문의', '배송', '취소/환불', '회원']}
             activeTab={activeTab}
@@ -72,7 +57,7 @@ export default function Faq() {
           />
         )}
         <div className={style.content}>
-          {getValues('text') && !watch('text')
+          {keyword
             ? keywordResult.map(item => (
                 <Accordion
                   key={item.question}
@@ -91,11 +76,11 @@ export default function Faq() {
               ))}
         </div>
       </div>
-      <Footer className={footerQuery} />
+      <Footer className={style.footer} />
     </>
   );
 }
 
-const footerQuery = css({
-  position: 'relative',
-});
+// const footerQuery = css({
+//   position: 'relative',
+// });
