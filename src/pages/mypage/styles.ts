@@ -4,7 +4,9 @@ import { flex } from 'styled-system/patterns';
 const content = css({
   backgroundColor: 'bg.200',
   paddingTop: '2.4rem',
-  height: 'calc(100% - 4.8rem)',
+  display: 'flex',
+  flexDirection: 'column',
+  minHeight: '100vh',
 });
 
 const profileBox = css({

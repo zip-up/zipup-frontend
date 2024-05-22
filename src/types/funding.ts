@@ -11,10 +11,9 @@ export interface FundingInfo {
   id: string;
   title: string;
   imageUrl: string;
-  status: string;
   percent: number;
   organizer: string;
-  fundId?: string;
+  dday: number;
 }
 
 export interface ProductInfo {

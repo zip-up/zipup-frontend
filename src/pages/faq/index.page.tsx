@@ -75,12 +75,8 @@ export default function Faq() {
                 />
               ))}
         </div>
-        <Footer className={style.footer} />
       </div>
+      <Footer />
     </div>
   );
 }
-
-// const footerQuery = css({
-//   position: 'relative',
-// });

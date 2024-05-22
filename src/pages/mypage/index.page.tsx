@@ -91,16 +91,8 @@ export default function MyPage() {
             subTitle="결제 내역 및 배송지 정보 관리"
           />
         </div>
-
-        <Footer
-          className={css({
-            '@media (min-height: 925px)': {
-              position: 'absolute',
-              bottom: 0,
-            },
-          })}
-        />
       </div>
+      <Footer />
     </>
   );
 }

@@ -54,16 +54,12 @@ export default function Card({
           css({ height: height ? ' 13rem' : '12rem' }),
         )}
       >
-        {!isProduct && (
+        {!isProduct && data && (
           <div className={style.status}>
-            <StatusTag
-              daysLeft={Number(data?.status)}
-              isCompleted={data?.status === '완료'}
-              isFloating
-            />
+            <StatusTag daysLeft={data?.dday} isCompleted={data.dday < 0} isFloating />
           </div>
         )}
-        {data?.status === '완료' && <div className={style.blur} />}
+        {data && data?.dday < 0 && <div className={style.blur} />}
         <div
           className={flex({
             width: '100%',
