@@ -4,7 +4,8 @@ import GiftIcon from '@assets/images/gift-images.svg';
 import Button from '@components/common/Button';
 import ProgressBar from '@components/common/ProgressBar';
 import StatusTag from '@components/common/StatusTag';
-import { FundingInfo, ProductInfo } from '@typings/funding';
+import { StaticItems } from '@hooks/queries/useFundingList';
+import { FundingInfo } from '@typings/funding';
 import { css, cx } from 'styled-system/css';
 
 import * as style from './styles';
@@ -16,7 +17,7 @@ interface CardProps {
   height?: string;
   styles?: CSSProperties;
   isProduct?: boolean;
-  product?: ProductInfo;
+  product?: StaticItems;
   hasShadow?: boolean;
 }
 
@@ -62,7 +63,7 @@ export default function Card({
             />
           </div>
         )}
-        {data?.status === '완료' && <div className={style.blur} />}
+        {!isProduct && data?.status === '완료' && <div className={style.blur} />}
         <div style={{ width: '100%', height: '100%' }}>
           {!data?.imageUrl && !product?.imageUrl ? (
             <GiftIcon />
@@ -80,9 +81,9 @@ export default function Card({
       </div>
       {isProduct ? (
         <div className={cx(style.infoBox, css({ padding: '1.2rem 0.8rem', marginTop: 0 }))}>
-          <div className={cx(style.title, css({ marginTop: 0 }))}>{product?.title as string}</div>
+          <div className={style.title}>{product?.title as string}</div>
           <div className={cx(style.percent, css({ marginBottom: '0.6rem' }))}>
-            {product?.price?.toLocaleString()}원
+            {product?.goalPrice?.toLocaleString()}원
           </div>
           <Button color="white" className={style.fundProductBtn} textStyle="CTAButton">
             이 상품 등록하기
@@ -99,7 +100,7 @@ export default function Card({
                 : (PROGRESS_BAR_BASE_WIDTH * data!.percent!) / 1000 + 'rem'
             }
           />
-          <div className={style.title}>{data?.title}</div>
+          <div className={cx(style.title, css({ marginTop: '0.8rem' }))}>{data?.title}</div>
           <div className={style.percent}>{data?.percent}% 달성</div>
         </div>
       )}
