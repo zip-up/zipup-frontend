@@ -18,15 +18,7 @@ export default function MyPage() {
   const router = useRouter();
 
   const { data: user } = useUser();
-  const { mutate: _mutate } = useLogout();
-
-  const handleLogout = () => {
-    //mutate({ });
-    // setToken('');
-    // localStorage.removeItem('@token');
-    // localStorage.removeItem('@user');
-    // router.push('/');
-  };
+  const { mutate: logout } = useLogout();
 
   return (
     <>
@@ -45,7 +37,7 @@ export default function MyPage() {
               <span className={style.name}>{user?.name}</span>
               <span>님</span>
             </div>
-            <button className={style.logoutBtn} onClick={handleLogout}>
+            <button className={style.logoutBtn} onClick={() => logout()}>
               로그아웃
             </button>
           </div>

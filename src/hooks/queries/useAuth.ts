@@ -55,13 +55,20 @@ const useUser = () => {
 };
 
 const useLogout = () => {
+  const router = useRouter();
+
   return useMutation({
     mutationFn: async () => {
       const response = await InstanceWithToken.post(`/v1/auth/sign-out`);
 
       return response.data;
     },
-    onError: e => console.error(e),
+    onSuccess: () => {
+      localStorage.clear();
+      Cookies.remove('token');
+
+      router.push('/');
+    },
   });
 };
 
