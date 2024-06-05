@@ -101,7 +101,6 @@ export default function Participate() {
     { label: '사랑의 오만원 ', price: 50000, icon_active: <D />, icon_disabled: <D_d /> },
   ];
 
-  console.log(watch('customPrice'), errors);
   const renderFormStep = (step: number) => {
     switch (step) {
       case 1:
