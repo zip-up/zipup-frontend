@@ -20,7 +20,7 @@ export function CommonNoticePage({
 
   return (
     <>
-      <Header onGoBack={() => router.push('/mypage')} />
+      <Header onGoBack={() => router.push('/')} />
       <div className={style.layout}>
         <>{imageComponent}</>
         <h2 className={style.title}>{title}</h2>
