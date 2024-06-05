@@ -83,7 +83,12 @@ const useWithdrawal = () => {
 
       return response.data;
     },
-    onSuccess: () => router.push('/mypage/withdrawal/success'),
+    onSuccess: () => {
+      localStorage.clear();
+      Cookies.remove('token');
+
+      router.push('/mypage/withdrawal/success');
+    },
     onError: error => {
       console.error(error);
       router.push('/mypage/withdrawal/fail');
