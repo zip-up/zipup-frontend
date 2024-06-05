@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import CancelIcon from '@assets/icons/cancel.svg';
 import UploadIcon from '@assets/icons/upload.svg';
 import Button from '@components/common/Button';
@@ -31,6 +32,7 @@ export default function PayInfo() {
   const [step, setStep] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(MYPAGE_TABS[0]);
+  const router = useRouter();
 
   const [clickedPayInfo, setClickedPayInfo] = useState({
     id: '',
@@ -90,7 +92,7 @@ export default function PayInfo() {
 
   return (
     <>
-      <Header title="내 정보 관리" />
+      <Header title="내 정보 관리" onGoBack={() => router.push('/mypage')} />
 
       <Tabs data={MYPAGE_TABS} activeTab={activeTab} onSetActiveTab={setActiveTab} />
 
