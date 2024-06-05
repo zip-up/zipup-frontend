@@ -24,6 +24,7 @@ export default function ReactQueryClient({ children }: { children: ReactNode }) 
   const handleCustomError = (customError: CustomError) => {
     const code = customError.code as keyof typeof API_ERROR_MESSAGE;
 
+    if (code === 3004) return;
     if (code === 2006) clearToken();
     if (code === 3001 || code === 3002) return router.push('/404');
     if (code === 5002) return router.push('/500');

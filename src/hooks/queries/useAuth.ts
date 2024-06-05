@@ -3,7 +3,7 @@ import { InstanceWithToken } from '@api/index';
 import { getLoacalStorage, setLocalStorage } from '@store/localStorage';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { User, UserWithToken } from '@typings/auth';
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
 import Cookies from 'js-cookie';
 
 const useLogIn = ({ code }: { code: string }) => {
@@ -90,8 +90,9 @@ const useWithdrawal = () => {
       router.push('/mypage/withdrawal/success');
     },
     onError: error => {
-      console.error(error);
-      router.push('/mypage/withdrawal/fail');
+      if (isAxiosError(error)) {
+        if (error.response?.data.code === 3004) router.push('/mypage/withdrawal/fail');
+      }
     },
   });
 };
