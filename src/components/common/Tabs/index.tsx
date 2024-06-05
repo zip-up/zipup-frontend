@@ -28,7 +28,10 @@ export default function Tabs({ data, activeTab, onSetActiveTab }: TabsProps) {
       ))}
       <div
         className={style.indicator}
-        style={{ transform: `translateX(${data.indexOf(activeTab) * 100}%)` }}
+        style={{
+          transform: `translateX(${data.indexOf(activeTab) * 100}%)`,
+          width: `calc(100% / ${data.length})`,
+        }}
       />
     </div>
   );
