@@ -63,7 +63,7 @@ export default function MyPage() {
           <ServiceCard
             href="/mypage/fundings/participated"
             title="참여한 펀딩"
-            subTitle="결제한 펀딩을 확인할 수 있어요"
+            subTitle="참여한 펀딩을 확인할 수 있어요"
             img={<ParticipatedFundingIcon />}
           />
         </div>
