@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation';
 import { InstanceWithToken } from '@api/index';
 import { getLoacalStorage, setLocalStorage } from '@store/localStorage';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { User, UserWithToken } from '@typings/auth';
 import axios, { isAxiosError } from 'axios';
 import Cookies from 'js-cookie';
@@ -36,26 +36,24 @@ const useLogIn = ({ code }: { code: string }) => {
 };
 
 const useUser = () => {
-  const user = getLoacalStorage('@user');
+  const token = getLoacalStorage('@token');
 
   return useQuery({
     queryKey: ['user'],
     queryFn: async () => {
-      try {
-        const response = await InstanceWithToken.get<User>(`/v1/user?id=${user?.id}`);
+      const response = await InstanceWithToken.get<User>('/v1/user');
 
-        return response.data;
-      } catch (error) {
-        console.error(error);
-        throw error;
-      }
+      return response.data;
     },
-    enabled: !!user?.id,
+    enabled: !!token,
+    staleTime: Infinity,
+    gcTime: Infinity,
   });
 };
 
 const useLogout = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async () => {
@@ -66,6 +64,7 @@ const useLogout = () => {
     onSuccess: () => {
       localStorage.clear();
       Cookies.remove('token');
+      queryClient.removeQueries({ queryKey: ['user'] });
 
       router.push('/');
     },
