@@ -13,11 +13,13 @@ export const getServerSideProps: GetServerSideProps = async context => {
   } = context;
 
   try {
-    const response = await InstanceWithToken.get<DetailFundingInfo>(`/v1/fund?funding=${id}`, {
+    const {
+      data: { organizerName, percent, expirationDate, goalPrice },
+    } = await InstanceWithToken.get<DetailFundingInfo>(`/v1/fund?funding=${id}`, {
       headers: { Authorization: `Bearer ${context.req.cookies.token}` },
     });
 
-    return { props: { id, organizerName: response.data.organizerName } };
+    return { props: { id, organizerName, percent, expirationDate, goalPrice } };
   } catch (error) {
     return {
       redirect: {
@@ -28,12 +30,19 @@ export const getServerSideProps: GetServerSideProps = async context => {
   }
 };
 
-interface InviteProps {
-  id: string;
-  organizerName: string;
-}
+interface InviteProps
+  extends Pick<
+    DetailFundingInfo,
+    'id' | 'organizerName' | 'percent' | 'expirationDate' | 'goalPrice'
+  > {}
 
-export default function Invite({ id, organizerName }: InviteProps) {
+export default function Invite({
+  id,
+  organizerName,
+  percent,
+  expirationDate,
+  goalPrice,
+}: InviteProps) {
   return (
     <div className={style.container}>
       <h1 className={style.headTitle}>
@@ -48,10 +57,7 @@ export default function Invite({ id, organizerName }: InviteProps) {
       <div className={style.positionedParent}>
         <Image src="/invite.png" alt="초대 이미지" width={300} height={300} />
         <div className={style.positionedWrapper}>
-          <FundingStatusBox
-            type="floating"
-            info={{ percent: 15, expirationDate: 23, goalPrice: 20000 }}
-          />
+          <FundingStatusBox type="floating" info={{ percent, expirationDate, goalPrice }} />
         </div>
       </div>
 

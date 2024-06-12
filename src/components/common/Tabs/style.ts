@@ -23,7 +23,6 @@ const indicator = css({
   position: 'absolute',
   bottom: 0,
   left: 0,
-  width: 'calc(100% / 4)',
   height: '0.2rem',
   backgroundColor: 'main.blue',
   transition: 'transform 0.4s ease',

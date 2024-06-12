@@ -18,15 +18,7 @@ export default function MyPage() {
   const router = useRouter();
 
   const { data: user } = useUser();
-  const { mutate: _mutate } = useLogout();
-
-  const handleLogout = () => {
-    //mutate({ });
-    // setToken('');
-    // localStorage.removeItem('@token');
-    // localStorage.removeItem('@user');
-    // router.push('/');
-  };
+  const { mutate: logout } = useLogout();
 
   return (
     <>
@@ -45,7 +37,7 @@ export default function MyPage() {
               <span className={style.name}>{user?.name}</span>
               <span>님</span>
             </div>
-            <button className={style.logoutBtn} onClick={handleLogout}>
+            <button className={style.logoutBtn} onClick={() => logout()}>
               로그아웃
             </button>
           </div>
@@ -71,7 +63,7 @@ export default function MyPage() {
           <ServiceCard
             href="/mypage/fundings/participated"
             title="참여한 펀딩"
-            subTitle="결제한 펀딩을 확인할 수 있어요"
+            subTitle="참여한 펀딩을 확인할 수 있어요"
             img={<ParticipatedFundingIcon />}
           />
         </div>

@@ -14,7 +14,7 @@ export default function Fail() {
         imageComponent={<Image src="/fail.png" alt="탈퇴 이미지" width={220} height={100} />}
       />
       <Link
-        href=""
+        href="/mypage/fundings/my"
         className={button({
           color: 'secondary',
           size: 'full',
