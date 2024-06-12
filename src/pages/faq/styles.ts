@@ -5,6 +5,7 @@ const searchBox = css({
   height: '7.6rem',
   padding: '1.8rem 1.6rem 0.8rem 1.6rem',
   position: 'relative',
+  margin: '0 auto',
 });
 
 const input = css({
@@ -30,7 +31,10 @@ const searchBtn = css({
 
 const content = css({
   backgroundColor: 'bg.200',
-  height: 'calc(100vh - 17.4rem)',
+  flex: 1,
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
 });
 
 export { searchBox, input, searchBtn, content };
