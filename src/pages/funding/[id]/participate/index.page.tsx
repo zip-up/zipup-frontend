@@ -182,6 +182,10 @@ export default function Participate() {
                       value: /^[0-9]+$/,
                       message: '숫자로만 입력해주세요.',
                     },
+                    min: {
+                      value: 1000,
+                      message: '최소금액은 1000원입니다.',
+                    },
                   })}
                   placeholder="보낼 금액의 숫자만 입력해주세요."
                   className={cx(

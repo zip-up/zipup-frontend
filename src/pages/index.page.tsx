@@ -203,25 +203,25 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </div>
-      <div className={style.serviceBox}>
-        <div className={style.serviceTitleBox}>
-          <span className={style.serviceTitle}>집들이 선물, 어떻게 받을 수 있나요?</span>
-        </div>
-        <div className={style.serviceDescBox}>
-          {WAY_TO_FUND.map(item => (
-            <div key={item.title} className={style.serviceDescCard}>
-              <div className={style.iconBox}>{item.icon}</div>
-              <div className={style.serviceTextBox}>
-                <p className={style.textTitle}>{item.title}</p>
-                <p className={style.textDesc}>{item.desc1}</p>
-                <p className={cx(style.textDesc, css({ marginTop: '-0.3rem' }))}>{item.desc2}</p>
+        <div className={style.serviceBox}>
+          <div className={style.serviceTitleBox}>
+            <span className={style.serviceTitle}>집들이 선물, 어떻게 받을 수 있나요?</span>
+          </div>
+          <div className={style.serviceDescBox}>
+            {WAY_TO_FUND.map(item => (
+              <div key={item.title} className={style.serviceDescCard}>
+                <div className={style.iconBox}>{item.icon}</div>
+                <div className={style.serviceTextBox}>
+                  <p className={style.textTitle}>{item.title}</p>
+                  <p className={style.textDesc}>{item.desc1}</p>
+                  <p className={cx(style.textDesc, css({ marginTop: '-0.3rem' }))}>{item.desc2}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
-      <Footer className={css({ height: '10.8rem' })} />
+      <Footer />
     </>
   );
 }

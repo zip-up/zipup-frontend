@@ -6,6 +6,7 @@ import ProgressBar from '@components/common/ProgressBar';
 import StatusTag from '@components/common/StatusTag';
 import { FundingInfo, ProductInfo } from '@typings/funding';
 import { css, cx } from 'styled-system/css';
+import { flex } from 'styled-system/patterns';
 
 import * as style from './styles';
 
@@ -53,23 +54,27 @@ export default function Card({
           css({ height: height ? ' 13rem' : '12rem' }),
         )}
       >
-        {!isProduct && (
+        {!isProduct && data && (
           <div className={style.status}>
-            <StatusTag
-              daysLeft={Number(data?.status)}
-              isCompleted={data?.status === '완료'}
-              isFloating
-            />
+            <StatusTag daysLeft={data?.dday} isCompleted={data.dday < 0} isFloating />
           </div>
         )}
-        {data?.status === '완료' && <div className={style.blur} />}
-        <div style={{ width: '100%', height: '100%' }}>
+        {data && data?.dday < 0 && <div className={style.blur} />}
+        <div
+          className={flex({
+            width: '100%',
+            height: '100%',
+          })}
+        >
           {!data?.imageUrl && !product?.imageUrl ? (
-            <GiftIcon />
+            <div className={css({ marginLeft: '-0.8rem' })}>
+              <GiftIcon />
+            </div>
           ) : (
             <div className={style.imageWrapper}>
               <Image
                 src={isProduct ? product!.imageUrl : data!.imageUrl}
+                style={{ width: '100%', height: '100%' }}
                 alt="펀딩 이미지"
                 fill
                 objectFit="cover"
@@ -84,7 +89,11 @@ export default function Card({
           <div className={cx(style.percent, css({ marginBottom: '0.6rem' }))}>
             {product?.price?.toLocaleString()}원
           </div>
-          <Button color="white" className={style.fundProductBtn} textStyle="CTAButton">
+          <Button
+            color="white"
+            className={style.fundProductBtn}
+            style={{ height: '3rem', fontSize: '1.2rem', fontWeight: '400' }}
+          >
             이 상품 등록하기
           </Button>
         </div>

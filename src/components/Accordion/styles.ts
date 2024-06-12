@@ -9,13 +9,12 @@ const accordionQuestion = flex({
   cursor: 'pointer',
   width: '100%',
   padding: '2.4rem 1.6rem',
-  fontSize: '1.4rem',
+  textStyle: 'body2',
   whiteSpace: 'pre-wrap',
   gap: '1.4rem',
 });
 
 const highlight = css({
-  marginRight: '1.6rem',
   color: 'success',
   fontWeight: '600',
 });
@@ -29,14 +28,14 @@ const accordionContent = css({
 
 const innerContent = flex({
   padding: '0 1.6rem 1.6rem',
-  gap: '1.4rem',
 });
 
 const content = css({
-  fontSize: '1.2rem',
+  textStyle: 'caption1',
   color: 'text.200',
-  fontWeight: '400',
   whiteSpace: 'pre-wrap',
+  marginTop: '0.2rem',
+  marginLeft: '0.6rem',
 });
 
 export { accordion, accordionContent, accordionQuestion, highlight, innerContent, content };

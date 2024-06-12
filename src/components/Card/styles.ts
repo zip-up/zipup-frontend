@@ -72,11 +72,6 @@ const percent = css({
 });
 
 const fundProductBtn = css({
-  textStyle: 'caption1',
-  borderColor: 'text.300',
-  borderWidth: '0.1rem',
-  height: '3rem',
-  borderRadius: '0.6rem',
   '&:hover': {
     backgroundColor: 'text.300',
     color: 'white',

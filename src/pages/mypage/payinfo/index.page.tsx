@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import CancelIcon from '@assets/icons/cancel.svg';
 import UploadIcon from '@assets/icons/upload.svg';
 import Button from '@components/common/Button';
@@ -6,6 +7,7 @@ import DropDown from '@components/common/DropDown';
 import Header from '@components/common/Header';
 import Modal from '@components/common/Modal';
 import { RadioSelector } from '@components/common/RadioSelector';
+import Spinner from '@components/common/Spinner';
 import Tabs from '@components/common/Tabs';
 import ModalActionButtons from '@components/modals/ModalActionButtons';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
@@ -31,6 +33,7 @@ export default function PayInfo() {
   const [step, setStep] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(MYPAGE_TABS[0]);
+  const router = useRouter();
 
   const [clickedPayInfo, setClickedPayInfo] = useState({
     id: '',
@@ -38,7 +41,7 @@ export default function PayInfo() {
     isVirtualAccountAndDeposited: false,
   });
 
-  const { data: paymentList } = useGetPaymentList();
+  const { data: paymentList, isLoading } = useGetPaymentList();
   const { mutate: cancelPayment, isPending } = useCancelPayment(() => setStep(3));
 
   const {
@@ -90,10 +93,9 @@ export default function PayInfo() {
 
   return (
     <>
-      <Header title="내 정보 관리" />
+      <Header title="내 정보 관리" onGoBack={() => router.push('/mypage')} />
 
       <Tabs data={MYPAGE_TABS} activeTab={activeTab} onSetActiveTab={setActiveTab} />
-
       {paymentList?.length === 0 && (
         <NoResut
           title="아직 참여한 펀딩이 없어요"
@@ -101,6 +103,8 @@ export default function PayInfo() {
         />
       )}
       <div className={style.listWrapper}>
+        {isLoading && <Spinner />}
+
         {paymentList?.map(info => (
           <PaymentCard
             paymentInfo={info}
