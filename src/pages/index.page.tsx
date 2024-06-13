@@ -19,7 +19,6 @@ import { useLogIn } from '@hooks/queries/useAuth';
 import { useFundingList } from '@hooks/queries/useFundingList';
 import { getLoacalStorage } from '@store/localStorage';
 import { productForFundState } from '@store/store';
-import { pretendard } from '@styles/font';
 import { useSetRecoilState } from 'recoil';
 import { css, cx } from 'styled-system/css';
 
@@ -97,15 +96,8 @@ export default function Home() {
     <>
       <Head>
         <title>ZIPup | 집들이 선물 펀딩 서비스</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <style jsx global>
-          {`
-            :root {
-              --font-pretendard: ${pretendard.style.fontFamily};
-            }
-          `}
-        </style>
       </Head>
+
       {isOpen && <LoginModal onClose={() => setIsOpen(false)} />}
 
       {isBrowsingService ? (
