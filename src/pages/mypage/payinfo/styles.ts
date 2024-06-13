@@ -6,7 +6,7 @@ const listWrapper = flex({
   bg: 'bg.200',
   padding: '1.6rem',
   gap: '1.4rem',
-  h: 'calc(100% - 9.8rem)',
+  minH: 'calc(100vh - 9.8rem)',
   justifyContent: 'center',
   alignItems: 'center',
 });
