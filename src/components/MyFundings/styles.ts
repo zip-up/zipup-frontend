@@ -38,7 +38,7 @@ const logoutBtn = css({
 });
 
 const cardContent = css({
-  height: 'calc(100% - 4.8rem)',
+  height: 'calc(100vh - 4.8rem)',
   backgroundColor: 'bg.200',
   padding: '1.6rem',
 });

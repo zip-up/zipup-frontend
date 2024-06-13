@@ -19,7 +19,6 @@ import { useLogIn } from '@hooks/queries/useAuth';
 import { useFundingList } from '@hooks/queries/useFundingList';
 import { getLoacalStorage } from '@store/localStorage';
 import { productForFundState } from '@store/store';
-import { pretendard } from '@styles/font';
 import { useSetRecoilState } from 'recoil';
 import { css, cx } from 'styled-system/css';
 
@@ -97,15 +96,8 @@ export default function Home() {
     <>
       <Head>
         <title>ZIPup | 집들이 선물 펀딩 서비스</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <style jsx global>
-          {`
-            :root {
-              --font-pretendard: ${pretendard.style.fontFamily};
-            }
-          `}
-        </style>
       </Head>
+
       {isOpen && <LoginModal onClose={() => setIsOpen(false)} />}
 
       {isBrowsingService ? (
@@ -117,7 +109,9 @@ export default function Home() {
         <div className={style.bannerWrapper}>
           <div className={style.textBox}>
             <p className={style.title}>
-              조금씩 마음을 보태어 <span className={style.highlight}>집들이 선물</span>을 보내요
+              조금씩 마음을 보태어{' '}
+              <span className={cx(style.highlight, css({ marginRight: 0 }))}>집들이 선물</span>을
+              보내요
             </p>
             <span className={style.subTitle}>
               더 멋진 집들이 경험을 위한
@@ -134,6 +128,7 @@ export default function Home() {
             width={290}
             height={221}
             className={style.homeImage2}
+            priority
           />
           <div className={style.homeImage3}>
             <HomeImage />
