@@ -109,7 +109,9 @@ export default function Home() {
         <div className={style.bannerWrapper}>
           <div className={style.textBox}>
             <p className={style.title}>
-              조금씩 마음을 보태어 <span className={style.highlight}>집들이 선물</span>을 보내요
+              조금씩 마음을 보태어{' '}
+              <span className={cx(style.highlight, css({ marginRight: 0 }))}>집들이 선물</span>을
+              보내요
             </p>
             <span className={style.subTitle}>
               더 멋진 집들이 경험을 위한
@@ -126,6 +128,7 @@ export default function Home() {
             width={290}
             height={221}
             className={style.homeImage2}
+            priority
           />
           <div className={style.homeImage3}>
             <HomeImage />
