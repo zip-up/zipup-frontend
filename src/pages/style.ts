@@ -19,7 +19,6 @@ const title = css({
 
 const highlight = css({
   color: 'main.blue',
-  marginRight: '1rem',
 });
 
 const subTitle = css({
