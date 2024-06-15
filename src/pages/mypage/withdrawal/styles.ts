@@ -32,7 +32,7 @@ const withdrawalNotice = css({
   textStyle: 'caption1',
   fontWeight: 500,
   paddingLeft: '11px',
-  textIndent: '-11px',
+  textIndent: '-10px',
 });
 
 const noticeCheckboxWrapper = flex({
