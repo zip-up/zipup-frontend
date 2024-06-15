@@ -62,6 +62,10 @@ export interface PaymentInfo {
   refundable: boolean;
   isVirtualAccount: boolean;
   isDepositCompleted: boolean;
+  virtualAccount?: {
+    accountNumber: string;
+    bankCode: string;
+  };
 }
 
 export interface CancelInfoForm {

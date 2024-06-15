@@ -1,4 +1,4 @@
-export const BANK_CODE: { [key: string]: string } = {
+export const REFUND_BANK_CODE: { [key: string]: string } = {
   우리은행: '20',
   KB국민은행: '06',
   IBK기업은행: '03',
@@ -25,4 +25,16 @@ export const BANK_CODE: { [key: string]: string } = {
   KDB산업은행: '02',
   SC제일은행: '23',
   Sh수협은행: '07',
+};
+
+export const VIRTUAL_ACCOUNT_BANK: { [key: string]: string } = {
+  '06': '국민은행',
+  '45': '새마을금고',
+  '34': '광주은행',
+  '11': '농협은행',
+  '03': '기업은행',
+  '88': '신한은행',
+  '20': '우리은행',
+  '07': '수협은행',
+  '37': '전북은행',
 };
