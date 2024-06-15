@@ -1,9 +1,11 @@
 import Image from 'next/image';
 import Button from '@components/common/Button';
 import { statusTag } from '@components/common/StatusTag/styles';
+import { REFUND_BANK_CODE } from '@constants/bank';
 import { PaymentInfo } from '@typings/funding';
 import { formatDateTime } from '@utils/date';
 import { css, RecipeVariantProps } from 'styled-system/css';
+import { flex } from 'styled-system/patterns';
 
 import * as style from './styles';
 
@@ -30,6 +32,7 @@ export default function PaymentCard({
     paymentNumber,
     status,
     refundable,
+    virtualAccount,
   },
   handleClick,
 }: PaymentCardProps) {
@@ -68,10 +71,14 @@ export default function PaymentCard({
             <span className={css({ textStyle: 'subtitle1' })}>
               {Number(amount).toLocaleString()}원
             </span>
-            <span className={css({ textStyle: 'caption1', color: 'text.200' })}>
-              <span className={css({ color: 'text.300', mr: '0.8rem' })}>결제 번호</span>
-              {paymentNumber}
-            </span>
+            <DetailInfo label="결제 번호" info={paymentNumber} />
+            {virtualAccount && (
+              <DetailInfo
+                label="가상 계좌"
+                info={REFUND_BANK_CODE[virtualAccount.bankCode]}
+                subInfo={virtualAccount.accountNumber}
+              />
+            )}
           </div>
         </div>
         <Button color="white" disabled={!refundable} onClick={handleClick}>
@@ -79,5 +86,17 @@ export default function PaymentCard({
         </Button>
       </div>
     </div>
+  );
+}
+
+function DetailInfo({ label, info, subInfo }: { label: string; info: string; subInfo?: string }) {
+  return (
+    <span className={flex({ textStyle: 'caption1', alignItems: 'center', gap: '0.6rem' })}>
+      <span className={css({ color: 'text.300', minW: '5rem' })}>{label}</span>
+      <span>
+        <span className={css({ color: 'text.200' })}>{info}</span>
+        {subInfo && <span className={css({ color: 'text.200' })}>{subInfo}</span>}
+      </span>
+    </span>
   );
 }
