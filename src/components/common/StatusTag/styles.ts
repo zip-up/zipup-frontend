@@ -16,12 +16,17 @@ const statusTag = cva({
       gray50: { bg: 'gray.50' },
       disabled: { bg: 'bg.300', color: 'text.200' },
     },
+    status: {
+      IN_PROGRESS: { bg: 'success' },
+      EXPIRED: { color: 'text.200', bg: 'gray.30' },
+      COMPLETED: { bg: 'black' },
+    },
     size: {
       static: {
-        p: '0.4rem 0.7rem',
+        p: '0.6rem 0.8rem',
       },
       floating: {
-        p: '0.8rem 0.8rem',
+        p: '0.6rem 0.7rem',
       },
     },
   },

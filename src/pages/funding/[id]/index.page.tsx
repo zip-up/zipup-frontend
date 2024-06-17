@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -21,10 +21,36 @@ import ModalWithIcon from '@components/modals/ModalWithIcon';
 import { DELETE_REASON } from '@constants/notice';
 import { useUser } from '@hooks/queries/useAuth';
 import { useDeleteFunding, useGetFundingDetail } from '@hooks/queries/useFunding';
+import { FundingStatus } from '@typings/funding';
 import { shareKakao } from '@utils/share';
 import { useForm } from 'react-hook-form';
 
 import * as style from './styles';
+
+const ORGANIZER_ACTION: {
+  [key in FundingStatus]: {
+    [key in 'first' | 'second']: { path: (id: string) => string; label: string };
+  };
+} = {
+  IN_PROGRESS: {
+    first: { path: () => '', label: '친구에게 공유하기' },
+    second: { path: (id: string) => `/funding/${id}/participate`, label: '내 펀딩 참여하기' },
+  },
+  EXPIRED: {
+    first: { path: () => '', label: '친구에게 공유하기' },
+    second: { path: (id: string) => `/funding/${id}/participate`, label: '남은 금액 결제하기' },
+  },
+  COMPLETED: {
+    first: { path: () => '', label: '감사 편지 보내기' },
+    second: { path: () => '', label: '배송 현황 확인하기' },
+  },
+};
+
+const PUBLIC_ACTION = {
+  IN_PROGRESS: { path: (id: string) => `/funding/${id}/participate`, label: '이 펀딩 참여하기' },
+  EXPIRED: { path: () => '', label: '이 펀딩 참여하기' },
+  COMPLETED: { path: () => '', label: '감사 편지 보러가기' },
+};
 
 export default function Funding() {
   const router = useRouter();
@@ -37,6 +63,8 @@ export default function Funding() {
   const [selectedMenu, setSelectedMenu] = useState('');
   const [step, setStep] = useState(1);
 
+  const [status, setStatus] = useState<FundingStatus>('IN_PROGRESS');
+
   interface FormInputs {
     reason: string;
   }
@@ -46,6 +74,19 @@ export default function Funding() {
   });
 
   const { mutate: deleteFunding, isPending } = useDeleteFunding(() => setStep(3));
+
+  useEffect(() => {
+    if (!fundingInfo) return;
+
+    setStatus(() => {
+      const { percent, expirationDate } = fundingInfo;
+
+      if (percent >= 100) return 'COMPLETED';
+      else if (expirationDate < 0) return 'EXPIRED';
+
+      return 'IN_PROGRESS';
+    });
+  }, [fundingInfo]);
 
   if (!fundingInfo) return null;
 
@@ -69,30 +110,51 @@ export default function Funding() {
     });
   };
 
-  function RoleBasedButton() {
+  function RoleBasedButton({ status }: { status: FundingStatus }) {
     if (!fundingInfo) return null;
+
+    const { first: firstButton, second: secondButton } = ORGANIZER_ACTION[status];
 
     if (isOrganizer) {
       return (
-        <Button
-          onClick={() =>
-            shareKakao({ userName: user?.name || '', imageUrl: fundingInfo.imageUrl, fundingId })
-          }
-        >
-          친구에게 공유하기
-        </Button>
+        <>
+          <Button
+            color="primary"
+            onClick={() => {
+              status !== 'COMPLETED'
+                ? shareKakao({
+                    userName: user?.name || '',
+                    imageUrl: fundingInfo.imageUrl,
+                    fundingId,
+                  })
+                : router.push(firstButton.path(fundingId));
+            }}
+          >
+            {firstButton.label}
+          </Button>
+          <Button
+            onClick={() => {
+              if (user) return router.push(secondButton.path(fundingId));
+
+              setIsLoginModalOn(true);
+            }}
+          >
+            {secondButton.label}
+          </Button>
+        </>
       );
     }
 
     return (
       <Button
         onClick={() => {
-          if (user) return router.push(`/funding/${fundingId}/participate`);
+          if (user) return router.push(PUBLIC_ACTION[status].path(fundingId));
 
           setIsLoginModalOn(true);
         }}
+        disabled={status === 'EXPIRED'}
       >
-        이 펀딩 참여하기
+        {PUBLIC_ACTION[status].label}
       </Button>
     );
   }
@@ -125,9 +187,9 @@ export default function Funding() {
               </Menu>
             )}
           </div>
-          <FundingStatusBox info={{ percent, expirationDate, goalPrice }} />
+          <FundingStatusBox status={status} info={{ percent, expirationDate, goalPrice }} />
 
-          <RoleBasedButton />
+          <RoleBasedButton status={status} />
 
           <div className={style.desc}>{description}</div>
         </article>

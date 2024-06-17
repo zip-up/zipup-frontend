@@ -56,7 +56,7 @@ export default function Card({
       >
         {!isProduct && data && (
           <div className={style.status}>
-            <StatusTag daysLeft={data?.dday} isCompleted={data.dday < 0} isFloating />
+            <StatusTag daysLeft={data?.dday} isFloating />
           </div>
         )}
         {data && data?.dday < 0 && <div className={style.blur} />}
