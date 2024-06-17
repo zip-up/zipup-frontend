@@ -29,7 +29,7 @@ export default function FundingStatusBox({
 
       <div className={style.captionWrapper}>
         <span>
-          {status === 'EXPIRED' ? (
+          {expirationDate < 0 ? (
             '펀딩이 종료되었어요'
           ) : (
             <>

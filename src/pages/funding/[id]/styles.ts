@@ -21,6 +21,18 @@ const borderWithPadding = {
   borderColor: 'gray.30',
 };
 
+const paymentNotice = flex({
+  rounded: '0.8rem',
+  bg: 'blue.10',
+  p: '0.8rem 1.2rem',
+  color: 'main.blue',
+  textStyle: 'caption1',
+  fontWeight: 500,
+  width: '100%',
+  alignItems: 'center',
+  gap: '0.8rem',
+});
+
 const desc = css(borderWithPadding, {
   textStyle: 'body2',
   lineHeight: '2.2rem',
@@ -55,6 +67,7 @@ export {
   wrapper,
   titleBar,
   title,
+  paymentNotice,
   desc,
   imageWrapper,
   buttonWrapper,

@@ -40,6 +40,13 @@ const statusTag = cva({
         right: '0.8rem',
       },
     },
+    {
+      size: 'static',
+      status: 'COMPLETED',
+      css: {
+        bg: 'text.200',
+      },
+    },
   ],
 });
 

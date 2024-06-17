@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import DeleteIcon from '@assets/icons/delete.svg';
 import DeleteMenuIcon from '@assets/icons/delete-menu.svg';
 import EditIcon from '@assets/icons/edit-note.svg';
+import InfoIcon from '@assets/icons/info.svg';
 import MoreBtnIcon from '@assets/icons/more-btn.svg';
 import ActiveMoreBtnIcon from '@assets/icons/more-btn-clicked.svg';
 import DefaultPresentImg from '@assets/images/default_present.svg';
@@ -42,15 +43,15 @@ const ORGANIZER_ACTION: {
     second: { path: (id: string) => `/funding/${id}/participate`, label: '남은 금액 결제하기' },
   },
   COMPLETED: {
-    first: { path: () => '', label: '감사 편지 보내기' },
-    second: { path: () => '', label: '배송 현황 확인하기' },
+    first: { path: (id: string) => `/funding/${id}`, label: '감사 편지 보내기' },
+    second: { path: (id: string) => `/funding/${id}`, label: '배송 현황 확인하기' },
   },
 };
 
 const PUBLIC_ACTION = {
   IN_PROGRESS: { path: (id: string) => `/funding/${id}/participate`, label: '이 펀딩 참여하기' },
-  EXPIRED: { path: () => '', label: '이 펀딩 참여하기' },
-  COMPLETED: { path: () => '', label: '감사 편지 보러가기' },
+  EXPIRED: { path: (id: string) => `/funding/${id}/participate`, label: '이 펀딩 참여하기' },
+  COMPLETED: { path: (id: string) => `/funding/${id}`, label: '감사 편지 보러가기' },
 };
 
 export default function Funding() {
@@ -108,9 +109,9 @@ export default function Funding() {
   function RoleBasedButton({ status }: { status: FundingStatus }) {
     if (!fundingInfo) return null;
 
-    const { first: firstButton, second: secondButton } = ORGANIZER_ACTION[status];
+    if (!isOrganizer) {
+      const { first: firstButton, second: secondButton } = ORGANIZER_ACTION[status];
 
-    if (isOrganizer) {
       return (
         <>
           <Button
@@ -127,13 +128,7 @@ export default function Funding() {
           >
             {firstButton.label}
           </Button>
-          <Button
-            onClick={() => {
-              if (user) return router.push(secondButton.path(fundingId));
-
-              setIsLoginModalOn(true);
-            }}
-          >
+          <Button onClick={() => router.push(secondButton.path(fundingId))}>
             {secondButton.label}
           </Button>
         </>
@@ -142,12 +137,12 @@ export default function Funding() {
 
     return (
       <Button
+        disabled={status === 'EXPIRED'}
         onClick={() => {
           if (user) return router.push(PUBLIC_ACTION[status].path(fundingId));
 
           setIsLoginModalOn(true);
         }}
-        disabled={status === 'EXPIRED'}
       >
         {PUBLIC_ACTION[status].label}
       </Button>
@@ -185,7 +180,16 @@ export default function Funding() {
           <FundingStatusBox status={status} info={{ percent, expirationDate, goalPrice }} />
 
           <RoleBasedButton status={status} />
-
+          {isOrganizer && status === 'EXPIRED' && (
+            <div className={style.paymentNotice}>
+              <InfoIcon />
+              <span>
+                펀딩 기간이 종료되었어요.
+                <br />
+                남은 금액을 결제하거나, 펀딩 기간을 수정해보세요.
+              </span>
+            </div>
+          )}
           <div className={style.desc}>{description}</div>
         </article>
         <MessageList messages={messageList} />
