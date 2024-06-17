@@ -30,6 +30,17 @@ const statusTag = cva({
       },
     },
   },
+  compoundVariants: [
+    {
+      size: 'floating',
+      css: {
+        position: 'absolute',
+        zIndex: 1,
+        top: '0.8rem',
+        right: '0.8rem',
+      },
+    },
+  ],
 });
 
 export { statusTag };

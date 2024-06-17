@@ -5,6 +5,7 @@ import Button from '@components/common/Button';
 import ProgressBar from '@components/common/ProgressBar';
 import StatusTag from '@components/common/StatusTag';
 import { FundingInfo, ProductInfo } from '@typings/funding';
+import { getFundingStatus } from '@utils/getStatus';
 import { css, cx } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
 
@@ -55,9 +56,11 @@ export default function Card({
         )}
       >
         {!isProduct && data && (
-          <div className={style.status}>
-            <StatusTag daysLeft={data?.dday} isFloating />
-          </div>
+          <StatusTag
+            daysLeft={data?.dday}
+            status={getFundingStatus(data.percent, data.dday)}
+            isFloating
+          />
         )}
         {data && data?.dday < 0 && <div className={style.blur} />}
         <div

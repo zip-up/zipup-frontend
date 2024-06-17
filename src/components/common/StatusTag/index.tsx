@@ -19,7 +19,7 @@ export default function StatusTag({ status, daysLeft = 0, isFloating = false }: 
 
   return (
     <div className={style.statusTag({ status, size })}>
-      {daysLeft >= 0 ? `D - ${daysLeft}` : STATUS_MESSAGE[status]}
+      {status === 'IN_PROGRESS' && daysLeft ? `D - ${daysLeft}` : STATUS_MESSAGE[status]}
     </div>
   );
 }

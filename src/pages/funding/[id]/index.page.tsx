@@ -22,6 +22,7 @@ import { DELETE_REASON } from '@constants/notice';
 import { useUser } from '@hooks/queries/useAuth';
 import { useDeleteFunding, useGetFundingDetail } from '@hooks/queries/useFunding';
 import { FundingStatus } from '@typings/funding';
+import { getFundingStatus } from '@utils/getStatus';
 import { shareKakao } from '@utils/share';
 import { useForm } from 'react-hook-form';
 
@@ -78,14 +79,8 @@ export default function Funding() {
   useEffect(() => {
     if (!fundingInfo) return;
 
-    setStatus(() => {
-      const { percent, expirationDate } = fundingInfo;
-
-      if (percent >= 100) return 'COMPLETED';
-      else if (expirationDate < 0) return 'EXPIRED';
-
-      return 'IN_PROGRESS';
-    });
+    const { percent, expirationDate } = fundingInfo;
+    setStatus(getFundingStatus(percent, expirationDate));
   }, [fundingInfo]);
 
   if (!fundingInfo) return null;
