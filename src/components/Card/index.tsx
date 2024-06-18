@@ -93,7 +93,12 @@ export default function Card({
           <Button
             color="white"
             className={style.fundProductBtn}
-            style={{ height: '3rem', fontSize: '1.2rem', fontWeight: '400' }}
+            style={{
+              height: '3rem',
+              fontSize: '1.2rem',
+              fontWeight: '400',
+              borderRadius: '0.6rem',
+            }}
           >
             이 상품 등록하기
           </Button>
