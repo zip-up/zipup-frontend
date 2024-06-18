@@ -49,7 +49,7 @@ const infoBox = css({
 
 const status = css({
   position: 'absolute',
-  zIndex: 1,
+  zIndex: 2,
   top: '0.8rem',
   right: '0.8rem',
 });
