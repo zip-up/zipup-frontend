@@ -4,7 +4,9 @@ import { flex } from 'styled-system/patterns';
 const content = css({
   backgroundColor: 'bg.200',
   paddingTop: '2.4rem',
-  height: 'calc(100% - 4.8rem)',
+  display: 'flex',
+  flexDirection: 'column',
+  height: 'calc(100% - 16.2rem)',
 });
 
 const profileBox = css({
@@ -76,8 +78,7 @@ const logoutBtn = css({
   borderRadius: '0.6rem',
   borderWidth: '0.1rem',
   borderColor: 'text.300',
-  fontSize: '1.2rem',
-  fontWeight: '400',
+  textStyle: 'caption1',
   color: 'text.200',
   backgroundColor: '#fff',
   position: 'absolute',

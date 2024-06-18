@@ -23,7 +23,7 @@ export default function Accordion({ question, answer, isOpen, onToggle }: Accord
         )}
         onClick={onToggle}
       >
-        <span className={highlight}>Q.</span>
+        <span className={style.highlight}>Q.</span>
         <span className={css({ fontWeight: isOpen ? '500' : '400' })}>{question}</span>
       </div>
       <div

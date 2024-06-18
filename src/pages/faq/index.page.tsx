@@ -4,9 +4,8 @@ import Accordion from '@components/Accordion';
 import Header from '@components/common/Header';
 import Tabs from '@components/common/Tabs';
 import Footer from '@components/Footer';
-import { FAQ_QUESTIONS, FaqQuestionsType } from '@constants/faqs';
+import { FAQ_QUESTIONS, FaqQuestionsType, QuestionsAndAnswers } from '@constants/faqs';
 import { useForm } from 'react-hook-form';
-import { css } from 'styled-system/css';
 
 import SearchIcon from '../../assets/icons/search.svg';
 import * as style from './styles';
@@ -19,18 +18,25 @@ export default function Faq() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('이용문의');
   const [openQuestion, setOpenQuestion] = useState<string | null>(null);
-  const { register, getValues, handleSubmit } = useForm<FormInputs>();
-
-  const submitHandler = () => {
-    // submit
-  };
+  const { register, watch, handleSubmit } = useForm<FormInputs>();
+  const [keywordResult, setKeywordResult] = useState<QuestionsAndAnswers[]>([]);
 
   const handleAccordionToggle = (question: string) => {
     setOpenQuestion(openQuestion === question ? null : question);
   };
 
+  const submitHandler = (data: { text: string }) => {
+    setKeywordResult(
+      Object.values(FAQ_QUESTIONS)
+        .flat()
+        .filter(el => el.answer.includes(data['text']) || el.question.includes(data['text'])),
+    );
+  };
+
+  const keyword = watch('text');
+
   return (
-    <>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Header title="자주 묻는 질문" onGoBack={() => router.back()} />
       <form className={style.searchBox} onSubmit={handleSubmit(submitHandler)}>
         <input
@@ -42,8 +48,8 @@ export default function Faq() {
           <SearchIcon />
         </button>
       </form>
-      <div style={{ width: '100%' }}>
-        {!getValues('text') && (
+      <div style={{ width: '100%', flex: 1, display: 'flex', flexDirection: 'column' }}>
+        {!keyword && (
           <Tabs
             data={['이용문의', '배송', '취소/환불', '회원']}
             activeTab={activeTab}
@@ -51,14 +57,16 @@ export default function Faq() {
           />
         )}
         <div className={style.content}>
-          {getValues('text') &&
-            Object.values(FAQ_QUESTIONS)
-              .flat()
-              .filter(
-                el =>
-                  el.answer.includes(getValues('text')) || el.question.includes(getValues('text')),
-              )
-              .map(item => (
+          {keyword
+            ? keywordResult.map(item => (
+                <Accordion
+                  key={item.question}
+                  {...item}
+                  isOpen={openQuestion === item.question}
+                  onToggle={() => handleAccordionToggle(item.question)}
+                />
+              ))
+            : FAQ_QUESTIONS[activeTab as keyof FaqQuestionsType].map(item => (
                 <Accordion
                   key={item.question}
                   {...item}
@@ -66,25 +74,9 @@ export default function Faq() {
                   onToggle={() => handleAccordionToggle(item.question)}
                 />
               ))}
-          {!getValues('text') &&
-            FAQ_QUESTIONS[activeTab as keyof FaqQuestionsType].map(item => (
-              <Accordion
-                key={item.question}
-                {...item}
-                isOpen={openQuestion === item.question}
-                onToggle={() => handleAccordionToggle(item.question)}
-              />
-            ))}
-          <Footer className={footerQuery} />
         </div>
       </div>
-    </>
+      <Footer />
+    </div>
   );
 }
-
-const footerQuery = css({
-  '@media (min-height: 706px)': {
-    position: 'absolute',
-    bottom: 0,
-  },
-});

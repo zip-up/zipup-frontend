@@ -29,8 +29,7 @@ const logoutBtn = css({
   borderRadius: '0.6rem',
   borderWidth: '0.1rem',
   borderColor: 'text.300',
-  fontSize: '1.2rem',
-  fontWeight: '400',
+  textStyle: 'caption1',
   color: 'text.200',
   backgroundColor: '#fff',
   position: 'absolute',
@@ -39,7 +38,7 @@ const logoutBtn = css({
 });
 
 const cardContent = css({
-  height: 'calc(100% - 4.8rem)',
+  height: 'calc(100vh - 4.8rem)',
   backgroundColor: 'bg.200',
   padding: '1.6rem',
 });

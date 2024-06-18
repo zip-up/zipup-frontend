@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { css, cx } from 'styled-system/css';
 
 import * as style from './styles';
 
@@ -18,29 +17,13 @@ const TERMS_AND_CONDITIONS_LIST = [
   },
   {
     text: '자주 묻는 질문',
-    link: '',
+    link: '/faq',
   },
 ];
 
-interface FooterProps {
-  className?: string;
-}
-
-export default function Footer({ className }: FooterProps) {
+export default function Footer() {
   return (
-    <footer
-      className={cx(
-        style.footer,
-        className ||
-          css({
-            '@media (min-height: 650px)': {
-              position: 'absolute',
-              bottom: 0,
-            },
-            marginTop: '3rem',
-          }),
-      )}
-    >
+    <footer className={style.footer}>
       <div className={style.footerInfoBox}>
         <p>상호명 : 집업</p>
         <p>고객센터 : 0504-0815-5379</p>

@@ -40,7 +40,7 @@ export default function Withdraw() {
 
   return (
     <>
-      <Header />
+      <Header onGoBack={() => router.push('/mypage')} />
       <div className={styles.layout}>
         <h1 className={cx(styles.commonStyle.headTitle, css({ textStyle: 'title2', mb: 0 }))}>
           정말

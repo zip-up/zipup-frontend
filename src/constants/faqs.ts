@@ -1,4 +1,4 @@
-type QuestionsAndAnswers = {
+export type QuestionsAndAnswers = {
   question: string;
   answer: string;
 };

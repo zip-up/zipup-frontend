@@ -43,7 +43,7 @@ export default function Fail({ fundingId, code, message }: FailProps) {
         </div>
       </div>
 
-      <Image src="/payment_fail.png" alt="결제 실패 이미지" width={290} height={320} />
+      <Image src="/fail.png" alt="결제 실패 이미지" width={290} height={320} />
       <GradientBackground>
         <Link href={`/funding/${fundingId}`} className={style.backBtn}>
           돌아가기

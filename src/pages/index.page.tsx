@@ -19,7 +19,6 @@ import { useLogIn } from '@hooks/queries/useAuth';
 import { useFundingList, useStaticItemsList } from '@hooks/queries/useFundingList';
 import { getLoacalStorage } from '@store/localStorage';
 import { productForFundState } from '@store/store';
-import { pretendard } from '@styles/font';
 import { useSetRecoilState } from 'recoil';
 import { css, cx } from 'styled-system/css';
 
@@ -73,15 +72,8 @@ export default function Home() {
     <>
       <Head>
         <title>ZIPup | 집들이 선물 펀딩 서비스</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <style jsx global>
-          {`
-            :root {
-              --font-pretendard: ${pretendard.style.fontFamily};
-            }
-          `}
-        </style>
       </Head>
+
       {isOpen && <LoginModal onClose={() => setIsOpen(false)} />}
 
       {isBrowsingService ? (
@@ -110,6 +102,7 @@ export default function Home() {
             width={290}
             height={221}
             className={style.homeImage2}
+            priority
           />
           <div className={style.homeImage3}>
             <HomeImage />
@@ -179,25 +172,25 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </div>
-      <div className={style.serviceBox}>
-        <div className={style.serviceTitleBox}>
-          <span className={style.serviceTitle}>집들이 선물, 어떻게 받을 수 있나요?</span>
-        </div>
-        <div className={style.serviceDescBox}>
-          {WAY_TO_FUND.map(item => (
-            <div key={item.title} className={style.serviceDescCard}>
-              <div className={style.iconBox}>{item.icon}</div>
-              <div className={style.serviceTextBox}>
-                <p className={style.textTitle}>{item.title}</p>
-                <p className={style.textDesc}>{item.desc1}</p>
-                <p className={cx(style.textDesc, css({ marginTop: '-0.3rem' }))}>{item.desc2}</p>
+        <div className={style.serviceBox}>
+          <div className={style.serviceTitleBox}>
+            <span className={style.serviceTitle}>집들이 선물, 어떻게 받을 수 있나요?</span>
+          </div>
+          <div className={style.serviceDescBox}>
+            {WAY_TO_FUND.map(item => (
+              <div key={item.title} className={style.serviceDescCard}>
+                <div className={style.iconBox}>{item.icon}</div>
+                <div className={style.serviceTextBox}>
+                  <p className={style.textTitle}>{item.title}</p>
+                  <p className={style.textDesc}>{item.desc1}</p>
+                  <p className={cx(style.textDesc, css({ marginTop: '-0.3rem' }))}>{item.desc2}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
-      <Footer className={css({ height: '10.8rem' })} />
+      <Footer />
     </>
   );
 }
