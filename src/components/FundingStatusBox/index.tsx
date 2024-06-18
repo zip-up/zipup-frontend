@@ -26,10 +26,13 @@ export default function FundingStatusBox({
       <ProgressBar isNotFull width={`${290 * (percent / 100)}px`} />
 
       <div className={style.captionWrapper}>
-        <span>
-          펀딩 종료까지{' '}
-          <span className={style.blueText}>{expirationDate <= 0 ? 0 : expirationDate}일</span>
-        </span>
+        {expirationDate > 0 ? (
+          <span>
+            펀딩 종료까지 <span className={style.blueText}>{expirationDate}일</span>
+          </span>
+        ) : (
+          <span>펀딩이 종료되었어요</span>
+        )}
         <span>
           <span className={style.blueText}>목표금액</span> {goalPrice.toLocaleString()}원
         </span>
