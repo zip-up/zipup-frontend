@@ -110,7 +110,7 @@ export default function Funding() {
   function RoleBasedButton({ status }: { status: FundingStatus }) {
     if (!fundingInfo) return null;
 
-    if (!isOrganizer) {
+    if (isOrganizer) {
       const { first: firstButton, second: secondButton } = ORGANIZER_ACTION[status];
 
       return (
