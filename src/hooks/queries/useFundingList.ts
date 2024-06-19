@@ -32,4 +32,23 @@ const useFundingList = ({ types }: FundListProps) => {
   });
 };
 
-export { useFundingList };
+export interface StaticItems {
+  goalPrice: number;
+  id: string;
+  imageUrl: string;
+  productUrl: string;
+  title: string;
+}
+
+const useStaticItemsList = () => {
+  return useQuery<StaticItems[]>({
+    queryKey: ['statics'],
+    queryFn: async () => {
+      const response = await InstanceWithToken.get('/v1/fund/static');
+
+      return response.data;
+    },
+  });
+};
+
+export { useFundingList, useStaticItemsList };

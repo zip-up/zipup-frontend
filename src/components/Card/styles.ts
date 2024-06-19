@@ -49,13 +49,12 @@ const infoBox = css({
 
 const status = css({
   position: 'absolute',
-  zIndex: 1,
+  zIndex: 2,
   top: '0.8rem',
   right: '0.8rem',
 });
 
 const title = css({
-  marginTop: '0.8rem',
   textStyle: 'body2',
   fontWeight: '600',
   overflow: 'hidden',
@@ -78,6 +77,6 @@ const fundProductBtn = css({
   },
 });
 
-const imageWrapper = css({ width: '15.6rem', height: '12rem', pos: 'relative' });
+const imageWrapper = css({ width: '15.6rem', pos: 'relative', height: '100%' });
 
 export { container, imageBox, status, title, blur, infoBox, percent, imageWrapper, fundProductBtn };
