@@ -36,8 +36,6 @@ export default function Card({
 }: CardProps) {
   const PROGRESS_BAR_BASE_WIDTH = 140;
 
-  if (!data) return;
-
   return (
     <div
       style={styles}
@@ -59,9 +57,9 @@ export default function Card({
           css({ height: height ? ' 13rem' : '12rem' }),
         )}
       >
-        {!isProduct && (
+        {data && (
           <StatusTag
-            daysLeft={data?.dday}
+            daysLeft={data.dday}
             status={getFundingStatus(data.percent, data.dday)}
             isFloating
           />
@@ -72,23 +70,35 @@ export default function Card({
             height: '100%',
           })}
         >
-          <DimOverlay isActive={getFundingStatus(data.percent, data.dday) !== 'IN_PROGRESS'}>
-            {!data.imageUrl && !product?.imageUrl ? (
-              <div className={css({ marginLeft: '-0.8rem' })}>
-                <GiftIcon />
-              </div>
-            ) : (
-              <div className={style.imageWrapper}>
-                <Image
-                  src={isProduct ? product!.imageUrl : data.imageUrl}
-                  style={{ width: '100%', height: '100%' }}
-                  alt="펀딩 이미지"
-                  fill
-                  objectFit="cover"
-                />
-              </div>
-            )}
-          </DimOverlay>
+          {data ? (
+            <DimOverlay isActive={getFundingStatus(data.percent, data.dday) !== 'IN_PROGRESS'}>
+              {!data.imageUrl && !product?.imageUrl ? (
+                <div className={css({ marginLeft: '-0.8rem' })}>
+                  <GiftIcon />
+                </div>
+              ) : (
+                <div className={style.imageWrapper}>
+                  <Image
+                    src={data.imageUrl}
+                    style={{ width: '100%', height: '100%' }}
+                    alt="펀딩 이미지"
+                    fill
+                    objectFit="cover"
+                  />
+                </div>
+              )}
+            </DimOverlay>
+          ) : (
+            <div className={style.imageWrapper}>
+              <Image
+                src={product!.imageUrl}
+                style={{ width: '100%', height: '100%' }}
+                alt="펀딩 이미지"
+                fill
+                objectFit="cover"
+              />
+            </div>
+          )}
         </div>
       </div>
       {isProduct ? (

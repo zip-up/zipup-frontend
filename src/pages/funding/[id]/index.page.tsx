@@ -167,7 +167,7 @@ export default function Funding() {
           <div className={style.titleBar}>
             <h2 className={style.title}>{title}</h2>
 
-            {isOrganizer && (
+            {isOrganizer && !(expirationDate < 0 && percent >= 100) && (
               <Menu activeMenuButtonTitle={<ActiveMoreBtnIcon />} menuButtonTitle={<MoreBtnIcon />}>
                 <Menu.Item onClick={() => setSelectedMenu('EDIT')}>
                   <EditIcon />
