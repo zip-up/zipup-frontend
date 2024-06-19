@@ -13,7 +13,7 @@ import ModalActionButtons from '@components/modals/ModalActionButtons';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import NoResut from '@components/NoResult';
 import PaymentCard from '@components/PaymentCard';
-import { BANK_CODE } from '@constants/bank';
+import { REFUND_BANK_CODE } from '@constants/bank';
 import { CANCEL_REASON } from '@constants/notice';
 import { MYPAGE_TABS } from '@constants/tabs';
 import { useCancelPayment, useGetPaymentList } from '@hooks/queries/usePayment';
@@ -65,7 +65,7 @@ export default function PayInfo() {
     };
 
     const refundReceiveAccount = {
-      bank: BANK_CODE[watch('bank')],
+      bank: REFUND_BANK_CODE[watch('bank')],
       accountNumber: watch('accountNumber'),
       holderName: watch('holderName'),
     };
@@ -175,7 +175,7 @@ export default function PayInfo() {
               <div className={style.labelsWrapper}>
                 <DropDown
                   menuButtonTitle="은행을 선택해주세요."
-                  menuList={Object.keys(BANK_CODE)}
+                  menuList={Object.keys(REFUND_BANK_CODE)}
                   register={register('bank', { required: true })}
                   selectedData={watch('bank')}
                 />

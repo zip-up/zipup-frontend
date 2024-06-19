@@ -17,7 +17,7 @@ const TERMS_AND_CONDITIONS_LIST = [
   },
   {
     text: '자주 묻는 질문',
-    link: '',
+    link: '/faq',
   },
 ];
 

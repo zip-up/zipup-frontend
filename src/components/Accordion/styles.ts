@@ -11,7 +11,7 @@ const accordionQuestion = flex({
   padding: '2.4rem 1.6rem',
   textStyle: 'body2',
   whiteSpace: 'pre-wrap',
-  gap: '1.4rem',
+  gap: '1.6rem',
 });
 
 const highlight = css({
@@ -35,7 +35,7 @@ const content = css({
   color: 'text.200',
   whiteSpace: 'pre-wrap',
   marginTop: '0.2rem',
-  marginLeft: '0.6rem',
+  marginLeft: '1.6rem',
 });
 
 export { accordion, accordionContent, accordionQuestion, highlight, innerContent, content };
