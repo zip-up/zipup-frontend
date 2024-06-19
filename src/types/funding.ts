@@ -78,3 +78,5 @@ export interface DeleteInfoForm {
   fundingId: string;
   cancelReason: string;
 }
+
+export type FundingStatus = 'IN_PROGRESS' | 'EXPIRED' | 'COMPLETED';
