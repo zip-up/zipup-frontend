@@ -1,22 +1,17 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-import CancelIcon from '@assets/icons/cancel.svg';
+import React, { useState } from 'react';
+import CancelIcon from '@assets/icons/cancel-icon.svg';
 import UploadIcon from '@assets/icons/upload.svg';
 import Button from '@components/common/Button';
 import DropDown from '@components/common/DropDown';
-import Header from '@components/common/Header';
 import Modal from '@components/common/Modal';
 import { RadioSelector } from '@components/common/RadioSelector';
 import Spinner from '@components/common/Spinner';
-import Tabs from '@components/common/Tabs';
 import ModalActionButtons from '@components/modals/ModalActionButtons';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
-import NoResut from '@components/NoResult';
 import PaymentCard from '@components/PaymentCard';
 import { BANK_CODE } from '@constants/bank';
 import { CANCEL_REASON } from '@constants/notice';
-import { MYPAGE_TABS } from '@constants/tabs';
-import { useCancelPayment, useGetPaymentList } from '@hooks/queries/usePayment';
+import { useCancelPayment } from '@hooks/queries/usePayment';
 import { PaymentInfo } from '@typings/funding';
 import { useForm } from 'react-hook-form';
 
@@ -29,19 +24,20 @@ interface FormInputs {
   holderName: string;
 }
 
-export default function PayInfo() {
+interface PayInfoProps {
+  isLoading: boolean;
+  paymentList: PaymentInfo[];
+}
+
+export default function PayInfo({ paymentList, isLoading }: PayInfoProps) {
   const [step, setStep] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState(MYPAGE_TABS[0]);
-  const router = useRouter();
-
   const [clickedPayInfo, setClickedPayInfo] = useState({
     id: '',
     amount: 0,
     isVirtualAccountAndDeposited: false,
   });
 
-  const { data: paymentList, isLoading } = useGetPaymentList();
   const { mutate: cancelPayment, isPending } = useCancelPayment(() => setStep(3));
 
   const {
@@ -79,7 +75,6 @@ export default function PayInfo() {
 
     cancelPayment(cancelPayInfo);
   };
-
   const handleClickPaymentCard = (payInfo: PaymentInfo) => {
     const { id, amount, isVirtualAccount, isDepositCompleted } = payInfo;
 
@@ -92,16 +87,7 @@ export default function PayInfo() {
   };
 
   return (
-    <>
-      <Header title="내 정보 관리" onGoBack={() => router.push('/mypage')} />
-
-      <Tabs data={MYPAGE_TABS} activeTab={activeTab} onSetActiveTab={setActiveTab} />
-      {paymentList?.length === 0 && (
-        <NoResut
-          title="아직 참여한 펀딩이 없어요"
-          desc="집들이를 준비하는 친구에게 집업을 알려보세요."
-        />
-      )}
+    <div>
       <div className={style.listWrapper}>
         {isLoading && <Spinner />}
 
@@ -214,6 +200,6 @@ export default function PayInfo() {
           )}
         </form>
       )}
-    </>
+    </div>
   );
 }
