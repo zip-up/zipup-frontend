@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { InstanceWithToken } from '@api/index';
 import FundingStatusBox from '@components/FundingStatusBox';
 import { DetailFundingInfo } from '@typings/funding';
+import { getFundingStatus } from '@utils/getStatus';
 
 import * as style from './styles';
 
@@ -57,7 +58,11 @@ export default function Invite({
       <div className={style.positionedParent}>
         <Image src="/invite.png" alt="초대 이미지" width={300} height={300} />
         <div className={style.positionedWrapper}>
-          <FundingStatusBox type="floating" info={{ percent, expirationDate, goalPrice }} />
+          <FundingStatusBox
+            type="floating"
+            info={{ percent, expirationDate, goalPrice }}
+            status={getFundingStatus(percent, expirationDate)}
+          />
         </div>
       </div>
 
