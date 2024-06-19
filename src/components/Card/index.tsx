@@ -4,6 +4,7 @@ import GiftIcon from '@assets/images/gift-images.svg';
 import Button from '@components/common/Button';
 import ProgressBar from '@components/common/ProgressBar';
 import StatusTag from '@components/common/StatusTag';
+import DimOverlay from '@components/DimOverlay';
 import { FundingInfo, ProductInfo } from '@typings/funding';
 import { getFundingStatus } from '@utils/getStatus';
 import { css, cx } from 'styled-system/css';
@@ -34,6 +35,8 @@ export default function Card({
 }: CardProps) {
   const PROGRESS_BAR_BASE_WIDTH = 140;
 
+  if (!data) return;
+
   return (
     <div
       style={styles}
@@ -55,35 +58,36 @@ export default function Card({
           css({ height: height ? ' 13rem' : '12rem' }),
         )}
       >
-        {!isProduct && data && (
+        {!isProduct && (
           <StatusTag
             daysLeft={data?.dday}
             status={getFundingStatus(data.percent, data.dday)}
             isFloating
           />
         )}
-        {data && data?.dday < 0 && <div className={style.blur} />}
         <div
           className={flex({
             width: '100%',
             height: '100%',
           })}
         >
-          {!data?.imageUrl && !product?.imageUrl ? (
-            <div className={css({ marginLeft: '-0.8rem' })}>
-              <GiftIcon />
-            </div>
-          ) : (
-            <div className={style.imageWrapper}>
-              <Image
-                src={isProduct ? product!.imageUrl : data!.imageUrl}
-                style={{ width: '100%', height: '100%' }}
-                alt="펀딩 이미지"
-                fill
-                objectFit="cover"
-              />
-            </div>
-          )}
+          <DimOverlay isActive={getFundingStatus(data.percent, data.dday) !== 'IN_PROGRESS'}>
+            {!data.imageUrl && !product?.imageUrl ? (
+              <div className={css({ marginLeft: '-0.8rem' })}>
+                <GiftIcon />
+              </div>
+            ) : (
+              <div className={style.imageWrapper}>
+                <Image
+                  src={isProduct ? product!.imageUrl : data.imageUrl}
+                  style={{ width: '100%', height: '100%' }}
+                  alt="펀딩 이미지"
+                  fill
+                  objectFit="cover"
+                />
+              </div>
+            )}
+          </DimOverlay>
         </div>
       </div>
       {isProduct ? (

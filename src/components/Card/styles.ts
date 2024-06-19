@@ -27,18 +27,6 @@ const imageBox = css({
   },
 });
 
-const blur = css({
-  position: 'absolute',
-  top: 0,
-  right: 0,
-  left: 0,
-  bottom: 0,
-  backgroundColor: 'text.300',
-  opacity: 0.8,
-  mixBlendMode: 'multiply',
-  zIndex: 1,
-});
-
 const infoBox = css({
   backgroundColor: 'white',
   padding: '0.6rem',
@@ -80,4 +68,4 @@ const fundProductBtn = css({
 
 const imageWrapper = css({ width: '15.6rem', height: '12rem', pos: 'relative' });
 
-export { container, imageBox, status, title, blur, infoBox, percent, imageWrapper, fundProductBtn };
+export { container, imageBox, status, title, infoBox, percent, imageWrapper, fundProductBtn };

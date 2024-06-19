@@ -14,6 +14,7 @@ import Header from '@components/common/Header';
 import Menu from '@components/common/Menu';
 import Modal from '@components/common/Modal';
 import { RadioSelector } from '@components/common/RadioSelector';
+import DimOverlay from '@components/DimOverlay';
 import FundingStatusBox from '@components/FundingStatusBox';
 import MessageList from '@components/MessageList';
 import LoginModal from '@components/modals/LoginModal';
@@ -153,13 +154,15 @@ export default function Funding() {
     <>
       <div className={style.pageLayout}>
         <Header fromCreate={!!from} />
-        {!imageUrl ? (
-          <DefaultPresentImg />
-        ) : (
-          <div className={style.imageWrapper}>
-            <Image src={imageUrl} alt="상품 이미지" fill style={{ objectFit: 'contain' }} />
-          </div>
-        )}
+        <DimOverlay isActive={status !== 'IN_PROGRESS'}>
+          {!imageUrl ? (
+            <DefaultPresentImg />
+          ) : (
+            <div className={style.imageWrapper}>
+              <Image src={imageUrl} alt="상품 이미지" fill style={{ objectFit: 'contain' }} />
+            </div>
+          )}
+        </DimOverlay>
         <article className={style.wrapper}>
           <div className={style.titleBar}>
             <h2 className={style.title}>{title}</h2>
