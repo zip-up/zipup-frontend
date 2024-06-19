@@ -107,12 +107,12 @@ export default function ShippingInfoForm({ isFromMyPage }: ShippingInfoFormProps
         )}
         placeholder="목표 달성 시 입력한 번호로 배송을 안내해드려요."
         {...register('phone', {
-          pattern: {
-            value: /^[0-9]*$/,
-            message: '전화번호는 숫자만 입력해주세요.',
-          },
           required: '필수 항목을 입력하지 않았습니다.',
         })}
+        onChange={e => {
+          const value = e.target.value.replace(/[^0-9]/g, '');
+          setValue('phone', value);
+        }}
       />
       <p className={style.errorText}>{errors.phone ? errors.phone.message : ''}</p>
       {isOpen && (

@@ -20,7 +20,9 @@ interface FormData {
 export default function Info() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState(MYPAGE_TABS[0]);
-  const methods = useForm<FormData>();
+  const methods = useForm<FormData>({
+    mode: 'onChange',
+  });
 
   const { data: paymentList, isLoading } = useGetPaymentList();
 
@@ -44,7 +46,15 @@ export default function Info() {
               <ShippingInfoForm isFromMyPage />
             </FormProvider>
           </div>
-          <Button type="submit" isBottomFixed>
+          <Button
+            type="submit"
+            isBottomFixed
+            disabled={
+              !methods.watch('detailAddress') ||
+              !methods.watch('phone') ||
+              !methods.watch('roadAddress')
+            }
+          >
             {/* {isPending ? <Spinner size="sm" /> : '배송지 저장하기'} */}
             배송지 저장하기
           </Button>
