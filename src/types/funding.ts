@@ -62,6 +62,10 @@ export interface PaymentInfo {
   refundable: boolean;
   isVirtualAccount: boolean;
   isDepositCompleted: boolean;
+  virtualAccount?: {
+    accountNumber: string;
+    bankCode: string;
+  };
 }
 
 export interface CancelInfoForm {
@@ -78,3 +82,5 @@ export interface DeleteInfoForm {
   fundingId: string;
   cancelReason: string;
 }
+
+export type FundingStatus = 'IN_PROGRESS' | 'EXPIRED' | 'COMPLETED';

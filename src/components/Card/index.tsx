@@ -4,7 +4,10 @@ import GiftIcon from '@assets/images/gift-images.svg';
 import Button from '@components/common/Button';
 import ProgressBar from '@components/common/ProgressBar';
 import StatusTag from '@components/common/StatusTag';
-import { FundingInfo, ProductInfo } from '@typings/funding';
+import DimOverlay from '@components/DimOverlay';
+import { StaticItems } from '@hooks/queries/useFundingList';
+import { FundingInfo } from '@typings/funding';
+import { getFundingStatus } from '@utils/getStatus';
 import { css, cx } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
 
@@ -17,7 +20,7 @@ interface CardProps {
   height?: string;
   styles?: CSSProperties;
   isProduct?: boolean;
-  product?: ProductInfo;
+  product?: StaticItems;
   hasShadow?: boolean;
 }
 
@@ -54,26 +57,41 @@ export default function Card({
           css({ height: height ? ' 13rem' : '12rem' }),
         )}
       >
-        {!isProduct && data && (
-          <div className={style.status}>
-            <StatusTag daysLeft={data?.dday} isCompleted={data.dday < 0} isFloating />
-          </div>
+        {data && (
+          <StatusTag
+            daysLeft={data.dday}
+            status={getFundingStatus(data.percent, data.dday)}
+            isFloating
+          />
         )}
-        {data && data?.dday < 0 && <div className={style.blur} />}
         <div
           className={flex({
             width: '100%',
             height: '100%',
           })}
         >
-          {!data?.imageUrl && !product?.imageUrl ? (
-            <div className={css({ marginLeft: '-0.8rem' })}>
-              <GiftIcon />
-            </div>
+          {data ? (
+            <DimOverlay isActive={getFundingStatus(data.percent, data.dday) !== 'IN_PROGRESS'}>
+              {!data.imageUrl && !product?.imageUrl ? (
+                <div className={css({ marginLeft: '-0.8rem' })}>
+                  <GiftIcon />
+                </div>
+              ) : (
+                <div className={style.imageWrapper}>
+                  <Image
+                    src={data.imageUrl}
+                    style={{ width: '100%', height: '100%' }}
+                    alt="펀딩 이미지"
+                    fill
+                    objectFit="cover"
+                  />
+                </div>
+              )}
+            </DimOverlay>
           ) : (
             <div className={style.imageWrapper}>
               <Image
-                src={isProduct ? product!.imageUrl : data!.imageUrl}
+                src={product!.imageUrl}
                 style={{ width: '100%', height: '100%' }}
                 alt="펀딩 이미지"
                 fill
@@ -85,14 +103,19 @@ export default function Card({
       </div>
       {isProduct ? (
         <div className={cx(style.infoBox, css({ padding: '1.2rem 0.8rem', marginTop: 0 }))}>
-          <div className={cx(style.title, css({ marginTop: 0 }))}>{product?.title as string}</div>
+          <div className={style.title}>{product?.title as string}</div>
           <div className={cx(style.percent, css({ marginBottom: '0.6rem' }))}>
-            {product?.price?.toLocaleString()}원
+            {product?.goalPrice?.toLocaleString()}원
           </div>
           <Button
             color="white"
             className={style.fundProductBtn}
-            style={{ height: '3rem', fontSize: '1.2rem', fontWeight: '400' }}
+            style={{
+              height: '3rem',
+              fontSize: '1.2rem',
+              fontWeight: '400',
+              borderRadius: '0.6rem',
+            }}
           >
             이 상품 등록하기
           </Button>
@@ -108,7 +131,7 @@ export default function Card({
                 : (PROGRESS_BAR_BASE_WIDTH * data!.percent!) / 1000 + 'rem'
             }
           />
-          <div className={style.title}>{data?.title}</div>
+          <div className={cx(style.title, css({ marginTop: '0.8rem' }))}>{data?.title}</div>
           <div className={style.percent}>{data?.percent}% 달성</div>
         </div>
       )}

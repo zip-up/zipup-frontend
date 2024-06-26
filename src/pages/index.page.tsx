@@ -16,38 +16,13 @@ import Footer from '@components/Footer';
 import HeaderWithLogo from '@components/HeaderWithLogo';
 import LoginModal from '@components/modals/LoginModal';
 import { useLogIn } from '@hooks/queries/useAuth';
-import { useFundingList } from '@hooks/queries/useFundingList';
+import { useFundingList, useStaticItemsList } from '@hooks/queries/useFundingList';
 import { getLoacalStorage } from '@store/localStorage';
 import { productForFundState } from '@store/store';
 import { useSetRecoilState } from 'recoil';
 import { css, cx } from 'styled-system/css';
 
 import * as style from './style';
-
-const productData = [
-  {
-    id: '0',
-    title: '초절전리모컨 서큘레이터 선풍기',
-    imageUrl:
-      'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/168189031695799079.jpg?gif=1&w=960&h=960&c=c&webp=1',
-    url: 'https://ohou.se/productions/861834/selling?affect_id=1&affect_type=StoreSearchResult',
-    price: 76900,
-  },
-  {
-    id: '1',
-    title: '펀딩 이름입니다.',
-    price: 0,
-    url: '',
-    imageUrl: '',
-  },
-  {
-    id: '2',
-    title: '펀딩 이름입니다.',
-    price: 0,
-    url: '',
-    imageUrl: '',
-  },
-];
 
 const WAY_TO_FUND = [
   {
@@ -84,6 +59,7 @@ export default function Home() {
   const [isBrowsingService, setIsBrowsingService] = useState(false);
   const { isLoading } = useLogIn({ code });
   const { data } = useFundingList({ types: 'trending' });
+  const { data: staticItems } = useStaticItemsList();
 
   useEffect(() => {
     if (router.isReady && router.asPath.length > 2) {
@@ -174,7 +150,7 @@ export default function Home() {
             <h2 className={style.category}>요즘 핫한 집꾸템 추천!</h2>
           </div>
           <div className={style.sideWrapper}>
-            {productData.map(item => (
+            {staticItems?.map(item => (
               <Card
                 key={item.id}
                 width="14.6rem"
@@ -183,8 +159,8 @@ export default function Home() {
                 onClick={() => {
                   setProductForFundState({
                     imageUrl: item.imageUrl,
-                    url: item.url,
-                    price: item.price,
+                    url: item.productUrl,
+                    price: item.goalPrice,
                     title: item.title,
                   });
                   router.push('/funding/create/1');

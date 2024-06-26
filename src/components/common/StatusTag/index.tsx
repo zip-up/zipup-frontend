@@ -1,25 +1,25 @@
+import { FundingStatus } from '@typings/funding';
+
 import * as style from './styles';
 
 interface StatusTagProps {
-  isCompleted?: boolean;
+  status: FundingStatus;
   daysLeft?: number;
   isFloating?: boolean;
 }
 
-export default function StatusTag({
-  isCompleted = false,
-  daysLeft = 0,
-  isFloating = false,
-}: StatusTagProps) {
+export default function StatusTag({ status, daysLeft = 0, isFloating = false }: StatusTagProps) {
   const size = isFloating ? 'floating' : 'static';
 
+  const STATUS_MESSAGE = {
+    IN_PROGRESS: '진행중',
+    EXPIRED: '기간만료',
+    COMPLETED: '완료',
+  };
+
   return (
-    <>
-      {isCompleted ? (
-        <div className={style.statusTag({ bg: 'black', size })}>완료</div>
-      ) : (
-        <div className={style.statusTag({ bg: 'blue', size })}>D-{daysLeft}</div>
-      )}
-    </>
+    <div className={style.statusTag({ status, size })}>
+      {status === 'IN_PROGRESS' && daysLeft ? `D-${daysLeft}` : STATUS_MESSAGE[status]}
+    </div>
   );
 }
