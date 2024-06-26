@@ -12,6 +12,7 @@ import Card from '@components/Card';
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
 import Spinner from '@components/common/Spinner';
+import Draggable from '@components/Draggable';
 import Footer from '@components/Footer';
 import HeaderWithLogo from '@components/HeaderWithLogo';
 import LoginModal from '@components/modals/LoginModal';
@@ -53,6 +54,7 @@ const WAY_TO_FUND = [
 
 export default function Home() {
   const router = useRouter();
+
   const setProductForFundState = useSetRecoilState(productForFundState);
   const [isOpen, setIsOpen] = useState(false);
   const [code, setCode] = useState('');
@@ -60,6 +62,8 @@ export default function Home() {
   const { isLoading } = useLogIn({ code });
   const { data } = useFundingList({ types: 'trending' });
   const { data: staticItems } = useStaticItemsList();
+  const isPopularDragging = false;
+  const isHotItemsDragging = false;
 
   useEffect(() => {
     if (router.isReady && router.asPath.length > 2) {
@@ -131,25 +135,29 @@ export default function Home() {
               <GoIcon style={{ color: '#0098E8' }} />
             </a>
           </div>
-          <div className={style.sideWrapper}>
+          <Draggable className={style.sideWrapper} isDragging={isPopularDragging}>
             {data?.map(item => (
               <Card
                 key={item.id}
                 width="14.6rem"
                 height="21rem"
                 data={item}
-                onClick={() => router.push('/funding/' + item.id)}
+                onClick={() => {
+                  if (isPopularDragging) {
+                    router.push('/funding/' + item.id);
+                  }
+                }}
                 styles={{ minWidth: '14.6rem', minHeight: '21rem' }}
                 hasShadow
               />
             ))}
-          </div>
+          </Draggable>
         </div>
         <div className={css({ margin: '2rem 0' })}>
           <div className={style.subtitleBox}>
             <h2 className={style.category}>요즘 핫한 집꾸템 추천!</h2>
           </div>
-          <div className={style.sideWrapper}>
+          <Draggable className={style.sideWrapper} isDragging={isHotItemsDragging}>
             {staticItems?.map(item => (
               <Card
                 key={item.id}
@@ -157,20 +165,22 @@ export default function Home() {
                 height="21rem"
                 product={item}
                 onClick={() => {
-                  setProductForFundState({
-                    imageUrl: item.imageUrl,
-                    url: item.productUrl,
-                    price: item.goalPrice,
-                    title: item.title,
-                  });
-                  router.push('/funding/create/1');
+                  if (isHotItemsDragging) {
+                    setProductForFundState({
+                      imageUrl: item.imageUrl,
+                      url: item.productUrl,
+                      price: item.goalPrice,
+                      title: item.title,
+                    });
+                    router.push('/funding/create/1');
+                  }
                 }}
                 styles={{ minWidth: '14.6rem', minHeight: '21rem' }}
                 isProduct
                 hasShadow
               />
             ))}
-          </div>
+          </Draggable>
         </div>
         <div className={style.serviceBox}>
           <div className={style.serviceTitleBox}>
