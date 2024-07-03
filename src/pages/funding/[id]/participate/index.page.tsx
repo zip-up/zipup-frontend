@@ -13,6 +13,7 @@ import { infoContainer } from '@components/Term/styles';
 import { PRIVACY_TERM, PURCHASE_TERM } from '@constants/terms';
 import { useUser } from '@hooks/queries/useAuth';
 import { useGetFundingDetail } from '@hooks/queries/useFunding';
+import useFundingParticipationGuard from '@hooks/useFundingParticipationGuard';
 import { setLocalStorage } from '@store/localStorage';
 import { batchPaymentState, fundingFormState } from '@store/store';
 import { TermsCheckFlags } from '@typings/term';
@@ -62,8 +63,9 @@ export default function Participate() {
     mode: 'onSubmit',
   });
 
-  const status =
-    (fundingInfo && getFundingStatus(fundingInfo.percent, fundingInfo.expirationDate)) || '';
+  const status = fundingInfo && getFundingStatus(fundingInfo.percent, fundingInfo.expirationDate);
+
+  useFundingParticipationGuard(status, fundingInfo?.isOrganizer, fundingInfo?.id);
 
   const onSubmit: SubmitHandler<FormInputs> = ({
     price,
