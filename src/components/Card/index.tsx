@@ -48,7 +48,7 @@ export default function Card({
           marginBottom: hasShadow ? '2.5rem' : '0',
         }),
       )}
-      onClick={onClick}
+      onClick={() => (isProduct ? null : onClick())}
     >
       <div
         className={cx(
@@ -116,6 +116,7 @@ export default function Card({
               fontWeight: '400',
               borderRadius: '0.6rem',
             }}
+            onClick={() => (isProduct ? onClick() : null)}
           >
             이 상품 등록하기
           </Button>

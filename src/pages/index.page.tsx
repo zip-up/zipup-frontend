@@ -62,8 +62,6 @@ export default function Home() {
   const { isLoading } = useLogIn({ code });
   const { data } = useFundingList({ types: 'trending' });
   const { data: staticItems } = useStaticItemsList();
-  const isPopularDragging = false;
-  const isHotItemsDragging = false;
 
   useEffect(() => {
     if (router.isReady && router.asPath.length > 2) {
@@ -135,7 +133,7 @@ export default function Home() {
               <GoIcon style={{ color: '#0098E8' }} />
             </a>
           </div>
-          <Draggable className={style.sideWrapper} isDragging={isPopularDragging}>
+          <Draggable className={style.sideWrapper}>
             {data?.map(item => (
               <Card
                 key={item.id}
@@ -143,9 +141,7 @@ export default function Home() {
                 height="21rem"
                 data={item}
                 onClick={() => {
-                  if (isPopularDragging) {
-                    router.push('/funding/' + item.id);
-                  }
+                  router.push('/funding/' + item.id);
                 }}
                 styles={{ minWidth: '14.6rem', minHeight: '21rem' }}
                 hasShadow
@@ -157,7 +153,7 @@ export default function Home() {
           <div className={style.subtitleBox}>
             <h2 className={style.category}>요즘 핫한 집꾸템 추천!</h2>
           </div>
-          <Draggable className={style.sideWrapper} isDragging={isHotItemsDragging}>
+          <Draggable className={style.sideWrapper}>
             {staticItems?.map(item => (
               <Card
                 key={item.id}
@@ -165,15 +161,13 @@ export default function Home() {
                 height="21rem"
                 product={item}
                 onClick={() => {
-                  if (isHotItemsDragging) {
-                    setProductForFundState({
-                      imageUrl: item.imageUrl,
-                      url: item.productUrl,
-                      price: item.goalPrice,
-                      title: item.title,
-                    });
-                    router.push('/funding/create/1');
-                  }
+                  setProductForFundState({
+                    imageUrl: item.imageUrl,
+                    url: item.productUrl,
+                    price: item.goalPrice,
+                    title: item.title,
+                  });
+                  router.push('/funding/create/1');
                 }}
                 styles={{ minWidth: '14.6rem', minHeight: '21rem' }}
                 isProduct

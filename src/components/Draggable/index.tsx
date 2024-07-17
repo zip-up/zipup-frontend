@@ -1,50 +1,74 @@
-import React, { PropsWithChildren, useRef } from 'react';
-import { css, cx } from 'styled-system/css';
+import React, { PropsWithChildren, useCallback, useRef, useState } from 'react';
 
 interface DraggableProps {
-  className?: string;
-  isDragging: boolean;
+  className: string;
 }
 
-function Draggable({ className, children, isDragging }: PropsWithChildren<DraggableProps>) {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+function useDraggable(ref: React.MutableRefObject<HTMLElement | null>) {
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
 
-  let startPos = 0;
-  let scrollLeft = 0;
-
-  const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    isDragging = true;
-    if (scrollContainerRef.current) {
-      startPos = e.pageX - scrollContainerRef.current.offsetLeft;
-      scrollLeft = scrollContainerRef.current.scrollLeft;
-    }
-  };
-
-  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isDragging) return;
+  const preventUnexpectedEffects = useCallback((e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    if (scrollContainerRef.current) {
-      const x = e.pageX - scrollContainerRef.current.offsetLeft;
-      const walk = (x - startPos) * 1;
-      scrollContainerRef.current.scrollLeft = scrollLeft - walk;
-    }
-  };
+    e.stopPropagation();
+  }, []);
 
-  const onMouseUp = () => {
+  const onMouseDown = useCallback(
+    (e: React.MouseEvent<HTMLElement>) => {
+      preventUnexpectedEffects(e);
+      if (ref.current) {
+        setIsDragging(true);
+        setStartX(e.pageX - ref.current.offsetLeft);
+        setScrollLeft(ref.current.scrollLeft);
+      }
+    },
+    [ref],
+  );
+
+  const onMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLElement>) => {
+      preventUnexpectedEffects(e);
+      if (!isDragging || !ref.current) return;
+      const x = e.pageX - ref.current.offsetLeft;
+      const walk = (x - startX) * 0.8; // scroll-fast
+      ref.current.scrollLeft = scrollLeft - walk;
+    },
+    [isDragging, startX, scrollLeft, ref],
+  );
+
+  const onMouseUp = useCallback(() => {
+    setIsDragging(false);
+  }, []);
+
+  React.useEffect(() => {
     if (isDragging) {
-      isDragging = false;
+      document.addEventListener('mousemove', onMouseMove as unknown as EventListener);
+      document.addEventListener('mouseup', onMouseUp);
+    } else {
+      document.removeEventListener('mousemove', onMouseMove as unknown as EventListener);
+      document.removeEventListener('mouseup', onMouseUp);
     }
+
+    return () => {
+      document.removeEventListener('mousemove', onMouseMove as unknown as EventListener);
+      document.removeEventListener('mouseup', onMouseUp);
+    };
+  }, [isDragging, onMouseMove, onMouseUp]);
+
+  return {
+    events: {
+      onMouseDown,
+    },
   };
+}
+
+function Draggable({ className, children }: PropsWithChildren<DraggableProps>) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { events } = useDraggable(ref);
 
   return (
-    <div
-      className={cx(className, css({ cursor: isDragging ? 'grab' : 'pointer' }))}
-      ref={scrollContainerRef}
-      onMouseDown={onMouseDown}
-      onMouseMove={onMouseMove}
-      onMouseUp={onMouseUp}
-      onMouseLeave={onMouseUp}
-    >
+    <div className={className} ref={ref} {...events}>
       {children}
     </div>
   );
