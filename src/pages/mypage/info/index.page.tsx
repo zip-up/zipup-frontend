@@ -1,4 +1,5 @@
-import { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import PayInfo from '@components/AccountManagement/PayInfo';
 import Button from '@components/common/Button';
@@ -8,6 +9,7 @@ import NoResut from '@components/NoResult';
 import ShippingInfoForm from '@components/ShippingInfoForm.tsx';
 import { MYPAGE_TABS } from '@constants/tabs';
 import { useGetPaymentList } from '@hooks/queries/usePayment';
+import { useGetShipping, usePatchShipping } from '@hooks/queries/useShipping';
 import { FormProvider, useForm } from 'react-hook-form';
 import { css } from 'styled-system/css';
 
@@ -25,6 +27,21 @@ export default function Info() {
   });
 
   const { data: paymentList, isLoading } = useGetPaymentList();
+  const { data: shippingData } = useGetShipping();
+  const { mutate } = usePatchShipping({ successHandler: () => {} });
+
+  useEffect(() => {
+    methods.setValue('detailAddress', shippingData?.detailAddress || '');
+    methods.setValue('phone', shippingData?.phoneNumber || '');
+    methods.setValue('roadAddress', shippingData?.roadAddress || '');
+  }, [shippingData]);
+
+  const submitHandler = (data: FormData) =>
+    mutate({
+      detailAddress: data.detailAddress,
+      roadAddress: data.roadAddress,
+      phoneNumber: data.phone,
+    });
 
   return (
     <>
@@ -40,7 +57,7 @@ export default function Info() {
           />
         ))}
       {activeTab === '배송지 관리' && (
-        <div className={container}>
+        <form className={container} onSubmit={methods.handleSubmit(submitHandler)}>
           <div>
             <FormProvider {...methods}>
               <ShippingInfoForm isFromMyPage />
@@ -58,7 +75,7 @@ export default function Info() {
             {/* {isPending ? <Spinner size="sm" /> : '배송지 저장하기'} */}
             배송지 저장하기
           </Button>
-        </div>
+        </form>
       )}
     </>
   );
