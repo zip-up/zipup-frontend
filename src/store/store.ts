@@ -35,3 +35,5 @@ export const productForFundState = atom({
     title: '',
   },
 });
+
+export const batchPaymentState = atom({ key: 'batchPayment', default: 0 });

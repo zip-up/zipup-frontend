@@ -78,7 +78,7 @@ export default function MyPage() {
           />
           <ServiceCard
             type="support"
-            href="/mypage/payinfo"
+            href="/mypage/info"
             title="내 정보 관리"
             subTitle="결제 내역 및 배송지 정보 관리"
           />
