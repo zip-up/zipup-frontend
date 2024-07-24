@@ -19,7 +19,7 @@ import { batchPaymentState, fundingFormState } from '@store/store';
 import { TermsCheckFlags } from '@typings/term';
 import { getFundingStatus } from '@utils/getStatus';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { css, cx } from 'styled-system/css';
 
 import * as style from './styles';
@@ -35,7 +35,7 @@ export interface FormInputs extends TermsCheckFlags {
 }
 
 export default function Participate() {
-  const [_, setFundingForm] = useRecoilState(fundingFormState);
+  const setFundingForm = useSetRecoilState(fundingFormState);
   const { data: user } = useUser();
 
   const router = useRouter();
@@ -101,7 +101,7 @@ export default function Participate() {
   const enteredCustomPrice = watch('enteredCustomPrice');
   const selected = watch('price');
   const [step, setStep] = useState(1);
-  const [differenceAmount] = useRecoilState(batchPaymentState);
+  const differenceAmount = useRecoilValue(batchPaymentState);
 
   const PRICE_LABEL = [
     { label: '행복의 오천원', price: 5000, icon_active: <A />, icon_disabled: <A_d /> },
