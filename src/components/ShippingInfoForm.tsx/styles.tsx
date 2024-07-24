@@ -27,6 +27,7 @@ const inputShape = css({
   outline: 'none',
   backgroundColor: 'white',
   cursor: 'pointer',
+  flex: 1,
 });
 
 const pointer = css({
