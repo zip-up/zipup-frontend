@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import GiftIcon from '@assets/icons/gift-icon.svg';
-import SearchIcon from '@assets/icons/search.svg';
 import Button from '@components/common/Button';
 import GradientBackground from '@components/common/Button/GradientBackground';
 import Header from '@components/common/Header';
 import ProgressBar from '@components/common/ProgressBar';
 import Spinner from '@components/common/Spinner';
-import AddressModal from '@components/modals/AddressModal';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
+import ShippingInfoForm from '@components/ShippingInfoForm.tsx';
 import Term from '@components/Term';
 import { infoContainer } from '@components/Term/styles';
 import { PRIVACY_TERM, PURCHASE_TERM } from '@constants/terms';
@@ -17,9 +16,8 @@ import { useCreateFunding } from '@hooks/queries/useFunding';
 import { createFundState } from '@store/store';
 import { TermsCheckFlags } from '@typings/term';
 import { shareKakao } from '@utils/share';
-import { SubmitErrorHandler, useForm } from 'react-hook-form';
+import { FormProvider, SubmitErrorHandler, useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
-import { css, cx } from 'styled-system/css';
 
 import * as style from '../styles';
 
@@ -34,8 +32,8 @@ export default function CreatFundStep4() {
   const [newFunding, setNewFunding] = useRecoilState(createFundState);
   const { data: user } = useUser();
   const [fundId, setFundId] = useState<string>('');
-  const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const methods = useForm<FormInputs>();
 
   const { mutate: createFunding, isPending } = useCreateFunding(createdFundingData => {
     setFundId(createdFundingData.id);
@@ -46,13 +44,7 @@ export default function CreatFundStep4() {
     setIsModalOpen(true);
   });
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    watch,
-    formState: { errors },
-  } = useForm<FormInputs>();
+  const { register, handleSubmit, watch } = useForm<FormInputs>();
 
   const handleCreateFundSubmit = async (step4FormData: FormInputs) => {
     const totalFormInputData = { ...newFunding, ...step4FormData };
@@ -127,56 +119,13 @@ export default function CreatFundStep4() {
         className={style.form}
         onSubmit={handleSubmit(handleCreateFundSubmit, handleSubmitError)}
       >
-        <label>
-          <span className={style.subTitle}>선물을 배송받을 주소를 입력해주세요.</span>
-        </label>
-        <div className={style.dateBox} onClick={() => setIsOpen(true)}>
-          <input
-            className={cx(
-              style.inputShape,
-              css({ color: !watch('roadAddress') ? 'text.200' : 'text.100' }),
-            )}
-            readOnly
-            placeholder="주소 검색하기"
-            {...register('roadAddress')}
+        <FormProvider {...methods}>
+          <ShippingInfoForm
+            phoneOptions={{
+              required: '필수 항목을 입력하지 않았습니다.',
+            }}
           />
-          <button type="button" className={style.pointer}>
-            <SearchIcon />
-          </button>
-        </div>
-        <input
-          className={cx(
-            style.input,
-            css({
-              marginTop: '-0.8rem',
-              marginBottom: '1.6rem',
-              borderWidth: '0.1rem',
-              borderColor: 'bg.300',
-            }),
-          )}
-          placeholder="상세 주소를 입력해주세요."
-          {...register('detailAddress')}
-        />
-
-        <label>
-          <span className={style.subTitle}>전화번호를 입력해주세요.</span>
-          <span className={style.required}>*</span>
-        </label>
-        <input
-          className={cx(
-            style.input,
-            css({
-              borderWidth: '0.1rem',
-              borderColor: errors.phoneNumber ? 'error' : 'bg.300',
-            }),
-          )}
-          placeholder="목표 달성 시 입력한 번호로 배송을 안내해드려요."
-          {...register('phoneNumber', {
-            valueAsNumber: true,
-            required: '필수 항목을 입력하지 않았습니다.',
-          })}
-        />
-        <p className={style.errorText}>{errors.phoneNumber ? errors.phoneNumber.message : ''}</p>
+        </FormProvider>
 
         <div className={infoContainer}>
           <Term
@@ -195,13 +144,6 @@ export default function CreatFundStep4() {
 
         <Buttons />
       </form>
-
-      {isOpen && (
-        <AddressModal
-          onSetAddress={text => setValue('roadAddress', text)}
-          onClose={() => setIsOpen(false)}
-        />
-      )}
     </>
   );
 }
