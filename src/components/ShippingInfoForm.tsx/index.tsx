@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SearchIcon from '@assets/icons/search.svg';
 import AddressModal from '@components/modals/AddressModal';
-import { useFormContext } from 'react-hook-form';
+import { RegisterOptions, useFormContext } from 'react-hook-form';
 import { css, cx } from 'styled-system/css';
 
 import * as style from './styles';
@@ -14,9 +14,10 @@ interface FormData {
 
 interface ShippingInfoFormProps {
   isFromMyPage?: boolean;
+  phoneOptions: RegisterOptions<FormData, 'phone'>;
 }
 
-export default function ShippingInfoForm({ isFromMyPage }: ShippingInfoFormProps) {
+export default function ShippingInfoForm({ isFromMyPage, phoneOptions }: ShippingInfoFormProps) {
   const [isOpen, setIsOpen] = useState(false);
   const {
     register,
@@ -101,9 +102,7 @@ export default function ShippingInfoForm({ isFromMyPage }: ShippingInfoFormProps
           }),
         )}
         placeholder="목표 달성 시 입력한 번호로 배송을 안내해드려요."
-        {...register('phone', {
-          required: '필수 항목을 입력하지 않았습니다.',
-        })}
+        {...register('phone', phoneOptions)}
         onChange={e => {
           const value = e.target.value.replace(/[^0-9]/g, '');
           setValue('phone', value);

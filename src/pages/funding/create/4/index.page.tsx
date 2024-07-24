@@ -120,7 +120,11 @@ export default function CreatFundStep4() {
         onSubmit={handleSubmit(handleCreateFundSubmit, handleSubmitError)}
       >
         <FormProvider {...methods}>
-          <ShippingInfoForm />
+          <ShippingInfoForm
+            phoneOptions={{
+              required: '필수 항목을 입력하지 않았습니다.',
+            }}
+          />
         </FormProvider>
 
         <div className={infoContainer}>

@@ -60,7 +60,15 @@ export default function Info() {
         <form className={container} onSubmit={methods.handleSubmit(submitHandler)}>
           <div>
             <FormProvider {...methods}>
-              <ShippingInfoForm isFromMyPage />
+              <ShippingInfoForm
+                isFromMyPage
+                phoneOptions={{
+                  pattern: {
+                    value: /^[0-9]*$/,
+                    message: '숫자로만 입력해주세요.',
+                  },
+                }}
+              />
             </FormProvider>
           </div>
           <Button
