@@ -48,13 +48,13 @@ export default function Card({
           marginBottom: hasShadow ? '2.5rem' : '0',
         }),
       )}
-      onClick={() => (isProduct ? null : onClick())}
+      onClick={() => !isProduct && onClick()}
     >
       <div
         className={cx(
           style.imageBox,
-          css({ backgroundColor: data?.imageUrl.length ?? 0 > 6 ? 'blue.10' : 'white' }),
-          css({ height: height ? ' 13rem' : '12rem' }),
+          css({ backgroundColor: data?.imageUrl?.length ?? 0 > 6 ? 'blue.10' : 'white' }),
+          css({ height: height ? '13rem' : '12rem' }),
         )}
       >
         {data && (
@@ -116,7 +116,7 @@ export default function Card({
               fontWeight: '400',
               borderRadius: '0.6rem',
             }}
-            onClick={() => (isProduct ? onClick() : null)}
+            onClick={onClick}
           >
             이 상품 등록하기
           </Button>
