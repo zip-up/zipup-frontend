@@ -23,10 +23,12 @@ import ModalWithIcon from '@components/modals/ModalWithIcon';
 import { DELETE_REASON } from '@constants/notice';
 import { useUser } from '@hooks/queries/useAuth';
 import { useDeleteFunding, useGetFundingDetail } from '@hooks/queries/useFunding';
+import { batchPaymentState } from '@store/store';
 import { FundingStatus } from '@typings/funding';
 import { getFundingStatus } from '@utils/getStatus';
 import { shareKakao } from '@utils/share';
 import { useForm } from 'react-hook-form';
+import { useSetRecoilState } from 'recoil';
 
 import * as style from './styles';
 
@@ -67,6 +69,7 @@ export default function Funding() {
   const [step, setStep] = useState(1);
 
   const [status, setStatus] = useState<FundingStatus>('IN_PROGRESS');
+  const setDifferenceAmount = useSetRecoilState(batchPaymentState);
 
   interface FormInputs {
     reason: string;
@@ -129,7 +132,13 @@ export default function Funding() {
           >
             {firstButton.label}
           </Button>
-          <Button onClick={() => router.push(secondButton.path(fundingId))}>
+          <Button
+            onClick={() => {
+              status === 'EXPIRED' && setDifferenceAmount(goalPrice - goalPrice * (percent / 100));
+
+              router.push(secondButton.path(fundingId));
+            }}
+          >
             {secondButton.label}
           </Button>
         </>

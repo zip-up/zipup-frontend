@@ -4,7 +4,9 @@ import Spinner from '@components/common/Spinner';
 import { useUser } from '@hooks/queries/useAuth';
 import { useGetFundingDetail } from '@hooks/queries/useFunding';
 import { useRequestPayment, useStoreOrderInfo, useTossPayments } from '@hooks/queries/usePayment';
+import useFundingParticipationGuard from '@hooks/useFundingParticipationGuard';
 import { fundingFormState } from '@store/store';
+import { getFundingStatus } from '@utils/getStatus';
 import { nanoid } from 'nanoid';
 import { useRecoilState } from 'recoil';
 import { flex } from 'styled-system/patterns';
@@ -36,14 +38,21 @@ export default function Payment() {
     });
   });
 
+  const status = fundingInfo && getFundingStatus(fundingInfo.percent, fundingInfo.expirationDate);
+  const { isParticipationDenied } = useFundingParticipationGuard(
+    status,
+    fundingInfo?.isOrganizer,
+    fundingInfo?.id,
+  );
+
   useEffect(() => {
-    if (!fundingInfo) return;
+    if (!fundingInfo || isParticipationDenied) return;
 
     storeOrderInfo({
       orderId: nanoid(),
       amount: fundingForm.price,
     });
-  }, [fundingInfo, fundingForm.price]);
+  }, [fundingInfo, fundingForm.price, isParticipationDenied]);
 
   return (
     <div

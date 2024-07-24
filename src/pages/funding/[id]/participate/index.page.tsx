@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { A, A_d, B, B_d, C, C_d, D, D_d, E, E_d } from '@assets/icons/priceLabel/index';
 import { Radio_active, Radio_disabled } from '@assets/icons/radio';
@@ -13,11 +13,13 @@ import { infoContainer } from '@components/Term/styles';
 import { PRIVACY_TERM, PURCHASE_TERM } from '@constants/terms';
 import { useUser } from '@hooks/queries/useAuth';
 import { useGetFundingDetail } from '@hooks/queries/useFunding';
+import useFundingParticipationGuard from '@hooks/useFundingParticipationGuard';
 import { setLocalStorage } from '@store/localStorage';
-import { fundingFormState } from '@store/store';
+import { batchPaymentState, fundingFormState } from '@store/store';
 import { TermsCheckFlags } from '@typings/term';
+import { getFundingStatus } from '@utils/getStatus';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { css, cx } from 'styled-system/css';
 
 import * as style from './styles';
@@ -33,7 +35,7 @@ export interface FormInputs extends TermsCheckFlags {
 }
 
 export default function Participate() {
-  const [_, setFundingForm] = useRecoilState(fundingFormState);
+  const setFundingForm = useSetRecoilState(fundingFormState);
   const { data: user } = useUser();
 
   const router = useRouter();
@@ -50,6 +52,7 @@ export default function Participate() {
     reset,
     trigger,
     clearErrors,
+    setValue,
     formState: { errors },
   } = useForm<FormInputs>({
     defaultValues: {
@@ -59,6 +62,11 @@ export default function Participate() {
     },
     mode: 'onSubmit',
   });
+
+  const status = fundingInfo && getFundingStatus(fundingInfo.percent, fundingInfo.expirationDate);
+
+  useFundingParticipationGuard(status, fundingInfo?.isOrganizer, fundingInfo?.id);
+
   const onSubmit: SubmitHandler<FormInputs> = ({
     price,
     enteredCustomPrice,
@@ -93,6 +101,7 @@ export default function Participate() {
   const enteredCustomPrice = watch('enteredCustomPrice');
   const selected = watch('price');
   const [step, setStep] = useState(1);
+  const differenceAmount = useRecoilValue(batchPaymentState);
 
   const PRICE_LABEL = [
     { label: '행복의 오천원', price: 5000, icon_active: <A />, icon_disabled: <A_d /> },
@@ -100,6 +109,13 @@ export default function Participate() {
     { label: '건강의 삼만원', price: 30000, icon_active: <C />, icon_disabled: <C_d /> },
     { label: '사랑의 오만원 ', price: 50000, icon_active: <D />, icon_disabled: <D_d /> },
   ];
+
+  useEffect(() => {
+    if (status === 'EXPIRED') {
+      setStep(2);
+      setValue('price', differenceAmount);
+    }
+  }, [fundingInfo]);
 
   const renderFormStep = (step: number) => {
     switch (step) {
@@ -329,10 +345,11 @@ export default function Participate() {
         );
     }
   };
+  const isFirstStep = step == 1 || (step == 2 && status === 'EXPIRED');
 
   return (
     <>
-      <Header onGoBack={step == 1 ? () => router.back() : () => setStep(step => step - 1)} />
+      <Header onGoBack={isFirstStep ? () => router.back() : () => setStep(step => step - 1)} />
       <div className={style.container}>
         <ProgressBar width={`${10.9 * step}rem`} />
         <form onSubmit={handleSubmit(onSubmit, onSubmitError)}>{renderFormStep(step)}</form>
