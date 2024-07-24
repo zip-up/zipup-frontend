@@ -22,14 +22,9 @@ export default function ShippingInfoForm({ isFromMyPage }: ShippingInfoFormProps
     register,
     watch,
     setValue,
+    reset,
     formState: { errors },
   } = useFormContext<FormData>();
-
-  const handleInitialize = () => {
-    setValue('detailAddress', '');
-    setValue('roadAddress', '');
-    setValue('phone', '');
-  };
 
   return (
     <>
@@ -39,7 +34,7 @@ export default function ShippingInfoForm({ isFromMyPage }: ShippingInfoFormProps
             <span className={cx(style.subTitle, css({ paddingLeft: isFromMyPage ? 0 : '2rem' }))}>
               기본 배송지
             </span>
-            <button onClick={handleInitialize}>
+            <button onClick={() => reset()}>
               <span className={style.initialize}>입력 내용 지우기</span>
             </button>
           </div>
