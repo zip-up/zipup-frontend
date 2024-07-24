@@ -1,21 +1,29 @@
-import React, { PropsWithChildren, useCallback, useRef, useState } from 'react';
+import {
+  MouseEvent,
+  MutableRefObject,
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
-interface DraggableProps {
-  className: string;
+interface UseDragProps {
+  ref: MutableRefObject<HTMLElement | null>;
 }
 
-function useDraggable(ref: React.MutableRefObject<HTMLElement | null>) {
+const useDrag = ({ ref }: UseDragProps) => {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
 
-  const preventUnexpectedEffects = useCallback((e: React.MouseEvent<HTMLElement>) => {
+  const preventUnexpectedEffects = useCallback((e: MouseEvent<HTMLElement>) => {
     e.preventDefault();
     e.stopPropagation();
   }, []);
 
   const onMouseDown = useCallback(
-    (e: React.MouseEvent<HTMLElement>) => {
+    (e: MouseEvent<HTMLElement>) => {
       preventUnexpectedEffects(e);
       if (ref.current) {
         setIsDragging(true);
@@ -27,7 +35,7 @@ function useDraggable(ref: React.MutableRefObject<HTMLElement | null>) {
   );
 
   const onMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLElement>) => {
+    (e: MouseEvent<HTMLElement>) => {
       preventUnexpectedEffects(e);
       if (!isDragging || !ref.current) return;
       const x = e.pageX - ref.current.offsetLeft;
@@ -41,13 +49,10 @@ function useDraggable(ref: React.MutableRefObject<HTMLElement | null>) {
     setIsDragging(false);
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isDragging) {
       document.addEventListener('mousemove', onMouseMove as unknown as EventListener);
       document.addEventListener('mouseup', onMouseUp);
-    } else {
-      document.removeEventListener('mousemove', onMouseMove as unknown as EventListener);
-      document.removeEventListener('mouseup', onMouseUp);
     }
 
     return () => {
@@ -61,11 +66,14 @@ function useDraggable(ref: React.MutableRefObject<HTMLElement | null>) {
       onMouseDown,
     },
   };
-}
+};
 
-function Draggable({ className, children }: PropsWithChildren<DraggableProps>) {
+export default function Draggable({
+  className,
+  children,
+}: PropsWithChildren<{ className: string }>) {
   const ref = useRef<HTMLDivElement>(null);
-  const { events } = useDraggable(ref);
+  const { events } = useDrag({ ref });
 
   return (
     <div className={className} ref={ref} {...events}>
@@ -73,5 +81,3 @@ function Draggable({ className, children }: PropsWithChildren<DraggableProps>) {
     </div>
   );
 }
-
-export default Draggable;
