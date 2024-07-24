@@ -28,7 +28,7 @@ import { FundingStatus } from '@typings/funding';
 import { getFundingStatus } from '@utils/getStatus';
 import { shareKakao } from '@utils/share';
 import { useForm } from 'react-hook-form';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 
 import * as style from './styles';
 
@@ -69,7 +69,7 @@ export default function Funding() {
   const [step, setStep] = useState(1);
 
   const [status, setStatus] = useState<FundingStatus>('IN_PROGRESS');
-  const [_, setDifferenceAmount] = useRecoilState(batchPaymentState);
+  const setDifferenceAmount = useSetRecoilState(batchPaymentState);
 
   interface FormInputs {
     reason: string;
