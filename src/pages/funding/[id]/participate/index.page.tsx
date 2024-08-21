@@ -143,7 +143,10 @@ export default function Participate() {
                     </label>
                     <input
                       {...register('price', {
-                        onChange: () => resetField('enteredCustomPrice'),
+                        onChange: () => {
+                          resetField('enteredCustomPrice');
+                          errors.customPrice && clearErrors('customPrice');
+                        },
                       })}
                       type="radio"
                       value={price}
