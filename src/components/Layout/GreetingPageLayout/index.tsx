@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import Image from 'next/image';
 import FundingStatusBox from '@components/FundingStatusBox';
 import { getFundingStatus } from '@utils/getStatus';
+import { css, cx } from 'styled-system/css';
 
 import * as style from './styles';
 
@@ -24,10 +25,8 @@ export default function CommonGreetingPage({
   button,
   isTextareaExpanded,
 }: CommonGreetingPageProps) {
-  console.log(isTextareaExpanded);
-
   return (
-    <div className={style.container}>
+    <div className={cx(style.container, css({ mt: type === 'invite' ? '6rem' : '0' }))}>
       <h1 className={style.headTitle}>{headTitle}</h1>
       <div className={style.subTitle}>{subTitle}</div>
       <div className={style.positionedParent}>
@@ -41,8 +40,7 @@ export default function CommonGreetingPage({
           }
           alt="초대 이미지"
           width={300}
-          height={300}
-          style={{ height: isTextareaExpanded ? 338 : 300 }}
+          height={350}
         />
         <div className={style.positionedWrapper}>
           {fundingInfo ? (

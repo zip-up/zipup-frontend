@@ -46,7 +46,7 @@ const ORGANIZER_ACTION: {
     second: { path: (id: string) => `/funding/${id}/participate`, label: '남은 금액 결제하기' },
   },
   COMPLETED: {
-    first: { path: (id: string) => `/funding/${id}`, label: '감사 편지 보내기' },
+    first: { path: (id: string) => `/funding/${id}/thanks-letter`, label: '감사 편지 보내기' },
     second: { path: (id: string) => `/funding/${id}`, label: '배송 현황 확인하기' },
   },
 };
@@ -54,7 +54,7 @@ const ORGANIZER_ACTION: {
 const PUBLIC_ACTION = {
   IN_PROGRESS: { path: (id: string) => `/funding/${id}/participate`, label: '이 펀딩 참여하기' },
   EXPIRED: { path: (id: string) => `/funding/${id}/participate`, label: '이 펀딩 참여하기' },
-  COMPLETED: { path: (id: string) => `/funding/${id}`, label: '감사 편지 보러가기' },
+  COMPLETED: { path: (id: string) => `/funding/${id}/thanks-letter`, label: '감사 편지 보러가기' },
 };
 
 export default function Funding() {

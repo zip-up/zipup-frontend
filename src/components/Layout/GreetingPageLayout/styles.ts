@@ -1,12 +1,11 @@
 import { css } from 'styled-system/css';
-import { float, vstack } from 'styled-system/patterns';
+import { vstack } from 'styled-system/patterns';
 
 const container = vstack({
   m: '0 auto',
   h: '100%',
   alignItems: 'center',
   p: '1.6rem',
-  mt: '6rem',
   height: 'calc(100vh - 6rem)',
 });
 
@@ -28,9 +27,11 @@ const subTitle = css({
 
 const positionedParent = css({ pos: 'relative' });
 
-const positionedWrapper = float({
-  offsetX: '50%',
-  offsetY: '80%',
+const positionedWrapper = css({
+  position: 'absolute',
+  top: '227px',
+  left: '50%',
+  transform: 'translateX(-50%)',
   fontSize: '85%',
 });
 
