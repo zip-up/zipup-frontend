@@ -65,6 +65,6 @@ const fundProductBtn = css({
   },
 });
 
-const imageWrapper = css({ width: '15.6rem', pos: 'relative', height: '100%' });
+const imageWrapper = css({ width: '100%', pos: 'relative', height: '100%' });
 
 export { container, imageBox, status, title, infoBox, percent, imageWrapper, fundProductBtn };
