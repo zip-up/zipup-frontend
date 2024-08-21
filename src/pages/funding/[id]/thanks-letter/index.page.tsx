@@ -6,16 +6,14 @@ import { statusBox } from '@components/FundingStatusBox/styles';
 import CommonGreetingPage from '@components/Layout/GreetingPageLayout';
 import { css, cx } from 'styled-system/css';
 
-interface ThanksLetterProps {
-  isOrganizer: boolean;
-}
-
-export default function ThanksLetter({ isOrganizer = true }: ThanksLetterProps) {
+export default function ThanksLetter() {
   const router = useRouter();
-  const { id } = router.query;
+  const { id, isOrganizer: _isOrganizer } = router.query;
 
   const [isTextareaExpanded, setIsTextareaExpanded] = useState(false);
   const [message, setMessage] = useState('');
+
+  const isOrganizer = _isOrganizer === 'true';
 
   return (
     <>
@@ -56,9 +54,15 @@ export default function ThanksLetter({ isOrganizer = true }: ThanksLetterProps) 
           />
         }
         button={
-          <Button type="submit" isBottomFixed disabled={isOrganizer && !message}>
-            {isOrganizer ? '작성 완료' : '닫기'}
-          </Button>
+          isOrganizer ? (
+            <Button type="submit" isBottomFixed disabled={isOrganizer && !message}>
+              작성 완료
+            </Button>
+          ) : (
+            <Button type="button" isBottomFixed onClick={() => router.push(`/funding/${id}`)}>
+              닫기
+            </Button>
+          )
         }
         isTextareaExpanded={isTextareaExpanded}
       />
@@ -69,7 +73,7 @@ export default function ThanksLetter({ isOrganizer = true }: ThanksLetterProps) 
 interface TextareaProps {
   message: string;
   setMessage: Dispatch<SetStateAction<string>>;
-  isOrganizer: boolean;
+  isOrganizer?: boolean;
   setIsTextareaExpanded: Dispatch<SetStateAction<boolean>>;
 }
 
