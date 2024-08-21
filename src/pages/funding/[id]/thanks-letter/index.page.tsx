@@ -8,7 +8,7 @@ import { css, cx } from 'styled-system/css';
 
 export default function ThanksLetter() {
   const router = useRouter();
-  const { id, isOrganizer: _isOrganizer } = router.query;
+  const { isOrganizer: _isOrganizer } = router.query;
 
   const [isTextareaExpanded, setIsTextareaExpanded] = useState(false);
   const [message, setMessage] = useState('');
@@ -17,7 +17,7 @@ export default function ThanksLetter() {
 
   return (
     <>
-      <Header onGoBack={() => router.push(`/funding/${id}`)} />
+      <Header onGoBack={() => router.back()} />
       <CommonGreetingPage
         type="gratitude"
         headTitle={
@@ -59,7 +59,7 @@ export default function ThanksLetter() {
               작성 완료
             </Button>
           ) : (
-            <Button type="button" isBottomFixed onClick={() => router.push(`/funding/${id}`)}>
+            <Button type="button" isBottomFixed onClick={() => router.back()}>
               닫기
             </Button>
           )
