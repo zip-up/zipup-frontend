@@ -14,6 +14,7 @@ import { CANCEL_REASON } from '@constants/notice';
 import { useCancelPayment } from '@hooks/queries/usePayment';
 import { PaymentInfo } from '@typings/funding';
 import { useForm } from 'react-hook-form';
+import { css, cx } from 'styled-system/css';
 
 import * as style from './styles';
 
@@ -88,7 +89,12 @@ export default function PayInfo({ paymentList, isLoading }: PayInfoProps) {
 
   return (
     <div>
-      <div className={style.listWrapper}>
+      <div
+        className={cx(
+          style.listWrapper,
+          paymentList.length === 0 && css({ justifyContent: 'center' }),
+        )}
+      >
         {isLoading && <Spinner />}
 
         {paymentList?.map(info => (
