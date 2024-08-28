@@ -29,7 +29,7 @@ const positionedParent = css({ pos: 'relative' });
 
 const positionedWrapper = css({
   position: 'absolute',
-  top: '227px',
+  top: '22.7rem',
   left: '50%',
   transform: 'translateX(-50%)',
   fontSize: '85%',
