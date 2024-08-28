@@ -25,6 +25,13 @@ const subTitle = css({
   paddingLeft: '2rem',
 });
 
+const subTitleWithoutPadding = css({
+  lineHeight: 'normal',
+  textStyle: 'subtitle2',
+  color: 'text.100',
+  marginRight: '0.4rem',
+});
+
 const required = css({
   color: 'main.blue',
   textAlign: 'center',
@@ -38,6 +45,23 @@ const input = css({
   borderRadius: '0.8rem',
   backgroundColor: 'bg.200',
   marginLeft: '1.7rem',
+  padding: '0 2rem',
+  outline: 'none',
+  marginTop: '1.6rem',
+  textStyle: 'body2',
+  color: 'text.100',
+  resize: 'none',
+  overflow: 'hidden',
+  '&::placeholder': {
+    color: 'text.200',
+  },
+});
+
+const inputWithoutMarginLeft = css({
+  width: '32.7rem',
+  height: '5.2rem',
+  borderRadius: '0.8rem',
+  backgroundColor: 'bg.200',
   padding: '0 2rem',
   outline: 'none',
   marginTop: '1.6rem',
@@ -118,8 +142,10 @@ export {
   stepName,
   title,
   subTitle,
+  subTitleWithoutPadding,
   required,
   input,
+  inputWithoutMarginLeft,
   divider,
   form,
   pointer,

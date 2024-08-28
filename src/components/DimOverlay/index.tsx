@@ -8,7 +8,7 @@ export default function DimOverlay({ isActive, children }: PropsWithChildren<Dim
   if (!isActive) return children;
 
   return (
-    <div className={css({ position: 'relative' })}>
+    <div className={css({ position: 'relative', width: '100%' })}>
       {children}
       <div
         className={css({

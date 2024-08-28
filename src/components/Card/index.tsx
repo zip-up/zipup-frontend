@@ -73,9 +73,7 @@ export default function Card({
           {data ? (
             <DimOverlay isActive={getFundingStatus(data.percent, data.dday) !== 'IN_PROGRESS'}>
               {!data.imageUrl && !product?.imageUrl ? (
-                <div className={css({ marginLeft: '-0.8rem' })}>
-                  <GiftIcon />
-                </div>
+                <GiftIcon />
               ) : (
                 <div className={style.imageWrapper}>
                   <Image

@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import GradientBackground from '@components/common/Button/GradientBackground';
-import * as commonStyle from '@pages/invite/[id]/styles';
+import * as commonStyle from '@components/Layout/GreetingPageLayout/styles';
 import { css, cx } from 'styled-system/css';
 
 import * as style from './styles';

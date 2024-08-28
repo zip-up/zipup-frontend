@@ -31,13 +31,13 @@ const label = {
 
 const resetButton = css({ ...statusTag.raw({ bg: 'black' }), ...label });
 
-const inputFormField = cx(createFormStyle.input, css({ mt: '1.6rem', ml: 0, borderWidth: '1px' }));
+const inputFormField = cx(createFormStyle.inputWithoutMarginLeft, css({ borderWidth: '1px' }));
 
-const labelWithoutPadding = cx(createFormStyle.subTitle, css({ pl: 0, mt: '3.2rem' }));
+const labelWithoutPadding = cx(createFormStyle.subTitleWithoutPadding, css({ mt: '3.2rem' }));
 
 const blueColorText = css({ color: 'main.blue' });
 
-const dropInput = css({ display: 'flex', flexDir: 'column', mt: '2.5rem' });
+const dropInput = css({ display: 'flex', flexDir: 'column' });
 
 const inputWithLabelWrapper = css({
   display: 'flex',

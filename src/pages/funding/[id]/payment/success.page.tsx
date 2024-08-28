@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { InstanceWithToken } from '@api/index';
 import GradientBackground from '@components/common/Button/GradientBackground';
 import Spinner from '@components/common/Spinner';
+import * as commonStyle from '@components/Layout/GreetingPageLayout/styles';
 import { useGetFundingDetail, useParticipateFunding } from '@hooks/queries/useFunding';
-import * as commonStyle from '@pages/invite/[id]/styles';
 import { getLoacalStorage } from '@store/localStorage';
 import { isAxiosError } from 'axios';
 

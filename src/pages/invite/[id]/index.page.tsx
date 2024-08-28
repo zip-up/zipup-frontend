@@ -1,12 +1,9 @@
 import { GetServerSideProps } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import { InstanceWithToken } from '@api/index';
-import FundingStatusBox from '@components/FundingStatusBox';
+import { button } from '@components/common/Button/styles';
+import CommonGreetingPage from '@components/Layout/GreetingPageLayout';
 import { DetailFundingInfo } from '@typings/funding';
-import { getFundingStatus } from '@utils/getStatus';
-
-import * as style from './styles';
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const {
@@ -45,30 +42,35 @@ export default function Invite({
   goalPrice,
 }: InviteProps) {
   return (
-    <div className={style.container}>
-      <h1 className={style.headTitle}>
-        <p>
-          <span>{organizerName}</span>님의
-        </p>
-        집들이에 초대할게요!
-      </h1>
-      <div className={style.subTitle}>
-        <p>성공적인 집들이를 위해 선물 펀딩을 받고 있어요</p>사랑하는 친구를 위해 함께해주세요!
-      </div>
-      <div className={style.positionedParent}>
-        <Image src="/invite.png" alt="초대 이미지" width={300} height={300} />
-        <div className={style.positionedWrapper}>
-          <FundingStatusBox
-            type="floating"
-            info={{ percent, expirationDate, goalPrice }}
-            status={getFundingStatus(percent, expirationDate)}
-          />
-        </div>
-      </div>
-
-      <Link href={`/funding/${id}`} className={style.buttonLink}>
-        더 자세히 보기
-      </Link>
-    </div>
+    <CommonGreetingPage
+      headTitle={
+        <>
+          <p>
+            <span>{organizerName}</span>님의
+          </p>
+          집들이에 초대할게요!
+        </>
+      }
+      subTitle={
+        <>
+          <p>성공적인 집들이를 위해 선물 펀딩을 받고 있어요</p>사랑하는 친구를 위해 함께해주세요!
+        </>
+      }
+      fundingInfo={{ percent, expirationDate, goalPrice }}
+      button={
+        <Link
+          href={`/funding/${id}`}
+          className={button({
+            size: 'full',
+            color: 'secondary',
+            isBottomFixed: true,
+            position: 'last',
+            textStyle: 'CTAButton',
+          })}
+        >
+          더 자세히 보기
+        </Link>
+      }
+    />
   );
 }

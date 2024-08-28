@@ -34,7 +34,10 @@ import * as style from './styles';
 
 const ORGANIZER_ACTION: {
   [key in FundingStatus]: {
-    [key in 'first' | 'second']: { path: (id: string) => string; label: string };
+    [key in 'first' | 'second']: {
+      path: (id: string, isOranizer?: boolean) => string;
+      label: string;
+    };
   };
 } = {
   IN_PROGRESS: {
@@ -46,7 +49,11 @@ const ORGANIZER_ACTION: {
     second: { path: (id: string) => `/funding/${id}/participate`, label: '남은 금액 결제하기' },
   },
   COMPLETED: {
-    first: { path: (id: string) => `/funding/${id}`, label: '감사 편지 보내기' },
+    first: {
+      path: (id: string, isOrganizer?: boolean) =>
+        `/funding/${id}/thanks-letter?isOrganizer=${isOrganizer}`,
+      label: '감사 편지 보내기',
+    },
     second: { path: (id: string) => `/funding/${id}`, label: '배송 현황 확인하기' },
   },
 };
@@ -54,7 +61,11 @@ const ORGANIZER_ACTION: {
 const PUBLIC_ACTION = {
   IN_PROGRESS: { path: (id: string) => `/funding/${id}/participate`, label: '이 펀딩 참여하기' },
   EXPIRED: { path: (id: string) => `/funding/${id}/participate`, label: '이 펀딩 참여하기' },
-  COMPLETED: { path: (id: string) => `/funding/${id}`, label: '감사 편지 보러가기' },
+  COMPLETED: {
+    path: (id: string, isOrganizer: boolean) =>
+      `/funding/${id}/thanks-letter?isOranizer=${isOrganizer}`,
+    label: '감사 편지 보러가기',
+  },
 };
 
 export default function Funding() {
@@ -127,7 +138,7 @@ export default function Funding() {
                     imageUrl: fundingInfo.imageUrl,
                     fundingId,
                   })
-                : router.push(firstButton.path(fundingId));
+                : router.push(firstButton.path(fundingId, isOrganizer));
             }}
           >
             {firstButton.label}
@@ -149,7 +160,7 @@ export default function Funding() {
       <Button
         disabled={status === 'EXPIRED'}
         onClick={() => {
-          if (user) return router.push(PUBLIC_ACTION[status].path(fundingId));
+          if (user) return router.push(PUBLIC_ACTION[status].path(fundingId, isOrganizer));
 
           setIsLoginModalOn(true);
         }}
