@@ -210,7 +210,7 @@ export default function Funding() {
                       fundingFinish: String(fundingInfo.expirationDate),
                       target: 'update',
                     });
-                    router.push('/funding/create/1');
+                    router.push('/funding/create/2');
                   }}
                 >
                   <EditIcon />
