@@ -23,7 +23,8 @@ import ModalWithIcon from '@components/modals/ModalWithIcon';
 import { DELETE_REASON } from '@constants/notice';
 import { useUser } from '@hooks/queries/useAuth';
 import { useDeleteFunding, useGetFundingDetail } from '@hooks/queries/useFunding';
-import { batchPaymentState } from '@store/store';
+import { useGetShipping } from '@hooks/queries/useShipping';
+import { batchPaymentState, createFundState } from '@store/store';
 import { FundingStatus } from '@typings/funding';
 import { getFundingStatus } from '@utils/getStatus';
 import { shareKakao } from '@utils/share';
@@ -81,6 +82,7 @@ export default function Funding() {
 
   const [status, setStatus] = useState<FundingStatus>('IN_PROGRESS');
   const setDifferenceAmount = useSetRecoilState(batchPaymentState);
+  const setCreateFund = useSetRecoilState(createFundState);
 
   interface FormInputs {
     reason: string;
@@ -90,6 +92,7 @@ export default function Funding() {
     defaultValues: { reason: DELETE_REASON[0] },
   });
 
+  const { data: shippingData } = useGetShipping();
   const { mutate: deleteFunding, isPending } = useDeleteFunding(() => setStep(3));
 
   useEffect(() => {
@@ -189,7 +192,27 @@ export default function Funding() {
 
             {isOrganizer && !(expirationDate < 0 && percent >= 100) && (
               <Menu activeMenuButtonTitle={<ActiveMoreBtnIcon />} menuButtonTitle={<MoreBtnIcon />}>
-                <Menu.Item onClick={() => setSelectedMenu('EDIT')}>
+                <Menu.Item
+                  onClick={() => {
+                    // setSelectedMenu('EDIT')
+                    // TODO: productURL 찾아보기
+
+                    setCreateFund({
+                      roadAddress: shippingData?.roadAddress || '',
+                      detailAddress: shippingData?.detailAddress || '',
+                      phoneNumber: shippingData?.phoneNumber || '',
+                      title: fundingInfo.title,
+                      description: fundingInfo.description,
+                      goalPrice: fundingInfo.goalPrice,
+                      productUrl: '',
+                      imageUrl: fundingInfo.imageUrl,
+                      fundingStart: '',
+                      fundingFinish: String(fundingInfo.expirationDate),
+                      target: 'update',
+                    });
+                    router.push('/funding/create/1');
+                  }}
+                >
                   <EditIcon />
                   수정하기
                 </Menu.Item>

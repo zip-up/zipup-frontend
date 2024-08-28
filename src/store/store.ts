@@ -15,6 +15,7 @@ export const createFundState = atom<CreateFund>({
     imageUrl: '',
     fundingStart: '',
     fundingFinish: '',
+    target: 'create',
   },
 });
 
