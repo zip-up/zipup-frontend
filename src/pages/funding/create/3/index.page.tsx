@@ -30,8 +30,14 @@ export default function CreateFundStep3() {
 
   useEffect(() => {
     if (newFund) {
-      setValue('target', newFund.fundingStart);
-      setValue('due', newFund.fundingFinish);
+      if (newFund.fundingStart) {
+        setValue('target', newFund.fundingStart);
+      } else {
+        setValue('target', new Date().toISOString().split('T')[0]);
+      }
+      const today = new Date();
+      const dueDate = new Date(today.setDate(today.getDate() + Number(newFund.fundingFinish)));
+      setValue('due', dueDate.toISOString().split('T')[0]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

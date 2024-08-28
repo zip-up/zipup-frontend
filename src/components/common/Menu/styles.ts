@@ -21,6 +21,7 @@ const item = flex({
   alignItems: 'center',
   borderBottom: '1px solid',
   borderBottomColor: 'bg.300',
+  cursor: 'pointer',
   '&:last-child': {
     borderBottom: 'none',
   },

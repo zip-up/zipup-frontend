@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchIcon from '@assets/icons/search.svg';
 import AddressModal from '@components/modals/AddressModal';
+import { useGetShipping } from '@hooks/queries/useShipping';
 import { RegisterOptions, useFormContext } from 'react-hook-form';
 import { css, cx } from 'styled-system/css';
 
@@ -18,6 +19,8 @@ interface ShippingInfoFormProps {
 }
 
 export default function ShippingInfoForm({ isFromMyPage, phoneOptions }: ShippingInfoFormProps) {
+  const { data: shippingData } = useGetShipping();
+
   const [isOpen, setIsOpen] = useState(false);
   const {
     register,
@@ -26,6 +29,14 @@ export default function ShippingInfoForm({ isFromMyPage, phoneOptions }: Shippin
     reset,
     formState: { errors },
   } = useFormContext<FormData>();
+
+  useEffect(() => {
+    if (shippingData) {
+      setValue('detailAddress', shippingData.detailAddress);
+      setValue('phone', shippingData.phoneNumber);
+      setValue('roadAddress', shippingData.roadAddress);
+    }
+  }, []);
 
   return (
     <>

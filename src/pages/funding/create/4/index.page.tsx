@@ -30,10 +30,11 @@ interface FormInputs extends TermsCheckFlags {
 export default function CreatFundStep4() {
   const router = useRouter();
   const [newFunding, setNewFunding] = useRecoilState(createFundState);
-  const { data: user } = useUser();
   const [fundId, setFundId] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const methods = useForm<FormInputs>();
+
+  const { data: user } = useUser();
 
   const { mutate: createFunding, isPending } = useCreateFunding(createdFundingData => {
     setFundId(createdFundingData.id);
@@ -68,11 +69,19 @@ export default function CreatFundStep4() {
     shareKakao({ userName: user?.name || '', imageUrl: newFunding.imageUrl, fundingId: fundId });
   };
 
+  function getCompletedText() {
+    if (newFunding.target === 'update') {
+      return '수정 완료';
+    }
+
+    return '등록 완료';
+  }
+
   function Buttons() {
     return (
       <GradientBackground>
         <Button type="submit" disabled={isPending}>
-          {isPending ? <Spinner size="sm" /> : '등록 완료'}
+          {isPending ? <Spinner size="sm" /> : getCompletedText()}
         </Button>
       </GradientBackground>
     );
@@ -84,7 +93,11 @@ export default function CreatFundStep4() {
         <ModalWithIcon
           width="31.7rem"
           onClose={() => setIsModalOpen(false)}
-          title="펀딩 등록이 완료되었어요."
+          title={
+            newFunding.target === 'create'
+              ? '펀딩 등록이 완료되었어요.'
+              : '펀딩 수정이 완료되었어요.'
+          }
           subtitle="내 펀딩을 친구들에게 공유해볼까요?"
           buttonComponent={
             <div className={style.modalButtonWrapper}>
