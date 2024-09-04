@@ -21,7 +21,7 @@ export default function Delivery() {
   };
 
   const deliverData = true ? IS_DELIVERING : COMPLETED_DELIVERING;
-  const INVOICE_NUMBER = 123456789012;
+  const INVOICE_NUMBER = 1234567890123;
 
   return (
     <div>
@@ -33,7 +33,7 @@ export default function Delivery() {
             <span className={style.textWrapper}>
               선물이&nbsp;
               <span className={css({ color: 'success' })}>{deliverData.status}</span>
-              이에요
+              {deliverData.status === '배송중' ? '이에요' : ' 되었어요'}
             </span>
           </div>
           <div className={style.infoBox}>
