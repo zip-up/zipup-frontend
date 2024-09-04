@@ -75,6 +75,13 @@ const PUBLIC_ACTION = {
   },
 };
 
+const invitationOptions = [
+  { value: 'invite', image: <Invitation />, content: '님의\n집들이에 초대할게요' },
+  { value: 'congratulate', image: <Congratulation />, content: '님을 위해\n마음을 모아주세요' },
+] as const;
+
+export type InvitationOptions = 'invite' | 'congratulate';
+
 export default function Funding() {
   const router = useRouter();
 
@@ -91,7 +98,9 @@ export default function Funding() {
   const setCreateFund = useSetRecoilState(createFundState);
 
   const [isShareModalOn, setIsShareModalOn] = useState(false);
-  const [selectedInvitation, setSelectedInvitaion] = useState('invite');
+  const [selectedInvitation, setSelectedInvitaion] = useState<InvitationOptions>(
+    invitationOptions[0].value,
+  );
   interface FormInputs {
     reason: string;
   }
@@ -320,9 +329,10 @@ export default function Funding() {
               actionBtnText="카카오톡으로 공유"
               handleAction={() =>
                 shareKakao({
-                  userName: user?.name || '',
+                  userName: organizerName,
                   imageUrl: fundingInfo.imageUrl,
                   fundingId,
+                  invitationType: selectedInvitation,
                 })
               }
               handleCloseModal={() => setIsShareModalOn(false)}
@@ -350,7 +360,7 @@ export default function Funding() {
                   value={value}
                   id={value}
                   checked={value === selectedInvitation}
-                  onChange={e => setSelectedInvitaion(e.target.value)}
+                  onChange={e => setSelectedInvitaion(e.target.value as InvitationOptions)}
                   className={css({ display: 'none' })}
                 />
                 <div className={css({ pos: 'relative' })}>{image}</div>
@@ -376,7 +386,3 @@ export default function Funding() {
     </>
   );
 }
-const invitationOptions = [
-  { value: 'invite', image: <Invitation />, content: '님의\n집들이에 초대할게요' },
-  { value: 'congratulate', image: <Congratulation />, content: '님을 위해\n마음을 모아주세요' },
-];

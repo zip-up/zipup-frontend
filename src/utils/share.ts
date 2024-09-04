@@ -1,10 +1,18 @@
+import { InvitationOptions } from '@pages/funding/[id]/index.page';
+
 interface ShareKakaoProps {
   userName: string;
   imageUrl: string;
   fundingId: string;
+  invitationType: InvitationOptions;
 }
 
-export const shareKakao = ({ userName, imageUrl, fundingId }: ShareKakaoProps) => {
+const INVITATION_MESSAGE = {
+  invite: '님의 집들이에 초대할게요!',
+  congratulate: '님을 위해 마음을 함께 모아주세요',
+};
+
+export const shareKakao = ({ userName, imageUrl, fundingId, invitationType }: ShareKakaoProps) => {
   if (!window.Kakao) throw new Error('카카오톡 실행에 오류가 발생했습니다.');
 
   const url =
@@ -15,7 +23,7 @@ export const shareKakao = ({ userName, imageUrl, fundingId }: ShareKakaoProps) =
   window.Kakao.Share?.sendDefault({
     objectType: 'feed',
     content: {
-      title: `${userName}님의 집들이에 당신을 초대합니다.`,
+      title: `${userName}${INVITATION_MESSAGE[invitationType]}`,
       description: '집업에서 선물 펀딩에 함께해주세요!',
       imageUrl,
       link: {
