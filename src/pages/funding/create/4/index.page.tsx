@@ -58,8 +58,8 @@ export default function CreatFundStep4() {
       });
     } else {
       // TODO: 펀딩 수정 API 필요함
-      alert('추후 수정될 예정입니다.');
-      router.push('/');
+      alert(`추후 수정될 예정입니다.`);
+      router.push('/funding/' + newFunding.id);
     }
   };
 
