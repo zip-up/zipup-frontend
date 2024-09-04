@@ -345,12 +345,7 @@ export default function Funding() {
                 key={idx}
                 htmlFor={value}
                 className={css({
-                  width: '14.2rem',
-                  height: '14.2rem',
-                  backgroundColor: 'blue.20',
-                  borderRadius: '1.2rem',
-                  boxSizing: 'border-box',
-                  pos: 'relative',
+                  ...style.InvitaionOptionLabel,
                   opacity: selectedInvitation === value ? 1 : '0.5',
                   boxShadow: selectedInvitation === value ? '0 0 0 2px #0098E8' : 'none',
                 })}
