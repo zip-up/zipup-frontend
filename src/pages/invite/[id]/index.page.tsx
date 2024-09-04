@@ -3,11 +3,13 @@ import Link from 'next/link';
 import { InstanceWithToken } from '@api/index';
 import { button } from '@components/common/Button/styles';
 import CommonGreetingPage from '@components/Layout/GreetingPageLayout';
+import { InvitationOptions } from '@pages/funding/[id]/index.page';
 import { DetailFundingInfo } from '@typings/funding';
+import { INVITATION_MESSAGE } from '@utils/share';
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const {
-    query: { id },
+    query: { id, type },
   } = context;
 
   try {
@@ -17,7 +19,9 @@ export const getServerSideProps: GetServerSideProps = async context => {
       headers: { Authorization: `Bearer ${context.req.cookies.token}` },
     });
 
-    return { props: { id, organizerName, percent, expirationDate, goalPrice } };
+    return {
+      props: { id, organizerName, percent, expirationDate, goalPrice, type },
+    };
   } catch (error) {
     return {
       redirect: {
@@ -32,7 +36,9 @@ interface InviteProps
   extends Pick<
     DetailFundingInfo,
     'id' | 'organizerName' | 'percent' | 'expirationDate' | 'goalPrice'
-  > {}
+  > {
+  type: InvitationOptions;
+}
 
 export default function Invite({
   id,
@@ -40,15 +46,14 @@ export default function Invite({
   percent,
   expirationDate,
   goalPrice,
+  type,
 }: InviteProps) {
   return (
     <CommonGreetingPage
       headTitle={
         <>
-          <p>
-            <span>{organizerName}</span>님의
-          </p>
-          집들이에 초대할게요!
+          <span>{organizerName}</span>
+          {INVITATION_MESSAGE[type].messageWithBreak}
         </>
       }
       subTitle={
@@ -56,6 +61,7 @@ export default function Invite({
           <p>성공적인 집들이를 위해 선물 펀딩을 받고 있어요</p>사랑하는 친구를 위해 함께해주세요!
         </>
       }
+      img={type === 'invite' ? '/invite.png' : '/invite-congratulation-share.png'}
       fundingInfo={{ percent, expirationDate, goalPrice }}
       button={
         <Link
