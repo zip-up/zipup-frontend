@@ -8,7 +8,20 @@ import { css } from 'styled-system/css';
 import * as style from './styles';
 
 export default function Delivery() {
-  const isDelivering = true;
+  const IS_DELIVERING = {
+    status: '배송중',
+    text1: '친구들이 모아준 마음이 김집업님께 가고 있어요.',
+    text2: '조금만 기다려주세요!',
+  };
+
+  const COMPLETED_DELIVERING = {
+    status: '배송완료',
+    text1: '친구들이 모아준 마음이 김집업님께 도착했어요.',
+    text2: '즐거운 집들이 시간 도세요!',
+  };
+
+  const deliverData = true ? IS_DELIVERING : COMPLETED_DELIVERING;
+  const INVOICE_NUMBER = 123456789012;
 
   return (
     <div>
@@ -19,25 +32,19 @@ export default function Delivery() {
           <div className={style.textBox}>
             <span className={style.textWrapper}>
               선물이&nbsp;
-              <span className={css({ color: 'success' })}>
-                {isDelivering ? '배송중' : '배송완료'}
-              </span>
+              <span className={css({ color: 'success' })}>{deliverData.status}</span>
               이에요
             </span>
           </div>
           <div className={style.infoBox}>
             <div className={style.titleBox}>
-              <p className={css({ textAlign: 'center' })}>
-                친구들이 모아준 마음이 김집업님께 {isDelivering ? '가고 있어요.' : '도착했어요.'}
-              </p>
-              <p className={css({ textAlign: 'center' })}>
-                {isDelivering ? '조금만 기다려주세요!' : '즐거운 집들이 시간 되세요! '}
-              </p>
+              <p className={css({ textAlign: 'center' })}>{deliverData.text1}</p>
+              <p className={css({ textAlign: 'center' })}>{deliverData.text2}</p>
             </div>
             <div className={style.deliveryBox}>
               <div className={style.deliveryTextBox}>
                 <span className={css({ color: 'success' })}>송장 번호</span>
-                <span>123456789012</span>
+                <span>{INVOICE_NUMBER}</span>
               </div>
               <div className={style.deliveryTextBox}>
                 <span className={css({ color: 'success' })}>배송 업체</span>
@@ -45,7 +52,7 @@ export default function Delivery() {
               </div>
             </div>
             <div style={{ paddingTop: '2rem', display: 'flex', justifyContent: 'center' }}>
-              <CopyToClipboard text={'1234567898012'}>
+              <CopyToClipboard text={String(INVOICE_NUMBER)}>
                 <Button
                   size="regular"
                   color="white"
