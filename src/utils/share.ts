@@ -7,9 +7,12 @@ interface ShareKakaoProps {
   invitationType: InvitationOptions;
 }
 
-const INVITATION_MESSAGE = {
-  invite: '님의 집들이에 초대할게요!',
-  congratulate: '님을 위해 마음을 함께 모아주세요',
+export const INVITATION_MESSAGE = {
+  invite: { message: '님의 집들이에 초대할게요!', messageWithBreak: '님의\n집들이에 초대할게요!' },
+  congratulate: {
+    message: '님을 위해 마음을 함께 모아주세요',
+    messageWithBreak: '님을 위해\n마음을 함께 모아주세요',
+  },
 };
 
 export const shareKakao = ({ userName, imageUrl, fundingId, invitationType }: ShareKakaoProps) => {
@@ -17,13 +20,13 @@ export const shareKakao = ({ userName, imageUrl, fundingId, invitationType }: Sh
 
   const url =
     process.env.NODE_ENV === 'production'
-      ? `https://zip-up.vercel.app/invite/${fundingId}`
-      : `https://localhost:3000/invite/${fundingId}`;
+      ? `https://zip-up.vercel.app/invite/${fundingId}?type=${invitationType}`
+      : `https://localhost:3000/invite/${fundingId}?type=${invitationType}`;
 
   window.Kakao.Share?.sendDefault({
     objectType: 'feed',
     content: {
-      title: `${userName}${INVITATION_MESSAGE[invitationType]}`,
+      title: `${userName}${INVITATION_MESSAGE[invitationType].message}`,
       description: '집업에서 선물 펀딩에 함께해주세요!',
       imageUrl,
       link: {
