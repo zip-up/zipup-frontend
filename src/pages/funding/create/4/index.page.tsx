@@ -45,8 +45,6 @@ export default function CreatFundStep4() {
     setIsModalOpen(true);
   });
 
-  const { register, handleSubmit, watch } = useForm<FormInputs>();
-
   const handleCreateFundSubmit = async (step4FormData: FormInputs) => {
     const totalFormInputData = { ...newFunding, ...step4FormData };
 
@@ -136,7 +134,7 @@ export default function CreatFundStep4() {
 
       <form
         className={style.form}
-        onSubmit={handleSubmit(handleCreateFundSubmit, handleSubmitError)}
+        onSubmit={methods.handleSubmit(handleCreateFundSubmit, handleSubmitError)}
       >
         <FormProvider {...methods}>
           <ShippingInfoForm
@@ -150,14 +148,14 @@ export default function CreatFundStep4() {
           <Term
             label="isPurchaseChecked"
             term={PURCHASE_TERM}
-            register={register}
-            isChecked={watch('isPurchaseChecked')}
+            register={methods.register}
+            isChecked={methods.watch('isPurchaseChecked')}
           />
           <Term
             label="isPrivacyChecked"
             term={PRIVACY_TERM}
-            register={register}
-            isChecked={watch('isPrivacyChecked')}
+            register={methods.register}
+            isChecked={methods.watch('isPrivacyChecked')}
           />
         </div>
 
