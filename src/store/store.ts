@@ -5,6 +5,7 @@ import { CreateFund } from './types';
 export const createFundState = atom<CreateFund>({
   key: 'createFund',
   default: {
+    id: '',
     title: '',
     roadAddress: '',
     detailAddress: '',

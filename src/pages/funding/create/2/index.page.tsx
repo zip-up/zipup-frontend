@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import WarningIcon from '@assets/icons/warning.svg';
 import Button from '@components/common/Button';
 import GradientBackground from '@components/common/Button/GradientBackground';
 import Header from '@components/common/Header';
@@ -97,6 +98,14 @@ export default function CreatFundStep2() {
           />
         </div>
         {errors.textMessage && <p className={style.errorText}>{errors.textMessage.message}</p>}
+        {newFund.target === 'update' && (
+          <div className={style.updateWarningBox}>
+            <WarningIcon />
+            <span className={style.updateWarningText}>
+              펀딩 상품과 목표 금액은 수정할 수 없어요.
+            </span>
+          </div>
+        )}
 
         <GradientBackground>
           <Button type="submit">다음</Button>
