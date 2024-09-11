@@ -130,14 +130,6 @@ const inputShape = css({
   cursor: 'pointer',
 });
 
-const modalButtonWrapper = css({
-  display: 'flex',
-  gap: '0.8rem',
-  width: '100%',
-  marginTop: '3.1rem',
-  justifyContent: 'center',
-});
-
 const updateWarningBox = css({
   width: '32.8rem',
   margin: '1.6rem auto',
@@ -169,7 +161,6 @@ export {
   dateBox,
   errorText,
   inputShape,
-  modalButtonWrapper,
   updateWarningBox,
   updateWarningText,
 };
