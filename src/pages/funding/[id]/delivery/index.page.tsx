@@ -38,8 +38,11 @@ export default function Delivery() {
           </div>
           <div className={style.infoBox}>
             <div className={style.titleBox}>
-              <p className={css({ textAlign: 'center' })}>{deliverData.text1}</p>
-              <p className={css({ textAlign: 'center' })}>{deliverData.text2}</p>
+              <p className={css({ textAlign: 'center' })}>
+                {deliverData.text1}
+                <br />
+                {deliverData.text2}
+              </p>
             </div>
             <div className={style.deliveryBox}>
               <div className={style.deliveryTextBox}>
