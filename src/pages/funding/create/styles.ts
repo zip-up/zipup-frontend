@@ -146,6 +146,14 @@ const updateWarningText = css({
   fontWeight: '500',
 });
 
+const modalButtonWrapper = css({
+  display: 'flex',
+  gap: '0.8rem',
+  width: '100%',
+  marginTop: '3.1rem',
+  justifyContent: 'center',
+});
+
 export {
   stepName,
   title,
@@ -163,4 +171,5 @@ export {
   inputShape,
   updateWarningBox,
   updateWarningText,
+  modalButtonWrapper,
 };
