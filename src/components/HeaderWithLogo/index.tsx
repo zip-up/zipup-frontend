@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import DefaultNotiIcon from '@assets/icons/bell-default.svg';
 import NotiWithAlertIcon from '@assets/icons/bell-with-alert.svg';
@@ -34,7 +35,9 @@ export default function HeaderWithLogo({ onOpen, hasNoBorder = false }: HeaderWi
         <LogoIcon />
       </button>
       <div className={style.buttonGroup}>
-        {hasUnreadNotifications ? <NotiWithAlertIcon /> : <DefaultNotiIcon />}
+        <Link href={'/notifications'}>
+          {hasUnreadNotifications ? <NotiWithAlertIcon /> : <DefaultNotiIcon />}
+        </Link>
         <button
           className={cx(style.box, css({ cursor: 'pointer' }))}
           data-d
