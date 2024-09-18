@@ -70,7 +70,12 @@ export default function CreatFundStep4() {
   };
 
   const handleShareKakao = () => {
-    shareKakao({ userName: user?.name || '', imageUrl: newFunding.imageUrl, fundingId: fundId });
+    shareKakao({
+      userName: user?.name || '',
+      imageUrl: newFunding.imageUrl,
+      fundingId: fundId,
+      invitationType: 'invite',
+    });
   };
 
   function getCompletedText() {

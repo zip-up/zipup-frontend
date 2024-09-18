@@ -45,6 +45,7 @@ export default function ThanksLetter() {
             '소중한 마음을 보태주셔서 감사해요!'
           )
         }
+        img={!isTextareaExpanded ? '/letter.png' : '/letter-expand.png'}
         letter={
           <Textarea
             message={message}
@@ -64,7 +65,6 @@ export default function ThanksLetter() {
             </Button>
           )
         }
-        isTextareaExpanded={isTextareaExpanded}
       />
     </>
   );

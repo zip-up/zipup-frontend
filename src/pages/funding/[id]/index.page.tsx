@@ -6,9 +6,14 @@ import DeleteIcon from '@assets/icons/delete.svg';
 import DeleteMenuIcon from '@assets/icons/delete-menu.svg';
 import EditIcon from '@assets/icons/edit-note.svg';
 import InfoIcon from '@assets/icons/info.svg';
+import InviteIcon from '@assets/icons/modal-invite.svg';
 import MoreBtnIcon from '@assets/icons/more-btn.svg';
 import ActiveMoreBtnIcon from '@assets/icons/more-btn-clicked.svg';
+import { Radio_Bg_White_active, Radio_Bg_White_disabled } from '@assets/icons/radio';
 import DefaultPresentImg from '@assets/images/default_present.svg';
+import Invitation from '@assets/images/invite.svg';
+import Congratulation from '@assets/images/invite-congratulation.svg';
+import Gradient from '@assets/images/invite-gradient.svg';
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
 import Menu from '@components/common/Menu';
@@ -30,6 +35,7 @@ import { getFundingStatus } from '@utils/getStatus';
 import { shareKakao } from '@utils/share';
 import { useForm } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
+import { css } from 'styled-system/css';
 
 import * as style from './styles';
 
@@ -69,6 +75,13 @@ const PUBLIC_ACTION = {
   },
 };
 
+const invitationOptions = [
+  { value: 'invite', image: <Invitation />, content: '님의\n집들이에 초대할게요' },
+  { value: 'congratulate', image: <Congratulation />, content: '님을 위해\n마음을 모아주세요' },
+] as const;
+
+export type InvitationOptions = 'invite' | 'congratulate';
+
 export default function Funding() {
   const router = useRouter();
 
@@ -84,6 +97,10 @@ export default function Funding() {
   const setDifferenceAmount = useSetRecoilState(batchPaymentState);
   const setCreateFund = useSetRecoilState(createFundState);
 
+  const [isShareModalOn, setIsShareModalOn] = useState(false);
+  const [selectedInvitation, setSelectedInvitaion] = useState<InvitationOptions>(
+    invitationOptions[0].value,
+  );
   interface FormInputs {
     reason: string;
   }
@@ -112,6 +129,7 @@ export default function Funding() {
     goalPrice,
     description,
     isOrganizer,
+    organizerName,
     presentList: messageList,
   } = fundingInfo;
 
@@ -136,11 +154,7 @@ export default function Funding() {
             color="primary"
             onClick={() => {
               status !== 'COMPLETED'
-                ? shareKakao({
-                    userName: user?.name || '',
-                    imageUrl: fundingInfo.imageUrl,
-                    fundingId,
-                  })
+                ? setIsShareModalOn(true)
                 : router.push(firstButton.path(fundingId, isOrganizer));
             }}
           >
@@ -303,6 +317,68 @@ export default function Funding() {
           </Modal>
         )}
       </>
+
+      {isShareModalOn && (
+        <ModalWithIcon
+          icon={<InviteIcon />}
+          title="펀딩을 친구에게 공유해보세요"
+          subtitle={
+            '카카오톡으로 펀딩을 공유할 수 있어요.\n친구에게 보낼 집들이 초대장을 골라보세요.'
+          }
+          buttonComponent={
+            <ModalActionButtons
+              actionBtnText="카카오톡으로 공유"
+              handleAction={() =>
+                shareKakao({
+                  userName: organizerName,
+                  imageUrl: fundingInfo.imageUrl,
+                  fundingId,
+                  invitationType: selectedInvitation,
+                })
+              }
+              handleCloseModal={() => setIsShareModalOn(false)}
+            />
+          }
+        >
+          <div className={css({ display: 'flex', justifyContent: 'space-between', mt: '1.6rem' })}>
+            {invitationOptions.map(({ value, image, content }, idx) => (
+              <label
+                key={idx}
+                htmlFor={value}
+                className={css({
+                  ...style.InvitaionOptionLabel,
+                  opacity: selectedInvitation === value ? 1 : '0.5',
+                  boxShadow: selectedInvitation === value ? '0 0 0 2px #0098E8' : 'none',
+                })}
+              >
+                <input
+                  type="radio"
+                  value={value}
+                  id={value}
+                  checked={value === selectedInvitation}
+                  onChange={e => setSelectedInvitaion(e.target.value as InvitationOptions)}
+                  className={css({ display: 'none' })}
+                />
+                <div className={css({ pos: 'relative' })}>{image}</div>
+                <div className={css({ pos: 'absolute', right: '1.2rem', top: '1rem' })}>
+                  {selectedInvitation === value ? (
+                    <Radio_Bg_White_active />
+                  ) : (
+                    <Radio_Bg_White_disabled />
+                  )}
+                </div>
+                <span className={css({ pos: 'absolute', left: 0, bottom: '4rem', w: '100%' })}>
+                  <Gradient />
+                </span>
+                <div className={style.InvitationContents}>
+                  <span className={css({ color: 'success' })}>{organizerName}</span>
+                  {content}
+                </div>
+              </label>
+            ))}
+          </div>
+        </ModalWithIcon>
+      )}
     </>
   );
 }
