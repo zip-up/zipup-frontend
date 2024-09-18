@@ -212,6 +212,7 @@ export default function Funding() {
                     // TODO: productURL 찾아보기
 
                     setCreateFund({
+                      id: fundingInfo.id,
                       roadAddress: shippingData?.roadAddress || '',
                       detailAddress: shippingData?.detailAddress || '',
                       phoneNumber: shippingData?.phoneNumber || '',

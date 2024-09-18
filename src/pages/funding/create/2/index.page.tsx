@@ -1,5 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import WarningIcon from '@assets/icons/warning.svg';
+import CancelModal from '@components/CancelModal';
 import Button from '@components/common/Button';
 import GradientBackground from '@components/common/Button/GradientBackground';
 import Header from '@components/common/Header';
@@ -20,6 +22,7 @@ interface FormInput {
 export default function CreatFundStep2() {
   const router = useRouter();
   const [newFund, setNewFund] = useRecoilState(createFundState);
+  const [isOpen, setIsOpen] = useState(false);
 
   const {
     register,
@@ -45,9 +48,35 @@ export default function CreatFundStep2() {
     router.push('/funding/create/3');
   };
 
+  const resetNewFund = () => {
+    setNewFund({
+      id: '',
+      title: '',
+      roadAddress: '',
+      detailAddress: '',
+      phoneNumber: '',
+      description: '',
+      goalPrice: 0,
+      productUrl: '',
+      imageUrl: '',
+      fundingStart: '',
+      fundingFinish: '',
+    });
+  };
+
   return (
     <>
-      <Header onGoBack={() => router.back()} />
+      {isOpen && newFund.target === 'update' && (
+        <CancelModal
+          onClose={() => setIsOpen(false)}
+          onBack={() => {
+            router.back();
+            resetNewFund();
+          }}
+          condition={'update'}
+        />
+      )}
+      <Header onGoBack={() => setIsOpen(true)} />
       <ProgressBar width={'16.4rem'} />
       <h4 className={style.stepName}>Step 2</h4>
       <h2 className={style.title}>내 펀딩에 대해 설명해주세요.</h2>
@@ -97,6 +126,14 @@ export default function CreatFundStep2() {
           />
         </div>
         {errors.textMessage && <p className={style.errorText}>{errors.textMessage.message}</p>}
+        {newFund.target === 'update' && (
+          <div className={style.updateWarningBox}>
+            <WarningIcon />
+            <span className={style.updateWarningText}>
+              펀딩 상품과 목표 금액은 수정할 수 없어요.
+            </span>
+          </div>
+        )}
 
         <GradientBackground>
           <Button type="submit">다음</Button>
