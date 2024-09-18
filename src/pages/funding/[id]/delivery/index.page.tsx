@@ -1,5 +1,5 @@
 import DeliveryIcon from '@assets/icons/delivery.svg';
-import NoticeIcon from '@assets/icons/notice.svg';
+import NoticeIcon from '@assets/icons/info.svg';
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
