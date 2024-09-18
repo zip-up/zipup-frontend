@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import CancelIcon from '@assets/icons/cancel-icon.svg';
+import CancelIcon from '@assets/icons/delete.svg';
 import InfoIcon from '@assets/icons/info.svg';
 import Button from '@components/common/Button';
 import GradientBackground from '@components/common/Button/GradientBackground';

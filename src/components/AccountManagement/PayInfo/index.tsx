@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CancelIcon from '@assets/icons/cancel-icon.svg';
+import CancelIcon from '@assets/icons/delete.svg';
 import UploadIcon from '@assets/icons/upload.svg';
 import Button from '@components/common/Button';
 import DropDown from '@components/common/DropDown';
