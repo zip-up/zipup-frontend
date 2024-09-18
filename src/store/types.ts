@@ -1,4 +1,5 @@
 export interface CreateFund {
+  id: string;
   title: string;
   roadAddress: string;
   detailAddress: string;

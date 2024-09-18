@@ -130,6 +130,22 @@ const inputShape = css({
   cursor: 'pointer',
 });
 
+const updateWarningBox = css({
+  width: '32.8rem',
+  margin: '1.6rem auto',
+  backgroundColor: 'blue.10',
+  borderRadius: '0.8rem',
+  padding: '1.2rem',
+  display: 'flex',
+  gap: '0.8rem',
+});
+
+const updateWarningText = css({
+  textStyle: 'caption1',
+  color: 'main.blue',
+  fontWeight: '500',
+});
+
 const modalButtonWrapper = css({
   display: 'flex',
   gap: '0.8rem',
@@ -153,5 +169,7 @@ export {
   dateBox,
   errorText,
   inputShape,
+  updateWarningBox,
+  updateWarningText,
   modalButtonWrapper,
 };

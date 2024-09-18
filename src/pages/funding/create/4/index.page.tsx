@@ -45,16 +45,20 @@ export default function CreatFundStep4() {
     setIsModalOpen(true);
   });
 
-  const { register, handleSubmit, watch } = useForm<FormInputs>();
-
   const handleCreateFundSubmit = async (step4FormData: FormInputs) => {
     const totalFormInputData = { ...newFunding, ...step4FormData };
 
     setNewFunding(totalFormInputData);
 
-    createFunding({
-      data: totalFormInputData,
-    });
+    if (newFunding.target === 'create') {
+      createFunding({
+        data: totalFormInputData,
+      });
+    } else {
+      // TODO: 펀딩 수정 API 필요함
+      alert(`추후 수정될 예정입니다.`);
+      router.push('/funding/' + newFunding.id);
+    }
   };
 
   const handleSubmitError: SubmitErrorHandler<FormInputs> = errors => {
@@ -66,7 +70,12 @@ export default function CreatFundStep4() {
   };
 
   const handleShareKakao = () => {
-    shareKakao({ userName: user?.name || '', imageUrl: newFunding.imageUrl, fundingId: fundId });
+    shareKakao({
+      userName: user?.name || '',
+      imageUrl: newFunding.imageUrl,
+      fundingId: fundId,
+      invitationType: 'invite',
+    });
   };
 
   function getCompletedText() {
@@ -130,7 +139,7 @@ export default function CreatFundStep4() {
 
       <form
         className={style.form}
-        onSubmit={handleSubmit(handleCreateFundSubmit, handleSubmitError)}
+        onSubmit={methods.handleSubmit(handleCreateFundSubmit, handleSubmitError)}
       >
         <FormProvider {...methods}>
           <ShippingInfoForm
@@ -144,14 +153,14 @@ export default function CreatFundStep4() {
           <Term
             label="isPurchaseChecked"
             term={PURCHASE_TERM}
-            register={register}
-            isChecked={watch('isPurchaseChecked')}
+            register={methods.register}
+            isChecked={methods.watch('isPurchaseChecked')}
           />
           <Term
             label="isPrivacyChecked"
             term={PRIVACY_TERM}
-            register={register}
-            isChecked={watch('isPrivacyChecked')}
+            register={methods.register}
+            isChecked={methods.watch('isPrivacyChecked')}
           />
         </div>
 
