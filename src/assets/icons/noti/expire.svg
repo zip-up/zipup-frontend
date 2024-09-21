@@ -1,0 +1,12 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="16" cy="16" r="16" fill="#EDF0F2"/>
+<path d="M22 9C23.6569 9 25 10.3431 25 12V22C25 23.6569 23.6569 25 22 25H10C8.34315 25 7 23.6569 7 22L7 12C7 10.3431 8.34315 9 10 9L22 9Z" fill="#C2C8CE"/>
+<path d="M22 9C23.6569 9 25 10.3431 25 12V13.5L7 13.5L7 12C7 10.3431 8.34315 9 10 9L22 9Z" fill="#6A737B"/>
+<path d="M12 7C12.5523 7 13 7.44772 13 8L13 10C13 10.5523 12.5523 11 12 11C11.4477 11 11 10.5523 11 10L11 8C11 7.44772 11.4477 7 12 7Z" fill="#C2C8CE"/>
+<rect width="2" height="2" transform="matrix(1 8.74228e-08 8.74228e-08 -1 11 18)" fill="#6A737B"/>
+<rect width="2" height="2" transform="matrix(1 8.74228e-08 8.74228e-08 -1 11 22)" fill="#6A737B"/>
+<rect width="2" height="2" transform="matrix(1 8.74228e-08 8.74228e-08 -1 15 18)" fill="#6A737B"/>
+<rect width="2" height="2" transform="matrix(1 8.74228e-08 8.74228e-08 -1 15 22)" fill="#6A737B"/>
+<rect width="2" height="2" transform="matrix(1 8.74228e-08 8.74228e-08 -1 19 18)" fill="#6A737B"/>
+<path d="M20 7C20.5523 7 21 7.44772 21 8L21 10C21 10.5523 20.5523 11 20 11C19.4477 11 19 10.5523 19 10L19 8C19 7.44772 19.4477 7 20 7Z" fill="#C2C8CE"/>
+</svg>
