@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import DefaultNotiIcon from '@assets/icons/bell-default.svg';
 import NotiWithAlertIcon from '@assets/icons/bell-with-alert.svg';
-import UserIcon from '@assets/icons/user.svg';
+import UserIcon from '@assets/icons/user-small.svg';
 import LogoIcon from '@assets/images/logo.svg';
 import Profile from '@components/common/Profile';
 import { useUser } from '@hooks/queries/useAuth';
