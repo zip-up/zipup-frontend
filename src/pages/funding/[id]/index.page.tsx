@@ -61,7 +61,7 @@ const ORGANIZER_ACTION: {
         `/funding/${id}/thanks-letter?isOrganizer=${isOrganizer}`,
       label: '감사 편지 보내기',
     },
-    second: { path: (id: string) => `/funding/${id}`, label: '배송 현황 확인하기' },
+    second: { path: (id: string) => `/funding/${id}/delivery`, label: '배송 현황 확인하기' },
   },
 };
 
@@ -212,6 +212,7 @@ export default function Funding() {
                     // TODO: productURL 찾아보기
 
                     setCreateFund({
+                      id: fundingInfo.id,
                       roadAddress: shippingData?.roadAddress || '',
                       detailAddress: shippingData?.detailAddress || '',
                       phoneNumber: shippingData?.phoneNumber || '',

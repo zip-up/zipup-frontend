@@ -1,4 +1,4 @@
-import LoginIcon from '@assets/icons/login-icon.svg';
+import LoginIcon from '@assets/icons/user-large.svg';
 import KakaoButton from '@components/common/Button/KakaoButton';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import { handleLogin } from '@utils/kakaoLogin';

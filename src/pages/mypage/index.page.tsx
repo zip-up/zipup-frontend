@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import UserIcon from '@assets/icons/big-user.svg';
 import GoIcon from '@assets/icons/go.svg';
+import UserIcon from '@assets/icons/user-medium.svg';
 import MyFundingIcon from '@assets/images/my-funding.svg';
 import ParticipatedFundingIcon from '@assets/images/participated_funding.svg';
 import Button from '@components/common/Button';
