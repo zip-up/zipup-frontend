@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import CancelIcon from '@assets/icons/delete.svg';
 import InfoIcon from '@assets/icons/info.svg';
 import CancelModal from '@components/CancelModal';
 import Button from '@components/common/Button';

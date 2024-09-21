@@ -1,4 +1,4 @@
-import UserIcon from '@assets/icons/user_m.svg';
+import UserIcon from '@assets/icons/user-large.svg';
 import Profile from '@components/common/Profile';
 import { MessageInfo } from '@typings/funding';
 
