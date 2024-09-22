@@ -1,4 +1,4 @@
-import CancelIcon from '@assets/icons/cancel-icon.svg';
+import CancelIcon from '@assets/icons/delete.svg';
 import Button from '@components/common/Button';
 import ModalWithIcon from '@components/modals/ModalWithIcon';
 import { css } from 'styled-system/css';
