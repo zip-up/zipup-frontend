@@ -30,10 +30,11 @@ interface FormInputs extends TermsCheckFlags {
 export default function CreatFundStep4() {
   const router = useRouter();
   const [newFunding, setNewFunding] = useRecoilState(createFundState);
-  const { data: user } = useUser();
   const [fundId, setFundId] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const methods = useForm<FormInputs>();
+
+  const { data: user } = useUser();
 
   const { mutate: createFunding, isPending } = useCreateFunding(createdFundingData => {
     setFundId(createdFundingData.id);
@@ -44,16 +45,20 @@ export default function CreatFundStep4() {
     setIsModalOpen(true);
   });
 
-  const { register, handleSubmit, watch } = useForm<FormInputs>();
-
   const handleCreateFundSubmit = async (step4FormData: FormInputs) => {
     const totalFormInputData = { ...newFunding, ...step4FormData };
 
     setNewFunding(totalFormInputData);
 
-    createFunding({
-      data: totalFormInputData,
-    });
+    if (newFunding.target === 'create') {
+      createFunding({
+        data: totalFormInputData,
+      });
+    } else {
+      // TODO: 펀딩 수정 API 필요함
+      alert(`추후 수정될 예정입니다.`);
+      router.push('/funding/' + newFunding.id);
+    }
   };
 
   const handleSubmitError: SubmitErrorHandler<FormInputs> = errors => {
@@ -65,14 +70,27 @@ export default function CreatFundStep4() {
   };
 
   const handleShareKakao = () => {
-    shareKakao({ userName: user?.name || '', imageUrl: newFunding.imageUrl, fundingId: fundId });
+    shareKakao({
+      userName: user?.name || '',
+      imageUrl: newFunding.imageUrl,
+      fundingId: fundId,
+      invitationType: 'invite',
+    });
   };
+
+  function getCompletedText() {
+    if (newFunding.target === 'update') {
+      return '수정 완료';
+    }
+
+    return '등록 완료';
+  }
 
   function Buttons() {
     return (
       <GradientBackground>
         <Button type="submit" disabled={isPending}>
-          {isPending ? <Spinner size="sm" /> : '등록 완료'}
+          {isPending ? <Spinner size="sm" /> : getCompletedText()}
         </Button>
       </GradientBackground>
     );
@@ -84,7 +102,11 @@ export default function CreatFundStep4() {
         <ModalWithIcon
           width="31.7rem"
           onClose={() => setIsModalOpen(false)}
-          title="펀딩 등록이 완료되었어요."
+          title={
+            newFunding.target === 'create'
+              ? '펀딩 등록이 완료되었어요.'
+              : '펀딩 수정이 완료되었어요.'
+          }
           subtitle="내 펀딩을 친구들에게 공유해볼까요?"
           buttonComponent={
             <div className={style.modalButtonWrapper}>
@@ -117,7 +139,7 @@ export default function CreatFundStep4() {
 
       <form
         className={style.form}
-        onSubmit={handleSubmit(handleCreateFundSubmit, handleSubmitError)}
+        onSubmit={methods.handleSubmit(handleCreateFundSubmit, handleSubmitError)}
       >
         <FormProvider {...methods}>
           <ShippingInfoForm
@@ -131,14 +153,14 @@ export default function CreatFundStep4() {
           <Term
             label="isPurchaseChecked"
             term={PURCHASE_TERM}
-            register={register}
-            isChecked={watch('isPurchaseChecked')}
+            register={methods.register}
+            isChecked={methods.watch('isPurchaseChecked')}
           />
           <Term
             label="isPrivacyChecked"
             term={PRIVACY_TERM}
-            register={register}
-            isChecked={watch('isPrivacyChecked')}
+            register={methods.register}
+            isChecked={methods.watch('isPrivacyChecked')}
           />
         </div>
 

@@ -25,9 +25,18 @@ export default function Menu({
 
   return (
     <div
-      className={css({ pos: 'relative', color: 'text.100', textStyle: 'body1', h: 'fit-content' })}
+      className={css({
+        pos: 'relative',
+        color: 'text.100',
+        textStyle: 'body1',
+        h: 'fit-content',
+      })}
     >
-      <button type="button" onClick={() => setIsMenuOn(status => !status)}>
+      <button
+        type="button"
+        className={css({ cursor: 'pointer' })}
+        onClick={() => setIsMenuOn(status => !status)}
+      >
         {isMenuOn ? activeMenuButtonTitle : menuButtonTitle}
       </button>
 

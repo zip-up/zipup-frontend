@@ -62,6 +62,15 @@ const ButtonStyleLink = css(button.raw({ color: 'secondary', textStyle: 'CTAButt
   h: '5.2rem',
 });
 
+const InvitationContents = css({
+  fontSize: '1.2rem',
+  fontWeight: '600',
+  width: '100%',
+  bottom: '13px',
+  pos: 'absolute',
+  lineHeight: '1.6rem',
+});
+
 export {
   pageLayout,
   wrapper,
@@ -73,4 +82,5 @@ export {
   buttonWrapper,
   buttonWidth,
   ButtonStyleLink,
+  InvitationContents,
 };

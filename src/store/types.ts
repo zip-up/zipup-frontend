@@ -1,4 +1,5 @@
 export interface CreateFund {
+  id: string;
   title: string;
   roadAddress: string;
   detailAddress: string;
@@ -9,4 +10,5 @@ export interface CreateFund {
   imageUrl: string;
   fundingStart: string;
   fundingFinish: string;
+  target?: 'create' | 'update';
 }

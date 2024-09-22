@@ -12,12 +12,18 @@ const logo = css({
   cursor: 'pointer',
 });
 
+const buttonGroup = css({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.6rem',
+});
+
 const box = css({
-  width: '3rem',
-  height: '3rem',
+  width: '2.4rem',
+  height: '2.4rem',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
 });
 
-export { header, logo, box };
+export { header, logo, buttonGroup, box };

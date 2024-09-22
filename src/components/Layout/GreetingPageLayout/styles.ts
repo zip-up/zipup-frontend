@@ -13,6 +13,7 @@ const headTitle = css({
   textStyle: 'title1',
   color: 'text.100',
   textAlign: 'center',
+  whiteSpace: 'pre-line',
   mb: '1rem',
   '& span': {
     color: 'main.blue',

@@ -1,5 +1,8 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import UserIcon from '@assets/icons/user.svg';
+import DefaultNotiIcon from '@assets/icons/bell-default.svg';
+import NotiWithAlertIcon from '@assets/icons/bell-with-alert.svg';
+import UserIcon from '@assets/icons/user-small.svg';
 import LogoIcon from '@assets/images/logo.svg';
 import Profile from '@components/common/Profile';
 import { useUser } from '@hooks/queries/useAuth';
@@ -15,6 +18,7 @@ interface HeaderWithLogoProps {
 export default function HeaderWithLogo({ onOpen, hasNoBorder = false }: HeaderWithLogoProps) {
   const router = useRouter();
   const { data: user } = useUser();
+  const hasUnreadNotifications = false;
 
   return (
     <header
@@ -30,13 +34,18 @@ export default function HeaderWithLogo({ onOpen, hasNoBorder = false }: HeaderWi
       <button className={style.logo} onClick={() => router.push('/')}>
         <LogoIcon />
       </button>
-      <button
-        className={cx(style.box, css({ cursor: 'pointer' }))}
-        data-d
-        onClick={() => (user ? router.push('/mypage') : onOpen())}
-      >
-        {user?.profileImage ? <Profile src={user.profileImage} size="full" /> : <UserIcon />}
-      </button>
+      <div className={style.buttonGroup}>
+        <Link href={'/notifications'}>
+          {hasUnreadNotifications ? <NotiWithAlertIcon /> : <DefaultNotiIcon />}
+        </Link>
+        <button
+          className={cx(style.box, css({ cursor: 'pointer' }))}
+          data-d
+          onClick={() => (user ? router.push('/mypage') : onOpen())}
+        >
+          {user?.profileImage ? <Profile src={user.profileImage} size="full" /> : <UserIcon />}
+        </button>
+      </div>
     </header>
   );
 }

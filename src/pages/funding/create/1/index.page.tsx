@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import CancelIcon from '@assets/icons/cancel-icon.svg';
 import InfoIcon from '@assets/icons/info.svg';
+import CancelModal from '@components/CancelModal';
 import Button from '@components/common/Button';
 import GradientBackground from '@components/common/Button/GradientBackground';
 import Header from '@components/common/Header';
 import ProgressBar from '@components/common/ProgressBar';
-import ModalWithIcon from '@components/modals/ModalWithIcon';
 import { infoContainer, title } from '@components/Term/styles';
-import { createFundState, productForFundState } from '@store/store';
+import { createFundState } from '@store/store';
 import { useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import { css, cx } from 'styled-system/css';
@@ -22,7 +21,6 @@ interface FormInput {
 
 export default function CreatFundStep1() {
   const router = useRouter();
-  const [productForFund, setProductForFund] = useRecoilState(productForFundState);
   const [isOpen, setIsOpen] = useState(false);
   const [newFund, setNewFund] = useRecoilState(createFundState);
   const {
@@ -34,17 +32,9 @@ export default function CreatFundStep1() {
   } = useForm<FormInput>();
 
   useEffect(() => {
-    if (newFund.productUrl && newFund.goalPrice) {
+    if (newFund.productUrl || newFund.goalPrice) {
       setValue('link', newFund.productUrl);
       setValue('targetMoney', String(newFund.goalPrice));
-    } else if (productForFund.url && productForFund.price) {
-      setValue('link', productForFund.url);
-      setValue('targetMoney', String(productForFund.price));
-      setProductForFund({
-        ...productForFund,
-        url: '',
-        price: 0,
-      });
     }
 
     setFocus('link');
@@ -63,6 +53,7 @@ export default function CreatFundStep1() {
 
   const resetNewFund = () => {
     setNewFund({
+      id: '',
       title: '',
       roadAddress: '',
       detailAddress: '',
@@ -79,28 +70,13 @@ export default function CreatFundStep1() {
   return (
     <>
       {isOpen && (
-        <ModalWithIcon
+        <CancelModal
           onClose={() => setIsOpen(false)}
-          title="펀딩 등록을 취소할까요?"
-          subtitle="작성한 내용은 저장되지 않아요."
-          icon={<CancelIcon />}
-          buttonComponent={
-            <div className={style.modalButtonWrapper}>
-              <Button
-                color="primary"
-                style={{ width: '10.9rem' }}
-                onClick={() => {
-                  router.back();
-                  resetNewFund();
-                }}
-              >
-                취소하기
-              </Button>
-              <Button style={{ width: '16.8rem' }} onClick={() => setIsOpen(false)}>
-                계속 작성하기
-              </Button>
-            </div>
-          }
+          onBack={() => {
+            router.back();
+            resetNewFund();
+          }}
+          condition={'create'}
         />
       )}
       <Header onGoBack={() => setIsOpen(true)} />
