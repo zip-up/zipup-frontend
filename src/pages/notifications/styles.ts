@@ -1,7 +1,5 @@
 import { css } from 'styled-system/css';
 
-const notiWrapper = { display: 'flex', gap: '1rem', padding: '1.2rem 2rem' };
-
 const title = css({
   textStyle: 'subtitle2',
   fontSize: '1.6rem',
@@ -25,4 +23,4 @@ const info = css({
   padding: '1.6rem 2rem',
 });
 
-export { notiWrapper, title, message, date, info };
+export { title, message, date, info };

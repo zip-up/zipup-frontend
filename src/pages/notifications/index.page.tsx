@@ -41,7 +41,12 @@ export default function Notifications() {
           <Link
             href={link}
             key={idx}
-            className={css(style.notiWrapper, isRead && { bgColor: 'bg.200' })}
+            className={css({
+              display: 'flex',
+              gap: '1rem',
+              padding: '1.2rem 2rem',
+              bgColor: isRead ? 'bg.200' : undefined,
+            })}
           >
             <div>{NotiIcon[type]}</div>
             <div>
