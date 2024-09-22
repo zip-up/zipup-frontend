@@ -19,8 +19,8 @@ const buttonGroup = css({
 });
 
 const box = css({
-  width: '3rem',
-  height: '3rem',
+  width: '2.4rem',
+  height: '2.4rem',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
