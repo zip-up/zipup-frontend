@@ -48,8 +48,8 @@ export default function Info() {
       <Header title="내 정보 관리" onGoBack={() => router.push('/mypage')} />
       <Tabs data={MYPAGE_TABS} activeTab={activeTab} onSetActiveTab={setActiveTab} />
       {activeTab === '결제 내역' &&
-        (paymentList?.length ? (
-          <PayInfo paymentList={paymentList!} isLoading={isLoading} />
+        (isLoading || paymentList?.length ? (
+          <PayInfo paymentList={paymentList} isLoading={isLoading} />
         ) : (
           <NoResut
             title="아직 참여한 펀딩이 없어요"

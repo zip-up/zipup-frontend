@@ -27,7 +27,7 @@ interface FormInputs {
 
 interface PayInfoProps {
   isLoading: boolean;
-  paymentList: PaymentInfo[];
+  paymentList?: PaymentInfo[];
 }
 
 export default function PayInfo({ paymentList, isLoading }: PayInfoProps) {
@@ -90,10 +90,7 @@ export default function PayInfo({ paymentList, isLoading }: PayInfoProps) {
   return (
     <div>
       <div
-        className={cx(
-          style.listWrapper,
-          paymentList.length === 0 && css({ justifyContent: 'center' }),
-        )}
+        className={cx(style.listWrapper, !paymentList?.length && css({ justifyContent: 'center' }))}
       >
         {isLoading && <Spinner />}
 
