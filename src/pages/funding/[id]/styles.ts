@@ -62,15 +62,6 @@ const ButtonStyleLink = css(button.raw({ color: 'secondary', textStyle: 'CTAButt
   h: '5.2rem',
 });
 
-const InvitaionOptionLabel = {
-  width: '14.2rem',
-  height: '14.2rem',
-  backgroundColor: 'blue.20',
-  borderRadius: '1.2rem',
-  boxSizing: 'border-box',
-  pos: 'relative',
-};
-
 const InvitationContents = css({
   fontSize: '1.2rem',
   fontWeight: '600',
@@ -91,6 +82,5 @@ export {
   buttonWrapper,
   buttonWidth,
   ButtonStyleLink,
-  InvitaionOptionLabel,
   InvitationContents,
 };
