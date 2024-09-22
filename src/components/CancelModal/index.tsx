@@ -13,7 +13,7 @@ export default function CancelModal({ onClose, onBack, condition }: CancelModalP
   return (
     <ModalWithIcon
       onClose={onClose}
-      title={condition === 'create' ? '펀딩 등록 취소할까요?' : '펀딩 수정 취소할까요?'}
+      title={condition === 'create' ? '펀딩 등록을 취소할까요?' : '펀딩 수정을 취소할까요?'}
       subtitle="작성한 내용은 저장되지 않아요."
       icon={<CancelIcon />}
       buttonComponent={
