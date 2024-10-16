@@ -44,9 +44,11 @@ const useStaticItemsList = () => {
   return useQuery<StaticItems[]>({
     queryKey: ['statics'],
     queryFn: async () => {
-      const response = await InstanceWithToken.get('/v1/fund/static');
+      const res = await fetch('/mocks/staticProducts.json');
 
-      return response.data;
+      const data = await res.json();
+
+      return data.products;
     },
   });
 };

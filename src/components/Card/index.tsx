@@ -93,7 +93,6 @@ export default function Card({
                 style={{ width: '100%', height: '100%' }}
                 alt="펀딩 이미지"
                 fill
-                objectFit="cover"
               />
             </div>
           )}

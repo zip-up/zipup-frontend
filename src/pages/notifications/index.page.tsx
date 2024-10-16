@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Cancel from '@assets/icons/noti/cancel.svg';
@@ -32,6 +33,10 @@ const formateDate = (date: Date) => {
 
 export default function Notifications() {
   const router = useRouter();
+
+  useEffect(() => {
+    alert('현재 알림 기능이 준비 중입니다. 조금만 기다려 주세요.');
+  }, []);
 
   return (
     <>
@@ -72,16 +77,16 @@ const noticiations: {
 }[] = [
   {
     type: 'participate',
-    title: '(닉네임)님이 5,000원을 보냈어요',
-    message: '(펀딩 제목 표시)',
+    title: '5,000원을 보냈어요',
+    message: '펀딩 제목',
     date: new Date(),
     link: '',
     isRead: false,
   },
   {
     type: 'cancel',
-    title: '(닉네임)님이 참여를 취소했어요',
-    message: '(펀딩 제목 표시)에 참여한 (닉네임)님에게 5,000원이 환불될 예정이에요.',
+    title: '참여를 취소했어요',
+    message: '펀딩에 참여한 분에게 5,000원이 환불될 예정이에요.',
     date: new Date(),
     link: '',
     isRead: true,
@@ -89,7 +94,7 @@ const noticiations: {
   {
     type: 'expire',
     title: '펀딩 기간이 만료되었어요',
-    message: '(펀딩 제목 표시)의 기간을 늘리거나 차액을 결제하여 달성할 수 있어요.',
+    message: '펀딩의 기간을 늘리거나 차액을 결제하여 달성할 수 있어요.',
     date: new Date(),
     link: '',
     isRead: false,
@@ -97,7 +102,7 @@ const noticiations: {
   {
     type: 'success',
     title: '목표 금액을 달성했어요',
-    message: '(펀딩 제목 표시)의 상품이 배송될 예정이에요. 참여자들에게 감사를 전해보세요.',
+    message: '펀딩의 상품이 배송될 예정이에요. 참여자들에게 감사를 전해보세요.',
     date: new Date(),
     link: '',
     isRead: false,
@@ -105,7 +110,7 @@ const noticiations: {
   {
     type: 'delivery',
     title: '배송이 완료되었어요',
-    message: '(펀딩 제목 표시)의 상품 배송이 완료되었어요. 즐거운 집들이 시간 되세요!',
+    message: '펀딩의 상품 배송이 완료되었어요. 즐거운 집들이 시간 되세요!',
     date: new Date(),
     link: '',
     isRead: false,
@@ -113,7 +118,7 @@ const noticiations: {
   {
     type: 'delete',
     title: '참여한 펀딩이 삭제되었어요',
-    message: '내가 참여한 (펀딩 제목 표시)가 삭제되었어요. 금액은 영업일 2-3일내 환불 예정이에요.',
+    message: '내가 참여한 펀딩이 삭제되었어요. 금액은 영업일 2-3일내 환불 예정이에요.',
     date: new Date(),
     link: '',
     isRead: true,
@@ -121,7 +126,7 @@ const noticiations: {
   {
     type: 'letter',
     title: '감사 편지가 도착했어요',
-    message: '내가 참여한 (펀딩 제목 표시) 펀딩이 달성되어 감사 편지를 받았어요.',
+    message: '내가 참여한 펀딩이 달성되어 감사 편지를 받았어요.',
     date: new Date(),
     link: '',
     isRead: false,

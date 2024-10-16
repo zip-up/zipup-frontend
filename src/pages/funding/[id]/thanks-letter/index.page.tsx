@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
+import InfoIcon from '@assets/icons/info.svg';
 import Button from '@components/common/Button';
 import Header from '@components/common/Header';
 import { statusBox } from '@components/FundingStatusBox/styles';
@@ -56,9 +57,32 @@ export default function ThanksLetter() {
         }
         button={
           isOrganizer ? (
-            <Button type="submit" isBottomFixed disabled={isOrganizer && !message}>
-              작성 완료
-            </Button>
+            <>
+              <span
+                className={css({
+                  display: 'flex',
+                  textStyle: 'caption1',
+                  rounded: '0.8rem',
+                  backgroundColor: 'blue.10',
+                  p: '1.2rem 0.1rem 1.2rem 0.5rem',
+                  gap: '0.6rem',
+                  color: 'success',
+                })}
+              >
+                <InfoIcon />
+                <span>현재 서버와의 연동이 완료되지 않아 실제로는 편지가 전송되지 않습니다.</span>
+              </span>
+              <Button
+                type="submit"
+                isBottomFixed
+                disabled={isOrganizer && !message}
+                onClick={() =>
+                  alert('현재 서버와의 연동이 완료되지 않아 실제로는 편지가 전송되지 않았습니다.')
+                }
+              >
+                작성 완료
+              </Button>
+            </>
           ) : (
             <Button type="button" isBottomFixed onClick={() => router.back()}>
               닫기
