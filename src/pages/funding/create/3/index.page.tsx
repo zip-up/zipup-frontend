@@ -31,16 +31,20 @@ export default function CreateFundStep3() {
   useEffect(() => {
     if (newFund) {
       if (newFund.fundingStart) {
-        setValue('target', newFund.fundingStart);
+        setValue('target', new Date(newFund.fundingStart).toISOString().split('T')[0]);
       } else {
         setValue('target', new Date().toISOString().split('T')[0]);
       }
-      const today = new Date();
-      const dueDate = new Date(today.setDate(today.getDate() + Number(newFund.fundingFinish)));
-      setValue('due', dueDate.toISOString().split('T')[0]);
+
+      if (newFund.fundingFinish && typeof newFund.fundingFinish === 'string') {
+        setValue('due', new Date(newFund.fundingFinish).toISOString().split('T')[0]);
+      } else {
+        const today = new Date();
+        const dueDate = new Date(today.setDate(today.getDate() + Number(newFund.fundingFinish)));
+        setValue('due', dueDate.toISOString().split('T')[0]);
+      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [newFund, setValue]);
 
   useEffect(() => {
     register('target', { required: '필수 항목을 입력하지 않았습니다.' });
@@ -57,7 +61,7 @@ export default function CreateFundStep3() {
   };
 
   return (
-    <>
+    <div>
       <Header onGoBack={() => router.back()} />
       <ProgressBar width={'24.6rem'} />
       <h4 className={style.stepName}>Step 3</h4>
@@ -95,6 +99,6 @@ export default function CreateFundStep3() {
           다음
         </Button>
       </form>
-    </>
+    </div>
   );
 }

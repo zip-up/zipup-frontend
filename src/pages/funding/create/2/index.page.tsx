@@ -65,7 +65,7 @@ export default function CreatFundStep2() {
   };
 
   return (
-    <>
+    <div>
       {isOpen && newFund.target === 'update' && (
         <CancelModal
           onClose={() => setIsOpen(false)}
@@ -76,7 +76,7 @@ export default function CreatFundStep2() {
           condition={'update'}
         />
       )}
-      <Header onGoBack={() => setIsOpen(true)} />
+      <Header onGoBack={() => (newFund.target === 'create' ? router.back() : setIsOpen(true))} />
       <ProgressBar width={'16.4rem'} />
       <h4 className={style.stepName}>Step 2</h4>
       <h2 className={style.title}>내 펀딩에 대해 설명해주세요.</h2>
@@ -139,6 +139,6 @@ export default function CreatFundStep2() {
           <Button type="submit">다음</Button>
         </GradientBackground>
       </form>
-    </>
+    </div>
   );
 }
