@@ -132,6 +132,14 @@ export default function Home() {
               <GoIcon style={{ color: '#0098E8' }} />
             </a>
           </div>
+          {!data && (
+            <div className={style.emptyStateComponent}>
+              <p className={css({ textStyle: 'body2' })}>지금 인기있는 펀딩이 없어요.</p>
+              <p className={css({ textStyle: 'caption1' })}>
+                집들이를 준비하는 친구에게 집업을 알려보세요.
+              </p>
+            </div>
+          )}
           <Draggable className={style.sideWrapper}>
             {data?.map(item => (
               <Card

@@ -173,6 +173,13 @@ const homeImage2 = css({ position: 'absolute', right: '1.6rem', bottom: 0 });
 
 const homeImage3 = css({ position: 'absolute', left: '5.3rem', bottom: 0 });
 
+const emptyStateComponent = css({
+  color: 'text.300',
+  textAlign: 'center',
+  margin: '3rem 0rem 1.7rem',
+  lineHeight: '2.2rem',
+});
+
 export {
   textBox,
   title,
@@ -202,4 +209,5 @@ export {
   homeImage2,
   homeImage3,
   banner,
+  emptyStateComponent,
 };
