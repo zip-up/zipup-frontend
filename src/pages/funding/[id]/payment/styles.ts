@@ -19,6 +19,7 @@ const orderInfoWrapper = css({
 
 const headTitle = css({
   textStyle: 'title1',
+  marginTop: 'calc(100vh * 0.1)',
 });
 
 const subInfoWrapper = hstack({ gap: 0, alignItems: 'baseline' });
