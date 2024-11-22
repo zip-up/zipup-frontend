@@ -109,7 +109,7 @@ export default function Funding() {
     defaultValues: { reason: DELETE_REASON[0] },
   });
 
-  const { data: shippingData } = useGetShipping();
+  const { data: shippingData } = useGetShipping(!!user);
   const { mutate: deleteFunding, isPending } = useDeleteFunding(() => setStep(3));
 
   useEffect(() => {
@@ -122,6 +122,7 @@ export default function Funding() {
   if (!fundingInfo) return null;
 
   const {
+    id,
     title,
     imageUrl,
     expirationDate,
@@ -210,19 +211,16 @@ export default function Funding() {
                   onClick={() => {
                     // setSelectedMenu('EDIT')
                     // TODO: productURL 찾아보기
+                    const updatedFundData = { id, title, description, goalPrice, imageUrl };
 
                     setCreateFund({
-                      id: fundingInfo.id,
+                      ...updatedFundData,
                       roadAddress: shippingData?.roadAddress || '',
                       detailAddress: shippingData?.detailAddress || '',
                       phoneNumber: shippingData?.phoneNumber || '',
-                      title: fundingInfo.title,
-                      description: fundingInfo.description,
-                      goalPrice: fundingInfo.goalPrice,
                       productUrl: '',
-                      imageUrl: fundingInfo.imageUrl,
                       fundingStart: '',
-                      fundingFinish: String(fundingInfo.expirationDate),
+                      fundingFinish: String(expirationDate),
                       target: 'update',
                     });
                     router.push('/funding/create/2');

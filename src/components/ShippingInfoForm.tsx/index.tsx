@@ -19,7 +19,7 @@ interface ShippingInfoFormProps {
 }
 
 export default function ShippingInfoForm({ isFromMyPage, phoneOptions }: ShippingInfoFormProps) {
-  const { data: shippingData } = useGetShipping();
+  const { data: shippingData } = useGetShipping(true);
 
   const [isOpen, setIsOpen] = useState(false);
   const {

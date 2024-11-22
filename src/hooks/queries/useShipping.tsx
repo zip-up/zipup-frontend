@@ -7,7 +7,7 @@ export interface ShippingData {
   phoneNumber: string;
 }
 
-const useGetShipping = () => {
+const useGetShipping = (isLoggedIn: boolean) => {
   return useQuery<ShippingData>({
     queryKey: ['shipping'],
     queryFn: async () => {
@@ -15,6 +15,7 @@ const useGetShipping = () => {
 
       return response.data;
     },
+    enabled: isLoggedIn,
   });
 };
 
