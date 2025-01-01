@@ -45,7 +45,12 @@ export default function MyFundings({ fundingList }: MyFundingsProps) {
         <div className={style.cardContent}>
           <div className={style.flexContainer}>
             {fundingList.map((item, index) => (
-              <Card key={index} data={item} onClick={() => router.push('/funding/' + item.id)} />
+              <Card
+                key={index}
+                data={item}
+                onClick={() => router.push('/funding/' + item.id)}
+                styles={{ minWidth: '15.6rem', height: '19rem' }}
+              />
             ))}
           </div>
         </div>

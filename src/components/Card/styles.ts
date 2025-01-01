@@ -5,17 +5,24 @@ const container = css({
   borderWidth: '0.1rem',
   borderColor: 'bg.300',
   cursor: 'pointer',
-  overflow: 'hidden',
+  minWidth: '14.6rem',
+  maxWidth: '14.6rem',
+  height: '21rem',
+  overflowY: 'hidden',
+  display: 'flex',
+  flexDirection: 'column',
 });
 
 const imageBox = css({
   width: '100%',
+  height: '13rem',
   borderRadius: '1rem 1rem 0 0',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   position: 'relative',
   overflow: 'hidden',
+  flex: '4',
   '& p': {
     transition: 'transform 0.3s ease-in-out',
     borderRadius: '1rem 1rem 0 0',
@@ -28,6 +35,7 @@ const imageBox = css({
 });
 
 const infoBox = css({
+  flex: '2',
   backgroundColor: 'white',
   padding: '0.6rem',
   display: 'flex',
@@ -48,7 +56,6 @@ const title = css({
   overflow: 'hidden',
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis',
-  wordBreak: 'break-all',
   marginBottom: '0.1rem',
 });
 

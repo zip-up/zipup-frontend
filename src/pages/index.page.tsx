@@ -145,13 +145,10 @@ export default function Home() {
             {data?.map(item => (
               <Card
                 key={item.id}
-                width="14.6rem"
-                height="21rem"
                 data={item}
                 onClick={() => {
                   router.push('/funding/' + item.id);
                 }}
-                styles={{ minWidth: '14.6rem', minHeight: '21rem' }}
                 hasShadow
               />
             ))}
@@ -165,8 +162,6 @@ export default function Home() {
             {staticItems?.map(item => (
               <Card
                 key={item.id}
-                width="14.6rem"
-                height="21rem"
                 product={item}
                 onClick={() => {
                   setProductForFundState({
@@ -177,9 +172,9 @@ export default function Home() {
                   });
                   router.push('/funding/create/1');
                 }}
-                styles={{ minWidth: '14.6rem', minHeight: '21rem' }}
                 isProduct
                 hasShadow
+                styles={{ height: '23rem' }}
               />
             ))}
           </Draggable>

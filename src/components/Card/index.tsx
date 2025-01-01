@@ -16,24 +16,13 @@ import * as style from './styles';
 interface CardProps {
   data?: FundingInfo;
   onClick: () => void;
-  width?: string;
-  height?: string;
   styles?: CSSProperties;
   isProduct?: boolean;
   product?: StaticItems;
   hasShadow?: boolean;
 }
 
-export default function Card({
-  data,
-  onClick,
-  width,
-  height,
-  styles,
-  isProduct,
-  product,
-  hasShadow,
-}: CardProps) {
+export default function Card({ data, onClick, styles, isProduct, product, hasShadow }: CardProps) {
   const PROGRESS_BAR_BASE_WIDTH = 140;
 
   return (
@@ -41,8 +30,6 @@ export default function Card({
       style={styles}
       className={cx(
         style.container,
-        width || css({ width: '15.6rem' }),
-        height || css({ height: '19.3rem' }),
         css({
           boxShadow: hasShadow ? '0 10px 30px rgba(0, 0, 0, 0.05)' : 'none',
           marginBottom: hasShadow ? '2.5rem' : '0',
@@ -54,7 +41,6 @@ export default function Card({
         className={cx(
           style.imageBox,
           css({ backgroundColor: data?.imageUrl?.length ?? 0 > 6 ? 'blue.10' : 'white' }),
-          css({ height: height ? '13rem' : '12rem' }),
         )}
       >
         {data && (
@@ -72,7 +58,7 @@ export default function Card({
         >
           {data ? (
             <DimOverlay isActive={getFundingStatus(data.percent, data.dday) !== 'IN_PROGRESS'}>
-              {!data.imageUrl && !product?.imageUrl ? (
+              {!data.imageUrl ? (
                 <GiftIcon />
               ) : (
                 <div className={style.imageWrapper}>
@@ -119,7 +105,7 @@ export default function Card({
           </Button>
         </div>
       ) : (
-        <div className={cx(style.infoBox, css({ height: height ? '8rem' : '7.1rem' }))}>
+        <div className={style.infoBox}>
           <ProgressBar
             noMargin
             progressBarWidth={css({ width: PROGRESS_BAR_BASE_WIDTH * 0.1 + 'rem' })}
