@@ -27,7 +27,7 @@ export default function Info() {
   });
 
   const { data: paymentList, isLoading } = useGetPaymentList();
-  const { data: shippingData } = useGetShipping();
+  const { data: shippingData } = useGetShipping(true);
   const { mutate } = usePatchShipping({ successHandler: () => {} });
 
   useEffect(() => {
