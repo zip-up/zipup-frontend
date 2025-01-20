@@ -31,17 +31,18 @@ export default function HeaderWithLogo({ onOpen, hasNoBorder = false }: HeaderWi
       )}
     >
       <div className={style.box} />
-      <button className={style.logo} onClick={() => router.push('/')}>
+      <Link href={'/'} aria-label="집업 홈페이지">
         <LogoIcon />
-      </button>
+      </Link>
       <div className={style.buttonGroup}>
-        <Link href={'/notifications'}>
+        <Link href={'/notifications'} aria-label="알림 페이지">
           {hasUnreadNotifications ? <NotiWithAlertIcon /> : <DefaultNotiIcon />}
         </Link>
         <button
           className={cx(style.box, css({ cursor: 'pointer' }))}
           data-d
           onClick={() => (user ? router.push('/mypage') : onOpen())}
+          aria-label={user ? '마이 페이지로 이동' : '로그인을 위해 모달 열기'}
         >
           {user?.profileImage ? <Profile src={user.profileImage} size="full" /> : <UserIcon />}
         </button>

@@ -16,7 +16,7 @@ export default function Header({ title, onGoBack, fromCreate }: HeaderProps) {
 
   return (
     <header className={style.header}>
-      <button className={style.wrapper} onClick={onGoBack || handleGoBack}>
+      <button className={style.wrapper} onClick={onGoBack || handleGoBack} aria-label="뒤로">
         <BackIcon />
       </button>
       {title && <h2 className={style.styledTitle}>{title}</h2>}

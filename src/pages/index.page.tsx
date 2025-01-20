@@ -86,14 +86,14 @@ export default function Home() {
       <div className={style.banner}>
         <div className={style.bannerWrapper}>
           <div className={style.textBox}>
-            <p className={style.title}>
+            <h1 className={style.title}>
               조금씩 마음을 보태어 <span className={style.highlight}>집들이 선물</span>을 보내요
-            </p>
-            <span className={style.subTitle}>
+            </h1>
+            <p className={style.subTitle}>
               더 멋진 집들이 경험을 위한
               <br />
               집들이 선물 펀딩 서비스
-            </span>
+            </p>
           </div>
           <div className={style.homeImage1}>
             <HomeImage />

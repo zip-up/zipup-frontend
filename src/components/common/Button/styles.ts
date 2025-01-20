@@ -8,7 +8,6 @@ export const button = cva({
     alignItems: 'center',
     justifyContent: 'center',
     cursor: 'pointer',
-    outline: 'none',
   },
   variants: {
     size: {

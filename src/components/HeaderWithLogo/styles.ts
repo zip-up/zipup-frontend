@@ -8,10 +8,6 @@ const header = css({
   padding: '0 1.7rem',
 });
 
-const logo = css({
-  cursor: 'pointer',
-});
-
 const buttonGroup = css({
   display: 'flex',
   alignItems: 'center',
@@ -26,4 +22,4 @@ const box = css({
   justifyContent: 'center',
 });
 
-export { header, logo, buttonGroup, box };
+export { header, buttonGroup, box };
