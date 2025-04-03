@@ -1,4 +1,4 @@
-export const getLoacalStorage = (key: string) => {
+export const getLocalStorage = (key: string) => {
   if (typeof window == 'undefined') return;
 
   try {

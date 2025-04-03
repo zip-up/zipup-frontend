@@ -9,7 +9,7 @@ import Footer from '@components/Footer';
 import HeaderWithLogo from '@components/HeaderWithLogo';
 import ServiceCard from '@components/ServiceCard';
 import { useLogout, useUser } from '@hooks/queries/useAuth';
-import { getLoacalStorage } from '@store/localStorage';
+import { getLocalStorage } from '@store/localStorage';
 import { css } from 'styled-system/css';
 
 import * as style from './styles';
@@ -45,7 +45,7 @@ export default function MyPage() {
             color="primary"
             className={style.button}
             onClick={() =>
-              getLoacalStorage('@token') ? router.push('/funding/create/1') : router.push('/')
+              getLocalStorage('@token') ? router.push('/funding/create/1') : router.push('/')
             }
           >
             내 펀딩 만들러 가기 <GoIcon style={{ color: '#D9D9D9' }} />

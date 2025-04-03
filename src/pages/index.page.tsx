@@ -18,7 +18,7 @@ import HeaderWithLogo from '@components/HeaderWithLogo';
 import LoginModal from '@components/modals/LoginModal';
 import { useLogIn } from '@hooks/queries/useAuth';
 import { useFundingList, useStaticItemsList } from '@hooks/queries/useFundingList';
-import { getLoacalStorage } from '@store/localStorage';
+import { getLocalStorage } from '@store/localStorage';
 import { productForFundState } from '@store/store';
 import { useSetRecoilState } from 'recoil';
 import { css, cx } from 'styled-system/css';
@@ -116,7 +116,7 @@ export default function Home() {
             size="full"
             style={{ marginTop: '1.9rem' }}
             onClick={() =>
-              getLoacalStorage('@token') ? router.push('/funding/create/1') : setIsOpen(true)
+              getLocalStorage('@token') ? router.push('/funding/create/1') : setIsOpen(true)
             }
           >
             {isLoading ? <Spinner size="sm" /> : '내 펀딩 만들러 가기'}

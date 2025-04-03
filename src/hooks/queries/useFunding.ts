@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { InstanceWithToken } from '@api/index';
-import { getLoacalStorage } from '@store/localStorage';
+import { getLocalStorage } from '@store/localStorage';
 import { CreateFund } from '@store/types';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { DeleteInfoForm, DetailFundingInfo, ParticipantInfo } from '@typings/funding';
@@ -24,7 +24,7 @@ const useCreateFunding = (
 };
 
 const useGetFundingDetail = (fundingId: string) => {
-  const token = getLoacalStorage('@token');
+  const token = getLocalStorage('@token');
 
   return useQuery<DetailFundingInfo>({
     queryKey: ['funding', fundingId],

@@ -7,7 +7,7 @@ import GradientBackground from '@components/common/Button/GradientBackground';
 import Spinner from '@components/common/Spinner';
 import * as commonStyle from '@components/Layout/GreetingPageLayout/styles';
 import { useGetFundingDetail, useParticipateFunding } from '@hooks/queries/useFunding';
-import { getLoacalStorage } from '@store/localStorage';
+import { getLocalStorage } from '@store/localStorage';
 import { isAxiosError } from 'axios';
 
 import * as style from './styles';
@@ -55,7 +55,7 @@ interface SuccessProps {
 }
 
 export default function Success({ fundingId, orderId, amount, paymentId }: SuccessProps) {
-  const participateInfo = getLoacalStorage('@participateInfo');
+  const participateInfo = getLocalStorage('@participateInfo');
 
   const { mutate, isPending: isMutating } = useParticipateFunding();
 

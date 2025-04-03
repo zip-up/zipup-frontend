@@ -1,6 +1,6 @@
 import { useRouter } from 'next/navigation';
 import { InstanceWithToken } from '@api/index';
-import { getLoacalStorage, setLocalStorage } from '@store/localStorage';
+import { getLocalStorage, setLocalStorage } from '@store/localStorage';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { User, UserWithToken } from '@typings/auth';
 import axios, { isAxiosError } from 'axios';
@@ -36,7 +36,7 @@ const useLogIn = ({ code }: { code: string }) => {
 };
 
 const useUser = () => {
-  const token = getLoacalStorage('@token');
+  const token = getLocalStorage('@token');
 
   return useQuery({
     queryKey: ['user'],
